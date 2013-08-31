@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkit", "TddToolkit\TddToolkit.csproj", "{A52E21F4-2301-4F4E-9361-BE954FB490A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkitSpecification", "TddToolkitSpecification\TddToolkitSpecification.csproj", "{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A52E21F4-2301-4F4E-9361-BE954FB490A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52E21F4-2301-4F4E-9361-BE954FB490A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52E21F4-2301-4F4E-9361-BE954FB490A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52E21F4-2301-4F4E-9361-BE954FB490A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = TddToolkit\TddToolkit.csproj
+	EndGlobalSection
+EndGlobal
