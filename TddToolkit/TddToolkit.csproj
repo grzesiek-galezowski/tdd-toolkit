@@ -45,6 +45,26 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Any.Collections.cs" />
+    <Compile Include="Any.Enums.cs" />
+    <Compile Include="Any.Numbers.cs" />
+    <Compile Include="Any.Strings.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\CachedGeneration.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\ChainElement.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\AnyInstanceReturnValue.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\ChainFailedException.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\ClassOrInterfaceReturnValue.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeAbstractClass.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChain.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeConcreteClass.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeEnumerableOf.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeOrdinaryInterface.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeType.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\IResolution.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\NullChainElement.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\ReturnValueCacheKey.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\TypeOfType.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\ValueTypeReturnValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="ImplementationDetails\Boooooom.cs" />
@@ -53,5 +73,7 @@
     <Compile Include="ImplementationDetails\ExplodingInterceptor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Any.Private.cs" />
+  </ItemGroup>
 </Project>

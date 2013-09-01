@@ -1,23 +1,20 @@
 using System;
+using System.Reflection;
 using Ploeh.AutoFixture;
 using System.Linq;
 using System.Collections.Generic;
 using Ploeh.AutoFixture.Kernel;
 using Castle.DynamicProxy;
-using NSubstitute;
 using TddEbook.TddToolkit.ImplementationDetails;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 
 namespace TddEbook.TddToolkit
 {
-  public static class Any
+  public static partial class Any
   {
-    private static readonly Fixture _generator = new Fixture();
-    private static readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
-    private static readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
-
-    public static int Integer()
+    static Any()
     {
-      return _generator.Create<int>();
+      _generator.Register<Type>(() => types.Next());
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
@@ -31,34 +28,11 @@ namespace TddEbook.TddToolkit
       return currentValue;
     }
 
-    public static double Double()
-    {
-      return _generator.Create<double>();
-    }
-
-    public static string String()
-    {
-      return _generator.Create<string>();
-    }
-
     public static T From<T>(params T[] possibleValues)
     {
       var random = new Random();
       var index = random.Next(possibleValues.Length - 1);
       return possibleValues[index];
-    }
-
-    public static T Of<T>() where T : struct, IConvertible
-    {
-      AssertDynamicEnumConstraintFor<T>();
-      
-      return _generator.Create<T>();
-    }
-
-    public static T Besides<T>(params T[] excludedValues) where T : struct, IConvertible
-    {
-      AssertDynamicEnumConstraintFor<T>();
-      return Any.ValueOtherThan(excludedValues);
     }
 
     public static DateTime DateTime()
@@ -76,125 +50,9 @@ namespace TddEbook.TddToolkit
       return _generator.Create<T>();
     }
 
-    public static string StringMatching(string pattern)
-    {
-      var request = new RegularExpressionRequest(pattern);
-      
-      var result = _regexGenerator.Create(request, new DummyContext());
-      return result.ToString();
-    }
-
-    public static string StringOfLength(int charactersCount)
-    {
-      var result = string.Empty;
-      while(result.Count() < charactersCount)
-      {
-        result += Any.String();
-      }
-      return result.Substring(0, charactersCount);
-    }
-
-    public static string StringOtherThan(params string[] alreadyUsedStrings)
-    {
-      return Any.ValueOtherThan(alreadyUsedStrings);
-    }
-
-    public static string StringNotContaining(params string[] excludedSubstrings)
-    {
-      var result = Any.String();
-      do
-      {
-        result = Any.String();
-      } while(excludedSubstrings.Any(result.Contains));
-      return result;
-    }
-
-    public static string StringContaining(string str)
-    {
-      return Any.String() + str + Any.String();
-    }
-
-    public static IEnumerable<T> EnumerableOfDerivativesFrom<T>() where T : class
-    {
-      return new List<T>() {
-        Any.InstanceOf<T>(),
-        Any.InstanceOf<T>(),
-        Any.InstanceOf<T>()
-      };
-    }
-
-    public static IEnumerable<T> Enumerable<T>()
-    {
-      return _generator.CreateMany<T>();
-    }
-
-    public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded) where T : class
-    {
-      var result = new List<T>();
-      result.Add(Any.ValueOtherThan(excluded));
-      result.Add(Any.ValueOtherThan(excluded));
-      result.Add(Any.ValueOtherThan(excluded));
-      return result;
-    }
-
-    public static T[] Array<T>()
-    {
-      return Any.Enumerable<T>().ToArray();
-    }
-
-    public static T[] ArrayWithout<T>(params T[] excluded) where T : class
-    {
-      return Any.EnumerableWithout(excluded).ToArray();
-    }
-
-    public static List<T> List<T>()
-    {
-      return Any.Enumerable<T>().ToList();
-    }
-
-    public static ISet<T> Set<T>()
-    {
-      return Any.ValueOf<HashSet<T>>();
-    }
-
-    public static Dictionary<T, U> Dictionary<T, U>()
-    {
-      return Any.ValueOf<Dictionary<T, U>>();
-    }
-
-    public static IEnumerable<T> EnumerableSortedDescending<T>()
-    {
-      return Any.SortedSet<T>().ToList();
-    }
-
     public static string LegalXmlTagName()
     {
       return Any.Identifier();
-    }
-
-    public static char AlphaChar()
-    {
-      return _letters.Next();
-    }
-
-    static char DigitChar()
-    {
-      return _digits.Next();
-    }
-
-    public static int IntegerOtherThan(params int[] others)
-    {
-      return Any.ValueOtherThan(others);
-    }
-
-    public static byte Byte()
-    {
-      return Any.ValueOf<byte>();
-    }
-
-    public static byte ByteOtherThan(params byte[] others)
-    {
-      return Any.ValueOtherThan(others);
     }
 
     public static bool Boolean()
@@ -214,23 +72,12 @@ namespace TddEbook.TddToolkit
 
     public static Type Type()
     {
-      return types.Next();
+      return Any.ValueOf<Type>();
     }
 
     public static T InstanceOf<T>() where T : class
     {
-      return Substitute.For<T>(); //TODO
-    }
-
-    public static string Identifier()
-    {
-      string result = Any.AlphaChar().ToString();
-      for(var i = 0 ; i < 5 ; ++i)
-      {
-        result += Any.DigitChar();
-        result += Any.AlphaChar();
-      }
-      return result;
+      return FakeChain<T>.NewInstance(_cachedGeneration).Resolve();
     }
 
     public static Uri Uri()
@@ -256,57 +103,17 @@ namespace TddEbook.TddToolkit
             + _random.Next(256);
     }
 
-    public static string AlphaString()
+    public static object InstanceOf(Type type)
     {
-      return AlphaString(Any.String().Length);
+      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
-    static string AlphaString(int maxLength)
+    public static object ValueOf(Type type)
     {
-      var result = string.Empty;
-      for(var i = 0 ; i < maxLength ; ++i)
-      {
-        result += Any.AlphaChar();
-      }
-      return result;
+      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
-
-    public static SortedSet<T> SortedSet<T>()
-    {
-      return new SortedSet<T> {
-        Any.ValueOf<T>(),
-        Any.ValueOf<T>(),
-        Any.ValueOf<T>()
-      };
-    }
-
-    private static void AssertDynamicEnumConstraintFor<T>()
-    {
-      if(!typeof(T).IsEnum)
-      {
-        throw new ArgumentException("T must be an enumerated type");
-      }
-    }
-    
-    private static readonly CircularList<char> _letters = new CircularList<char>("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray()) ;
-    private static readonly CircularList<char> _digits = new CircularList<char>("5647382910".ToCharArray());
-
-    private static readonly CircularList<Type> types = new CircularList<Type>(
-      typeof(Type1), 
-      typeof(Type2), 
-      typeof(Type3), 
-      typeof(Type4), 
-      typeof(Type5), 
-      typeof(Type6), 
-      typeof(Type7), 
-      typeof(Type8), 
-      typeof(Type9), 
-      typeof(Type10), 
-      typeof(Type11), 
-      typeof(Type12), 
-      typeof(Type13));
   }
-  
+
   public class Type1 { }
   public class Type2 { }
   public class Type3 { }
