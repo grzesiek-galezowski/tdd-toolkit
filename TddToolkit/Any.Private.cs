@@ -31,6 +31,8 @@ namespace TddEbook.TddToolkit
         typeof(Type12),
         typeof(Type13));
 
+      private static readonly NestingLimit _nestingLimit = NestingLimit.Of(5);
+
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
       {
         return typeof(Any).GetMethods().Where(m => m.Name == name).First(m => m.GetParameters().Length == 0).
@@ -45,4 +47,35 @@ namespace TddEbook.TddToolkit
         }
       }
     }
+
+  internal class NestingLimit
+  {
+    private readonly int _limit;
+    private int _nesting = 0;
+
+    private NestingLimit(int limit)
+    {
+      _limit = limit;
+    }
+
+    public static NestingLimit Of(int limit)
+    {
+      return new NestingLimit(limit);
+    }
+
+    public void AddNesting()
+    {
+      _nesting++;
+    }
+
+    public bool IsReached()
+    {
+      return _nesting > _limit;
+    }
+
+    public void RemoveNesting()
+    {
+      _nesting--;
+    }
+  }
 }

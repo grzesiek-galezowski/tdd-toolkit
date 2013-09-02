@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 
@@ -65,7 +64,6 @@ namespace TddToolkitSpecification
       Assert.AreNotEqual(string.Empty, obj.GetStringProperty);
       Assert.NotNull(obj.GetString());
       Assert.NotNull(obj.GetStringProperty);
-      
     }
 
     [Test]
@@ -113,6 +111,32 @@ namespace TddToolkitSpecification
       }
     }
 
+    [Test]
+    public void ShouldGenerateMembersReturningTypeOfType()
+    {
+      //GIVEN
+      var obj1 = Any.InstanceOf<ISimple>();
+      var obj2 = Any.InstanceOf<ISimple>();
+
+      //THEN
+      Assert.NotNull(obj1.GetTypeProperty);
+      Assert.NotNull(obj2.GetTypeProperty);
+      Assert.AreNotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
+      Assert.AreEqual(obj1.GetTypeProperty, obj1.GetTypeProperty);
+      Assert.AreEqual(obj2.GetTypeProperty, obj2.GetTypeProperty);
+    }
+
+    [Test]
+    public void ShouldBeAbleToGenerateInstancesOfConcreteClassesWithInterfacesAsTheirConstructorArguments()
+    {
+      //GIVEN
+      var objectOfConcreteClassWithInterfaceInConstructor = Any.InstanceOf<ObjectWithInterfaceInConstructor>();
+
+      //THEN
+      Assert.NotNull(objectOfConcreteClassWithInterfaceInConstructor.ConstructorArgument);
+      Assert.NotNull(objectOfConcreteClassWithInterfaceInConstructor.ConstructorNestedArgument);
+    }
+
     public interface ISimple
     {
       int GetInt();
@@ -123,6 +147,28 @@ namespace TddToolkitSpecification
       Type GetTypeProperty { get; }
       IEnumerable<ISimple> Simples { get; }
     }
+    
+    public class ObjectWithInterfaceInConstructor
+    {
+      private readonly int _a;
+      public readonly ISimple ConstructorArgument;
+      private readonly string _b;
+      public readonly ObjectWithInterfaceInConstructor ConstructorNestedArgument;
+
+      public ObjectWithInterfaceInConstructor(
+        int a, 
+        ISimple constructorArgument, 
+        string b, 
+        ObjectWithInterfaceInConstructor constructorNestedArgument)
+      {
+        _a = a;
+        ConstructorArgument = constructorArgument;
+        _b = b;
+        ConstructorNestedArgument = constructorNestedArgument;
+      }
+    }
+
   }
+
 }
 

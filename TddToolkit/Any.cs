@@ -77,7 +77,7 @@ namespace TddEbook.TddToolkit
 
     public static T InstanceOf<T>() where T : class
     {
-      return FakeChain<T>.NewInstance(_cachedGeneration).Resolve();
+      return FakeChain<T>.NewInstance(_cachedGeneration, _nestingLimit).Resolve();
     }
 
     public static Uri Uri()
