@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal class TypeConstructor
+  public class TypeConstructor
   {
     private readonly ConstructorInfo _constructor;
 

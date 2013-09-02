@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
@@ -51,50 +50,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       {
         _nestingLimit.RemoveNesting();
       }
-    }
-  }
-
-  internal class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
-  {
-    public bool Applies()
-    {
-      return ConstructorHasAtLeastOneNonConcreteArgumentType(typeof(T));
-    }
-
-    private bool ConstructorHasAtLeastOneNonConcreteArgumentType(Type type)
-    {
-      var constructor = PickConstructorWithLeastNonPointersParametersFrom(type);
-      return constructor.HasAbstractOrInterfaceArguments();
-    }
-
-    public T Apply()
-    {
-      return (T)UseFallbackMechanismForConstructorWithInterfaceOrAbstractParameters(typeof(T));
-    }
-
-    private object UseFallbackMechanismForConstructorWithInterfaceOrAbstractParameters(Type type)
-    {
-      var constructor = PickConstructorWithLeastNonPointersParametersFrom(type);
-      var constructorValues = constructor.GenerateAnyParameterValues();
-      var instance = Activator.CreateInstance(type, constructorValues.ToArray());
-      return instance;
-    }
-
-    private static TypeConstructor PickConstructorWithLeastNonPointersParametersFrom(Type type)
-    {
-      var constructors = TypeConstructor.ExtractAllFrom(type);
-      TypeConstructor leastParamsConstructor = null;
-      var numberOfParams = int.MaxValue;
-
-      foreach (var typeConstructor in constructors)
-      {
-        if (typeConstructor.HasNonPointerArgumentsOnly() && typeConstructor.HasLessParametersThan(numberOfParams))
-        {
-          leastParamsConstructor = typeConstructor;
-          numberOfParams = typeConstructor.GetParametersCount();
-        }
-      }
-      return leastParamsConstructor;
     }
   }
 }
