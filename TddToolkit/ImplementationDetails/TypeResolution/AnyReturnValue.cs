@@ -2,17 +2,17 @@ using System;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal abstract class AnyInstanceReturnValue
+  internal abstract class AnyReturnValue
   {
-    public static AnyInstanceReturnValue New(Type type)
+    public static AnyReturnValue Of(Type type)
     {
       if (type.IsPrimitive || type.IsValueType)
       {
-        return ValueTypeReturnValue.New(type);
+        return ValueTypeReturnValue.Of(type);
       }
       else
       {
-        return ClassOrInterfaceReturnValue.New(type);
+        return ClassOrInterfaceReturnValue.Of(type);
       }
     }
 

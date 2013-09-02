@@ -2,7 +2,7 @@ using System;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal class ValueTypeReturnValue : AnyInstanceReturnValue
+  internal class ValueTypeReturnValue : AnyReturnValue
   {
     private readonly Type _type;
 
@@ -11,7 +11,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       _type = type;
     }
 
-    public new static AnyInstanceReturnValue New(Type type)
+    public new static AnyReturnValue Of(Type type)
     {
       return new ValueTypeReturnValue(type);
     }

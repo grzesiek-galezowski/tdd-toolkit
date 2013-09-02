@@ -51,7 +51,7 @@
     <Compile Include="Any.Strings.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\CachedGeneration.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ChainElement.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\AnyInstanceReturnValue.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\AnyReturnValue.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ChainFailedException.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ClassOrInterfaceReturnValue.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeAbstractClass.cs" />
