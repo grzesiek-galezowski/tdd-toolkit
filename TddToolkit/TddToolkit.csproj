@@ -60,8 +60,10 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeEnumerableOf.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeOrdinaryInterface.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeType.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\InterfaceInterceptor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\IResolution.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\NullChainElement.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\ReturnValueCache.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ReturnValueCacheKey.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\TypeOfType.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ValueTypeReturnValue.cs" />

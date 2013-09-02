@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using Castle.DynamicProxy;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
@@ -24,25 +24,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
       return _cache.ValueFor(cacheKey);
     }
-  }
 
-  internal class ReturnValueCache
-  {
-    private readonly Dictionary<ReturnValueCacheKey, object> _cache = new Dictionary<ReturnValueCacheKey, object>();
-    
-    public bool AlreadyContainsValueFor(ReturnValueCacheKey cacheKey)
+    public bool AppliesTo(Type returnType)
     {
-      return _cache.ContainsKey(cacheKey);
-    }
-
-    public void Add(ReturnValueCacheKey cacheKey, object returnValue)
-    {
-      _cache.Add(cacheKey, returnValue);
-    }
-
-    public object ValueFor(ReturnValueCacheKey cacheKey)
-    {
-      return _cache[cacheKey];
+      return returnType != typeof (void);
     }
   }
 }
