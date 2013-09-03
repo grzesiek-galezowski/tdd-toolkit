@@ -34,9 +34,6 @@
       <HintPath>..\Lib\Caste.Core\net35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="NSubstitute">
-      <HintPath>..\Lib\NSubstitute-1.4.3.0\lib\NET40\NSubstitute.dll</HintPath>
-    </Reference>
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\Lib\AutoFixture\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
