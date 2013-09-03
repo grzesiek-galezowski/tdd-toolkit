@@ -54,6 +54,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\AnyReturnValue.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ChainFailedException.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ClassOrInterfaceReturnValue.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\DefaultParameterlessConstructor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeAbstractClass.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChain.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeConcreteClass.cs" />

@@ -67,7 +67,14 @@ namespace TddEbook.TddToolkit
 
     public static T Exploding<T>() where T : class
     {
-      return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
+      if (typeof (T).IsInterface)
+      {
+        return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());  
+      }
+      else
+      {
+        throw new Exception("Exploding instances can be created out of interfaces only!");
+      }
     }
 
     public static Type Type()

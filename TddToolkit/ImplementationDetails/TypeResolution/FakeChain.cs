@@ -15,7 +15,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
             new ChainElement<T>(
               new FakeOrdinaryInterface<T>(cachedGeneration),
               new ChainElement<T>(
-                new FakeAbstractClass<T>(),
+                new FakeAbstractClass<T>(cachedGeneration),
                 new ChainElement<T>(
                   new FakeConcreteClassWithNonConcreteConstructor<T>(),
                   new ChainElement<T>(

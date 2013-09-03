@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     public T Apply()
     {
-      return (T)_fallbackTypeGenerator.GenerateInstance();
+      return _fallbackTypeGenerator.GenerateInstance();
     }
   }
 }

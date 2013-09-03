@@ -130,12 +130,26 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfConcreteClassesWithInterfacesAsTheirConstructorArguments()
     {
       //GIVEN
-      var objectOfConcreteClassWithInterfaceInConstructor = Any.InstanceOf<ObjectWithInterfaceInConstructor>();
+      var createdProxy = Any.InstanceOf<ObjectWithInterfaceInConstructor>();
 
       //THEN
-      Assert.NotNull(objectOfConcreteClassWithInterfaceInConstructor.ConstructorArgument);
-      Assert.NotNull(objectOfConcreteClassWithInterfaceInConstructor.ConstructorNestedArgument);
+      Assert.NotNull(createdProxy.ConstructorArgument);
+      Assert.NotNull(createdProxy.ConstructorNestedArgument);
     }
+
+    [Test]
+    public void ShouldBeAbleToGenerateInstancesOfAbstractClasses()
+    {
+      //GIVEN
+      var createdProxy = Any.InstanceOf<AbstractObjectWithInterfaceInConstructor>();
+
+      //THEN
+      Assert.NotNull(createdProxy.ConstructorArgument);
+      Assert.NotNull(createdProxy.ConstructorNestedArgument);
+      Assert.AreNotEqual(default(int), createdProxy.AbstractInt);
+      Assert.AreNotEqual(default(int), createdProxy.SettableInt);
+    }
+
 
     public interface ISimple
     {
@@ -166,6 +180,30 @@ namespace TddToolkitSpecification
         _b = b;
         ConstructorNestedArgument = constructorNestedArgument;
       }
+    }
+
+    public abstract class AbstractObjectWithInterfaceInConstructor
+    {
+      private readonly int _a;
+      public readonly ISimple ConstructorArgument;
+      private readonly string _b;
+      public readonly ObjectWithInterfaceInConstructor ConstructorNestedArgument;
+
+      public AbstractObjectWithInterfaceInConstructor(
+        int a,
+        ISimple constructorArgument,
+        string b,
+        ObjectWithInterfaceInConstructor constructorNestedArgument)
+      {
+        _a = a;
+        ConstructorArgument = constructorArgument;
+        _b = b;
+        ConstructorNestedArgument = constructorNestedArgument;
+      }
+
+      public abstract int AbstractInt { get; }
+
+      public int SettableInt { get; set; }
     }
 
   }

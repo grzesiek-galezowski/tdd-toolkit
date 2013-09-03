@@ -4,21 +4,22 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
   internal class FakeConcreteClass<T> : IResolution<T>
   {
-    private Type _type;
-
-    public FakeConcreteClass()
-    {
-      _type = typeof (T);
-    }
-
     public bool Applies()
     {
-      return true;
+      return true; //TODO consider catching exception here instead of in Apply() and returning false, then have a fallback chain element
     }
 
     public T Apply()
     {
-      return Any.ValueOf<T>();
+      try
+      {
+        return Any.ValueOf<T>();
+      }
+      catch (Ploeh.AutoFixture.ObjectCreationException e)
+      {
+        return new FallbackTypeGenerator<T>().GenerateInstance();
+      }
+
     }
   }
 }

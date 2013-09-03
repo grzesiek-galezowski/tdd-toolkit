@@ -5,7 +5,16 @@ using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  public class TypeConstructor
+  public interface ITypeConstructor
+  {
+    bool HasNonPointerArgumentsOnly();
+    bool HasLessParametersThan(int numberOfParams);
+    int GetParametersCount();
+    bool HasAbstractOrInterfaceArguments();
+    List<object> GenerateAnyParameterValues();
+  }
+
+  public class TypeConstructor : ITypeConstructor
   {
     private readonly ConstructorInfo _constructor;
 
@@ -57,10 +66,19 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       return false;
     }
 
-    public static IEnumerable<TypeConstructor> ExtractAllFrom(Type type)
+    public static IEnumerable<ITypeConstructor> ExtractAllFrom(Type type)
     {
-      return type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-                 .Select(c => new TypeConstructor(c));
+      var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
+                 .Select(c => new TypeConstructor(c)).ToList();
+      
+      if (!constructors.Any())
+      {
+        return new List<ITypeConstructor>() {new DefaultParameterlessConstructor()};
+      }
+      else
+      {
+        return constructors;
+      }
     }
 
     public List<object> GenerateAnyParameterValues()
