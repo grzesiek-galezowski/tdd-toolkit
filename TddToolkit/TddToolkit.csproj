@@ -46,6 +46,7 @@
     <Compile Include="Any.Enums.cs" />
     <Compile Include="Any.Numbers.cs" />
     <Compile Include="Any.Strings.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\AbstractClassInterceptor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\CachedGeneration.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ChainElement.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\AnyReturnValue.cs" />

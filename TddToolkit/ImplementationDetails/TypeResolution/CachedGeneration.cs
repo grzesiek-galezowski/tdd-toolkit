@@ -12,6 +12,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       _cache = cache;
     }
 
+    public void SetupReturnValueFor(IInvocation invocation)
+    {
+      var returnType = invocation.Method.ReturnType;
+      if (this.AppliesTo(returnType))
+      {
+        invocation.ReturnValue = this.GetReturnTypeFor(invocation);
+      }
+    }
+
     public object GetReturnTypeFor(IInvocation invocation)
     {
       var cacheKey = ReturnValueCacheKey.For(invocation);

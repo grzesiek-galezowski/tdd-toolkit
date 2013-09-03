@@ -28,26 +28,4 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       return result;
     }
   }
-
-  internal class AbstractClassInterceptor : IInterceptor
-  {
-    private readonly CachedGeneration _cachedGeneration;
-
-    public AbstractClassInterceptor(CachedGeneration cachedGeneration)
-    {
-      _cachedGeneration = cachedGeneration;
-    }
-
-    public void Intercept(IInvocation invocation)
-    {
-      if (invocation.Method.IsAbstract)
-      {
-        var returnType = invocation.Method.ReturnType;
-        if (_cachedGeneration.AppliesTo(returnType))
-        {
-          invocation.ReturnValue = _cachedGeneration.GetReturnTypeFor(invocation);
-        }
-      }
-    }
-  }
 }

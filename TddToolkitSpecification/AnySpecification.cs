@@ -150,6 +150,27 @@ namespace TddToolkitSpecification
       Assert.AreNotEqual(default(int), createdProxy.SettableInt);
     }
 
+    [Test]
+    public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
+    {
+      //GIVEN
+      var obj = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
+
+      //THEN
+      Assert.AreNotEqual(default(string), obj.GetSomething());
+      Assert.AreNotEqual("Something", obj.GetSomething2());
+    }
+
+    [Test]
+    public void ShouldOverrideVirtualMethodsThatThrowExceptionsOnAbstractClassProxy()
+    {
+      //GIVEN
+      var obj = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
+
+      //THEN
+      Assert.AreNotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
+    }
+
 
     public interface ISimple
     {
@@ -204,6 +225,24 @@ namespace TddToolkitSpecification
       public abstract int AbstractInt { get; }
 
       public int SettableInt { get; set; }
+    }
+
+    public abstract class AbstractObjectWithVirtualMethods
+    {
+      public virtual string GetSomething()
+      {
+        return default(string);
+      }
+
+      public virtual string GetSomething2()
+      {
+        return "something";
+      }
+
+      public virtual string GetSomethingButThrowExceptionWhileGettingIt()
+      {
+        throw new Exception("Let's suppose dummy data cause this method to throw exception");
+      }
     }
 
   }

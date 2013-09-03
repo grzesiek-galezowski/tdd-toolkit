@@ -15,7 +15,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       {
         return Any.ValueOf<T>();
       }
-      catch (Ploeh.AutoFixture.ObjectCreationException e)
+      catch (Ploeh.AutoFixture.ObjectCreationException)
       {
         return new FallbackTypeGenerator<T>().GenerateInstance();
       }

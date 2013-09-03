@@ -14,10 +14,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     public void Intercept(IInvocation invocation)
     {
       var returnType = invocation.Method.ReturnType;
-      if (_cachedGeneration.AppliesTo(returnType))
-      {
-        invocation.ReturnValue = _cachedGeneration.GetReturnTypeFor(invocation);
-      }
+      _cachedGeneration.SetupReturnValueFor(invocation);
     }
   }
 }
