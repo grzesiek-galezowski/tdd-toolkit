@@ -7,14 +7,14 @@
 using System;
 using KellermanSoftware.CompareNetObjects;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Helpers.Common
 {
-  public static class XAssert
+  public partial class XAssert
   {
     public static void AreAlike<T>(T expected, T actual)
     {
       var comparison = ObjectLikenessComparison();
-      if (comparison.Compare(expected, actual))
+      if (!comparison.Compare(expected, actual))
       {
         throw new NotAlikeException(comparison.DifferencesString);
       }
@@ -23,7 +23,7 @@ namespace TddEbook.TddToolkit
     public static void AreNotAlike<T>(T expected, T actual)
     {
       var comparison = ObjectLikenessComparison();
-      if (!comparison.Compare(expected, actual))
+      if (comparison.Compare(expected, actual))
       {
         throw new AlikeException(comparison.DifferencesString);
       }

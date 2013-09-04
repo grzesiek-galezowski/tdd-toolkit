@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.Helpers.NUnit;
 
 namespace TddToolkitSpecification
 {
@@ -15,7 +16,7 @@ namespace TddToolkitSpecification
       var int2 = Any.Integer();
 
       //THEN
-      Assert.AreNotEqual(int1, int2);
+      XAssert.NotEqual(int1, int2);
     }
 
     [Test]
@@ -27,13 +28,13 @@ namespace TddToolkitSpecification
       var type3 = Any.InstanceOf<Type>();
 
       //THEN
-      Assert.NotNull(type1);
-      Assert.NotNull(type2);
-      Assert.NotNull(type3);
+      XAssert.NotNull(type1);
+      XAssert.NotNull(type2);
+      XAssert.NotNull(type3);
 
-      Assert.AreNotEqual(type1, type2);
-      Assert.AreNotEqual(type2, type3);
-      Assert.AreNotEqual(type3, type1);
+      XAssert.NotEqual(type1, type2);
+      XAssert.NotEqual(type2, type3);
+      XAssert.NotEqual(type3, type1);
     }
 
     [Test]
@@ -41,11 +42,11 @@ namespace TddToolkitSpecification
     {
       var obj = Any.InstanceOf<ISimple>();
 
-      Assert.AreNotEqual(default(int), obj.GetInt());
-      Assert.AreNotEqual(string.Empty, obj.GetString());
-      Assert.AreNotEqual(string.Empty, obj.GetStringProperty);
-      Assert.NotNull(obj.GetString());
-      Assert.NotNull(obj.GetStringProperty);
+      XAssert.NotEqual(default(int), obj.GetInt());
+      XAssert.NotEqual(string.Empty, obj.GetString());
+      XAssert.NotEqual(string.Empty, obj.GetStringProperty);
+      XAssert.NotNull(obj.GetString());
+      XAssert.NotNull(obj.GetStringProperty);
     }
 
     [Test]
@@ -58,12 +59,12 @@ namespace TddToolkitSpecification
       obj = obj.GetInterface();
 
       //THEN
-      Assert.NotNull(obj);
-      Assert.AreNotEqual(default(int), obj.GetInt());
-      Assert.AreNotEqual(string.Empty, obj.GetString());
-      Assert.AreNotEqual(string.Empty, obj.GetStringProperty);
-      Assert.NotNull(obj.GetString());
-      Assert.NotNull(obj.GetStringProperty);
+      XAssert.NotNull(obj);
+      XAssert.NotEqual(default(int), obj.GetInt());
+      XAssert.NotEqual(string.Empty, obj.GetString());
+      XAssert.NotEqual(string.Empty, obj.GetStringProperty);
+      XAssert.NotNull(obj.GetString());
+      XAssert.NotNull(obj.GetStringProperty);
     }
 
     [Test]
@@ -77,7 +78,7 @@ namespace TddToolkitSpecification
       var valueSecondTime = obj.GetString();
 
       //THEN
-      Assert.AreEqual(valueFirstTime, valueSecondTime);
+      XAssert.Equal(valueFirstTime, valueSecondTime);
     }
 
     [Test]
@@ -92,7 +93,7 @@ namespace TddToolkitSpecification
       var valueFromSecondInstance = obj2.GetString();
 
       //THEN
-      Assert.AreNotEqual(valueFromFirstInstance, valueFromSecondInstance);
+      XAssert.NotEqual(valueFromFirstInstance, valueFromSecondInstance);
     }
 
     [Test]
@@ -107,7 +108,7 @@ namespace TddToolkitSpecification
       //THEN
       foreach (var simple in enumerable)
       {
-        Assert.NotNull(simple);
+        XAssert.NotNull(simple);
       }
     }
 
@@ -119,11 +120,11 @@ namespace TddToolkitSpecification
       var obj2 = Any.InstanceOf<ISimple>();
 
       //THEN
-      Assert.NotNull(obj1.GetTypeProperty);
-      Assert.NotNull(obj2.GetTypeProperty);
-      Assert.AreNotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
-      Assert.AreEqual(obj1.GetTypeProperty, obj1.GetTypeProperty);
-      Assert.AreEqual(obj2.GetTypeProperty, obj2.GetTypeProperty);
+      XAssert.NotNull(obj1.GetTypeProperty);
+      XAssert.NotNull(obj2.GetTypeProperty);
+      XAssert.NotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
+      XAssert.Equal(obj1.GetTypeProperty, obj1.GetTypeProperty);
+      XAssert.Equal(obj2.GetTypeProperty, obj2.GetTypeProperty);
     }
 
     [Test]
@@ -133,8 +134,8 @@ namespace TddToolkitSpecification
       var createdProxy = Any.InstanceOf<ObjectWithInterfaceInConstructor>();
 
       //THEN
-      Assert.NotNull(createdProxy.ConstructorArgument);
-      Assert.NotNull(createdProxy.ConstructorNestedArgument);
+      XAssert.NotNull(createdProxy.ConstructorArgument);
+      XAssert.NotNull(createdProxy.ConstructorNestedArgument);
     }
 
     [Test]
@@ -144,10 +145,10 @@ namespace TddToolkitSpecification
       var createdProxy = Any.InstanceOf<AbstractObjectWithInterfaceInConstructor>();
 
       //THEN
-      Assert.NotNull(createdProxy.ConstructorArgument);
-      Assert.NotNull(createdProxy.ConstructorNestedArgument);
-      Assert.AreNotEqual(default(int), createdProxy.AbstractInt);
-      Assert.AreNotEqual(default(int), createdProxy.SettableInt);
+      XAssert.NotNull(createdProxy.ConstructorArgument);
+      XAssert.NotNull(createdProxy.ConstructorNestedArgument);
+      XAssert.NotEqual(default(int), createdProxy.AbstractInt);
+      XAssert.NotEqual(default(int), createdProxy.SettableInt);
     }
 
     [Test]
@@ -157,8 +158,8 @@ namespace TddToolkitSpecification
       var obj = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
 
       //THEN
-      Assert.AreNotEqual(default(string), obj.GetSomething());
-      Assert.AreNotEqual("Something", obj.GetSomething2());
+      XAssert.NotEqual(default(string), obj.GetSomething());
+      XAssert.NotEqual("Something", obj.GetSomething2());
     }
 
     [Test]
@@ -168,7 +169,7 @@ namespace TddToolkitSpecification
       var obj = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
 
       //THEN
-      Assert.AreNotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
+      XAssert.NotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
     }
 
 

@@ -36,12 +36,14 @@
     <Reference Include="KellermanSoftware.Compare-NET-Objects">
       <HintPath>..\Lib\Compare-NET-Objects-SourceV1.7.2\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\NUnit-2.6.2\bin\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\Lib\AutoFixture\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +82,8 @@
     <Compile Include="ImplementationDetails\CircularList.cs" />
     <Compile Include="ImplementationDetails\DummyContext.cs" />
     <Compile Include="ImplementationDetails\ExplodingInterceptor.cs" />
-    <Compile Include="XAssert.cs" />
+    <Compile Include="Helpers\Common\XAssert.Common.cs" />
+    <Compile Include="Helpers\NUnit\XAssert.NUnit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
