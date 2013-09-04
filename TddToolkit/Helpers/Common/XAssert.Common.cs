@@ -1,10 +1,4 @@
-﻿#region File Header & Copyright Notice
-//Copyright 2013 Motorola Solutions, Inc.
-//All Rights Reserved.
-//Motorola Solutions Confidential Restricted
-#endregion
-
-using System;
+﻿using System;
 using KellermanSoftware.CompareNetObjects;
 
 namespace TddEbook.TddToolkit.Helpers.Common
