@@ -45,7 +45,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlikeException.cs" />
+    <Compile Include="ImplementationDetails\AlikeException.cs" />
     <Compile Include="Any.Collections.cs" />
     <Compile Include="Any.Enums.cs" />
     <Compile Include="Any.Numbers.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\TypeConstructor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\TypeOfType.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ValueTypeReturnValue.cs" />
-    <Compile Include="NotAlikeException.cs" />
+    <Compile Include="ImplementationDetails\NotAlikeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="ImplementationDetails\Boooooom.cs" />
