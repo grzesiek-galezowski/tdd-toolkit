@@ -47,6 +47,20 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Constraints\AllFieldsMustBeReadOnly.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\ConstraintsViolations.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\FieldWrapper.cs" />
+    <Compile Include="Helpers\Constraints\HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\IConstraint.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\PropertyWrapper.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\RecordedAssertions.cs" />
+    <Compile Include="Helpers\Constraints\StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
+    <Compile Include="Helpers\Constraints\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod.cs" />
+    <Compile Include="Helpers\Constraints\StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
+    <Compile Include="Helpers\Constraints\ThereMustBeNoPublicPropertySetters.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\TypeWrapper.cs" />
+    <Compile Include="Helpers\Constraints\UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\ValueObjectActivator.cs" />
     <Compile Include="ImplementationDetails\AlikeException.cs" />
     <Compile Include="Any.Collections.cs" />
     <Compile Include="Any.Enums.cs" />
@@ -89,4 +103,5 @@
   <ItemGroup>
     <Compile Include="Any.Private.cs" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

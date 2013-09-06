@@ -14,9 +14,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       _type = typeof (T);
     }
 
+    public int GetConstructorParametersCount()
+    {
+      var constructor = PickConstructorWithLeastNonPointersParametersFrom(_type);
+      return constructor.GetParametersCount();
+    }
+
     public T GenerateInstance()
     {
       var constructorParameters = GenerateConstructorParameters();
+      return GenerateInstance(constructorParameters);
+    }
+
+    public T GenerateInstance(IEnumerable<object> constructorParameters)
+    {
       var instance = Activator.CreateInstance(_type, constructorParameters.ToArray());
       return (T)instance;
     }

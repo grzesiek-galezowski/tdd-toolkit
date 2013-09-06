@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using KellermanSoftware.CompareNetObjects;
+using TddEbook.TddToolkit.Helpers.Constraints;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.Helpers.Common
 {
@@ -21,6 +24,17 @@ namespace TddEbook.TddToolkit.Helpers.Common
       {
         throw new AlikeException(comparison.DifferencesString);
       }
+    }
+
+    public static void TypeAdheresToConstraints<T>(List<IConstraint<T>> constraints)
+    {
+      var violations = ConstraintsViolations.Empty();
+      foreach (var constraint in constraints)
+      {
+        constraint.CheckAndRecord(violations);
+      }
+
+      violations.AssertNone();
     }
 
     private static CompareObjects ObjectLikenessComparison()
@@ -67,5 +81,32 @@ namespace TddEbook.TddToolkit.Helpers.Common
     {
       return type.Namespace != null && type.Namespace.StartsWith("Castle.");
     }
+
+
+    public static void IsValueType<T>()
+    {
+
+      var violations = new ConstraintsViolations();
+      var activator = ValueObjectActivator<T>.FreshInstance();
+      
+      var constraints = new List<IConstraint<T>>()
+      {
+        new AllFieldsMustBeReadOnly<T>(),
+        new ThereMustBeNoPublicPropertySetters<T>(),
+        new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T>(activator),
+        new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator),
+        new StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator),
+        new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T>(activator)
+      };
+
+      foreach (var constraint in constraints)
+      {
+        constraint.CheckAndRecord(violations);
+      }
+
+      violations.AssertNone();
+    }
+
+
   }
 }
