@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Helpers.Assertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddToolkitSpecification

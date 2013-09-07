@@ -73,7 +73,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       
       if (!constructors.Any())
       {
-        return new List<ITypeConstructor>() {new DefaultParameterlessConstructor()};
+        return new List<ITypeConstructor> {new DefaultParameterlessConstructor()};
       }
       else
       {

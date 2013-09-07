@@ -10,13 +10,13 @@ namespace TddEbook.TddToolkit
 {
     public static partial class Any
     {
-      private static readonly Fixture _generator = new Fixture();
-      private static readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
-      private static readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
-      private static readonly CachedGeneration _cachedGeneration = new CachedGeneration(new ReturnValueCache());
-      private static readonly CircularList<char> _letters = new CircularList<char>("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
-      private static readonly CircularList<char> _digits = new CircularList<char>("5647382910".ToCharArray());
-      private static readonly CircularList<Type> types = new CircularList<Type>(
+      private static readonly Fixture Generator = new Fixture();
+      private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
+      private static readonly RegularExpressionGenerator RegexGenerator = new RegularExpressionGenerator();
+      private static readonly CachedGeneration CachedGeneration = new CachedGeneration(new ReturnValueCache());
+      private static readonly CircularList<char> Letters = new CircularList<char>("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
+      private static readonly CircularList<char> Digits = new CircularList<char>("5647382910".ToCharArray());
+      private static readonly CircularList<Type> Types = new CircularList<Type>(
         typeof(Type1),
         typeof(Type2),
         typeof(Type3),
@@ -31,8 +31,8 @@ namespace TddEbook.TddToolkit
         typeof(Type12),
         typeof(Type13));
 
-      private static CircularList<MethodInfo> _methodList = new CircularList<MethodInfo>(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
-      private static readonly NestingLimit _nestingLimit = NestingLimit.Of(5);
+      private static readonly CircularList<MethodInfo> MethodList = new CircularList<MethodInfo>(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
+      private static readonly NestingLimit NestingLimit = NestingLimit.Of(5);
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
       {

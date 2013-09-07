@@ -3,7 +3,7 @@
   internal class NestingLimit
   {
     private readonly int _limit;
-    private int _nesting = 0;
+    private int _nesting;
 
     private NestingLimit(int limit)
     {

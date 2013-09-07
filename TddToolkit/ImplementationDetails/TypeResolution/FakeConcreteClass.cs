@@ -1,5 +1,3 @@
-using System;
-
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
   internal class FakeConcreteClass<T> : IResolution<T>

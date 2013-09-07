@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class AllFieldsMustBeReadOnly<T> : IConstraint<T>
+  public class AllFieldsMustBeReadOnly<T> : IConstraint
   {
     public void CheckAndRecord(ConstraintsViolations violations)
     {

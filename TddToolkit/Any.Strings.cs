@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails;
@@ -9,14 +10,14 @@ namespace TddEbook.TddToolkit
   {
     public static string String()
     {
-      return _generator.Create<string>();
+      return Generator.Create<string>();
     }
 
     public static string StringMatching(string pattern)
     {
       var request = new RegularExpressionRequest(pattern);
 
-      var result = _regexGenerator.Create(request, new DummyContext());
+      var result = RegexGenerator.Create(request, new DummyContext());
       return result.ToString();
     }
 
@@ -37,7 +38,7 @@ namespace TddEbook.TddToolkit
 
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
-      var result = String();
+      string result;
       do
       {
         result = String();
@@ -67,7 +68,7 @@ namespace TddEbook.TddToolkit
 
     public static string Identifier()
     {
-      string result = AlphaChar().ToString();
+      string result = AlphaChar().ToString(CultureInfo.InvariantCulture);
       for (var i = 0; i < 5; ++i)
       {
         result += DigitChar();
@@ -78,12 +79,12 @@ namespace TddEbook.TddToolkit
 
     public static char AlphaChar()
     {
-      return _letters.Next();
+      return Letters.Next();
     }
 
     static char DigitChar()
     {
-      return _digits.Next();
+      return Digits.Next();
     }
 
   }

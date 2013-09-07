@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
   internal class FakeChain<T> where T : class

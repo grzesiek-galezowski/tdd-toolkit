@@ -14,8 +14,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     public void Intercept(IInvocation invocation)
     {
-      var returnType = invocation.Method.ReturnType;
-
       if (invocation.Method.IsAbstract)
       {
         _cachedGeneration.SetupReturnValueFor(invocation);

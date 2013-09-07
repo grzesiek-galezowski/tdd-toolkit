@@ -1,6 +1,6 @@
 ﻿namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
 {
-  public interface IConstraint<T>
+  public interface IConstraint
   {
     void CheckAndRecord(ConstraintsViolations violations);
   }

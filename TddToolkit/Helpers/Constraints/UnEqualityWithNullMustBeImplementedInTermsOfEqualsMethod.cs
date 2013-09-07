@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint<T>
+  public class UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
   {
     private readonly ValueObjectActivator<T> _activator;
 

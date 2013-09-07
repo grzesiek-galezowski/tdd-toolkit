@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 
-namespace TddEbook.TddToolkit.Helpers.Assertions
+namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {

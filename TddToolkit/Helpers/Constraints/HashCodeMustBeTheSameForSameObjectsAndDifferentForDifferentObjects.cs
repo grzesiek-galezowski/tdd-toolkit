@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects<T> : IConstraint<T>
+  public class HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects<T> : IConstraint
   {
     private readonly ValueObjectActivator<T> _activator;
 

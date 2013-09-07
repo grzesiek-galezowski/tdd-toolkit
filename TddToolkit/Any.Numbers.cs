@@ -6,22 +6,22 @@ namespace TddEbook.TddToolkit
   {
     public static int Integer()
     {
-      return _generator.Create<int>();
+      return Generator.Create<int>();
     }
 
     public static double Double()
     {
-      return _generator.Create<double>();
+      return Generator.Create<double>();
     }
 
     public static long LongInteger()
     {
-      return _generator.Create<long>();
+      return Generator.Create<long>();
     }
 
     public static short ShortInteger()
     {
-      return _generator.Create<short>();
+      return Generator.Create<short>();
     }
 
     public static int IntegerOtherThan(params int[] others)

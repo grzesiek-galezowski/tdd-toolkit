@@ -48,7 +48,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Assertions\XAssert.Simple.cs" />
+    <Compile Include="XAssert.ObjectGraph.cs" />
+    <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
+    <Compile Include="XAssert.Simple.cs" />
     <Compile Include="Helpers\Constraints\AllFieldsMustBeReadOnly.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\ConstraintsViolations.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\FieldWrapper.cs" />
@@ -97,7 +99,7 @@
     <Compile Include="ImplementationDetails\CircularList.cs" />
     <Compile Include="ImplementationDetails\DummyContext.cs" />
     <Compile Include="ImplementationDetails\ExplodingInterceptor.cs" />
-    <Compile Include="Helpers\Assertions\XAssert.Common.cs" />
+    <Compile Include="XAssert.Common.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

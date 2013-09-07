@@ -3,11 +3,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails
   public class CircularList<T>
   {
     private readonly T[] _items;
-    private int _currentIndex = 0;
+    private int _currentIndex;
 
     public CircularList(params T[] items)
     {
-      this._items = items;
+      _items = items;
     }
 
     public T Next()

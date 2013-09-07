@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using FluentAssertions;
 using KellermanSoftware.CompareNetObjects;
-using TddEbook.TddToolkit.Helpers.Constraints;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
-namespace TddEbook.TddToolkit.Helpers.Assertions
+namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
@@ -21,20 +18,9 @@ namespace TddEbook.TddToolkit.Helpers.Assertions
       comparison.Compare(expected, actual).Should().BeFalse(comparison.DifferencesString);
     }
 
-    public static void TypeAdheresToConstraints<T>(List<IConstraint<T>> constraints)
-    {
-      var violations = ConstraintsViolations.Empty();
-      foreach (var constraint in constraints)
-      {
-        constraint.CheckAndRecord(violations);
-      }
-
-      violations.AssertNone();
-    }
-
     private static CompareObjects ObjectLikenessComparison()
     {
-      var comparisonMechanism = new CompareObjects()
+      var comparisonMechanism = new CompareObjects
       {
         CompareChildren = true,
         CompareFields = true,
@@ -56,8 +42,8 @@ namespace TddEbook.TddToolkit.Helpers.Assertions
         {
           if (!object.ReferenceEquals(o1, o2))
           {
-            objects.Differences.Add(new Difference()
-              {
+            objects.Differences.Add(new Difference
+            {
                 Object1Value = o1.ToString(),
                 Object2Value = o2.ToString(),
                 ActualName = "Reference to " + o2.GetType() + ": ",
@@ -76,32 +62,5 @@ namespace TddEbook.TddToolkit.Helpers.Assertions
     {
       return type.Namespace != null && type.Namespace.StartsWith("Castle.");
     }
-
-
-    public static void IsValueType<T>()
-    {
-
-      var violations = new ConstraintsViolations();
-      var activator = ValueObjectActivator<T>.FreshInstance();
-      
-      var constraints = new List<IConstraint<T>>()
-      {
-        new AllFieldsMustBeReadOnly<T>(),
-        new ThereMustBeNoPublicPropertySetters<T>(),
-        new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T>(activator),
-        new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator),
-        new StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator),
-        new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T>(activator)
-      };
-
-      foreach (var constraint in constraints)
-      {
-        constraint.CheckAndRecord(violations);
-      }
-
-      violations.AssertNone();
-    }
-
-
   }
 }

@@ -12,8 +12,8 @@ namespace TddEbook.TddToolkit
   {
     static Any()
     {
-      _generator.Register<Type>(() => types.Next());
-      _generator.Register<MethodInfo>(() => _methodList.Next());
+      Generator.Register(() => Types.Next());
+      Generator.Register(() => MethodList.Next());
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
@@ -36,17 +36,17 @@ namespace TddEbook.TddToolkit
 
     public static DateTime DateTime()
     {
-      return _generator.Create<DateTime>();
+      return Generator.Create<DateTime>();
     }
 
     public static TimeSpan TimeSpan()
     {
-      return _generator.Create<TimeSpan>();
+      return Generator.Create<TimeSpan>();
     }
 
     public static T ValueOf<T>()
     {
-      return _generator.Create<T>();
+      return Generator.Create<T>();
     }
 
     public static string LegalXmlTagName()
@@ -88,7 +88,7 @@ namespace TddEbook.TddToolkit
 
     public static T InstanceOf<T>() where T : class
     {
-      return FakeChain<T>.NewInstance(_cachedGeneration, _nestingLimit).Resolve();
+      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve();
     }
 
     public static Uri Uri()
@@ -103,15 +103,15 @@ namespace TddEbook.TddToolkit
 
     public static int Port()
     {
-      return _random.Next(65535);
+      return RandomGenerator.Next(65535);
     }
 
     public static string Ip()
     {
-      return _random.Next(256) + "." 
-            + _random.Next(256) + "." 
-            + _random.Next(256) + "." 
-            + _random.Next(256);
+      return RandomGenerator.Next(256) + "." 
+            + RandomGenerator.Next(256) + "." 
+            + RandomGenerator.Next(256) + "." 
+            + RandomGenerator.Next(256);
     }
 
     public static object InstanceOf(Type type)

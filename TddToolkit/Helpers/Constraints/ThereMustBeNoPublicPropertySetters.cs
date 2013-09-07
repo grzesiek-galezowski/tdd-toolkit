@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class ThereMustBeNoPublicPropertySetters<T> : IConstraint<T>
+  public class ThereMustBeNoPublicPropertySetters<T> : IConstraint
   {
 
     public void CheckAndRecord(ConstraintsViolations violations)

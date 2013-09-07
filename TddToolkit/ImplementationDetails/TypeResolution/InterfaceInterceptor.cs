@@ -13,7 +13,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     public void Intercept(IInvocation invocation)
     {
-      var returnType = invocation.Method.ReturnType;
       _cachedGeneration.SetupReturnValueFor(invocation);
     }
   }

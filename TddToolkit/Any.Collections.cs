@@ -25,7 +25,8 @@ namespace TddEbook.TddToolkit
 
     public static IEnumerable<T> ListOfDerivativesFrom<T>() where T : class
     {
-      return new List<T>() {
+      return new List<T>
+      {
         InstanceOf<T>(),
         InstanceOf<T>(),
         InstanceOf<T>()
@@ -34,15 +35,17 @@ namespace TddEbook.TddToolkit
 
     public static IEnumerable<T> Enumerable<T>()
     {
-      return _generator.CreateMany<T>();
+      return Generator.CreateMany<T>();
     }
 
     public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded) where T : class
     {
-      var result = new List<T>();
-      result.Add(ValueOtherThan(excluded));
-      result.Add(ValueOtherThan(excluded));
-      result.Add(ValueOtherThan(excluded));
+      var result = new List<T>
+      {
+        ValueOtherThan(excluded), 
+        ValueOtherThan(excluded), 
+        ValueOtherThan(excluded)
+      };
       return result;
     }
 
@@ -66,9 +69,9 @@ namespace TddEbook.TddToolkit
       return ValueOf<HashSet<T>>();
     }
 
-    public static Dictionary<T, U> Dictionary<T, U>()
+    public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
-      return ValueOf<Dictionary<T, U>>();
+      return ValueOf<Dictionary<TKey, TValue>>();
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>()

@@ -17,7 +17,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       var returnType = invocation.Method.ReturnType;
       if (this.AppliesTo(returnType))
       {
-        invocation.ReturnValue = this.GetReturnTypeFor(invocation);
+        invocation.ReturnValue = GetReturnTypeFor(invocation);
       }
     }
 

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Helpers.Assertions;
 
 namespace TddToolkitSpecification
 {
@@ -273,7 +271,7 @@ namespace TddToolkitSpecification
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return a == other.a && Equals(_anArray, other._anArray);
+      return _a == other._a && Equals(_anArray, other._anArray);
     }
 
     public override bool Equals(object obj)
@@ -288,7 +286,7 @@ namespace TddToolkitSpecification
     {
       unchecked
       {
-        return (a*397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
+        return (_a*397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
       }
     }
 
@@ -302,12 +300,12 @@ namespace TddToolkitSpecification
       return !Equals(left, right);
     }
 
-    private readonly int a;
+    private readonly int _a;
     private readonly IEnumerable<int> _anArray;
 
     public ProperValueType(int a, IEnumerable<int> anArray)
     {
-      this.a = a;
+      this._a = a;
       _anArray = anArray;
     }
 

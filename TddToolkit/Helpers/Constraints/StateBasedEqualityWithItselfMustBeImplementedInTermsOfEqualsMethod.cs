@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint<T>
+  public class StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
   {
     private readonly ValueObjectActivator<T> _activator;
 
