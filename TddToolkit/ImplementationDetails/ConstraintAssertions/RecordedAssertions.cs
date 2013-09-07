@@ -2,7 +2,7 @@
 {
   public class RecordedAssertions
   {
-    public static void True(bool condition, string message, ConstraintsViolations errors)
+    public static void True(bool condition, string message, IConstraintsViolations errors)
     {
       if (!condition)
       {

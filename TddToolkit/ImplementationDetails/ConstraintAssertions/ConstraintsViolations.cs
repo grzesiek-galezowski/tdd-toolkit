@@ -5,7 +5,13 @@ using NUnit.Framework;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
 {
-  public class ConstraintsViolations
+  public interface IConstraintsViolations
+  {
+    void AssertNone();
+    void Add(string violationDetails);
+  }
+
+  public class ConstraintsViolations : IConstraintsViolations
   {
     private readonly List<string> _violations = new List<string>();
 
