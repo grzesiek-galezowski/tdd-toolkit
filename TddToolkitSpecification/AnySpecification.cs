@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Helpers.Assertions;
@@ -178,6 +180,18 @@ namespace TddToolkitSpecification
       XAssert.IsValueType<ProperValueType>();
     }
 
+    [Test]
+    public void ShouldNotCreateTheSameMethodInfoTwiceInARow()
+    {
+      //GIVEN
+      var x = Any.InstanceOf<MethodInfo>();
+      var y = Any.InstanceOf<MethodInfo>();
+      
+      //THEN
+      XAssert.AreNotAlike(x,y);
+
+    }
+
     public interface ISimple
     {
       int GetInt();
@@ -296,6 +310,7 @@ namespace TddToolkitSpecification
       this.a = a;
       _anArray = anArray;
     }
+
   }
 }
 

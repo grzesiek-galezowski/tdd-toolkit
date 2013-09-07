@@ -80,7 +80,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeConcreteClassWithNonConcreteConstructor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeEnumerableOf.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeOrdinaryInterface.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeType.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeSpecialCase.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FallbackTypeGenerator.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\InterfaceInterceptor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\IResolution.cs" />
@@ -90,6 +90,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\TypeConstructor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\TypeOfType.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ValueTypeReturnValue.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\NestingLimit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="ImplementationDetails\Boooooom.cs" />
@@ -102,7 +103,5 @@
   <ItemGroup>
     <Compile Include="Any.Private.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\NUnit\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

@@ -26,17 +26,17 @@ namespace TddEbook.TddToolkit
 
     public static int IntegerOtherThan(params int[] others)
     {
-      return Any.ValueOtherThan(others);
+      return ValueOtherThan(others);
     }
 
     public static byte Byte()
     {
-      return Any.ValueOf<byte>();
+      return ValueOf<byte>();
     }
 
     public static byte ByteOtherThan(params byte[] others)
     {
-      return Any.ValueOtherThan(others);
+      return ValueOtherThan(others);
     }
 
   }

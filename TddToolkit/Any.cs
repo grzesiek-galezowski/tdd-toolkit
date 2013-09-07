@@ -2,8 +2,6 @@ using System;
 using System.Reflection;
 using Ploeh.AutoFixture;
 using System.Linq;
-using System.Collections.Generic;
-using Ploeh.AutoFixture.Kernel;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
@@ -15,6 +13,7 @@ namespace TddEbook.TddToolkit
     static Any()
     {
       _generator.Register<Type>(() => types.Next());
+      _generator.Register<MethodInfo>(() => _methodList.Next());
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
@@ -22,7 +21,7 @@ namespace TddEbook.TddToolkit
       T currentValue;
       do
       {
-        currentValue = Any.ValueOf<T>();
+        currentValue = ValueOf<T>();
       } while(omittedValues.Contains(currentValue));
       
       return currentValue;
@@ -52,17 +51,17 @@ namespace TddEbook.TddToolkit
 
     public static string LegalXmlTagName()
     {
-      return Any.Identifier();
+      return Identifier();
     }
 
     public static bool Boolean()
     {
-      return Any.ValueOf<bool>();
+      return ValueOf<bool>();
     }
 
     public static object Object()
     {
-      return Any.ValueOf<object>();
+      return ValueOf<object>();
     }
 
     public static T Exploding<T>() where T : class
@@ -77,9 +76,14 @@ namespace TddEbook.TddToolkit
       }
     }
 
+    public static MethodInfo Method()
+    {
+      return ValueOf<MethodInfo>();
+    }
+
     public static Type Type()
     {
-      return Any.ValueOf<Type>();
+      return ValueOf<Type>();
     }
 
     public static T InstanceOf<T>() where T : class
@@ -89,12 +93,12 @@ namespace TddEbook.TddToolkit
 
     public static Uri Uri()
     {
-      return Any.ValueOf<Uri>();
+      return ValueOf<Uri>();
     }
 
     public static string UrlString()
     {
-      return Any.Uri().ToString();
+      return Uri().ToString();
     }
 
     public static int Port()
@@ -112,12 +116,12 @@ namespace TddEbook.TddToolkit
 
     public static object InstanceOf(Type type)
     {
-      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
     public static object ValueOf(Type type)
     {
-      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
   }
 

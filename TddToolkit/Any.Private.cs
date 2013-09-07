@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
@@ -31,6 +31,7 @@ namespace TddEbook.TddToolkit
         typeof(Type12),
         typeof(Type13));
 
+      private static CircularList<MethodInfo> _methodList = new CircularList<MethodInfo>(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
       private static readonly NestingLimit _nestingLimit = NestingLimit.Of(5);
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
@@ -47,35 +48,4 @@ namespace TddEbook.TddToolkit
         }
       }
     }
-
-  internal class NestingLimit
-  {
-    private readonly int _limit;
-    private int _nesting = 0;
-
-    private NestingLimit(int limit)
-    {
-      _limit = limit;
-    }
-
-    public static NestingLimit Of(int limit)
-    {
-      return new NestingLimit(limit);
-    }
-
-    public void AddNesting()
-    {
-      _nesting++;
-    }
-
-    public bool IsReached()
-    {
-      return _nesting > _limit;
-    }
-
-    public void RemoveNesting()
-    {
-      _nesting--;
-    }
-  }
 }

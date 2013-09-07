@@ -1,12 +1,15 @@
 using System;
+using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal class FakeType<T> : IResolution<T>
+  internal class FakeSpecialCase<T> : IResolution<T>
   {
     public bool Applies()
     {
-      return TypeOfType.Is<T>();
+      return 
+        TypeOfType.Is<T>() || 
+        typeof(T) == typeof(MethodInfo);
     }
 
     public T Apply()

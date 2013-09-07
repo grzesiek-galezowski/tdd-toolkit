@@ -22,56 +22,56 @@ namespace TddEbook.TddToolkit
 
     public static string StringOfLength(int charactersCount)
     {
-      var result = string.Empty;
+      var result = System.String.Empty;
       while (result.Count() < charactersCount)
       {
-        result += Any.String();
+        result += String();
       }
       return result.Substring(0, charactersCount);
     }
 
     public static string StringOtherThan(params string[] alreadyUsedStrings)
     {
-      return Any.ValueOtherThan(alreadyUsedStrings);
+      return ValueOtherThan(alreadyUsedStrings);
     }
 
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
-      var result = Any.String();
+      var result = String();
       do
       {
-        result = Any.String();
+        result = String();
       } while (excludedSubstrings.Any(result.Contains));
       return result;
     }
 
     public static string StringContaining(string str)
     {
-      return Any.String() + str + Any.String();
+      return String() + str + String();
     }
 
     public static string AlphaString()
     {
-      return AlphaString(Any.String().Length);
+      return AlphaString(String().Length);
     }
 
     public static string AlphaString(int maxLength)
     {
-      var result = string.Empty;
+      var result = System.String.Empty;
       for (var i = 0; i < maxLength; ++i)
       {
-        result += Any.AlphaChar();
+        result += AlphaChar();
       }
       return result;
     }
 
     public static string Identifier()
     {
-      string result = Any.AlphaChar().ToString();
+      string result = AlphaChar().ToString();
       for (var i = 0; i < 5; ++i)
       {
-        result += Any.DigitChar();
-        result += Any.AlphaChar();
+        result += DigitChar();
+        result += AlphaChar();
       }
       return result;
     }

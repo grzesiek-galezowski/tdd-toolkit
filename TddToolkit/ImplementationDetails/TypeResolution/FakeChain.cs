@@ -8,19 +8,19 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     {
       return new FakeChain<T>(
         nestingLimit,
-        new ChainElement<T>(
-          new FakeType<T>(),
           new ChainElement<T>(
-            new FakeEnumerableOf<T>(),
+            new FakeSpecialCase<T>(),
             new ChainElement<T>(
-              new FakeOrdinaryInterface<T>(cachedGeneration),
+              new FakeEnumerableOf<T>(),
               new ChainElement<T>(
-                new FakeAbstractClass<T>(cachedGeneration),
+                new FakeOrdinaryInterface<T>(cachedGeneration),
                 new ChainElement<T>(
-                  new FakeConcreteClassWithNonConcreteConstructor<T>(),
+                  new FakeAbstractClass<T>(cachedGeneration),
                   new ChainElement<T>(
-                    new FakeConcreteClass<T>(),
-                    new NullChainElement<T>())))))));
+                    new FakeConcreteClassWithNonConcreteConstructor<T>(),
+                    new ChainElement<T>(
+                      new FakeConcreteClass<T>(),
+                      new NullChainElement<T>())))))));
     }
 
     private readonly NestingLimit _nestingLimit;

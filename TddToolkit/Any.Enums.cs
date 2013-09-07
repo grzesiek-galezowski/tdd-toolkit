@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Ploeh.AutoFixture;
 
 namespace TddEbook.TddToolkit
@@ -18,8 +15,7 @@ namespace TddEbook.TddToolkit
     public static T Besides<T>(params T[] excludedValues) where T : struct, IConvertible
     {
       AssertDynamicEnumConstraintFor<T>();
-      return Any.ValueOtherThan(excludedValues);
+      return ValueOtherThan(excludedValues);
     }
-
   }
 }

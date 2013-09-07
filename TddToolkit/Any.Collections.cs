@@ -10,24 +10,25 @@ namespace TddEbook.TddToolkit
   {
     public static SortedSet<T> SortedSet<T>()
     {
-      return new SortedSet<T> {
-        Any.ValueOf<T>(),
-        Any.ValueOf<T>(),
-        Any.ValueOf<T>()
+      return new SortedSet<T>
+      {
+        ValueOf<T>(),
+        ValueOf<T>(),
+        ValueOf<T>()
       };
     }
 
     public static IEnumerable<T> EnumerableOfDerivativesFrom<T>() where T : class
     {
-      return Any.ListOfDerivativesFrom<T>();
+      return ListOfDerivativesFrom<T>();
     }
 
     public static IEnumerable<T> ListOfDerivativesFrom<T>() where T : class
     {
       return new List<T>() {
-        Any.InstanceOf<T>(),
-        Any.InstanceOf<T>(),
-        Any.InstanceOf<T>()
+        InstanceOf<T>(),
+        InstanceOf<T>(),
+        InstanceOf<T>()
       };
     }
 
@@ -39,55 +40,55 @@ namespace TddEbook.TddToolkit
     public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded) where T : class
     {
       var result = new List<T>();
-      result.Add(Any.ValueOtherThan(excluded));
-      result.Add(Any.ValueOtherThan(excluded));
-      result.Add(Any.ValueOtherThan(excluded));
+      result.Add(ValueOtherThan(excluded));
+      result.Add(ValueOtherThan(excluded));
+      result.Add(ValueOtherThan(excluded));
       return result;
     }
 
     public static T[] Array<T>()
     {
-      return Any.Enumerable<T>().ToArray();
+      return Enumerable<T>().ToArray();
     }
 
     public static T[] ArrayWithout<T>(params T[] excluded) where T : class
     {
-      return Any.EnumerableWithout(excluded).ToArray();
+      return EnumerableWithout(excluded).ToArray();
     }
 
     public static List<T> List<T>()
     {
-      return Any.Enumerable<T>().ToList();
+      return Enumerable<T>().ToList();
     }
 
     public static ISet<T> Set<T>()
     {
-      return Any.ValueOf<HashSet<T>>();
+      return ValueOf<HashSet<T>>();
     }
 
     public static Dictionary<T, U> Dictionary<T, U>()
     {
-      return Any.ValueOf<Dictionary<T, U>>();
+      return ValueOf<Dictionary<T, U>>();
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>()
     {
-      return Any.SortedSet<T>().ToList();
+      return SortedSet<T>().ToList();
     }
 
     public static object EnumerableOfDerivativesFrom(Type type)
     {
-      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
     public static object ListOfDerivativesFrom(Type type)
     {
-      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
     public static object List(Type type)
     {
-      return Any.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
   }
