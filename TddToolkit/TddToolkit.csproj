@@ -33,20 +33,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Caste.Core\net35\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\Lib\Fluent.Assertions.2.1.0.0\net40\FluentAssertions.dll</HintPath>
+    </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects">
       <HintPath>..\Lib\Compare-NET-Objects-SourceV1.7.2\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\NUnit-2.6.2\bin\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\Lib\AutoFixture\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Assertions\XAssert.Simple.cs" />
     <Compile Include="Helpers\Constraints\AllFieldsMustBeReadOnly.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\ConstraintsViolations.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\FieldWrapper.cs" />
@@ -61,7 +63,6 @@
     <Compile Include="ImplementationDetails\ConstraintAssertions\TypeWrapper.cs" />
     <Compile Include="Helpers\Constraints\UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\ValueObjectActivator.cs" />
-    <Compile Include="ImplementationDetails\AlikeException.cs" />
     <Compile Include="Any.Collections.cs" />
     <Compile Include="Any.Enums.cs" />
     <Compile Include="Any.Numbers.cs" />
@@ -89,19 +90,19 @@
     <Compile Include="ImplementationDetails\TypeResolution\TypeConstructor.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\TypeOfType.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\ValueTypeReturnValue.cs" />
-    <Compile Include="ImplementationDetails\NotAlikeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="ImplementationDetails\Boooooom.cs" />
     <Compile Include="ImplementationDetails\CircularList.cs" />
     <Compile Include="ImplementationDetails\DummyContext.cs" />
     <Compile Include="ImplementationDetails\ExplodingInterceptor.cs" />
-    <Compile Include="Helpers\Common\XAssert.Common.cs" />
-    <Compile Include="Helpers\NUnit\XAssert.NUnit.cs" />
+    <Compile Include="Helpers\Assertions\XAssert.Common.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Any.Private.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\NUnit\" />
+  </ItemGroup>
 </Project>

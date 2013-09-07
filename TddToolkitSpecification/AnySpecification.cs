@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Helpers.NUnit;
+using TddEbook.TddToolkit.Helpers.Assertions;
 
 namespace TddToolkitSpecification
 {

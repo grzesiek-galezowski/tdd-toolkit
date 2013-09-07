@@ -1,54 +1,57 @@
-﻿using System;
-using NUnit.Framework;
+﻿using FluentAssertions;
 
-namespace TddEbook.TddToolkit.Helpers.NUnit
+namespace TddEbook.TddToolkit.Helpers.Assertions
 {
-  public class XAssert : Common.XAssert
+  public partial class XAssert
   {
     public static void Equal<T>(T expected, T actual)
     {
-      Assert.AreEqual(expected, actual);
+      actual.Should().Be(expected);
     }
 
     public static void NotEqual<T>(T expected, T actual)
     {
-      Assert.AreNotEqual(expected, actual);
+      actual.Should().NotBe(expected);
     }
 
     public static void Same<T>(T expected, T actual)
     {
-      Assert.AreSame(expected, actual);
+      actual.Should().BeSameAs(expected);
     }
 
     public static void NotSame<T>(T expected, T actual)
     {
-      Assert.AreNotSame(expected, actual);
+      actual.Should().NotBeSameAs(expected);
     }
 
     public static void Equal<T>(T expected, T actual, string message)
     {
-      Assert.AreEqual(expected, actual, message);
+      actual.Should().Be(expected, message);
     }
 
     public static void NotEqual<T>(T expected, T actual, string message)
     {
-      Assert.AreNotEqual(expected, actual, message);
+      actual.Should().NotBe(expected, message);
     }
 
     public static void Same<T>(T expected, T actual, string message)
     {
-      Assert.AreSame(expected, actual, message);
+      actual.Should().BeSameAs(expected, message);
     }
 
     public static void NotSame<T>(T expected, T actual, string message)
     {
-      Assert.AreNotSame(expected, actual, message);
+      actual.Should().NotBeSameAs(expected, message);
     }
 
     public static void NotNull<T>(T item)
     {
-      Assert.NotNull(item);
+      item.Should().NotBeNull();
+    }
+
+    public static void NotNull<T>(T item, string message)
+    {
+      item.Should().NotBeNull(message);
     }
   }
-
 }

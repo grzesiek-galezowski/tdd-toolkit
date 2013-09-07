@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using KellermanSoftware.CompareNetObjects;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
-namespace TddEbook.TddToolkit.Helpers.Common
+namespace TddEbook.TddToolkit.Helpers.Assertions
 {
   public partial class XAssert
   {
     public static void AreAlike<T>(T expected, T actual)
     {
       var comparison = ObjectLikenessComparison();
-      if (!comparison.Compare(expected, actual))
-      {
-        throw new NotAlikeException(comparison.DifferencesString);
-      }
+      comparison.Compare(expected, actual).Should().BeTrue(comparison.DifferencesString);
     }
 
     public static void AreNotAlike<T>(T expected, T actual)
     {
       var comparison = ObjectLikenessComparison();
-      if (comparison.Compare(expected, actual))
-      {
-        throw new AlikeException(comparison.DifferencesString);
-      }
+      comparison.Compare(expected, actual).Should().BeFalse(comparison.DifferencesString);
     }
 
     public static void TypeAdheresToConstraints<T>(List<IConstraint<T>> constraints)

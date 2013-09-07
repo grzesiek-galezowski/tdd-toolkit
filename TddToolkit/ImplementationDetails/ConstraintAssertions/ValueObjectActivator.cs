@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
@@ -30,14 +30,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
     public T CreateInstanceAsValueObjectWithFreshParameters()
     {
       var instance = default(T);
-      Assert.DoesNotThrow(() => { instance = this.CreateInstanceWithNewConstructorArguments(); }, typeof(T) + " cannot even be created as a value object");
+      this.Invoking(_ => { instance = _.CreateInstanceWithNewConstructorArguments(); })
+        .ShouldNotThrow(typeof(T) + " cannot even be created as a value object");
       return instance;
     }
 
     public T CreateInstanceAsValueObjectWithPreviousParameters()
     {
       var instance = default(T);
-      Assert.DoesNotThrow(() => { instance = this.CreateInstanceWithCurrentConstructorArguments(); }, typeof(T) + " cannot even be created as a value object");
+      this.Invoking(_ => { instance = _.CreateInstanceWithCurrentConstructorArguments(); })
+        .ShouldNotThrow(typeof(T) + " cannot even be created as a value object");
       return instance;
     }
 

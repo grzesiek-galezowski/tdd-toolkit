@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
 {
@@ -22,7 +22,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
 
     public void AssertNone()
     {
-      Assert.False(_violations.Any(), MessageContainingAll(_violations));
+      _violations.Any().Should().BeFalse(MessageContainingAll(_violations));
     }
 
     private string MessageContainingAll(IEnumerable<string> violations)
