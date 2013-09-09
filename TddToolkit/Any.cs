@@ -14,6 +14,7 @@ namespace TddEbook.TddToolkit
     {
       Generator.Register(() => Types.Next());
       Generator.Register(() => MethodList.Next());
+      Generator.Register(() => new Exception(Any.String(), new Exception(Any.String())));
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
@@ -99,6 +100,11 @@ namespace TddEbook.TddToolkit
     public static string UrlString()
     {
       return Uri().ToString();
+    }
+
+    public static Exception Exception()
+    {
+      return Any.ValueOf<Exception>();
     }
 
     public static int Port()

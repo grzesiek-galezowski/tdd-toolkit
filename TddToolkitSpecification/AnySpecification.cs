@@ -190,6 +190,17 @@ namespace TddToolkitSpecification
 
     }
 
+    [Test]
+    public void ShouldCreateDifferentExceptionEachTime()
+    {
+      //GIVEN
+      var exception1 = Any.InstanceOf<Exception>();
+      var exception2 = Any.InstanceOf<Exception>();
+      
+      //THEN
+      XAssert.AreNotAlike(exception2, exception1);
+    }
+
     public interface ISimple
     {
       int GetInt();
