@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 
@@ -186,7 +187,7 @@ namespace TddToolkitSpecification
       var y = Any.InstanceOf<MethodInfo>();
       
       //THEN
-      XAssert.AreNotAlike(x,y);
+      XAssert.NotAlike(x,y);
 
     }
 
@@ -198,7 +199,103 @@ namespace TddToolkitSpecification
       var exception2 = Any.InstanceOf<Exception>();
       
       //THEN
-      XAssert.AreNotAlike(exception2, exception1);
+      XAssert.NotAlike(exception2, exception1);
+    }
+
+    [Test]
+    public void ShouldGenerateDifferentValueEachTimeAndNotAmongPassedOnesWhenAskedToCreateAnyValueBesidesGiven()
+    {
+      //WHEN
+      var int1 = Any.ValueOtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int2 = Any.ValueOtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+      //THEN
+      XAssert.NotEqual(int1, int2);
+      Assert.That(int1, Is.Not.InRange(1,10));
+      Assert.That(int2, Is.Not.InRange(1, 10));
+    }
+
+    [Test]
+    public void ShouldGenerateDifferentValueEachTimeAndFromAmongPassedOnesWhenAskedToCreateAnyValueFromGiven()
+    {
+      //WHEN
+      var int1 = Any.From(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int2 = Any.From(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+      //THEN
+      XAssert.NotEqual(int1, int2);
+      Assert.That(int1, Is.InRange(1, 10));
+      Assert.That(int2, Is.InRange(1, 10));
+    }
+
+    [Test]
+    public void ShouldGenerateStringAccordingtoRegex()
+    {
+      //GIVEN
+      var exampleRegex = @"content/([A-Za-z0-9\-]+)\.aspx$";
+      
+      //WHEN
+      var result = Any.StringMatching(exampleRegex);
+      
+      //THEN
+      Assert.True(Regex.IsMatch(result, exampleRegex));
+    }
+
+    [Test]
+    public void ShouldGenerateStringOfGivenLength()
+    {
+      //GIVEN
+      var stringLength = Any.Integer();
+
+      //WHEN
+      var str = Any.StringOfLength(stringLength);
+
+      //THEN
+      XAssert.Equal(stringLength, str.Length);
+    }
+
+    [Test]
+    public void ShouldCreateSortedSetWithThreeDistinctValues()
+    {
+      //WHEN
+      var set = Any.SortedSet<int>();
+
+      //THEN
+      CollectionAssert.IsOrdered(set);
+      CollectionAssert.AllItemsAreUnique(set);
+      XAssert.Equal(3, set.Count);
+    }
+
+    [Test]
+    public void ShouldBeAbleToGenerateDistinctLettersEachTime()
+    {
+      //WHEN
+      var char1 = Any.AlphaChar();
+      var char2 = Any.AlphaChar();
+      var char3 = Any.AlphaChar();
+
+      //THEN
+      XAssert.NotEqual(char1, char2);
+      XAssert.NotEqual(char2, char3);
+      Assert.True(Char.IsLetter(char1));
+      Assert.True(Char.IsLetter(char2));
+      Assert.True(Char.IsLetter(char3));
+    }
+
+    [Test]
+    public void ShouldBeAbleToGenerateDistinctDigitsEachTime()
+    {
+      //WHEN
+      var char1 = Any.DigitChar();
+      var char2 = Any.DigitChar();
+      var char3 = Any.DigitChar();
+
+      //THEN
+      XAssert.NotEqual(char1, char2);
+      XAssert.NotEqual(char2, char3);
+      Assert.True(Char.IsDigit(char1));
+      Assert.True(Char.IsDigit(char2));
+      Assert.True(Char.IsDigit(char3));
     }
 
     public interface ISimple

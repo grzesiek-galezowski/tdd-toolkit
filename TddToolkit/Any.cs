@@ -30,8 +30,7 @@ namespace TddEbook.TddToolkit
 
     public static T From<T>(params T[] possibleValues)
     {
-      var random = new Random();
-      var index = random.Next(possibleValues.Length - 1);
+      var index = RandomGenerator.Next(possibleValues.Length - 1);
       return possibleValues[index];
     }
 

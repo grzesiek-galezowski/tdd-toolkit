@@ -8,13 +8,13 @@ namespace TddEbook.TddToolkit.Helpers.FluentAssertions
   {
     public static AndConstraint<ObjectAssertions> BeLike(this ObjectAssertions o, object expected)
     {
-      XAssert.AreAlike(expected, o.Subject);
+      XAssert.Alike(expected, o.Subject);
       return new AndConstraint<ObjectAssertions>(o);
     }
 
     public static AndConstraint<ObjectAssertions> NotBeLike(this ObjectAssertions o, object expected)
     {
-      XAssert.AreNotAlike(expected, o.Subject);
+      XAssert.NotAlike(expected, o.Subject);
       return new AndConstraint<ObjectAssertions>(o);
     }
 

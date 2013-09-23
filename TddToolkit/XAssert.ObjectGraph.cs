@@ -6,13 +6,13 @@ namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
-    public static void AreAlike<T>(T expected, T actual)
+    public static void Alike<T>(T expected, T actual)
     {
       var comparison = ObjectLikenessComparison();
       comparison.Compare(expected, actual).Should().BeTrue(comparison.DifferencesString);
     }
 
-    public static void AreNotAlike<T>(T expected, T actual)
+    public static void NotAlike<T>(T expected, T actual)
     {
       var comparison = ObjectLikenessComparison();
       comparison.Compare(expected, actual).Should().BeFalse(comparison.DifferencesString);

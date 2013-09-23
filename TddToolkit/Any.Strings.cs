@@ -82,7 +82,7 @@ namespace TddEbook.TddToolkit
       return Letters.Next();
     }
 
-    static char DigitChar()
+    public static char DigitChar()
     {
       return Digits.Next();
     }
