@@ -38,11 +38,15 @@ namespace TddEbook.TddToolkit
 
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
+      var preprocessedStrings = from str in excludedSubstrings
+        where !string.IsNullOrEmpty(str)
+        select str;
+
       string result;
       do
       {
         result = String();
-      } while (excludedSubstrings.Any(result.Contains));
+      } while (preprocessedStrings.Any(result.Contains));
       return result;
     }
 

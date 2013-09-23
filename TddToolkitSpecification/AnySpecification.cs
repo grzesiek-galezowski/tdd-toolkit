@@ -298,6 +298,12 @@ namespace TddToolkitSpecification
       Assert.True(Char.IsDigit(char3));
     }
 
+    [Test, Timeout(1000)]
+    public void ShouldHandleEmptyExcludedStringsWhenGeneratingAnyStringNotContainingGiven()
+    {
+      Assert.DoesNotThrow(() => Any.StringNotContaining(string.Empty));
+    }
+
     public interface ISimple
     {
       int GetInt();
