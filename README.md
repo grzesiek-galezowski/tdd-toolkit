@@ -42,3 +42,18 @@ Enums
     Any.Of<T>() where T : struct, IConvertible
     Any.Besides<T>(params T[] excludedValues) where T : struct, IConvertible
     
+Collections
+-
+
+    Any.SortedSet<T>()
+    Any.EnumerableOfDerivativesFrom<T>() where T : class
+    Any.ListOfDerivativesFrom<T>() where T : class
+    Any.IEnumerable<T> Enumerable<T>()
+    Any.EnumerableWithout<T>(params T[] excluded) where T : class
+    Any.Array<T>()
+    Any.ArrayWithout<T>(params T[] excluded) where T : class
+    Any.List<T> List<T>()
+    Any.Set<T>()
+    Any.Dictionary<TKey, TValue>()
+    Any.EnumerableSortedDescending<T>()
+
