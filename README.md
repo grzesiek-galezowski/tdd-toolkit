@@ -24,9 +24,21 @@ A distinct double value:
 A distinct long integer value:  
     
     Any.LongInteger()
+    
+A distinct short integer value:      
+    
     Any.ShortInteger()
+    
+A distinct integer value different than any of the passed values:  
+    
     Any.IntegerOtherThan(params int[] excluded)
+    
+A distinct byte value:
+    
     Any.Byte()
+    
+A distinct byte value different than any of the passed values:      
+    
     Any.ByteOtherThan(params byte[] others)
 
 Strings & chars
