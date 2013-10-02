@@ -57,3 +57,23 @@ Collections
     Any.Dictionary<TKey, TValue>()
     Any.EnumerableSortedDescending<T>()
 
+Others
+-
+
+    Any.ValueOtherThan<T>(params T[] omittedValues)
+    Any.From<T>(params T[] possibleValues)
+    Any.DateTime()
+    Any.TimeSpan()
+    Any.ValueOf<T>()
+    Any.LegalXmlTagName()
+    Any.Boolean()
+    Any.Object()
+    Any.Exploding<T>() where T : class
+    Any.Method()
+    Any.Type()
+    Any.InstanceOf<T>() where T : class
+    Any.Uri()
+    Any.UrlString()
+    Any.Exception()
+    Any.Port()
+    Any.Ip()
