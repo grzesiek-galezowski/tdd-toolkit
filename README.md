@@ -13,8 +13,16 @@ Implemented generation methods:
 Numbers
 -
 
+A distinct integer value:  
+
     Any.Integer()
+    
+A distinct double value:  
+    
     Any.Double()
+    
+A distinct long integer value:  
+    
     Any.LongInteger()
     Any.ShortInteger()
     Any.IntegerOtherThan(params int[] excluded)
