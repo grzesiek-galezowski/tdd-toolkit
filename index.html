@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tdd-toolkit by grzesiek-galezowski</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Tdd-toolkit</h1>
+        <p>Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook</p>
+        <p class="view"><a href="https://github.com/grzesiek-galezowski/tdd-toolkit">View the Project on GitHub <small>grzesiek-galezowski/tdd-toolkit</small></a></p>
+        <ul>
+          <li><a href="https://github.com/grzesiek-galezowski/tdd-toolkit/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/grzesiek-galezowski/tdd-toolkit/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/grzesiek-galezowski/tdd-toolkit">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="tdd-toolkit" class="anchor" href="#tdd-toolkit"><span class="octicon octicon-link"></span></a>tdd-toolkit</h1>
+
+<p>Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook.</p>
+
+<p>The idea of "Any" class is taken from guys at <a href="http://www.sustainabletdd.com">www.sustainabletdd.com</a></p>
+
+<p>Note: this project does not aim to implement a general-purpose tool with extensibility points, rather, it's an example to start working from when creating your own customized wrapper. If you need hardcore extensibility, go straight to <a href="https://github.com/AutoFixture">https://github.com/AutoFixture</a> and grab the general purpose tool that has possibilities far beyond generating anonymous data.</p>
+
+<h2>
+<a name="implemented-generation-methods" class="anchor" href="#implemented-generation-methods"><span class="octicon octicon-link"></span></a>Implemented generation methods:</h2>
+
+<h2>
+<a name="numbers" class="anchor" href="#numbers"><span class="octicon octicon-link"></span></a>Numbers</h2>
+
+<p>A distinct integer value:  </p>
+
+<pre><code>Any.Integer()
+</code></pre>
+
+<p>A distinct double value:  </p>
+
+<pre><code>Any.Double()
+</code></pre>
+
+<p>A distinct long integer value:  </p>
+
+<pre><code>Any.LongInteger()
+</code></pre>
+
+<p>A distinct short integer value:      </p>
+
+<pre><code>Any.ShortInteger()
+</code></pre>
+
+<p>A distinct integer value different than any of the passed values:  </p>
+
+<pre><code>Any.IntegerOtherThan(params int[] excluded)
+</code></pre>
+
+<p>A distinct byte value:</p>
+
+<pre><code>Any.Byte()
+</code></pre>
+
+<p>A distinct byte value different than any of the passed values:      </p>
+
+<pre><code>Any.ByteOtherThan(params byte[] others)
+</code></pre>
+
+<h2>
+<a name="strings--chars" class="anchor" href="#strings--chars"><span class="octicon octicon-link"></span></a>Strings &amp; chars</h2>
+
+<pre><code>Any.String()
+Any.StringMatching(string pattern)
+Any.StringOfLength(int charactersCount)
+Any.StringOtherThan(params string[] alreadyUsedStrings)
+Any.StringNotContaining(params string[] excludedSubstrings)
+Any.StringContaining(string str)
+Any.AlphaString()
+Any.AlphaString(int maxLength)
+Any.Identifier()
+Any.AlphaChar()
+Any.DigitChar()
+</code></pre>
+
+<h2>
+<a name="enums" class="anchor" href="#enums"><span class="octicon octicon-link"></span></a>Enums</h2>
+
+<pre><code>Any.Of&lt;T&gt;() where T : struct, IConvertible
+Any.Besides&lt;T&gt;(params T[] excludedValues) where T : struct, IConvertible
+</code></pre>
+
+<h2>
+<a name="collections" class="anchor" href="#collections"><span class="octicon octicon-link"></span></a>Collections</h2>
+
+<pre><code>Any.SortedSet&lt;T&gt;()
+Any.EnumerableOfDerivativesFrom&lt;T&gt;() where T : class
+Any.ListOfDerivativesFrom&lt;T&gt;() where T : class
+Any.IEnumerable&lt;T&gt; Enumerable&lt;T&gt;()
+Any.EnumerableWithout&lt;T&gt;(params T[] excluded) where T : class
+Any.Array&lt;T&gt;()
+Any.ArrayWithout&lt;T&gt;(params T[] excluded) where T : class
+Any.List&lt;T&gt; List&lt;T&gt;()
+Any.Set&lt;T&gt;()
+Any.Dictionary&lt;TKey, TValue&gt;()
+Any.EnumerableSortedDescending&lt;T&gt;()
+</code></pre>
+
+<h2>
+<a name="others" class="anchor" href="#others"><span class="octicon octicon-link"></span></a>Others</h2>
+
+<pre><code>Any.ValueOtherThan&lt;T&gt;(params T[] omittedValues)
+Any.From&lt;T&gt;(params T[] possibleValues)
+Any.DateTime()
+Any.TimeSpan()
+Any.ValueOf&lt;T&gt;()
+Any.LegalXmlTagName()
+Any.Boolean()
+Any.Object()
+Any.Exploding&lt;T&gt;() where T : class
+Any.Method()
+Any.Type()
+Any.InstanceOf&lt;T&gt;() where T : class
+Any.Uri()
+Any.UrlString()
+Any.Exception()
+Any.Port()
+Any.Ip()
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/grzesiek-galezowski">grzesiek-galezowski</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
