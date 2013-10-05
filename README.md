@@ -44,16 +44,48 @@ A distinct byte value different than any of the passed values:
 Strings & chars
 -
 
+A distinct string:
+
     Any.String()
+    
+A string matching a regex (only a small subset of features is supported - you'll have ti try and see if it fits you)
+    
     Any.StringMatching(string pattern)
+    
+A distinct string of a given length:
+    
     Any.StringOfLength(int charactersCount)
+    
+A distinct string other that all passed strings (may be a subset or superset though):
+    
     Any.StringOtherThan(params string[] alreadyUsedStrings)
+    
+A distinct string that does not contain any of given strings:
+    
     Any.StringNotContaining(params string[] excludedSubstrings)
+    
+A distinct string that contains a given string:
+    
     Any.StringContaining(string str)
+    
+A distinct alpha-numeric string:
+    
     Any.AlphaString()
+    
+A distinct alpha-string (latin characters only, no regional characters):
+    
     Any.AlphaString(int maxLength)
+    
+A distinct string matching Identifier requirements (first character is letter, the rest is alphanumeric):
+    
     Any.Identifier()
+    
+A single distinct letter character:
+    
     Any.AlphaChar()
+    
+A single distinct digit character:
+    
     Any.DigitChar()
 
 Enums
