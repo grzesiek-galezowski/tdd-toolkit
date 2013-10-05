@@ -91,7 +91,12 @@ A single distinct digit character:
 Enums
 -
 
+A distinct value from all in an enum (of course, for single-value enums will always return the same value :-)):
+
     Any.Of<T>() where T : struct, IConvertible
+    
+A distinct value from all in enum besides the passed one (if all-but-one values are specified, always returns the same value. If all values are specified, throws exception):
+    
     Any.Besides<T>(params T[] excludedValues) where T : struct, IConvertible
     
 Collections
