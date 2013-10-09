@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -218,6 +219,7 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldGenerateDifferentValueEachTimeAndFromAmongPassedOnesWhenAskedToCreateAnyValueFromGiven()
     {
+      //bug current implementation does not adhere to this specification!
       //WHEN
       var int1 = Any.From(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
       var int2 = Any.From(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);

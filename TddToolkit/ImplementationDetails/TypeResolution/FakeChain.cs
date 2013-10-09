@@ -1,11 +1,17 @@
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal class FakeChain<T> where T : class
+  interface IFakeChain<out T> where T : class
   {
-    public static FakeChain<T> NewInstance(CachedGeneration cachedGeneration, NestingLimit nestingLimit)
+    T Resolve();
+  }
+
+  internal class FakeChain<T> : IFakeChain<T> where T : class
+  {
+    public static IFakeChain<T> NewInstance(CachedGeneration cachedGeneration, NestingLimit nestingLimit)
     {
-      return new FakeChain<T>(
+      return new LimitedFakeChain<T>(
         nestingLimit,
+        new FakeChain<T>(
           new ChainElement<T>(
             new FakeSpecialCase<T>(),
             new ChainElement<T>(
@@ -18,36 +24,19 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
                     new FakeConcreteClassWithNonConcreteConstructor<T>(),
                     new ChainElement<T>(
                       new FakeConcreteClass<T>(),
-                      new NullChainElement<T>())))))));
+                      new NullChainElement<T>()))))))));
     }
 
-    private readonly NestingLimit _nestingLimit;
     private readonly IChainElement<T> _chainHead;
 
-    public FakeChain(NestingLimit nestingLimit, IChainElement<T> chainHead)
+    public FakeChain(IChainElement<T> chainHead)
     {
-      _nestingLimit = nestingLimit;
       _chainHead = chainHead;
     }
 
     public T Resolve()
     {
-      try
-      {
-        _nestingLimit.AddNesting();
-        if (!_nestingLimit.IsReached())
-        {
-          return _chainHead.Resolve();
-        }
-        else
-        {
-          return default(T);
-        }
-      }
-      finally
-      {
-        _nestingLimit.RemoveNesting();
-      }
+      return _chainHead.Resolve();
     }
   }
 }

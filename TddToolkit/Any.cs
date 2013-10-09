@@ -15,6 +15,7 @@ namespace TddEbook.TddToolkit
       Generator.Register(() => Types.Next());
       Generator.Register(() => MethodList.Next());
       Generator.Register(() => new Exception(Any.String(), new Exception(Any.String())));
+      Generator.Customize(new MultipleCustomization());
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
