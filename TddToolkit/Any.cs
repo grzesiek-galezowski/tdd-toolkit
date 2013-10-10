@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Reflection;
+using Castle.Core.Internal;
 using Ploeh.AutoFixture;
 using System.Linq;
 using Castle.DynamicProxy;
@@ -10,6 +12,8 @@ namespace TddEbook.TddToolkit
 {
   public static partial class Any
   {
+    private static ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
+
     static Any()
     {
       Generator.Register(() => Types.Next());
@@ -24,15 +28,22 @@ namespace TddEbook.TddToolkit
       do
       {
         currentValue = ValueOf<T>();
-      } while(omittedValues.Contains(currentValue));
-      
+      } while (omittedValues.Contains(currentValue));
+
       return currentValue;
     }
 
     public static T From<T>(params T[] possibleValues)
     {
-      var index = RandomGenerator.Next(possibleValues.Length - 1);
-      return possibleValues[index];
+      var latestArraysWithPossibleValues = _arrayElementPicking.For<T>();
+
+      if (!latestArraysWithPossibleValues.Contain(possibleValues))
+      {
+        latestArraysWithPossibleValues.Add(possibleValues);
+      }
+
+      var result = latestArraysWithPossibleValues.PickNextElementFrom(possibleValues);
+      return result;
     }
 
     public static DateTime DateTime()
@@ -67,9 +78,9 @@ namespace TddEbook.TddToolkit
 
     public static T Exploding<T>() where T : class
     {
-      if (typeof (T).IsInterface)
+      if (typeof(T).IsInterface)
       {
-        return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());  
+        return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
       }
       else
       {
@@ -114,9 +125,9 @@ namespace TddEbook.TddToolkit
 
     public static string Ip()
     {
-      return RandomGenerator.Next(256) + "." 
-            + RandomGenerator.Next(256) + "." 
-            + RandomGenerator.Next(256) + "." 
+      return RandomGenerator.Next(256) + "."
+            + RandomGenerator.Next(256) + "."
+            + RandomGenerator.Next(256) + "."
             + RandomGenerator.Next(256);
     }
 
@@ -144,6 +155,6 @@ namespace TddEbook.TddToolkit
   public class Type11 { }
   public class Type12 { }
   public class Type13 { }
-  
+
 }
 

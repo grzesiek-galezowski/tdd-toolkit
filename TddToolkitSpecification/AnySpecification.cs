@@ -217,17 +217,23 @@ namespace TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldGenerateDifferentValueEachTimeAndFromAmongPassedOnesWhenAskedToCreateAnyValueFromGiven()
+    public void ShouldGeneratePickNextValueEachTimeFromPassedOnesWhenAskedToCreateAnyValueFromGiven()
     {
-      //bug current implementation does not adhere to this specification!
       //WHEN
-      var int1 = Any.From(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      var int2 = Any.From(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int1 = Any.From(Enumerable.Range(1, 3).ToArray());
+      var int2 = Any.From(Enumerable.Range(1, 3).ToArray()); //should pick next element
+      var int3 = Any.From(Enumerable.Range(1, 3).ToArray()); //should pick next element
+      var int4 = Any.From(Enumerable.Range(1, 3).ToArray()); //should pick next element
+      var int5 = Any.From(Enumerable.Range(1, 2).ToArray()); //should start from beginning
+      var int6 = Any.From(Enumerable.Range(1, 4).ToArray()); //should start from beginning
 
       //THEN
-      XAssert.NotEqual(int1, int2);
-      Assert.That(int1, Is.InRange(1, 10));
-      Assert.That(int2, Is.InRange(1, 10));
+      XAssert.Equal(1, int1);
+      XAssert.Equal(2, int2);
+      XAssert.Equal(3, int3);
+      XAssert.Equal(1, int4);
+      XAssert.Equal(1, int5);
+      XAssert.Equal(1, int6);
     }
 
     [Test]
