@@ -88,7 +88,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
       foreach (var constructorParam in constructorParams)
       {
-        constructorValues.Add(AnyReturnValue.Of(constructorParam.ParameterType).Generate());
+        constructorValues.Add(Any.Instance(constructorParam.ParameterType));
       }
       return constructorValues;
     }

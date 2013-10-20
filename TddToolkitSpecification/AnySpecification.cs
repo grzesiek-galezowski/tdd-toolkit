@@ -25,9 +25,9 @@ namespace TddToolkitSpecification
     public void ShouldGenerateDifferentTypeEachTime()
     {
       //GIVEN
-      var type1 = Any.InstanceOf<Type>();
-      var type2 = Any.InstanceOf<Type>();
-      var type3 = Any.InstanceOf<Type>();
+      var type1 = Any.Instance<Type>();
+      var type2 = Any.Instance<Type>();
+      var type3 = Any.Instance<Type>();
 
       //THEN
       XAssert.NotNull(type1);
@@ -42,7 +42,7 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToProxyConcreteReturnTypesOfMethods()
     {
-      var obj = Any.InstanceOf<ISimple>();
+      var obj = Any.Instance<ISimple>();
 
       XAssert.NotEqual(default(int), obj.GetInt());
       XAssert.NotEqual(string.Empty, obj.GetString());
@@ -55,7 +55,7 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToProxyMethodsThatReturnInterfaces()
     {
       //GIVEN
-      var obj = Any.InstanceOf<ISimple>();
+      var obj = Any.Instance<ISimple>();
       
       //WHEN
       obj = obj.GetInterface();
@@ -73,7 +73,7 @@ namespace TddToolkitSpecification
     public void ShouldAlwaysReturnTheSameValueFromProxiedMethodOnTheSameObject()
     {
       //GIVEN
-      var obj = Any.InstanceOf<ISimple>();
+      var obj = Any.Instance<ISimple>();
 
       //WHEN
       var valueFirstTime = obj.GetString();
@@ -87,8 +87,8 @@ namespace TddToolkitSpecification
     public void ShouldAlwaysReturnTheDifferentValueFromProxiedTheSameMethodOnDifferentObject()
     {
       //GIVEN
-      var obj = Any.InstanceOf<ISimple>();
-      var obj2 = Any.InstanceOf<ISimple>();
+      var obj = Any.Instance<ISimple>();
+      var obj2 = Any.Instance<ISimple>();
 
       //WHEN
       var valueFromFirstInstance = obj.GetString();
@@ -102,7 +102,7 @@ namespace TddToolkitSpecification
     public void ShouldGenerateFiniteEnumerables()
     {
       //GIVEN
-      var o = Any.InstanceOf<ISimple>();
+      var o = Any.Instance<ISimple>();
 
       //WHEN
       var enumerable = o.Simples;
@@ -118,8 +118,8 @@ namespace TddToolkitSpecification
     public void ShouldGenerateMembersReturningTypeOfType()
     {
       //GIVEN
-      var obj1 = Any.InstanceOf<ISimple>();
-      var obj2 = Any.InstanceOf<ISimple>();
+      var obj1 = Any.Instance<ISimple>();
+      var obj2 = Any.Instance<ISimple>();
 
       //THEN
       XAssert.NotNull(obj1.GetTypeProperty);
@@ -133,7 +133,7 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfConcreteClassesWithInterfacesAsTheirConstructorArguments()
     {
       //GIVEN
-      var createdProxy = Any.InstanceOf<ObjectWithInterfaceInConstructor>();
+      var createdProxy = Any.Instance<ObjectWithInterfaceInConstructor>();
 
       //THEN
       XAssert.NotNull(createdProxy.ConstructorArgument);
@@ -144,7 +144,7 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfAbstractClasses()
     {
       //GIVEN
-      var createdProxy = Any.InstanceOf<AbstractObjectWithInterfaceInConstructor>();
+      var createdProxy = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
 
       //THEN
       XAssert.NotNull(createdProxy.ConstructorArgument);
@@ -157,7 +157,7 @@ namespace TddToolkitSpecification
     public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
     {
       //GIVEN
-      var obj = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
+      var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
 
       //THEN
       XAssert.NotEqual(default(string), obj.GetSomething());
@@ -168,7 +168,7 @@ namespace TddToolkitSpecification
     public void ShouldOverrideVirtualMethodsThatThrowExceptionsOnAbstractClassProxy()
     {
       //GIVEN
-      var obj = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
+      var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
 
       //THEN
       XAssert.NotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
@@ -184,8 +184,8 @@ namespace TddToolkitSpecification
     public void ShouldNotCreateTheSameMethodInfoTwiceInARow()
     {
       //GIVEN
-      var x = Any.InstanceOf<MethodInfo>();
-      var y = Any.InstanceOf<MethodInfo>();
+      var x = Any.Instance<MethodInfo>();
+      var y = Any.Instance<MethodInfo>();
       
       //THEN
       XAssert.NotAlike(x,y);
@@ -196,8 +196,8 @@ namespace TddToolkitSpecification
     public void ShouldCreateDifferentExceptionEachTime()
     {
       //GIVEN
-      var exception1 = Any.InstanceOf<Exception>();
-      var exception2 = Any.InstanceOf<Exception>();
+      var exception1 = Any.Instance<Exception>();
+      var exception2 = Any.Instance<Exception>();
       
       //THEN
       XAssert.NotAlike(exception2, exception1);
@@ -310,6 +310,16 @@ namespace TddToolkitSpecification
     public void ShouldHandleEmptyExcludedStringsWhenGeneratingAnyStringNotContainingGiven()
     {
       Assert.DoesNotThrow(() => Any.StringNotContaining(string.Empty));
+    }
+
+    [Test]
+    public void ShouldBeAbleToGenerateBothPrimitiveTypeInstanceAndInterfaceUsingNewInstanceMethod()
+    {
+      var primitive = Any.Instance<int>();
+      var interfaceImplementation = Any.Instance<ISimple>();
+
+      Assert.NotNull(interfaceImplementation);
+      XAssert.NotEqual(default(int), primitive);
     }
 
     public interface ISimple

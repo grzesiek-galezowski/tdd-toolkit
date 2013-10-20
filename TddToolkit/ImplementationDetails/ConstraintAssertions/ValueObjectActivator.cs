@@ -51,7 +51,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
     public T CreateInstanceAsValueObjectWithModifiedParameter(int i)
     {
       var modifiedArguments = _constructorArguments.ToList();
-      modifiedArguments[i] = AnyReturnValue.Of(modifiedArguments[i].GetType()).Generate();
+      modifiedArguments[i] = Any.Instance(modifiedArguments[i].GetType());
       return CreateInstance(modifiedArguments);
 
     }

@@ -75,7 +75,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       {
         try
         {
-          field.SetValue(result, AnyReturnValue.Of(field.FieldType).Generate());
+          field.SetValue(result, Any.Instance(field.FieldType));
         }
         catch (Exception e)
         {
@@ -96,7 +96,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
           if (!property.GetGetMethod().IsVirtual && !property.GetGetMethod().IsAbstract)
           {
-            var value = AnyReturnValue.Of(propertyType).Generate();
+            var value = Any.Instance(propertyType);
             property.SetValue(result, value, null);
           }
         }

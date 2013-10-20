@@ -103,6 +103,11 @@ namespace TddEbook.TddToolkit
       return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve();
     }
 
+    public static T Instance<T>()
+    {
+      return (T) AnyReturnValue.Of(typeof(T)).Generate();
+    }
+
     public static Uri Uri()
     {
       return ValueOf<Uri>();
@@ -135,6 +140,12 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
+
+    public static object Instance(Type type)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+    }
+
 
     public static object ValueOf(Type type)
     {
