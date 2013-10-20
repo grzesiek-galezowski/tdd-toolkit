@@ -117,20 +117,50 @@ Collections
 Others
 -
 
-    Any.ValueOtherThan<T>(params T[] omittedValues)
+A main generic generation method, capable of generating both primitive and reference types:
+
+    Any.Instance<T>()
+
+Picks any element from collection:
+    
     Any.From<T>(params T[] possibleValues)
+    
+DateTime:
+
     Any.DateTime()
+    
+TimeSpan:
+
     Any.TimeSpan()
+    
+Generic generation method for values only (subset of Any.Instanec<T>()):  
+
     Any.ValueOf<T>()
-    Any.LegalXmlTagName()
+
+Like above, but makes sure none of the passed values will not get returned:
+
+    Any.ValueOtherThan<T>(params T[] omittedValues)
+
+For booleans:    
+    
     Any.Boolean()
+    
+For objects (useful e.g. for synchronization roots):    
+    
     Any.Object()
-    Any.Exploding<T>() where T : class
+
+For exceptions:
+    Any.Exception()
+
+For Type and MethodInfo:
+
     Any.Method()
     Any.Type()
+
+    Any.LegalXmlTagName()
+    Any.Exploding<T>() where T : class
     Any.InstanceOf<T>() where T : class
     Any.Uri()
     Any.UrlString()
-    Any.Exception()
     Any.Port()
     Any.Ip()
