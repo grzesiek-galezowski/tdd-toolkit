@@ -27,7 +27,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       if (!_cache.AlreadyContainsValueFor(cacheKey))
       {
         var returnType = invocation.Method.ReturnType;
-        var returnValue = AnyReturnValue.Of(returnType).Generate();
+        var returnValue = Any.Instance(returnType);
         _cache.Add(cacheKey, returnValue);
       }
 

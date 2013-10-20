@@ -36,6 +36,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnyAttributeSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
