@@ -93,6 +93,5 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
-
   }
 }

@@ -36,9 +36,21 @@ namespace TddEbook.TddToolkit
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
       {
-        return typeof(Any).GetMethods().Where(m => m.Name == name).First(m => m.GetParameters().Length == 0).
+        return typeof(Any).GetMethods().Where(m => m.Name == name)
+          .First(m => m.GetParameters().Length == 0 && m.IsGenericMethodDefinition).
           MakeGenericMethod(new[] { type }).Invoke(null, null);
       }
+
+      private static object ResultOfGenericVersionOfMethod(Type type, string name, object[] args)
+      {
+        var methods = typeof(Any).GetMethods(
+          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+          .Where(m => m.IsGenericMethodDefinition);
+        var method = methods.First(m => m.Name == name).MakeGenericMethod(new[] { type });
+        
+        return method.Invoke(null, args);
+      }
+
 
       private static void AssertDynamicEnumConstraintFor<T>()
       {

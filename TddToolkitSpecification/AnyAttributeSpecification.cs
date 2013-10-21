@@ -20,7 +20,8 @@ namespace TddToolkitSpecification
       [Any] IEnumerable<int> anEnumerable, 
       [Any] List<string> concreteList,
       [Any] IEnumerable<AnySpecification.ISimple> interfaceImplementationList,
-      [Any] ProperValueType value
+      [Any] ProperValueType value,
+      [AnyOtherThan(3,4)] int nonThree
     )
     {
       XAssert.NotEqual(default(int), anInt);
@@ -37,6 +38,8 @@ namespace TddToolkitSpecification
       Assert.NotNull(interfaceImplementationList.ToArray()[2]);
 
       Assert.NotNull(value);
+
+      XAssert.NotEqual(3, nonThree);
     }
 
   }

@@ -108,6 +108,23 @@ namespace TddEbook.TddToolkit
       return (T) AnyReturnValue.Of(typeof(T)).Generate();
     }
 
+    private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
+    {
+      return InstanceOtherThan<T>(omittedValues.Cast<T>().ToArray());
+    }
+
+    public static T InstanceOtherThan<T>(params T[] omittedValues)
+    {
+      T currentValue;
+      do
+      {
+        currentValue = Instance<T>();
+      } while (omittedValues.Contains(currentValue));
+
+      return currentValue;
+    }
+
+
     public static Uri Uri()
     {
       return ValueOf<Uri>();
@@ -151,6 +168,12 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
+
+    public static object InstanceOtherThanObjects(Type type, params object[] _omittedValues)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, _omittedValues);
+    }
+
   }
 
   public class Type1 { }
