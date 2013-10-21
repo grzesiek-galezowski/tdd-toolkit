@@ -170,7 +170,7 @@ Generic generation method for objects only (subset of Any.Instance<T>()):
     
     Any.InstanceOf<T>() where T : class
     
-Uri object:
+URI object:
     
     Any.Uri()
     
