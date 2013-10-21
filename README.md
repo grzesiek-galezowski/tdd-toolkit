@@ -102,16 +102,48 @@ A distinct value from all in enum besides the passed one (if all-but-one values 
 Collections
 -
 
+Sorted Set:
+
     Any.SortedSet<T>()
+    
+Enumerable of objects deriving from T (can generate collections of interface implementations):
+    
     Any.EnumerableOfDerivativesFrom<T>() where T : class
+    
+List of objects deriving from T (can generate collections of interface implementations):    
+    
     Any.ListOfDerivativesFrom<T>() where T : class
+    
+Enumerable of objects of type T (does not work with interfaces):
+    
     Any.IEnumerable<T> Enumerable<T>()
+    
+Enumerable of objects of type T different than passed excluded ones (does not work with interfaces):
+
     Any.EnumerableWithout<T>(params T[] excluded) where T : class
+    
+Array of objects of type T (does not work with interfaces):
+
     Any.Array<T>()
+    
+Array of objects of type T different than passed excluded ones (does not work with interfaces):
+    
     Any.ArrayWithout<T>(params T[] excluded) where T : class
+    
+List of objects of type T (does not work with interfaces):
+    
     Any.List<T> List<T>()
+    
+Set of objects of type T (does not work with interfaces):
+    
     Any.Set<T>()
+    
+Set of objects of type TKey, TValue (does not work with interfaces):    
+    
     Any.Dictionary<TKey, TValue>()
+    
+Enumerable of objects of type T sorted descending (does not work with interfaces):
+    
     Any.EnumerableSortedDescending<T>()
 
 Others
