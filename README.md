@@ -133,7 +133,7 @@ TimeSpan:
 
     Any.TimeSpan()
     
-Generic generation method for values only (subset of Any.Instanec<T>()):  
+Generic generation method for values only (subset of Any.Instance<T>()):  
 
     Any.ValueOf<T>()
 
@@ -150,6 +150,7 @@ For objects (useful e.g. for synchronization roots):
     Any.Object()
 
 For exceptions:
+
     Any.Exception()
 
 For Type and MethodInfo:
@@ -157,10 +158,30 @@ For Type and MethodInfo:
     Any.Method()
     Any.Type()
 
+Legal XML tag name:
+
     Any.LegalXmlTagName()
+    
+Exploding type (any overridable method called on created instance throws an exception) - useful for specifying null objects:
+    
     Any.Exploding<T>() where T : class
+    
+Generic generation method for objects only (subset of Any.Instance<T>()):      
+    
     Any.InstanceOf<T>() where T : class
+    
+Uri object:
+    
     Any.Uri()
+    
+URL string:
+    
     Any.UrlString()
+    
+Port number:
+    
     Any.Port()
+    
+string containing IP address:
+
     Any.Ip()
