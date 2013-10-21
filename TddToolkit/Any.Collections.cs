@@ -12,9 +12,9 @@ namespace TddEbook.TddToolkit
     {
       return new SortedSet<T>
       {
-        ValueOf<T>(),
-        ValueOf<T>(),
-        ValueOf<T>()
+        Instance<T>(),
+        Instance<T>(),
+        Instance<T>()
       };
     }
 
@@ -27,24 +27,29 @@ namespace TddEbook.TddToolkit
     {
       return new List<T>
       {
-        InstanceOf<T>(),
-        InstanceOf<T>(),
-        InstanceOf<T>()
+        Instance<T>(),
+        Instance<T>(),
+        Instance<T>()
       };
     }
 
     public static IEnumerable<T> Enumerable<T>()
     {
-      return Generator.CreateMany<T>();
+      return new List<T>()
+        {
+          Any.Instance<T>(),  
+          Any.Instance<T>(),
+          Any.Instance<T>(),
+        };
     }
 
     public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded) where T : class
     {
       var result = new List<T>
       {
-        ValueOtherThan(excluded), 
-        ValueOtherThan(excluded), 
-        ValueOtherThan(excluded)
+        InstanceOtherThan(excluded), 
+        InstanceOtherThan(excluded), 
+        InstanceOtherThan(excluded)
       };
       return result;
     }
@@ -66,12 +71,17 @@ namespace TddEbook.TddToolkit
 
     public static ISet<T> Set<T>()
     {
-      return ValueOf<HashSet<T>>();
+      return new HashSet<T>() { Any.Instance<T>(), Any.Instance<T>(), Any.Instance<T>() };
     }
 
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
-      return ValueOf<Dictionary<TKey, TValue>>();
+      return new Dictionary<TKey, TValue>()
+        {
+          {Any.Instance<TKey>(), Any.Instance<TValue>()},  
+          {Any.Instance<TKey>(), Any.Instance<TValue>()}, 
+          {Any.Instance<TKey>(), Any.Instance<TValue>()},
+        };
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>()
