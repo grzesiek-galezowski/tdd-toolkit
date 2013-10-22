@@ -106,43 +106,35 @@ Sorted Set:
 
     Any.SortedSet<T>()
     
-Enumerable of objects deriving from T (can generate collections of interface implementations):
+Enumerable of objects of type T:
     
-    Any.EnumerableOfDerivativesFrom<T>() where T : class
+    Any.Enumerable<T>()
     
-List of objects deriving from T (can generate collections of interface implementations):    
-    
-    Any.ListOfDerivativesFrom<T>() where T : class
-    
-Enumerable of objects of type T (does not work with interfaces):
-    
-    Any.IEnumerable<T> Enumerable<T>()
-    
-Enumerable of objects of type T different than passed excluded ones (does not work with interfaces):
+Enumerable of objects of type T different than passed excluded ones:
 
     Any.EnumerableWithout<T>(params T[] excluded) where T : class
     
-Array of objects of type T (does not work with interfaces):
+Array of objects of type T:
 
     Any.Array<T>()
     
-Array of objects of type T different than passed excluded ones (does not work with interfaces):
+Array of objects of type T different than passed excluded ones:
     
     Any.ArrayWithout<T>(params T[] excluded) where T : class
     
-List of objects of type T (does not work with interfaces):
+List of objects of type T:
     
     Any.List<T> List<T>()
     
-Set of objects of type T (does not work with interfaces):
+Set of objects of type T:
     
     Any.Set<T>()
     
-Set of objects of type TKey, TValue (does not work with interfaces):    
+Set of objects of type TKey, TValue:    
     
     Any.Dictionary<TKey, TValue>()
     
-Enumerable of objects of type T sorted descending (does not work with interfaces):
+Enumerable of objects of type T sorted descending:
     
     Any.EnumerableSortedDescending<T>()
 
