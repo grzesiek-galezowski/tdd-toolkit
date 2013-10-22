@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   interface IFakeChain<out T> where T : class
   {

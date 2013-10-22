@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.MethodReturnValues
 {
   internal abstract class AnyReturnValue
   {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeEnumerableOf<T> : IResolution<T>
   {
@@ -19,14 +19,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     {
       var type = typeof(T);
       Type type1 = type.GetGenericArguments()[0];
-      if (type1.IsValueType)
-      {
-        return (T) Any.List(type1);
-      }
-      else
-      {
-        return (T)Any.ListOfDerivativesFrom(type1);
-      }
+      return (T) Any.List(type1);
     }
   }
 }

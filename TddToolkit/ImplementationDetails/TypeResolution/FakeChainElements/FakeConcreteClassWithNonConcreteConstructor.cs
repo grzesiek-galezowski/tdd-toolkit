@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
   {
@@ -8,7 +8,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     {
       return _fallbackTypeGenerator.ConstructorHasAtLeastOneNonConcreteArgumentType(typeof(T));
     }
-
 
     public T Apply()
     {

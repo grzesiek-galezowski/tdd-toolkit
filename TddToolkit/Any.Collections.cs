@@ -89,16 +89,6 @@ namespace TddEbook.TddToolkit
       return SortedSet<T>().ToList();
     }
 
-    public static object EnumerableOfDerivativesFrom(Type type)
-    {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public static object ListOfDerivativesFrom(Type type)
-    {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
-    }
-
     public static object List(Type type)
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);

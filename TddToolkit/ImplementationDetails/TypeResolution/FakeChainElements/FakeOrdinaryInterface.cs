@@ -1,6 +1,6 @@
 using Castle.DynamicProxy;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeOrdinaryInterface<T> : IResolution<T> where T : class
   {
@@ -18,7 +18,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     public T Apply()
     {
-      return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(new InterfaceInterceptor(_cachedGeneration));
+      return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(
+        new InterfaceInterceptor(_cachedGeneration));
     }
   }
 }

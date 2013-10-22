@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class NullChainElement<T> : IChainElement<T>
   {

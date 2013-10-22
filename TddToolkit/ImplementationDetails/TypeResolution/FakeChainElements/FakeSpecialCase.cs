@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeSpecialCase<T> : IResolution<T>
   {
