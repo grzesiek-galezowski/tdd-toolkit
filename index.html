@@ -1,33 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Tdd-toolkit by grzesiek-galezowski</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <title>Tdd-toolkit by grzesiek-galezowski</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Tdd-toolkit</h1>
-        <p>Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook</p>
-        <p class="view"><a href="https://github.com/grzesiek-galezowski/tdd-toolkit">View the Project on GitHub <small>grzesiek-galezowski/tdd-toolkit</small></a></p>
-        <ul>
-          <li><a href="https://github.com/grzesiek-galezowski/tdd-toolkit/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/grzesiek-galezowski/tdd-toolkit/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/grzesiek-galezowski/tdd-toolkit">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Tdd-toolkit</h1>
+          <h2>Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/grzesiek-galezowski/tdd-toolkit/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/grzesiek-galezowski/tdd-toolkit/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/grzesiek-galezowski/tdd-toolkit" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
 <a name="tdd-toolkit" class="anchor" href="#tdd-toolkit"><span class="octicon octicon-link"></span></a>tdd-toolkit</h1>
 
 <p>Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook.</p>
@@ -80,70 +84,219 @@
 <h2>
 <a name="strings--chars" class="anchor" href="#strings--chars"><span class="octicon octicon-link"></span></a>Strings &amp; chars</h2>
 
+<p>A distinct string:</p>
+
 <pre><code>Any.String()
-Any.StringMatching(string pattern)
-Any.StringOfLength(int charactersCount)
-Any.StringOtherThan(params string[] alreadyUsedStrings)
-Any.StringNotContaining(params string[] excludedSubstrings)
-Any.StringContaining(string str)
-Any.AlphaString()
-Any.AlphaString(int maxLength)
-Any.Identifier()
-Any.AlphaChar()
-Any.DigitChar()
+</code></pre>
+
+<p>A string matching a regex (only a small subset of features is supported - you'll have ti try and see if it fits you)</p>
+
+<pre><code>Any.StringMatching(string pattern)
+</code></pre>
+
+<p>A distinct string of a given length:</p>
+
+<pre><code>Any.StringOfLength(int charactersCount)
+</code></pre>
+
+<p>A distinct string other that all passed strings (may be a subset or superset though):</p>
+
+<pre><code>Any.StringOtherThan(params string[] alreadyUsedStrings)
+</code></pre>
+
+<p>A distinct string that does not contain any of given strings:</p>
+
+<pre><code>Any.StringNotContaining(params string[] excludedSubstrings)
+</code></pre>
+
+<p>A distinct string that contains a given string:</p>
+
+<pre><code>Any.StringContaining(string str)
+</code></pre>
+
+<p>A distinct alpha-numeric string:</p>
+
+<pre><code>Any.AlphaString()
+</code></pre>
+
+<p>A distinct alpha-string (latin characters only, no regional characters):</p>
+
+<pre><code>Any.AlphaString(int maxLength)
+</code></pre>
+
+<p>A distinct string matching Identifier requirements (first character is letter, the rest is alphanumeric):</p>
+
+<pre><code>Any.Identifier()
+</code></pre>
+
+<p>A single distinct letter character:</p>
+
+<pre><code>Any.AlphaChar()
+</code></pre>
+
+<p>A single distinct digit character:</p>
+
+<pre><code>Any.DigitChar()
 </code></pre>
 
 <h2>
 <a name="enums" class="anchor" href="#enums"><span class="octicon octicon-link"></span></a>Enums</h2>
 
+<p>A distinct value from all in an enum (of course, for single-value enums will always return the same value :-)):</p>
+
 <pre><code>Any.Of&lt;T&gt;() where T : struct, IConvertible
-Any.Besides&lt;T&gt;(params T[] excludedValues) where T : struct, IConvertible
+</code></pre>
+
+<p>A distinct value from all in enum besides the passed one (if all-but-one values are specified, always returns the same value. If all values are specified, throws exception):</p>
+
+<pre><code>Any.Besides&lt;T&gt;(params T[] excludedValues) where T : struct, IConvertible
 </code></pre>
 
 <h2>
 <a name="collections" class="anchor" href="#collections"><span class="octicon octicon-link"></span></a>Collections</h2>
 
+<p>Sorted Set:</p>
+
 <pre><code>Any.SortedSet&lt;T&gt;()
-Any.EnumerableOfDerivativesFrom&lt;T&gt;() where T : class
-Any.ListOfDerivativesFrom&lt;T&gt;() where T : class
-Any.IEnumerable&lt;T&gt; Enumerable&lt;T&gt;()
-Any.EnumerableWithout&lt;T&gt;(params T[] excluded) where T : class
-Any.Array&lt;T&gt;()
-Any.ArrayWithout&lt;T&gt;(params T[] excluded) where T : class
-Any.List&lt;T&gt; List&lt;T&gt;()
-Any.Set&lt;T&gt;()
-Any.Dictionary&lt;TKey, TValue&gt;()
-Any.EnumerableSortedDescending&lt;T&gt;()
+</code></pre>
+
+<p>Enumerable of objects of type T:</p>
+
+<pre><code>Any.Enumerable&lt;T&gt;()
+</code></pre>
+
+<p>Enumerable of objects of type T different than passed excluded ones:</p>
+
+<pre><code>Any.EnumerableWithout&lt;T&gt;(params T[] excluded) where T : class
+</code></pre>
+
+<p>Array of objects of type T:</p>
+
+<pre><code>Any.Array&lt;T&gt;()
+</code></pre>
+
+<p>Array of objects of type T different than passed excluded ones:</p>
+
+<pre><code>Any.ArrayWithout&lt;T&gt;(params T[] excluded) where T : class
+</code></pre>
+
+<p>List of objects of type T:</p>
+
+<pre><code>Any.List&lt;T&gt; List&lt;T&gt;()
+</code></pre>
+
+<p>Set of objects of type T:</p>
+
+<pre><code>Any.Set&lt;T&gt;()
+</code></pre>
+
+<p>Set of objects of type TKey, TValue:    </p>
+
+<pre><code>Any.Dictionary&lt;TKey, TValue&gt;()
+</code></pre>
+
+<p>Enumerable of objects of type T sorted descending:</p>
+
+<pre><code>Any.EnumerableSortedDescending&lt;T&gt;()
 </code></pre>
 
 <h2>
 <a name="others" class="anchor" href="#others"><span class="octicon octicon-link"></span></a>Others</h2>
 
-<pre><code>Any.ValueOtherThan&lt;T&gt;(params T[] omittedValues)
-Any.From&lt;T&gt;(params T[] possibleValues)
-Any.DateTime()
-Any.TimeSpan()
-Any.ValueOf&lt;T&gt;()
-Any.LegalXmlTagName()
-Any.Boolean()
-Any.Object()
-Any.Exploding&lt;T&gt;() where T : class
-Any.Method()
-Any.Type()
-Any.InstanceOf&lt;T&gt;() where T : class
-Any.Uri()
-Any.UrlString()
-Any.Exception()
-Any.Port()
-Any.Ip()
+<p>A main generic generation method, capable of generating both primitive and reference types:</p>
+
+<pre><code>Any.Instance&lt;T&gt;()
 </code></pre>
-      </section>
+
+<p>Picks any element from collection:</p>
+
+<pre><code>Any.From&lt;T&gt;(params T[] possibleValues)
+</code></pre>
+
+<p>DateTime:</p>
+
+<pre><code>Any.DateTime()
+</code></pre>
+
+<p>TimeSpan:</p>
+
+<pre><code>Any.TimeSpan()
+</code></pre>
+
+<p>Generic generation method for values only (subset of Any.Instance()):  </p>
+
+<pre><code>Any.ValueOf&lt;T&gt;()
+</code></pre>
+
+<p>Like above, but makes sure none of the passed values will not get returned:</p>
+
+<pre><code>Any.ValueOtherThan&lt;T&gt;(params T[] omittedValues)
+</code></pre>
+
+<p>For booleans:    </p>
+
+<pre><code>Any.Boolean()
+</code></pre>
+
+<p>For objects (useful e.g. for synchronization roots):    </p>
+
+<pre><code>Any.Object()
+</code></pre>
+
+<p>For exceptions:</p>
+
+<pre><code>Any.Exception()
+</code></pre>
+
+<p>For Type and MethodInfo:</p>
+
+<pre><code>Any.Method()
+Any.Type()
+</code></pre>
+
+<p>Legal XML tag name:</p>
+
+<pre><code>Any.LegalXmlTagName()
+</code></pre>
+
+<p>Exploding type (any overridable method called on created instance throws an exception) - useful for specifying null objects:</p>
+
+<pre><code>Any.Exploding&lt;T&gt;() where T : class
+</code></pre>
+
+<p>Generic generation method for objects only (subset of Any.Instance()):      </p>
+
+<pre><code>Any.InstanceOf&lt;T&gt;() where T : class
+</code></pre>
+
+<p>URI object:</p>
+
+<pre><code>Any.Uri()
+</code></pre>
+
+<p>URL string:</p>
+
+<pre><code>Any.UrlString()
+</code></pre>
+
+<p>Port number:</p>
+
+<pre><code>Any.Port()
+</code></pre>
+
+<p>string containing IP address:</p>
+
+<pre><code>Any.Ip()
+</code></pre>
+        </section>
+
+        <footer>
+          Tdd-toolkit is maintained by <a href="https://github.com/grzesiek-galezowski">grzesiek-galezowski</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/grzesiek-galezowski">grzesiek-galezowski</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
