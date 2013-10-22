@@ -18,21 +18,6 @@ namespace TddEbook.TddToolkit
       };
     }
 
-    public static IEnumerable<T> EnumerableOfDerivativesFrom<T>() where T : class
-    {
-      return ListOfDerivativesFrom<T>();
-    }
-
-    public static IEnumerable<T> ListOfDerivativesFrom<T>() where T : class
-    {
-      return new List<T>
-      {
-        Instance<T>(),
-        Instance<T>(),
-        Instance<T>()
-      };
-    }
-
     public static IEnumerable<T> Enumerable<T>()
     {
       return new List<T>()
