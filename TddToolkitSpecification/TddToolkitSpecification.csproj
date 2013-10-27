@@ -29,10 +29,14 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NSubstitute">
-      <HintPath>..\Lib\NSubstitute-1.6.1.0\lib\NET40\NSubstitute.dll</HintPath>
+    <Reference Include="NSubstitute, Version=1.6.1.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NSubstitute.1.6.1.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -44,8 +48,11 @@
     <Compile Include="RecordedAssertionsSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
-      <Project>{A52E21F4-2301-4F4E-9361-BE954FB490A0}</Project>
+      <Project>{a52e21f4-2301-4f4e-9361-be954fb490a0}</Project>
       <Name>TddToolkit</Name>
     </ProjectReference>
   </ItemGroup>

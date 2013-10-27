@@ -29,23 +29,25 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Caste.Core\net35\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.1\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
-      <HintPath>..\Lib\Fluent.Assertions.2.1.0.0\net40\FluentAssertions.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.2.1.0.0\lib\net40\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects">
-      <HintPath>..\Lib\Compare-NET-Objects-SourceV1.7.2\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+      <HintPath>..\packages\CompareNETObjects.1.7.3.0\lib\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="LibZ.Bootstrap">
+      <HintPath>..\packages\LibZ.Bootstrap.1.0.3.7\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\Lib\NUnit-2.6.2\bin\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\packages\AutoFixture.3.12.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Ploeh.AutoFixture">
-      <HintPath>..\Lib\AutoFixture\Ploeh.AutoFixture.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
@@ -113,5 +115,11 @@
   <ItemGroup>
     <Compile Include="Any.Private.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.0.3.7\tools\libz.exe
+%25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move</PostBuildEvent>
+  </PropertyGroup>
 </Project>
