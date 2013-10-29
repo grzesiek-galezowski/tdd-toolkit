@@ -30,9 +30,12 @@ namespace TddEbook.TddToolkit
       return List<T>();
     }
 
-    public static string String()
+    public static string String
     {
-      return string.Empty;
+      get
+      {
+        return string.Empty;
+      }
     }
    
   }
