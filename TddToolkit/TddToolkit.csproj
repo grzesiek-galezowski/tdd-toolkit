@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Are.cs" />
+    <Compile Include="Empty.cs" />
     <Compile Include="ImplementationDetails\ArrayElementPicking.cs" />
     <Compile Include="ImplementationDetails\ArrayWithIndex.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
