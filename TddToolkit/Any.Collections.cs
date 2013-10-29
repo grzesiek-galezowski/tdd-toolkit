@@ -28,7 +28,7 @@ namespace TddEbook.TddToolkit
         };
     }
 
-    public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded) where T : class
+    public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
     {
       var result = new List<T>
       {
@@ -44,7 +44,7 @@ namespace TddEbook.TddToolkit
       return Enumerable<T>().ToArray();
     }
 
-    public static T[] ArrayWithout<T>(params T[] excluded) where T : class
+    public static T[] ArrayWithout<T>(params T[] excluded)
     {
       return EnumerableWithout(excluded).ToArray();
     }
