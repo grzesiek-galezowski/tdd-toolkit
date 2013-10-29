@@ -47,6 +47,9 @@
     <Reference Include="LibZ.Bootstrap">
       <HintPath>..\packages\LibZ.Bootstrap.1.0.3.7\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
     </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.6.1.0\lib\NET40\NSubstitute.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -67,6 +70,7 @@
     <Compile Include="ImplementationDetails\LatestArraysWithPossibleValues.cs" />
     <Compile Include="NUnitExtensions\AnyAttribute.cs" />
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
+    <Compile Include="XArg.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
     <Compile Include="XAssert.Simple.cs" />
@@ -129,7 +133,8 @@
     <None Include="TddToolkit.snk" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.0.3.7\tools\libz.exe
+%25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
