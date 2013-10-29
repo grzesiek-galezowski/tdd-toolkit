@@ -94,7 +94,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
         {
           var propertyType = property.PropertyType;
 
-          if (!property.GetGetMethod().IsVirtual && !property.GetGetMethod().IsAbstract)
+          if (!property.GetGetMethod().IsAbstract)
           {
             var value = Any.Instance(propertyType);
             property.SetValue(result, value, null);
