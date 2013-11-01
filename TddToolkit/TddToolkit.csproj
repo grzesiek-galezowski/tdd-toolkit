@@ -130,6 +130,7 @@
     <Compile Include="Any.Private.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Any.Inherited.cs" />
     <None Include="packages.config" />
     <None Include="TddToolkit.snk" />
   </ItemGroup>

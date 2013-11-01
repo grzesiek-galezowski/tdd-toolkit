@@ -39,5 +39,14 @@ namespace TddEbook.TddToolkit
       return ValueOtherThan(others);
     }
 
+    public static decimal Decimal()
+    {
+      return ValueOf<decimal>();
+    }
+
+    public static decimal DecimalOtherThan(decimal other)
+    {
+      return ValueOtherThan(other);
+    }
   }
 }

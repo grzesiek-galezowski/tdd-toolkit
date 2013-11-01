@@ -100,6 +100,12 @@ namespace TddToolkitSpecification
     }
 
     [Test]
+    public void ShouldCreateNonNullUri()
+    {
+      Assert.NotNull(Any.Uri());
+    }
+
+    [Test]
     public void ShouldGenerateFiniteEnumerables()
     {
       //GIVEN
