@@ -22,25 +22,43 @@ namespace TddEbook.TddToolkit
 
     public static void IsValueType<T>()
     {
-      var violations = new ConstraintsViolations();
-      var activator = ValueObjectActivator<T>.FreshInstance();
-      
-      var constraints = new List<IConstraint>
-      {
-        new AllFieldsMustBeReadOnly<T>(),
-        new ThereMustBeNoPublicPropertySetters<T>(),
-        new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T>(activator),
-        new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator),
-        new StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator),
-        new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T>(activator)
-      };
+      IsValueType<T>(ValueTypeTraits.Default());
+    }
 
-      foreach (var constraint in constraints)
+    public static void IsValueType<T>(ValueTypeTraits traits)
+    {
+      var activator = ValueObjectActivator<T>.FreshInstance();
+
+      var constraints = CreateConstraintsBasedOn<T>(traits, activator);
+
+      XAssert.TypeAdheresToConstraints<T>(constraints);
+    }
+
+    private static List<IConstraint> CreateConstraintsBasedOn<T>(ValueTypeTraits traits, ValueObjectActivator<T> activator)
+    {
+      var constraints = new List<IConstraint>();
+
+      if(traits.RequireAllFieldsReadOnly)
       {
-        constraint.CheckAndRecord(violations);
+        constraints.Add(new AllFieldsMustBeReadOnly<T>());
       }
 
-      violations.AssertNone();
+      constraints.Add(new ThereMustBeNoPublicPropertySetters<T>());
+      constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T>(activator));
+      constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator));
+
+      constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator, 
+        traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
+      
+      constraints.Add(new HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects<T>(activator,
+        traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
+
+      if(traits.RequireSafeUnequalityToNull)
+      {
+        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T>(activator));
+      }
+
+      return constraints;
     }
 
     public static void IsValueType(Type type)

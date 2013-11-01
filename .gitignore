@@ -24,8 +24,13 @@
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
+*.cache
+DesignTimeResolveAssemblyReferencesInput.cache
+DesignTimeResolveAssemblyReferencesInput.*
 ipch/
 obj/
+obj/Debug/*.*
+obj/Release/*.*
 [Bb]in
 [Dd]ebug*/
 [Rr]elease*/
@@ -64,3 +69,6 @@ Documentation-*/
 *.crunchsolution.local.xml
 *.crunchproject.xml
 *.crunchsolution.xml
+*.ncrunchsolution
+*.ncrunchsolution.user
+*.ncrunchproject

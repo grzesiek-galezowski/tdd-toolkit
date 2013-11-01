@@ -19,7 +19,9 @@ namespace TddToolkitSpecification
       s.Received(1).Do(XArg.IsLike(new List<int>()));
       s.DidNotReceive().Do(XArg.IsLike(new List<int>() { 1 }));
     }
+
   }
+
 
   public interface IXYZ
   {

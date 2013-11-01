@@ -70,6 +70,7 @@
     <Compile Include="ImplementationDetails\LatestArraysWithPossibleValues.cs" />
     <Compile Include="NUnitExtensions\AnyAttribute.cs" />
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
+    <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="XArg.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
