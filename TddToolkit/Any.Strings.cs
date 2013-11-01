@@ -6,7 +6,7 @@ using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddEbook.TddToolkit
 {
-  public static partial class Any
+  public partial class Any
   {
     public static string String()
     {

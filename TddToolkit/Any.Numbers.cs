@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit
 {
-  public static partial class Any
+  public partial class Any
   {
     public static int Integer()
     {

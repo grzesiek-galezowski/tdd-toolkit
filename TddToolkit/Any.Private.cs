@@ -8,7 +8,7 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 
 namespace TddEbook.TddToolkit
 {
-    public static partial class Any
+    public partial class Any
     {
       private static readonly Fixture Generator = new Fixture();
       private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());

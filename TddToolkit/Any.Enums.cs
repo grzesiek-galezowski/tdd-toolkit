@@ -3,7 +3,7 @@ using Ploeh.AutoFixture;
 
 namespace TddEbook.TddToolkit
 {
-  public static partial class Any
+  public partial class Any
   {
     public static T Of<T>() where T : struct, IConvertible
     {

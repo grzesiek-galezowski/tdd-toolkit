@@ -391,7 +391,5 @@ namespace TddToolkitSpecification
     }
 
   }
-
-
 }
 

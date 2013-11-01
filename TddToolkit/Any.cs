@@ -12,7 +12,7 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.MethodReturnValue
 
 namespace TddEbook.TddToolkit
 {
-  public static partial class Any
+  public partial class Any
   {
     private static ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
 
