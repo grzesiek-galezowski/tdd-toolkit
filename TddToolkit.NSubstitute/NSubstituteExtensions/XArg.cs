@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NSubstitute;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.NSubstitute
 {
   public class XArg
   {

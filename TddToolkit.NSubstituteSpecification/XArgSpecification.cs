@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NSubstitute;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.NSubstitute;
 
 namespace TddToolkitSpecification
 {

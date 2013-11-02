@@ -40,13 +40,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnyAttributeSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnySpecification.cs" />
     <Compile Include="RecordedAssertionsSpecification.cs" />
-    <Compile Include="XArgSpecification.cs" />
     <Compile Include="XAssertSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
