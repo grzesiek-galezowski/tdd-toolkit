@@ -12,6 +12,7 @@ namespace TddEbook.TddToolkit
       IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify = new List<int>();
       RequireAllFieldsReadOnly = true;
       RequireSafeUnequalityToNull = true;
+      RequireEqualityAndUnequalityOperatorImplementation = true;
     }
 
     public static ValueTypeTraits Custom
@@ -28,6 +29,12 @@ namespace TddEbook.TddToolkit
       set;
     }
 
+    public bool RequireEqualityAndUnequalityOperatorImplementation
+    {
+      get; 
+      set;
+    }
+
     public bool RequireSafeUnequalityToNull
     {
       get;
@@ -41,13 +48,20 @@ namespace TddEbook.TddToolkit
 
     public static ValueTypeTraits Default()
     {
-      return new ValueTypeTraits();
+      return ValueTypeTraits.Full();
     }
 
     public ValueTypeTraits SkipConstructorArgument(int constructorArgumentIndex)
     {
       IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.Add(constructorArgumentIndex);
       return this;
+    }
+
+    public static ValueTypeTraits Full()
+    {
+      var result = new ValueTypeTraits();
+      result.RequireEqualityAndUnequalityOperatorImplementation = true;
+      return result;
     }
   }
 }

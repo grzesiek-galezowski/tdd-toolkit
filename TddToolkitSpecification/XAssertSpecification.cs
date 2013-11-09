@@ -12,19 +12,30 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldPassValueTypeAssertionForProperValueType()
     {
-      XAssert.IsValueType<ProperValueType>();
+      XAssert.IsValue<ProperValueType>();
     }
 
     [Test]
     public void ShouldAllowSpecifyingConstructorArgumentsNotTakenIntoAccountDuringValueBehaviorCheck()
     {
-      XAssert.IsValueType<ProperValueTypeWithOneArgumentIdentity>(
+      XAssert.IsValue<ProperValueTypeWithOneArgumentIdentity>(
         ValueTypeTraits.Custom.SkipConstructorArgument(0));
 
       Assert.Throws<AssertionException>(() => 
-        XAssert.IsValueType<ProperValueTypeWithOneArgumentIdentity>()
+        XAssert.IsValue<ProperValueTypeWithOneArgumentIdentity>()
       );
     }
+
+    [Test]
+    public void ShouldAcceptProperFullValueTypesAndRejectBadOnes()
+    {
+      XAssert.IsValue<ProperValueType>();
+
+      Assert.Throws<AssertionException>(() =>
+        XAssert.IsValue<ProperValueTypeWithoutEqualityOperator>()
+      );
+    }
+
   }
 
   public class ProperValueTypeWithOneArgumentIdentity : IEquatable<ProperValueTypeWithOneArgumentIdentity>
@@ -54,7 +65,18 @@ namespace TddToolkitSpecification
 
     public static bool operator ==(ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
     {
-      return Equals(left, right);
+      if(object.ReferenceEquals(left, null) && object.ReferenceEquals(right, null))
+      {
+        return true;
+      }
+      else if(object.ReferenceEquals(left, null))
+      {
+        return false;
+      }
+      else
+      {
+        return left.Equals(right);
+      }
     }
 
     public static bool operator !=(ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
@@ -111,6 +133,41 @@ namespace TddToolkitSpecification
     private readonly IEnumerable<int> _anArray;
 
     public ProperValueType(int a, IEnumerable<int> anArray)
+    {
+      this._a = a;
+      _anArray = anArray;
+    }
+  }
+
+  public class ProperValueTypeWithoutEqualityOperator : IEquatable<ProperValueTypeWithoutEqualityOperator>
+  {
+    public bool Equals(ProperValueTypeWithoutEqualityOperator other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return _a == other._a && Equals(_anArray, other._anArray);
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      if (obj.GetType() != this.GetType()) return false;
+      return Equals((ProperValueTypeWithoutEqualityOperator)obj);
+    }
+
+    public override int GetHashCode()
+    {
+      unchecked
+      {
+        return (_a * 397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
+      }
+    }
+
+    private readonly int _a;
+    private readonly IEnumerable<int> _anArray;
+
+    public ProperValueTypeWithoutEqualityOperator(int a, IEnumerable<int> anArray)
     {
       this._a = a;
       _anArray = anArray;

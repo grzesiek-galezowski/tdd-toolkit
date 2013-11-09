@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TddEbook.TddToolkit.Helpers.Constraints;
+using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
+using FluentAssertions;
 
 namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
-    public static void TypeAdheresToConstraints<T>(List<IConstraint> constraints)
+    public static void TypeAdheresToConstraints<T>(List<IConstraint> constraints) where T : class
     {
       var violations = ConstraintsViolations.Empty();
       foreach (var constraint in constraints)
@@ -20,12 +22,12 @@ namespace TddEbook.TddToolkit
       violations.AssertNone();
     }
 
-    public static void IsValueType<T>()
+    public static void IsValue<T>() where T : class
     {
-      IsValueType<T>(ValueTypeTraits.Default());
+      IsValue<T>(ValueTypeTraits.Default());
     }
 
-    public static void IsValueType<T>(ValueTypeTraits traits)
+    public static void IsValue<T>(ValueTypeTraits traits) where T : class
     {
       var activator = ValueObjectActivator<T>.FreshInstance();
 
@@ -34,7 +36,9 @@ namespace TddEbook.TddToolkit
       XAssert.TypeAdheresToConstraints<T>(constraints);
     }
 
-    private static List<IConstraint> CreateConstraintsBasedOn<T>(ValueTypeTraits traits, ValueObjectActivator<T> activator)
+    private static List<IConstraint> CreateConstraintsBasedOn<T>
+      (ValueTypeTraits traits, ValueObjectActivator<T> activator)
+      where T : class
     {
       var constraints = new List<IConstraint>();
 
@@ -58,10 +62,31 @@ namespace TddEbook.TddToolkit
         constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T>(activator));
       }
 
+
+      if (traits.RequireEqualityAndUnequalityOperatorImplementation)
+      {
+        //equality operator
+        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator<T>());
+        constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator<T>(activator));
+        constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator<T>(activator));
+        constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualityOperator<T>(activator,
+          traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
+        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator<T>(activator));
+
+        //inequality operator
+        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator<T>());
+        constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfInequalityOperator<T>(activator));
+        constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator<T>(activator));
+        constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator<T>(activator,
+          traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
+        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator<T>(activator));
+      
+
+      }
       return constraints;
     }
 
-    public static void IsValueType(Type type)
+    public static void IsValue(Type type)
     {
       InvokeGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
@@ -70,6 +95,18 @@ namespace TddEbook.TddToolkit
     {
       typeof(Any).GetMethods().Where(m => m.Name == name).First(m => m.GetParameters().Length == 0).
         MakeGenericMethod(new[] { type }).Invoke(null, null);
+    }
+
+    public static void IsEqualityOperatorDefinedFor<T>()
+    {
+      XAssert.NotEqual(Operators<T>.Equality(), 
+        null, "== operator should be declared on type " + typeof(T));
+    }
+
+    public static void IsInequalityOperatorDefinedFor<T>()
+    {
+      XAssert.NotEqual(Operators<T>.Inequality(), 
+        null, "!= operator should be declared on type " + typeof(T));
     }
   }
 }

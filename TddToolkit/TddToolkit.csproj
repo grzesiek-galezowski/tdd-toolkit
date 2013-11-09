@@ -58,6 +58,16 @@
   <ItemGroup>
     <Compile Include="Are.cs" />
     <Compile Include="Empty.cs" />
+    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
+    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator.cs" />
+    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator.cs" />
+    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedUnEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
+    <Compile Include="Helpers\Constraints\EqualityOperator\UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator.cs" />
+    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityMustBeImplementedInTermsOfInequalityOperator.cs" />
+    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator.cs" />
+    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator.cs" />
+    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator.cs" />
+    <Compile Include="Helpers\Constraints\InequalityOperator\UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator.cs" />
     <Compile Include="ImplementationDetails\ArrayElementPicking.cs" />
     <Compile Include="ImplementationDetails\ArrayWithIndex.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
@@ -126,6 +136,7 @@
     <None Include="packages.config" />
     <None Include="TddToolkit.snk" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.0.3.7\tools\libz.exe
 %25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
