@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit.Helpers.FluentAssertions
       return new AndConstraint<ObjectAssertions>(o);
     }
 
-    public static AndConstraint<TypeAssertions> BehaveLikeValueType(this TypeAssertions o)
+    public static AndConstraint<TypeAssertions> BehaveLikeValue(this TypeAssertions o)
     {
       XAssert.IsValue(o.Subject);
       return new AndConstraint<TypeAssertions>(o);
