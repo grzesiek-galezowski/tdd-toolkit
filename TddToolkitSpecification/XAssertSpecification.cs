@@ -41,7 +41,7 @@ namespace TddToolkitSpecification
     public void ShouldAggregateMultipleAssertions()
     {
       var exception = Assert.Throws<AssertionException>(() =>
-        XAssert.Multiple(assert =>
+        XAssert.All(assert =>
         {
           assert.Equal(1, 3);
           assert.Equal(2, 44);

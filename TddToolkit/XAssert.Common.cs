@@ -110,7 +110,7 @@ namespace TddEbook.TddToolkit
         null, "!= operator should be declared on type " + typeof(T));
     }
 
-    public static void Multiple(Action<AssertionRecorder> asserts)
+    public static void All(Action<AssertionRecorder> asserts)
     {
       var recorder = new AssertionRecorder();
       asserts.Invoke(recorder);
