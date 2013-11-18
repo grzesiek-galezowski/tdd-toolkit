@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using TddEbook.TddToolkit;
 
@@ -36,6 +37,29 @@ namespace TddToolkitSpecification
       );
     }
 
+    [Test]
+    public void ShouldAggregateMultipleAssertions()
+    {
+      var exception = Assert.Throws<AssertionException>(() =>
+        XAssert.Multiple(assert =>
+        {
+          assert.Equal(1, 3);
+          assert.Equal(2, 44);
+          assert.Equal("aa", "123");
+          assert.Contains("bb", "aa");
+        })
+      );
+
+      StringAssert.Contains("Expected object to be 1, but found 3", 
+        exception.ToString());
+      StringAssert.Contains("Expected object to be 2, but found 44", 
+        exception.ToString());
+      StringAssert.Contains("Expected object to be \"aa\", but found \"123\"", 
+        exception.ToString());
+      StringAssert.Contains("Expected string \"bb\" to contain \"aa\"",
+        exception.ToString());
+
+    }
   }
 
   public class ProperValueTypeWithOneArgumentIdentity : IEquatable<ProperValueTypeWithOneArgumentIdentity>

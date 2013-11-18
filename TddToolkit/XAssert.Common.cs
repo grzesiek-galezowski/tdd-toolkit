@@ -6,6 +6,7 @@ using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using FluentAssertions;
+using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddEbook.TddToolkit
 {
@@ -108,5 +109,15 @@ namespace TddEbook.TddToolkit
       XAssert.NotEqual(Operators<T>.Inequality(), 
         null, "!= operator should be declared on type " + typeof(T));
     }
+
+    public static void Multiple(Action<AssertionRecorder> asserts)
+    {
+      var recorder = new AssertionRecorder();
+      asserts.Invoke(recorder);
+
+      recorder.AssertTrue();
+    }
+
+    
   }
 }
