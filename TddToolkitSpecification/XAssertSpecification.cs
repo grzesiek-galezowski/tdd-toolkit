@@ -38,7 +38,7 @@ namespace TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldAggregateMultipleAssertions()
+    public void ShouldAggregateMultipleAssertionsWhenAssertionAll()
     {
       var exception = Assert.Throws<AssertionException>(() =>
         XAssert.All(assert =>
@@ -59,6 +59,28 @@ namespace TddToolkitSpecification
       StringAssert.Contains("Expected string \"bb\" to contain \"aa\"",
         exception.ToString());
 
+    }
+
+    [Test]
+    public void ShouldThrowExceptionWhenAttributeIsNotOnMethod()
+    {
+      Assert.Throws<AssertionException>(() =>
+        XAssert.AttributeExistsOnMethodOf<AttributeFixture>(
+          new CultureAttribute("AnyCulture"), 
+          o => o.NonDecoratedMethod(0,0)
+        )
+      );
+    }
+
+    [Test]
+    public void ShouldNotThrowExceptionWhenAttributeIsOnMethod()
+    {
+      Assert.DoesNotThrow(() =>
+        XAssert.AttributeExistsOnMethodOf<AttributeFixture>(
+          new CultureAttribute("AnyCulture"),
+          o => o.DecoratedMethod(0, 0)
+        )
+      );
     }
   }
 

@@ -118,6 +118,6 @@ namespace TddEbook.TddToolkit
       recorder.AssertTrue();
     }
 
-    
+
   }
 }

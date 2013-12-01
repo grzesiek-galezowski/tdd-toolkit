@@ -136,6 +136,7 @@
     <Compile Include="Any.Inherited.cs" />
     <None Include="packages.config" />
     <None Include="TddToolkit.snk" />
+    <Compile Include="XAssert.Reflection.cs" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
