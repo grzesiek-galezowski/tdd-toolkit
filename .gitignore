@@ -72,3 +72,4 @@ Documentation-*/
 *.ncrunchsolution
 *.ncrunchsolution.user
 *.ncrunchproject
+_NCrunch_*/

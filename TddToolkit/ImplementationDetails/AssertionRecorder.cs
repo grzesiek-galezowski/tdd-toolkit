@@ -3,32 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using System.Diagnostics;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
   public class AssertionRecorder
   {
-    public List<Exception> _exceptions = new List<Exception>();
+    private int assertionNumber = 1;
+    public List<AssertionFailed> _exceptions = new List<AssertionFailed>();
 
     internal void AssertTrue()
     {
       XAssert.Equal(0, _exceptions.Count, ExtractMessagesFromAll(_exceptions));
     }
 
-    private string ExtractMessagesFromAll(List<Exception> _exceptions)
+    private string ExtractMessagesFromAll(List<AssertionFailed> _failedAssertions)
     {
       string result = "the following assertions shouldn't have failed: " + Environment.NewLine;
-      foreach (var e in _exceptions)
+      foreach (var failedAssertion in _failedAssertions)
       {
-        result += e.Message + Environment.NewLine;
+        result += failedAssertion.Header();
       }
 
-      foreach (var e in _exceptions)
+      foreach (var failedAssertion in _failedAssertions)
       {
-        result += e + Environment.NewLine;
+        result += failedAssertion + Environment.NewLine;
       }
 
       return result;
+    }
+
+    private string ExtractDescriptionFrom(Exception e)
+    {
+      var st = new StackTrace(e, true);
+      var frame = st.GetFrames().Last();
+      return frame.ToString();
     }
 
     public void Equal<T>(T expected, T actual)
@@ -76,9 +85,27 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       LogException(() => XAssert.Alike(expected, actual));
     }
 
+    public void IsInstanceOf<T>(object o)
+    {
+      LogException(() => o.Should().BeOfType<T>());
+    }
 
+    public void IsAssignableTo<T>(object o)
+    {
+      LogException(() => o.Should().BeAssignableTo<T>());
+    }
 
-    public void LogException(Action action)
+    public void Null(object o)
+    {
+      LogException(() => o.Should().BeNull());
+    }
+
+    public void Same<T>(T expected, T other)
+    {
+      LogException(() => other.Should().BeSameAs(expected));
+    }
+
+    internal void LogException(Action action)
     {
       try
       {
@@ -86,8 +113,37 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       }
       catch (Exception e)
       {
-        _exceptions.Add(e);
+        _exceptions.Add(AssertionFailed.With(e, assertionNumber));
       }
+      
+      assertionNumber++;
+    }
+  }
+
+  public class AssertionFailed
+  {
+    private Exception e;
+    private int assertionNumber;
+
+    public AssertionFailed(Exception e, int assertionNumber)
+    {
+      this.e = e;
+      this.assertionNumber = assertionNumber;
+    }
+
+    public static AssertionFailed With(Exception e, int assertionNumber)
+    {
+      return new AssertionFailed(e, assertionNumber);
+    }
+
+    public string Header()
+    {
+      return "Assertion no. " + assertionNumber + " failed: " + e.Message + " " + Environment.NewLine;
+    }
+
+    public override string ToString()
+    {
+      return e.ToString();
     }
   }
 }

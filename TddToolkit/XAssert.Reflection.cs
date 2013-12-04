@@ -17,8 +17,11 @@ namespace TddEbook.TddToolkit
         method.HasAttribute(attr.GetType(), attr).Should().BeTrue();
       }
 
-
-
+      public static void AttributeExistsOnMethodOf<T, TAttr>(Expression<Action<T>> methodExpression)
+      {
+        var method = Method.Of<T>(methodExpression);
+        method.HasAttribute<TAttr>().Should().BeTrue();
+      }
     }
 
     public class Method

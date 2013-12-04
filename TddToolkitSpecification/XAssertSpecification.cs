@@ -46,19 +46,20 @@ namespace TddToolkitSpecification
           assert.Equal(1, 3);
           assert.Equal(2, 44);
           assert.Equal("aa", "123");
+          assert.True(true);
           assert.Contains("bb", "aa");
         })
       );
 
-      StringAssert.Contains("Expected object to be 1, but found 3", 
+      StringAssert.Contains("Assertion no. 1 failed: Expected object to be 1, but found 3", 
         exception.ToString());
-      StringAssert.Contains("Expected object to be 2, but found 44", 
+      StringAssert.Contains("Assertion no. 2 failed: Expected object to be 2, but found 44", 
         exception.ToString());
-      StringAssert.Contains("Expected object to be \"aa\", but found \"123\"", 
+      StringAssert.Contains("Assertion no. 3 failed: Expected object to be \"aa\", but found \"123\"", 
         exception.ToString());
-      StringAssert.Contains("Expected string \"bb\" to contain \"aa\"",
+      StringAssert.DoesNotContain("Assertion no. 4 failed", exception.ToString());
+      StringAssert.Contains("Assertion no. 5 failed: Expected string \"bb\" to contain \"aa\"",
         exception.ToString());
-
     }
 
     [Test]
