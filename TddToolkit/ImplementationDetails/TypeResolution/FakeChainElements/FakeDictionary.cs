@@ -21,4 +21,5 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return (T)Any.Dictionary(keyType, valueType);
     }
   }
+
 }

@@ -72,7 +72,8 @@
     <Compile Include="ImplementationDetails\ArrayElementPicking.cs" />
     <Compile Include="ImplementationDetails\ArrayWithIndex.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeDictionary.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeSet.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\GenericInstanceFactory.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ResolutionOfTypeWithGenerics.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
     <Compile Include="ImplementationDetails\LatestArraysWithPossibleValues.cs" />
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
@@ -109,7 +110,6 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeChain.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeConcreteClass.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeConcreteClassWithNonConcreteConstructor.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeEnumerableOf.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeOrdinaryInterface.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeSpecialCase.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FallbackTypeGenerator.cs" />
