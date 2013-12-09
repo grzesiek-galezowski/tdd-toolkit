@@ -11,7 +11,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       var result = type.IsGenericType && 
              (type.GetGenericTypeDefinition() == typeof(IList<>) 
               || type.GetGenericTypeDefinition() == typeof(IEnumerable<>) 
-              || type.GetGenericTypeDefinition() == typeof(ICollection<>));
+              || type.GetGenericTypeDefinition() == typeof(ICollection<>)
+              || type.GetGenericTypeDefinition() == typeof(List<>));
       return result;
     }
 

@@ -322,6 +322,48 @@ namespace TddToolkitSpecification
       XAssert.NotEqual(default(int), primitive);
     }
 
+
+    [Test]
+    public void ShouldSupportRecursiveInterfacesWithLists()
+    {
+      var factories = Any.Enumerable<RecursiveInterface>().ToList();
+
+      var x = factories[0];
+      var y = x.GetNested();
+      var y2 = y[0];
+      var z = y2.Nested;
+      var x1 = z.GetNested()[1];
+      var x2 = x1.Nested.Number;
+
+      Assert.AreNotEqual(default(int), x2);
+    }
+
+    [Test]
+    public void ShouldSupportRecursiveInterfacesWithDictionaries()
+    {
+      var factories = Any.Enumerable<RecursiveInterface>().ToList();
+
+      var x = factories[0];
+      var y = x.NestedAsDictionary;
+      var y1 = y.Keys.First();
+      var y2 = y.Values.First();
+      
+      XAssert.Equal(3, y.Count);
+      Assert.NotNull(y1);
+      Assert.NotNull(y2);
+    }
+
+    public interface RecursiveInterface
+    {
+      List<RecursiveInterface> GetNested();
+
+      IDictionary<string, RecursiveInterface> NestedAsDictionary { get; }
+      
+      RecursiveInterface Nested { get; }
+
+      int Number { get; }
+    }
+
     public interface ISimple
     {
       int GetInt();

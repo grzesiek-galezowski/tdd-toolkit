@@ -12,19 +12,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new LimitedFakeChain<T>(
         nestingLimit,
         new FakeChain<T>(
-          new ChainElement<T>(
-            new FakeSpecialCase<T>(),
-            new ChainElement<T>(
-              new FakeEnumerableOf<T>(),
-              new ChainElement<T>(
-                new FakeOrdinaryInterface<T>(cachedGeneration),
-                new ChainElement<T>(
-                  new FakeAbstractClass<T>(cachedGeneration),
-                  new ChainElement<T>(
-                    new FakeConcreteClassWithNonConcreteConstructor<T>(),
-                    new ChainElement<T>(
-                      new FakeConcreteClass<T>(),
-                      new NullChainElement<T>()))))))));
+          new ChainElement<T>(new FakeSpecialCase<T>(),
+          new ChainElement<T>(new FakeEnumerableOf<T>(),
+          new ChainElement<T>(new FakeSet<T>(),
+          new ChainElement<T>(new FakeDictionary<T>(),
+          new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration),
+          new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration),
+          new ChainElement<T>(new FakeConcreteClassWithNonConcreteConstructor<T>(),
+          new ChainElement<T>(new FakeConcreteClass<T>(),
+          new NullChainElement<T>()))))))))));
     }
 
     private readonly IChainElement<T> _chainHead;

@@ -43,12 +43,29 @@ namespace TddEbook.TddToolkit
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name, object[] args)
       {
-        var methods = typeof(Any).GetMethods(
-          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-          .Where(m => m.IsGenericMethodDefinition);
-        var method = methods.First(m => m.Name == name).MakeGenericMethod(new[] { type });
+        var method = FindEmptyGenericsMethod(name);
+
+        var genericMethod = method.MakeGenericMethod(new[] { type });
         
-        return method.Invoke(null, args);
+        return genericMethod.Invoke(null, args);
+      }
+
+      private static object ResultOfGenericVersionOfMethod(Type type1, Type type2, string name)
+      {
+        var method = FindEmptyGenericsMethod(name);
+
+        var genericMethod = method.MakeGenericMethod(new[] { type1, type2 });
+        
+        return genericMethod.Invoke(null, null);
+      }
+
+      private static MethodInfo FindEmptyGenericsMethod(string name)
+      {
+        var methods = typeof (Any).GetMethods(
+          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+                                  .Where(m => m.IsGenericMethodDefinition);
+        var method = methods.First(m => m.Name == name);
+        return method;
       }
 
 

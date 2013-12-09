@@ -78,5 +78,15 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
+
+    public static object Set(Type type)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    public static object Dictionary(Type keyType, Type valueType)
+    {
+      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+    }
   }
 }

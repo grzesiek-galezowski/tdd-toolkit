@@ -71,6 +71,8 @@
     <Compile Include="Helpers\Constraints\InequalityOperator\UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator.cs" />
     <Compile Include="ImplementationDetails\ArrayElementPicking.cs" />
     <Compile Include="ImplementationDetails\ArrayWithIndex.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeDictionary.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeSet.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
     <Compile Include="ImplementationDetails\LatestArraysWithPossibleValues.cs" />
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
@@ -141,7 +143,6 @@
   <ItemGroup />
   <PropertyGroup>
     <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.0.3.7\tools\libz.exe
-%25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
-</PostBuildEvent>
+%25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk</PostBuildEvent>
   </PropertyGroup>
 </Project>
