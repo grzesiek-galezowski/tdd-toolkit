@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Tdd-Toolkit</id>
+        <version>1.0.1</version>
+        <title>Tdd-Toolkit</title>
+        <authors>Grzegorz Gałęzowski</authors>
+        <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial</description>
+        <releaseNotes>Added license</releaseNotes>
+        <language>en-US</language>
+    </metadata>
+    <files>
+        <file src="TddToolkit\bin\Debug\TddToolkit.dll" target="lib\net40\TddToolkit.dll" />
+    </files>
+</package>
