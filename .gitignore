@@ -45,7 +45,6 @@ Ankh.NoLoad
 _ReSharper*/
 *.resharper
 
-
 #Project files
 [Bb]uild/
 
@@ -73,3 +72,7 @@ Documentation-*/
 *.ncrunchsolution.user
 *.ncrunchproject
 _NCrunch_*/
+
+#nuget
+
+*.nupkg
