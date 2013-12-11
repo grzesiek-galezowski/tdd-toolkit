@@ -37,7 +37,7 @@ namespace TddEbook.TddToolkit
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
       {
         return typeof(Any).GetMethods().Where(m => m.Name == name)
-          .First(m => m.GetParameters().Length == 0 && m.IsGenericMethodDefinition).
+          .First(m => !m.GetParameters().Any() && m.IsGenericMethodDefinition).
           MakeGenericMethod(new[] { type }).Invoke(null, null);
       }
 
@@ -63,7 +63,8 @@ namespace TddEbook.TddToolkit
       {
         var methods = typeof (Any).GetMethods(
           BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-                                  .Where(m => m.IsGenericMethodDefinition);
+                                  .Where(m => m.IsGenericMethodDefinition)
+                                  .Where(m => !m.GetParameters().Any());
         var method = methods.First(m => m.Name == name);
         return method;
       }

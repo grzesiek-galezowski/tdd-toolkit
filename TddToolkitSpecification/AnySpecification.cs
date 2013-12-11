@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 
@@ -228,12 +229,15 @@ namespace TddToolkitSpecification
       var int6 = Any.From(Enumerable.Range(1, 4).ToArray()); //should start from beginning
 
       //THEN
-      XAssert.Equal(1, int1);
-      XAssert.Equal(2, int2);
-      XAssert.Equal(3, int3);
-      XAssert.Equal(1, int4);
-      XAssert.Equal(1, int5);
-      XAssert.Equal(1, int6);
+      XAssert.All(assert =>
+      {
+        assert.Equal(1, int1);
+        assert.Equal(2, int2);
+        assert.Equal(3, int3);
+        assert.Equal(1, int4);
+        assert.Equal(1, int5);
+        assert.Equal(1, int6);
+      });
     }
 
     [Test]
@@ -351,6 +355,32 @@ namespace TddToolkitSpecification
       XAssert.Equal(3, y.Count);
       Assert.NotNull(y1);
       Assert.NotNull(y2);
+    }
+
+    [Test]
+    public void ShouldSupportGeneratingRangedCollections()
+    {
+      const int anyCount = 4;
+      var list = Any.List<RecursiveInterface>(anyCount);
+      var array = Any.Array<RecursiveInterface>(anyCount);
+      var set = Any.Set<RecursiveInterface>(anyCount);
+      var dictionary = Any.Dictionary<RecursiveInterface, ISimple>(anyCount);
+      var sortedList = Any.SortedList<string, ISimple>(anyCount);
+      var sortedDictionary = Any.SortedDictionary<string, ISimple>(anyCount);
+      var sortedEnumerable = Any.EnumerableSortedDescending<string>(anyCount);
+      var enumerable = Any.Enumerable<RecursiveInterface>(anyCount);
+
+      XAssert.All(assert =>
+      {
+        assert.Equal(anyCount, list.Count);
+        assert.Equal(anyCount, enumerable.Count());
+        assert.Equal(anyCount, array.Length);
+        assert.Equal(anyCount, set.Count);
+        assert.Equal(anyCount, dictionary.Count);
+        assert.Equal(anyCount, sortedList.Count);
+        assert.Equal(anyCount, sortedDictionary.Count);
+        assert.Equal(anyCount, sortedEnumerable.Count());
+      });
     }
 
     public interface RecursiveInterface
