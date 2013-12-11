@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
