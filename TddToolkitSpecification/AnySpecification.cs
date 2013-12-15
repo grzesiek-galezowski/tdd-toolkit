@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using NSubstitute;
 using NUnit.Framework;
@@ -383,14 +385,32 @@ namespace TddToolkitSpecification
       });
     }
 
+    [Test]
+    public void ShouldAllowCreatingCustomCollectionInstances()
+    {
+      var customCollection = Any.Instance<MyOwnCollection<RecursiveInterface>>();
+
+      XAssert.Equal(3, customCollection.Count);
+      foreach (var recursiveInterface in customCollection)
+      {
+        XAssert.NotNull(recursiveInterface);
+      }
+    }
+
+    [Test]
+    public void ShouldSupportCreationOfKeyValuePairs()
+    {
+      var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
+      XAssert.NotNull(kvp);
+      XAssert.NotNull(kvp.Key);
+      XAssert.NotNull(kvp.Value);
+    }
+
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNested();
-
       IDictionary<string, RecursiveInterface> NestedAsDictionary { get; }
-      
       RecursiveInterface Nested { get; }
-
       int Number { get; }
     }
 
@@ -467,6 +487,49 @@ namespace TddToolkitSpecification
       }
     }
 
+  }
+
+  public class MyOwnCollection<T> : ICollection<T>
+  {
+    List<T> _list = new List<T>();
+
+    public IEnumerator<T> GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
+
+    public void Add(T item)
+    {
+      _list.Add(item);
+    }
+
+    public void Clear()
+    {
+      _list.Clear();
+    }
+
+    public bool Contains(T item)
+    {
+      return _list.Contains(item);
+    }
+
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+      _list.CopyTo(array, arrayIndex);
+    }
+
+    public bool Remove(T item)
+    {
+      return _list.Remove(item);
+    }
+
+    public int Count { get { return _list.Count; } }
+    public bool IsReadOnly { get { return false; } }
   }
 }
 

@@ -72,6 +72,7 @@
     <Compile Include="ImplementationDetails\ArrayElementPicking.cs" />
     <Compile Include="ImplementationDetails\ArrayWithIndex.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeDictionary.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeUnknownCollection.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\GenericInstanceFactory.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ResolutionOfTypeWithGenerics.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />

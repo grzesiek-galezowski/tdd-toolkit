@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  interface IFakeChain<out T> where T : class
+  interface IFakeChain<out T>
   {
     T Resolve();
   }
 
-  internal class FakeChain<T> : IFakeChain<T> where T : class
+  internal class FakeChain<T> : IFakeChain<T>
   {
     public static IFakeChain<T> NewInstance(CachedGeneration cachedGeneration, NestingLimit nestingLimit)
     {
@@ -21,11 +22,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           new ChainElement<T>(CreateResolutionOfSortedList(),
           new ChainElement<T>(CreateResolutionOfSortedSet(),
           new ChainElement<T>(CreateResolutionOfSortedDictionary(),
+          new ChainElement<T>(CreateResolutionOfKeyValuePair(),
+          new ChainElement<T>(new FakeUnknownCollection<T>(),
           new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration),
           new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration),
           new ChainElement<T>(new FakeConcreteClassWithNonConcreteConstructor<T>(),
           new ChainElement<T>(new FakeConcreteClass<T>(),
-          new NullChainElement<T>()))))))))))))));
+          new NullChainElement<T>()))))))))))))))));
+    }
+
+    private static IResolution<T> CreateResolutionOfKeyValuePair()
+    {
+      return new ResolutionOfTypeWithGenerics<T>(
+        new GenericInstanceFactory2(Any.KeyValuePair), typeof(KeyValuePair<,>) 
+      );
     }
 
     private static IResolution<T> CreateResolutionOfSortedDictionary()

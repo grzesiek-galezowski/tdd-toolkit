@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
   public class GenericInstanceFactory1 : GenericInstanceFactory
   {
-    private Func<Type, object> _factoryMethod;
+    private readonly Func<Type, object> _factoryMethod;
 
     public GenericInstanceFactory1(Func<Type, object> factoryMethod)
     {
@@ -28,7 +28,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
   public class GenericInstanceFactory2 : GenericInstanceFactory
   {
-    private Func<Type, Type, object> _factoryMethod;
+    private readonly Func<Type, Type, object> _factoryMethod;
 
     public GenericInstanceFactory2(Func<Type, Type, object> factoryMethod)
     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
 using Ploeh.AutoFixture;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 
 namespace TddEbook.TddToolkit
 {
@@ -188,5 +189,12 @@ namespace TddEbook.TddToolkit
       return set;
     }
 
+    public static object KeyValuePair(Type keyType, Type valueType)
+    {
+      return Activator.CreateInstance(
+        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), 
+        Any.Instance(keyType), Any.Instance(valueType)
+        );
+    }
   }
 }

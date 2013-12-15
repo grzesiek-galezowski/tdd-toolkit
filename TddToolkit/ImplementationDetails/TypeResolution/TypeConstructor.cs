@@ -12,6 +12,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     int GetParametersCount();
     bool HasAbstractOrInterfaceArguments();
     List<object> GenerateAnyParameterValues();
+    bool IsParameterless();
   }
 
   public class TypeConstructor : ITypeConstructor
@@ -91,6 +92,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
         constructorValues.Add(Any.Instance(constructorParam.ParameterType));
       }
       return constructorValues;
+    }
+
+    public bool IsParameterless()
+    {
+      return this.GetParametersCount() == 0;
     }
   }
 }

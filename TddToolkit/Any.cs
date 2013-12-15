@@ -60,6 +60,7 @@ namespace TddEbook.TddToolkit
 
     public static T ValueOf<T>()
     {
+      //bug: add support for creating generic structs with interfaces
       return Generator.Create<T>();
     }
 
@@ -100,14 +101,14 @@ namespace TddEbook.TddToolkit
       return ValueOf<Type>();
     }
 
-    public static T InstanceOf<T>() where T : class
+    public static T InstanceOf<T>()
     {
       return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve();
     }
 
     public static T Instance<T>()
     {
-      return (T) AnyReturnValue.Of(typeof(T)).Generate();
+      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve();
     }
 
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)

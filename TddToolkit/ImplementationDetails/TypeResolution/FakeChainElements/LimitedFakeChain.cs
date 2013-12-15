@@ -1,6 +1,6 @@
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  class LimitedFakeChain<T> : IFakeChain<T> where T : class
+  class LimitedFakeChain<T> : IFakeChain<T>
   {
     private readonly NestingLimit _nestingLimit;
     private readonly IFakeChain<T> _fakeChain;

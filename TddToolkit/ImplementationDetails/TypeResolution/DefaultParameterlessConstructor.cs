@@ -28,5 +28,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     {
       return new List<object>();
     }
+
+    public bool IsParameterless()
+    {
+      return true;
+    }
   }
 }

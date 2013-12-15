@@ -2,7 +2,7 @@ using Castle.DynamicProxy;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  internal class FakeAbstractClass<T> : IResolution<T> where T : class
+  internal class FakeAbstractClass<T> : IResolution<T>
   {
     private readonly CachedGeneration _generation;
 
