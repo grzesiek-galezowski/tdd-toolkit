@@ -14,14 +14,29 @@ namespace TddEbook.TddToolkit
       return Generator.Create<double>();
     }
 
+    public static double DoubleOtherThan(params double[] others)
+    {
+      return ValueOtherThan(others);
+    }
+
     public static long LongInteger()
     {
       return Generator.Create<long>();
     }
 
-    public static short ShortInteger()
+    public static long LongIntegerOtherThan(params long[] others)
     {
-      return Generator.Create<short>();
+      return ValueOtherThan(others);
+    }
+
+    public static ulong UnsignedLongInteger()
+    {
+      return Generator.Create<ulong>();
+    }
+
+    public static ulong UnsignedLongIntegerOtherThan(params ulong[] others)
+    {
+      return ValueOtherThan(others);
     }
 
     public static int IntegerOtherThan(params int[] others)
@@ -45,6 +60,36 @@ namespace TddEbook.TddToolkit
     }
 
     public static decimal DecimalOtherThan(decimal other)
+    {
+      return ValueOtherThan(other);
+    }
+
+    public static uint UnsignedInt()
+    {
+      return ValueOf<uint>();
+    }
+
+    public static uint UnsignedIntOtherThan(uint other)
+    {
+      return ValueOtherThan(other);
+    }
+
+    public static ushort UnsignedShort()
+    {
+      return ValueOf<ushort>();
+    }
+
+    public static ushort UnsignedShortOtherThan(ushort other)
+    {
+      return ValueOtherThan(other);
+    }
+
+    public static short ShortInteger()
+    {
+      return ValueOf<short>();
+    }
+
+    public static short ShortIntegerOtherThan(short other)
     {
       return ValueOtherThan(other);
     }
