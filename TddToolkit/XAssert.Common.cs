@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddEbook.TddToolkit.Helpers;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
@@ -100,13 +101,13 @@ namespace TddEbook.TddToolkit
 
     public static void IsEqualityOperatorDefinedFor<T>()
     {
-      XAssert.NotEqual(Operators<T>.Equality(), 
+      XAssert.NotEqual(Operators<T>.EqualityMethod(), 
         null, "== operator should be declared on type " + typeof(T));
     }
 
     public static void IsInequalityOperatorDefinedFor<T>()
     {
-      XAssert.NotEqual(Operators<T>.Inequality(), 
+      XAssert.NotEqual(Operators<T>.InequalityMethod(), 
         null, "!= operator should be declared on type " + typeof(T));
     }
 

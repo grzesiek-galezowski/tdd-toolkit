@@ -1,6 +1,6 @@
-﻿using System;
-using System.Reflection;
+﻿using TddEbook.TddToolkit.Helpers;
 using TddEbook.TddToolkit.ImplementationDetails;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit
 {
@@ -14,27 +14,12 @@ namespace TddEbook.TddToolkit
 
     public static bool EqualInTermsOfEqualityOperator<T>(T instance1, T instance2) where T : class
     {
-      var method = Operators<T>.Equality();
-      return (Boolean)method.Invoke(null, new[] { (object)instance1, (object)instance2 });
+      return Operators<T>.Equality().Evaluate(instance1, instance2);
     }
 
     public static bool NotEqualInTermsOfInEqualityOperator<T>(T instance1, T instance2) where T : class
     {
-      var method = Operators<T>.Inequality();
-      return (Boolean)method.Invoke(null, new[] { (object)instance1, (object)instance2 });
-    }
-  }
-
-  public class Operators<T>
-  {
-    public static MethodInfo Equality()
-    {
-      return typeof(T).GetMethod("op_Equality");
-    }
-
-    public static MethodInfo Inequality()
-    {
-      return typeof(T).GetMethod("op_Inequality");
+      return Operators<T>.Inequality().Evaluate(instance1, instance2);
     }
   }
 }

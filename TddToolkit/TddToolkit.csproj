@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Are.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\BinaryOperator.cs" />
     <Compile Include="ImplementationDetails\AssertionRecorder.cs" />
     <Compile Include="Empty.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
     <Compile Include="ImplementationDetails\LatestArraysWithPossibleValues.cs" />
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\TypeOf.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\Operators.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />

@@ -8,23 +8,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   {
     public bool Applies()
     {
-      return
+      return TypeOf<T>.IsConcrete() &&
         typeof (T).IsGenericType &&
-        IsImplementationOfOpenGeneric(typeof(ICollection<>))
-        && HasParameterlessConstructor(typeof(T));
+        TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>))
+        && TypeOf<T>.HasParameterlessConstructor(typeof(T));
     }
 
-    private bool HasParameterlessConstructor(Type type)
-    {
-      var constructors = TypeConstructor.ExtractAllFrom(type);
-      return constructors.Any(c => c.IsParameterless());
-    }
-
-    private static bool IsImplementationOfOpenGeneric(Type openGenericType)
-    {
-      return typeof (T).GetInterfaces().Any(
-        ifaceType => ifaceType.GetGenericTypeDefinition() == openGenericType);
-    }
 
     public T Apply()
     {
@@ -40,5 +29,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
       return (T) collectionInstance;
     }
+
+    }
   }
-}
