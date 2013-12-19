@@ -13,7 +13,7 @@ public class TypeOf<T>
   public static bool IsImplementationOfOpenGeneric(Type openGenericType)
   {
     return typeof(T).GetInterfaces().Any(
-      ifaceType => ifaceType.GetGenericTypeDefinition() == openGenericType);
+      ifaceType => ifaceType.IsGenericType && ifaceType.GetGenericTypeDefinition() == openGenericType);
   }
 
   public static bool IsConcrete()

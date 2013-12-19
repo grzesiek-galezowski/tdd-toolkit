@@ -406,6 +406,17 @@ namespace TddToolkitSpecification
       XAssert.NotNull(kvp.Value);
     }
 
+    [Test]
+    public void ShouldSupportActions()
+    {
+      //WHEN
+      var action = Any.Instance<Action<ISimple, string>>();
+
+      //THEN
+      Assert.NotNull(action);
+    }
+    
+
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNested();
