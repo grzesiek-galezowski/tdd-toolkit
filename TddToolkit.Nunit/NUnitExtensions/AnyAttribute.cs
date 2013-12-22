@@ -1,10 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace TddEbook.TddToolkit.NUnitExtensions
 {
@@ -20,7 +17,7 @@ namespace TddEbook.TddToolkit.NUnitExtensions
   [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
   public class AnyOtherThanAttribute : ParameterDataAttribute
   {
-    private object[] _omittedValues;
+    private readonly object[] _omittedValues;
 
     public AnyOtherThanAttribute(params object[] omittedValues)
     {

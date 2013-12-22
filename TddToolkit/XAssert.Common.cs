@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TddEbook.TddToolkit.Helpers;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using FluentAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddEbook.TddToolkit

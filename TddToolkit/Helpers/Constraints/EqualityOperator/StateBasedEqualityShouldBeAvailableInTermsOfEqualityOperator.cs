@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using FluentAssertions;
+﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {

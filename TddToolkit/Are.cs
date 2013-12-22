@@ -1,5 +1,4 @@
-﻿using TddEbook.TddToolkit.Helpers;
-using TddEbook.TddToolkit.ImplementationDetails;
+﻿using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit

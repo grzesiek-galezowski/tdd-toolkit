@@ -1,8 +1,5 @@
-﻿using System;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using System.Diagnostics.Contracts;
+﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {

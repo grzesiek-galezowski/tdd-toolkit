@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 
@@ -342,6 +340,13 @@ namespace TddToolkitSpecification
       var x2 = x1.Nested.Number;
 
       Assert.AreNotEqual(default(int), x2);
+    }
+
+    [Test]
+    public void ShouldSupportGeneratingOtherObjectsThanNull()
+    {
+      Assert.DoesNotThrow(() =>
+      { var notNull = Any.OtherThan<string>(null); });
     }
 
     [Test]

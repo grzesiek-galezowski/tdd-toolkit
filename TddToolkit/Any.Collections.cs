@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Security.Policy;
-using Ploeh.AutoFixture;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 
 namespace TddEbook.TddToolkit
 {
@@ -26,9 +23,9 @@ namespace TddEbook.TddToolkit
     {
       var result = new List<T>
       {
-        InstanceOtherThan(excluded), 
-        InstanceOtherThan(excluded), 
-        InstanceOtherThan(excluded)
+        OtherThan(excluded), 
+        OtherThan(excluded), 
+        OtherThan(excluded)
       };
       return result;
     }

@@ -1,20 +1,16 @@
 using System;
-using System.Collections;
 using System.Reflection;
-using Castle.Core.Internal;
 using Ploeh.AutoFixture;
 using System.Linq;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.MethodReturnValues;
 
 namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private static ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
+    private static readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
 
     static Any()
     {
@@ -113,11 +109,16 @@ namespace TddEbook.TddToolkit
 
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
-      return InstanceOtherThan<T>(omittedValues.Cast<T>().ToArray());
+      return OtherThan(omittedValues.Cast<T>().ToArray());
     }
 
-    public static T InstanceOtherThan<T>(params T[] omittedValues)
+    public static T OtherThan<T>(params T[] omittedValues)
     {
+      if(object.ReferenceEquals(omittedValues, null))
+      {
+        return Instance<T>();
+      }
+
       T currentValue;
       do
       {
