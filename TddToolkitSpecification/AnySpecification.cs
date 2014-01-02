@@ -115,10 +115,8 @@ namespace TddToolkitSpecification
       var enumerable = o.Simples;
 
       //THEN
-      foreach (var simple in enumerable)
-      {
-        XAssert.NotNull(simple);
-      }
+
+      foreach (var simple in enumerable) { XAssert.NotNull(simple); }
     }
 
     [Test]
