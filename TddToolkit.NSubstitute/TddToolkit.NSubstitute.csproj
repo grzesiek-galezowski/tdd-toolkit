@@ -40,7 +40,7 @@
       <HintPath>..\packages\LibZ.Bootstrap.1.0.3.7\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
-      <HintPath>..\packages\NSubstitute.1.6.1.0\lib\NET40\NSubstitute.dll</HintPath>
+      <HintPath>..\packages\NSubstitute.1.7.0.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
   </ItemGroup>
