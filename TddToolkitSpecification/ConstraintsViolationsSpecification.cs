@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
+using System.Collections.Generic;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
@@ -45,6 +47,5 @@ namespace TddToolkitSpecification
       StringAssert.Contains(violation2, exception.Message);
       StringAssert.Contains(violation3, exception.Message);
     }
-
   }
 }
