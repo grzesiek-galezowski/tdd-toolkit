@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace Depascalization
 {
@@ -35,19 +38,26 @@ namespace Depascalization
 
     public string OfNUnitReport(string nunitReport)
     {
-      /*
-      var doc = new XmlDocument();
-      doc.LoadXml(nunitReport);
+      var element = XDocument.Parse(nunitReport);
 
-      foreach (var node in doc.SelectNodes("//span[tag=x]"))
+      var namespacesAndFixtures = from e in element.Descendants("test-suite")
+                       where e.Attribute("type").Value == "Namespace" || e.Attribute("type").Value == "TestFixture"
+                       select e;
+      
+      foreach(var namespaceElement in namespacesAndFixtures)
       {
-        node.InnerXml = "New Content";
+        namespaceElement.SetAttributeValue("name", namespaceElement.Attribute("name").Value.Replace("Specification", " Specification"));
       }
-      foreach (var node in doc.SelectNodes("//span[tag=y]"))
+
+      var testCases = from e in element.Descendants("test-case") select e;
+
+      foreach (var testCase in testCases)
       {
-        node.InnerXml = "Different Content";
-      }*/
-      return "not correct";
+        testCase.SetAttributeValue("name", testCase.Attribute("name").Value.Replace(".", " "));
+      }
+
+
+      return element.Declaration + Environment.NewLine + element.ToString();
     }
   }
 }
