@@ -46,6 +46,7 @@ namespace DePascalizationSpecification
         //WHEN
         var depascalizedVersion = depascalization.OfNUnitReport(input);
 
+
         //THEN
         var splitResult = depascalizedVersion.Split('\n');
         for (int i = 0; i < splitExpected.Length ; i++)
@@ -157,45 +158,45 @@ namespace DePascalizationSpecification
             <results>
               <test-suite type=""TestFixture"" name=""Any Specification"" executed=""True"" result=""Success"" success=""True"" time=""5.182"" asserts=""0"">
                 <results>
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should allow creating custom collection instances"" executed=""True"" result=""Success"" success=""True"" time=""3.414"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should always return the different value from proxied the same method on different object"" executed=""True"" result=""Success"" success=""True"" time=""0.136"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should always Return The Same Value From Proxied Method On The Same Object"" executed=""True"" result=""Success"" success=""True"" time=""0.012"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Generate Both Primitive Type Instance And Interface Using New Instance Method"" executed=""True"" result=""Success"" success=""True"" time=""0.043"" asserts=""1"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Generate Distinct Digits Each Time"" executed=""True"" result=""Success"" success=""True"" time=""0.002"" asserts=""3"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Generate Distinct Letters Each Time"" executed=""True"" result=""Success"" success=""True"" time=""0.001"" asserts=""3"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Generate Instances Of Abstract Classes"" executed=""True"" result=""Success"" success=""True"" time=""0.141"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Generate Instances Of Concrete Classes With Interfaces As Their Constructor Arguments"" executed=""True"" result=""Success"" success=""True"" time=""0.041"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Proxy Concrete Return Types Of Methods"" executed=""True"" result=""Success"" success=""True"" time=""0.013"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should be able To Proxy Methods That Return Interfaces"" executed=""True"" result=""Success"" success=""True"" time=""0.023"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should create different Exception Each Time"" executed=""True"" result=""Success"" success=""True"" time=""0.134"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should create non Null Uri"" executed=""True"" result=""Success"" success=""True"" time=""0.015"" asserts=""1"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should create sorted Set With Three Distinct Values"" executed=""True"" result=""Success"" success=""True"" time=""0.057"" asserts=""2"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate different Integer Each Time"" executed=""True"" result=""Success"" success=""True"" time=""0.001"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate different Type Each Time"" executed=""True"" result=""Success"" success=""True"" time=""0.002"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate different Value Each Time And Not Among Passed Ones When Asked To Create Any Value Besides Given"" executed=""True"" result=""Success"" success=""True"" time=""0.007"" asserts=""2"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate finite Enumerables"" executed=""True"" result=""Success"" success=""True"" time=""0.041"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate members Returning Type Of Type"" executed=""True"" result=""Success"" success=""True"" time=""0.022"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate pick Next Value Each Time From Passed Ones When Asked To Create Any Value From Given"" executed=""True"" result=""Success"" success=""True"" time=""0.021"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate string According to Regex"" executed=""True"" result=""Success"" success=""True"" time=""0.238"" asserts=""1"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should generate string Of Given Length"" executed=""True"" result=""Success"" success=""True"" time=""0.003"" asserts=""0"" />
-                  <test-case name=""Tdd Toolkit Specification / Any Specification / should gandle empty Excluded Strings When Generating Any String Not Containing Given"" executed=""True"" result=""Success"" success=""True"" time=""0.012"" asserts=""1"">
+                  <test-case name=""TddToolkit Specification / Any Specification / should allow creating custom collection instances"" executed=""True"" result=""Success"" success=""True"" time=""3.414"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should always return the different value from proxied the same method on different object"" executed=""True"" result=""Success"" success=""True"" time=""0.136"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should always return the same value from proxied method on the same object"" executed=""True"" result=""Success"" success=""True"" time=""0.012"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to generate both primitive type instance and interface using new instance method"" executed=""True"" result=""Success"" success=""True"" time=""0.043"" asserts=""1"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to generate distinct digits each time"" executed=""True"" result=""Success"" success=""True"" time=""0.002"" asserts=""3"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to generate distinct letters each time"" executed=""True"" result=""Success"" success=""True"" time=""0.001"" asserts=""3"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to generate instances of abstract classes"" executed=""True"" result=""Success"" success=""True"" time=""0.141"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to generate instances of concrete classes with interfaces as their constructor arguments"" executed=""True"" result=""Success"" success=""True"" time=""0.041"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to proxy concrete return types of methods"" executed=""True"" result=""Success"" success=""True"" time=""0.013"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should be able to proxy methods that return interfaces"" executed=""True"" result=""Success"" success=""True"" time=""0.023"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should create different exception each time"" executed=""True"" result=""Success"" success=""True"" time=""0.134"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should create non null uri"" executed=""True"" result=""Success"" success=""True"" time=""0.015"" asserts=""1"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should create sorted set with three distinct values"" executed=""True"" result=""Success"" success=""True"" time=""0.057"" asserts=""2"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate different integer each time"" executed=""True"" result=""Success"" success=""True"" time=""0.001"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate different type each time"" executed=""True"" result=""Success"" success=""True"" time=""0.002"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate different value each time and not among passed ones when asked to create any value besides given"" executed=""True"" result=""Success"" success=""True"" time=""0.007"" asserts=""2"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate finite enumerables"" executed=""True"" result=""Success"" success=""True"" time=""0.041"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate members returning type of type"" executed=""True"" result=""Success"" success=""True"" time=""0.022"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate pick next value each time from passed ones when asked to create any value from given"" executed=""True"" result=""Success"" success=""True"" time=""0.021"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate string according to regex"" executed=""True"" result=""Success"" success=""True"" time=""0.238"" asserts=""1"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should generate string Of given length"" executed=""True"" result=""Success"" success=""True"" time=""0.003"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification / Any Specification / should gandle empty excluded strings when generating any string not containing given"" executed=""True"" result=""Success"" success=""True"" time=""0.012"" asserts=""1"">
                     <properties>
                       <property name=""Timeout"" value=""1000"" />
                     </properties>
                   </test-case>
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Not CreateTheSameMethodInfoTwiceInARow"" executed=""True"" result=""Success"" success=""True"" time=""0.003"" asserts=""0"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Override Virtual Methods That Return Default Type Values On Abstract Class Proxy"" executed=""True"" result=""Success"" success=""True"" time=""0.015"" asserts=""0"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Override Virtual Methods That Throw Exceptions On Abstract Class Proxy"" executed=""True"" result=""Success"" success=""True"" time=""0.009"" asserts=""0"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Support Actions"" executed=""True"" result=""Success"" success=""True"" time=""0.126"" asserts=""1"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Support Creation Of Key Value Pairs"" executed=""True"" result=""Success"" success=""True"" time=""0.026"" asserts=""0"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Support Generating Ranged Collections"" executed=""True"" result=""Success"" success=""True"" time=""0.312"" asserts=""0"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Support Recursive Interfaces With Dictionaries"" executed=""True"" result=""Success"" success=""True"" time=""0.058"" asserts=""2"" />
-                  <test-case name=""TddToolkitSpecification.AnySpecification.Should Support Recursive Interfaces With Lists"" executed=""True"" result=""Success"" success=""True"" time=""0.095"" asserts=""1"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Not CreateTheSameMethodInfoTwiceInARow"" executed=""True"" result=""Success"" success=""True"" time=""0.003"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Override Virtual Methods That Return Default Type Values On Abstract Class Proxy"" executed=""True"" result=""Success"" success=""True"" time=""0.015"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Override Virtual Methods That Throw Exceptions On Abstract Class Proxy"" executed=""True"" result=""Success"" success=""True"" time=""0.009"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Support Actions"" executed=""True"" result=""Success"" success=""True"" time=""0.126"" asserts=""1"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Support Creation Of Key Value Pairs"" executed=""True"" result=""Success"" success=""True"" time=""0.026"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Support Generating Ranged Collections"" executed=""True"" result=""Success"" success=""True"" time=""0.312"" asserts=""0"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Support Recursive Interfaces With Dictionaries"" executed=""True"" result=""Success"" success=""True"" time=""0.058"" asserts=""2"" />
+                  <test-case name=""TddToolkit Specification. Any Specification.Should Support Recursive Interfaces With Lists"" executed=""True"" result=""Success"" success=""True"" time=""0.095"" asserts=""1"" />
                 </results>
               </test-suite>
               <test-suite type=""TestFixture"" name=""CircularListSpecification"" executed=""True"" result=""Success"" success=""True"" time=""0.007"" asserts=""0"">
                 <results>
-                  <test-case name=""TddToolkitSpecification.CircularListSpecification.ShouldReturnAllElementsInOrderTheyWereAdded"" executed=""True"" result=""Success"" success=""True"" time=""0.002"" asserts=""0"" />
+                  <test-case name=""TddToolkitSpecification.CircularList Specification.ShouldReturnAllElementsInOrderTheyWereAdded"" executed=""True"" result=""Success"" success=""True"" time=""0.002"" asserts=""0"" />
                   <test-case name=""TddToolkitSpecification.CircularListSpecification.ShouldStartOverReturningElementsWhenItRunsOutOfElements"" executed=""True"" result=""Success"" success=""True"" time=""0.001"" asserts=""0"" />
                 </results>
               </test-suite>
