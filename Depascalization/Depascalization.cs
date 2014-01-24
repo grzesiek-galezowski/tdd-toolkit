@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -38,26 +39,37 @@ namespace Depascalization
 
     public string OfNUnitReport(string nunitReport)
     {
-      var element = XDocument.Parse(nunitReport);
+      var document = XDocument.Parse(nunitReport);
 
-      var namespacesAndFixtures = from e in element.Descendants("test-suite")
-                       where e.Attribute("type").Value == "Namespace" || e.Attribute("type").Value == "TestFixture"
-                       select e;
-      
+      var namespacesAndFixtures = ExtractNamespacesAndFixtures(document);
+
       foreach(var namespaceElement in namespacesAndFixtures)
       {
-        namespaceElement.SetAttributeValue("name", namespaceElement.Attribute("name").Value.Replace("Specification", " Specification"));
+        namespaceElement.HumanizeName();
       }
 
-      var testCases = from e in element.Descendants("test-case") select e;
+      var testCases = ExtractTestCasesFrom(document);
 
       foreach (var testCase in testCases)
       {
-        testCase.SetAttributeValue("name", testCase.Attribute("name").Value.Replace(".", " "));
+        testCase.HumanizeName();
       }
 
+      return document.Declaration + Environment.NewLine + document;
+    }
 
-      return element.Declaration + Environment.NewLine + element.ToString();
+    private static IEnumerable<TestCase> ExtractTestCasesFrom(XContainer document)
+    {
+      return from e in document.Descendants("test-case") select new TestCase(e);
+    }
+
+    private static IEnumerable<NamespaceOrFixture> ExtractNamespacesAndFixtures(XDocument element)
+    {
+      var namespaceAndFixture = new[] {"Namespace", "TestFixture"};
+      var namespacesAndFixtures = from e in element.Descendants("test-suite")
+                                  where e.IsValueOfItsAttribute("type", oneOf: namespaceAndFixture)
+                                  select new NamespaceOrFixture(e);
+      return namespacesAndFixtures;
     }
   }
 }
