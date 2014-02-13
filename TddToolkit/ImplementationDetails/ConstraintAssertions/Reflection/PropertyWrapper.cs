@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
 {
-  internal class PropertyWrapper
+  public class PropertyWrapper
   {
     private readonly PropertyInfo _propertyInfo;
 

@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
+using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
@@ -9,7 +11,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 
     public void CheckAndRecord(ConstraintsViolations violations)
     {
-      var properties = TypeWrapper<T>.GetAllInstanceProperties();
+      var properties = TypeOf<T>.GetAllInstanceProperties();
 
       foreach (var item in properties.Where(item => item.HasPublicSetter()))
       {

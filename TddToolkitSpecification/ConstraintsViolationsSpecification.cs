@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
 
 namespace TddToolkitSpecification
 {

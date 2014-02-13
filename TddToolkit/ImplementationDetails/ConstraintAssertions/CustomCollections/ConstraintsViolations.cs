@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
+namespace TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions
 {
   public interface IConstraintsViolations
   {

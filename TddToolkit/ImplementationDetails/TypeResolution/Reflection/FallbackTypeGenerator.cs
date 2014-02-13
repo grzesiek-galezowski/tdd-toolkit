@@ -45,10 +45,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       return constructor.HasAbstractOrInterfaceArguments();
     }
 
-    private static ITypeConstructor PickConstructorWithLeastNonPointersParametersFrom(Type type)
+    private static IConstructorWrapper PickConstructorWithLeastNonPointersParametersFrom(Type type)
     {
-      var constructors = TypeConstructor.ExtractAllFrom(type);
-      ITypeConstructor leastParamsConstructor = null;
+      var constructors = ConstructorWrapper.ExtractAllFrom(type);
+      IConstructorWrapper leastParamsConstructor = null;
       var numberOfParams = int.MaxValue;
 
       foreach (var typeConstructor in constructors)

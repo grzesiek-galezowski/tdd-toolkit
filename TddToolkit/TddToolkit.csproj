@@ -83,7 +83,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\LatestArraysWithPossibleValues.cs" />
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Reflection\TypeOf.cs" />
+    <Compile Include="ImplementationDetails\Common\Reflection\TypeOf.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\Reflection\Operators.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="ValueTypeTraits.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
     <Compile Include="XAssert.Simple.cs" />
     <Compile Include="Helpers\Constraints\AllFieldsMustBeReadOnly.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\ConstraintsViolations.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\CustomCollections\ConstraintsViolations.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\Reflection\FieldWrapper.cs" />
     <Compile Include="Helpers\Constraints\HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\IConstraint.cs" />
@@ -101,7 +101,6 @@
     <Compile Include="Helpers\Constraints\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="Helpers\Constraints\StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="Helpers\Constraints\ThereMustBeNoPublicPropertySetters.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\Reflection\TypeWrapper.cs" />
     <Compile Include="Helpers\Constraints\UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\Reflection\ValueObjectActivator.cs" />
     <Compile Include="Any.Collections.cs" />
@@ -125,7 +124,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\InvalidChainElement.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ReturnValueCache.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ReturnValueCacheKey.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Reflection\TypeConstructor.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\Reflection\ConstructorWrapper.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\Reflection\TypeOfType.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\NestingLimit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

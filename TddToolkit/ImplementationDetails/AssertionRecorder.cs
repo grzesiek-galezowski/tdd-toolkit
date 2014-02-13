@@ -32,13 +32,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return result;
     }
 
-    private string ExtractDescriptionFrom(Exception e)
-    {
-      var st = new StackTrace(e, true);
-      var frame = st.GetFrames().Last();
-      return frame.ToString();
-    }
-
     public void Equal<T>(T expected, T actual)
     {
       LogException(() => XAssert.Equal(expected, actual));

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
-  public class DefaultParameterlessConstructor : ITypeConstructor
+  public class DefaultParameterlessConstructor : IConstructorWrapper
   {
     public bool HasNonPointerArgumentsOnly()
     {

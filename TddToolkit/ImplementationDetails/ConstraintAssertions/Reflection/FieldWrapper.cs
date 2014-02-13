@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
 {
-  internal class FieldWrapper
+  public class FieldWrapper
   {
     private readonly FieldInfo _fieldInfo;
 

@@ -9,6 +9,7 @@ using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
+using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit
 {

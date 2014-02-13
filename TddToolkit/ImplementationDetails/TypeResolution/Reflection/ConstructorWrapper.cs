@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
-  public interface ITypeConstructor
+  public interface IConstructorWrapper
   {
     bool HasNonPointerArgumentsOnly();
     bool HasLessParametersThan(int numberOfParams);
@@ -15,11 +15,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
     bool IsParameterless();
   }
 
-  public class TypeConstructor : ITypeConstructor
+  public class ConstructorWrapper : IConstructorWrapper
   {
     private readonly ConstructorInfo _constructor;
 
-    public TypeConstructor(ConstructorInfo constructor)
+    public ConstructorWrapper(ConstructorInfo constructor)
     {
       _constructor = constructor;
     }
@@ -67,14 +67,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       return false;
     }
 
-    public static IEnumerable<ITypeConstructor> ExtractAllFrom(Type type)
+    public static IEnumerable<IConstructorWrapper> ExtractAllFrom(Type type)
     {
       var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-                 .Select(c => new TypeConstructor(c)).ToList();
+                 .Select(c => new ConstructorWrapper(c)).ToList();
       
       if (!constructors.Any())
       {
-        return new List<ITypeConstructor> {new DefaultParameterlessConstructor()};
+        return new List<IConstructorWrapper> {new DefaultParameterlessConstructor()};
       }
       else
       {
