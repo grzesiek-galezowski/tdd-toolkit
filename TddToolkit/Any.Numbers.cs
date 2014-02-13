@@ -1,17 +1,15 @@
-﻿using Ploeh.AutoFixture;
-
-namespace TddEbook.TddToolkit
+﻿namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
     public static int Integer()
     {
-      return Generator.Create<int>();
+      return ValueOf<int>();
     }
 
     public static double Double()
     {
-      return Generator.Create<double>();
+      return ValueOf<double>();
     }
 
     public static double DoubleOtherThan(params double[] others)
@@ -21,7 +19,7 @@ namespace TddEbook.TddToolkit
 
     public static long LongInteger()
     {
-      return Generator.Create<long>();
+      return ValueOf<long>();
     }
 
     public static long LongIntegerOtherThan(params long[] others)
@@ -31,7 +29,7 @@ namespace TddEbook.TddToolkit
 
     public static ulong UnsignedLongInteger()
     {
-      return Generator.Create<ulong>();
+      return ValueOf<ulong>();
     }
 
     public static ulong UnsignedLongIntegerOtherThan(params ulong[] others)

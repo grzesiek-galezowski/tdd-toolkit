@@ -48,12 +48,12 @@ namespace TddEbook.TddToolkit
 
     public static DateTime DateTime()
     {
-      return Generator.Create<DateTime>();
+      return ValueOf<DateTime>();
     }
 
     public static TimeSpan TimeSpan()
     {
-      return Generator.Create<TimeSpan>();
+      return ValueOf<TimeSpan>();
     }
 
     public static T ValueOf<T>()

@@ -9,7 +9,7 @@ namespace TddEbook.TddToolkit
     {
       AssertDynamicEnumConstraintFor<T>();
 
-      return Generator.Create<T>();
+      return ValueOf<T>();
     }
 
     public static T Besides<T>(params T[] excludedValues) where T : struct, IConvertible

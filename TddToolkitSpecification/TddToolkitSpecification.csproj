@@ -46,6 +46,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnySpecification.cs" />
     <Compile Include="RecordedAssertionsSpecification.cs" />
+    <Compile Include="TypeOfTypeSpecification.cs" />
     <Compile Include="XAssertSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
