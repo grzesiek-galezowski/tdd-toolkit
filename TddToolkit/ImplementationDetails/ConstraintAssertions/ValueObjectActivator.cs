@@ -11,13 +11,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
     readonly FallbackTypeGenerator<T> _fallbackTypeGenerator = new FallbackTypeGenerator<T>();
     private List<object> _constructorArguments;
 
-    public T CreateInstanceWithNewConstructorArguments()
+    private T CreateInstanceWithNewConstructorArguments()
     {
       _constructorArguments = _fallbackTypeGenerator.GenerateConstructorParameters();
       return CreateInstanceWithCurrentConstructorArguments();
     }
 
-    public T CreateInstanceWithCurrentConstructorArguments()
+    private T CreateInstanceWithCurrentConstructorArguments()
     {
       return CreateInstance(_constructorArguments);
     }

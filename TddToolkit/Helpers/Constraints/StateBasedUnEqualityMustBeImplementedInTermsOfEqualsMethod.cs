@@ -6,7 +6,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
   public class StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
   {
     private readonly ValueObjectActivator<T> _activator;
-    private int[] _indexesOfConstructorArgumentsToSkip;
+    private readonly int[] _indexesOfConstructorArgumentsToSkip;
 
     public StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod(
       ValueObjectActivator<T> activator, int[] indexesOfConstructorArgumentsToSkip)

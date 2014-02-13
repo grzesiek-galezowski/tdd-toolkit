@@ -13,12 +13,12 @@ namespace TddEbook.TddToolkit
 
     public static bool EqualInTermsOfEqualityOperator<T>(T instance1, T instance2) where T : class
     {
-      return Operators<T>.Equality().Evaluate(instance1, instance2);
+      return BinaryOperator.EqualityFrom<T>().Evaluate(instance1, instance2);
     }
 
     public static bool NotEqualInTermsOfInEqualityOperator<T>(T instance1, T instance2) where T : class
     {
-      return Operators<T>.Inequality().Evaluate(instance1, instance2);
+      return BinaryOperator.InequalityFrom<T>().Evaluate(instance1, instance2);
     }
   }
 }

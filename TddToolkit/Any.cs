@@ -173,9 +173,9 @@ namespace TddEbook.TddToolkit
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
-    public static object InstanceOtherThanObjects(Type type, params object[] _omittedValues)
+    public static object InstanceOtherThanObjects(Type type, params object[] omittedValues)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, _omittedValues);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, omittedValues);
     }
 
   }

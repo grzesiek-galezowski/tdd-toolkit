@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using FluentAssertions;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
@@ -11,7 +13,7 @@ namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
-    public static void TypeAdheresToConstraints<T>(List<IConstraint> constraints) where T : class
+    public static void TypeAdheresToConstraints<T>(IEnumerable<IConstraint> constraints) where T : class
     {
       var violations = ConstraintsViolations.Empty();
       foreach (var constraint in constraints)
@@ -36,7 +38,7 @@ namespace TddEbook.TddToolkit
       XAssert.TypeAdheresToConstraints<T>(constraints);
     }
 
-    private static List<IConstraint> CreateConstraintsBasedOn<T>
+    private static IEnumerable<IConstraint> CreateConstraintsBasedOn<T>
       (ValueTypeTraits traits, ValueObjectActivator<T> activator)
       where T : class
     {
@@ -99,14 +101,13 @@ namespace TddEbook.TddToolkit
 
     public static void IsEqualityOperatorDefinedFor<T>()
     {
-      XAssert.NotEqual(Operators<T>.EqualityMethod(), 
-        null, "== operator should be declared on type " + typeof(T));
+      ExecutionOf(() => BinaryOperator.EqualityFrom<T>()).ShouldNotThrow<Exception>();
     }
+
 
     public static void IsInequalityOperatorDefinedFor<T>()
     {
-      XAssert.NotEqual(Operators<T>.InequalityMethod(), 
-        null, "!= operator should be declared on type " + typeof(T));
+      ExecutionOf(() => BinaryOperator.InequalityFrom<T>()).ShouldNotThrow<Exception>();
     }
 
     public static void All(Action<AssertionRecorder> asserts)
@@ -117,6 +118,10 @@ namespace TddEbook.TddToolkit
       recorder.AssertTrue();
     }
 
+    private static Action ExecutionOf(Action func)
+    {
+      return func;
+    }
 
   }
 }

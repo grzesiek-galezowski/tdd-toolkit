@@ -75,6 +75,7 @@
     <Compile Include="Helpers\Constraints\InequalityOperator\UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator.cs" />
     <Compile Include="ImplementationDetails\ArrayElementPicking.cs" />
     <Compile Include="ImplementationDetails\ArrayWithIndex.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\NoSuchOperatorInTypeException.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeDictionary.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeUnknownCollection.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\GenericInstanceFactory.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\TypeOf.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\Operators.cs" />
+    <Compile Include="Method.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />

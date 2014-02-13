@@ -1,4 +1,5 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
+﻿using System.Linq;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
@@ -7,12 +8,9 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
     public void CheckAndRecord(ConstraintsViolations violations)
     {
       var fields = TypeWrapper<T>.GetAllInstanceFields();
-      foreach (var item in fields)
+      foreach (var item in fields.Where(item => item.IsNotDeveloperDefinedReadOnlyField()))
       {
-        if (item.IsNotDeveloperDefinedReadOnlyField())
-        {
-          violations.Add(item.ShouldNotBeMutableButIs());
-        }
+        violations.Add(item.ShouldNotBeMutableButIs());
       }
     }
   }

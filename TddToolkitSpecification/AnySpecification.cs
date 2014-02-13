@@ -216,6 +216,7 @@ namespace TddToolkitSpecification
     }
 
     [Test]
+    [Description("Non-deterministic statement - check it out")]
     public void ShouldGeneratePickNextValueEachTimeFromPassedOnesWhenAskedToCreateAnyValueFromGiven()
     {
       //WHEN
@@ -242,7 +243,7 @@ namespace TddToolkitSpecification
     public void ShouldGenerateStringAccordingtoRegex()
     {
       //GIVEN
-      var exampleRegex = @"content/([A-Za-z0-9\-]+)\.aspx$";
+      const string exampleRegex = @"content/([A-Za-z0-9\-]+)\.aspx$";
       
       //WHEN
       var result = Any.StringMatching(exampleRegex);
@@ -344,7 +345,7 @@ namespace TddToolkitSpecification
     public void ShouldSupportGeneratingOtherObjectsThanNull()
     {
       Assert.DoesNotThrow(() =>
-      { var notNull = Any.OtherThan<string>(null); });
+      { Any.OtherThan<string>(null); });
     }
 
     [Test]

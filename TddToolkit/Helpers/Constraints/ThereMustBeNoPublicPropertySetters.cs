@@ -1,4 +1,5 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
+﻿using System.Linq;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
@@ -9,14 +10,10 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
     {
       var properties = TypeWrapper<T>.GetAllInstanceProperties();
 
-      foreach (var item in properties)
+      foreach (var item in properties.Where(item => item.HasPublicSetter()))
       {
-        if (item.HasPublicSetter())
-        {
-          violations.Add(item.ShouldNotBeMutableButIs());
-        }
+        violations.Add(item.ShouldNotBeMutableButIs());
       }
-
     }
   }
 }
