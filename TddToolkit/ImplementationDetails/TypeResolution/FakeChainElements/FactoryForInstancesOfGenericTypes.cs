@@ -2,37 +2,37 @@
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  public interface GenericInstanceFactory
+  public interface FactoryForInstancesOfGenericTypes
   {
-    object Create(Type type);
+    object NewInstanceOf(Type type);
   }
 
-  public class GenericInstanceFactory1 : GenericInstanceFactory
+  public class FactoryForInstancesOfGenericTypesWith1Type : FactoryForInstancesOfGenericTypes
   {
     private readonly Func<Type, object> _factoryMethod;
 
-    public GenericInstanceFactory1(Func<Type, object> factoryMethod)
+    public FactoryForInstancesOfGenericTypesWith1Type(Func<Type, object> factoryMethod)
     {
       _factoryMethod = factoryMethod;
     }
 
-    public object Create(Type type)
+    public object NewInstanceOf(Type type)
     {
       var type1 = type.GetGenericArguments()[0];
       return _factoryMethod.Invoke(type1);
     }
   }
 
-  public class GenericInstanceFactory2 : GenericInstanceFactory
+  public class FactoryForInstancesOfGenericTypesWith2Types : FactoryForInstancesOfGenericTypes
   {
     private readonly Func<Type, Type, object> _factoryMethod;
 
-    public GenericInstanceFactory2(Func<Type, Type, object> factoryMethod)
+    public FactoryForInstancesOfGenericTypesWith2Types(Func<Type, Type, object> factoryMethod)
     {
       _factoryMethod = factoryMethod;
     }
 
-    public object Create(Type type)
+    public object NewInstanceOf(Type type)
     {
       var type1 = type.GetGenericArguments()[0];
       var type2 = type.GetGenericArguments()[1];

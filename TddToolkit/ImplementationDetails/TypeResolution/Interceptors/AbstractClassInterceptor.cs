@@ -1,7 +1,7 @@
 using System;
 using Castle.DynamicProxy;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
   internal class AbstractClassInterceptor : IInterceptor
   {

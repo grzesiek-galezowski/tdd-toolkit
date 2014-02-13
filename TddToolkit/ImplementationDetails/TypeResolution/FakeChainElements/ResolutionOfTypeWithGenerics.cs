@@ -5,12 +5,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   public class ResolutionOfTypeWithGenerics<T> : IResolution<T>
   {
-    private Type[] _matchingTypes;
-    private GenericInstanceFactory _instanceFactory;
+    private readonly Type[] _matchingTypes;
+    private readonly FactoryForInstancesOfGenericTypes _factoryForInstancesOfGenericTypes;
 
-    public ResolutionOfTypeWithGenerics(GenericInstanceFactory instanceFactory, params Type[] matchingTypes)
+    public ResolutionOfTypeWithGenerics(FactoryForInstancesOfGenericTypes factoryForInstancesOfGenericTypes, params Type[] matchingTypes)
     {
-      _instanceFactory = instanceFactory;
+      _factoryForInstancesOfGenericTypes = factoryForInstancesOfGenericTypes;
       _matchingTypes = matchingTypes;
     }
 
@@ -25,7 +25,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public T Apply()
     {
       var type = typeof(T);
-      return (T)_instanceFactory.Create(type);
+      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type);
     }
 
   }

@@ -21,7 +21,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       }
     }
 
-    public object GetReturnTypeFor(IInvocation invocation)
+    private object GetReturnTypeFor(IInvocation invocation)
     {
       var cacheKey = ReturnValueCacheKey.For(invocation);
       if (!_cache.AlreadyContainsValueFor(cacheKey))
@@ -34,7 +34,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       return _cache.ValueFor(cacheKey);
     }
 
-    public bool AppliesTo(Type returnType)
+    private bool AppliesTo(Type returnType)
     {
       return returnType != typeof (void);
     }

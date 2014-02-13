@@ -1,6 +1,6 @@
 using Castle.DynamicProxy;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
   internal class FakeAbstractClass<T> : IResolution<T>
   {
