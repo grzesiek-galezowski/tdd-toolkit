@@ -1,5 +1,6 @@
 using System;
 using Castle.DynamicProxy;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {

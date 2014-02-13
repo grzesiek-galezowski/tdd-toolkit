@@ -1,18 +1,19 @@
+using System.Collections.Generic;
 using System.Linq;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
   class ArrayWithIndex<T>
   {
     private readonly T[] _values;
-    public int Index { get; set; }
+    private int Index { get; set; }
 
-    public T[] Values
+    private IEnumerable<T> Values
     {
       get { return _values; }
     }
 
-    public bool IsEquivalentTo(T[] array)
+    public bool IsEquivalentTo(IEnumerable<T> array)
     {
       return Values.SequenceEqual(array);
     }

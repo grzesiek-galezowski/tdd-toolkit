@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
   internal class ReturnValueCacheKey : IEquatable<ReturnValueCacheKey>
   {

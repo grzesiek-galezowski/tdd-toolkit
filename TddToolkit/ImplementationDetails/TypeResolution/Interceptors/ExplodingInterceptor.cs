@@ -1,6 +1,6 @@
 using Castle.DynamicProxy;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
   public class ExplodingInterceptor : IInterceptor
   {

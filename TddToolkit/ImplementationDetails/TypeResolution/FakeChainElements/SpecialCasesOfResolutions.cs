@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {

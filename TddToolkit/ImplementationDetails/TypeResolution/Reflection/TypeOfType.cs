@@ -1,6 +1,6 @@
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
-  public class TypeOfType
+  public static class TypeOfType
   {
     public static bool Is<T>()
     {

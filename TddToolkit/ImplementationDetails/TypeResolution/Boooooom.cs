@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
   public class BoooooomException : Exception
   {

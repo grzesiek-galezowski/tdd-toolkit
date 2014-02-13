@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
   public static class TypeOf<T>
   {

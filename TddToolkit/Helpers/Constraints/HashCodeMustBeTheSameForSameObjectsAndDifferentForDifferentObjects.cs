@@ -1,5 +1,6 @@
 ﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using System.Linq;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {

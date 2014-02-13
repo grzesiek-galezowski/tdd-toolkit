@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
   public interface FactoryForInstancesOfGenericTypes
   {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
+namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
 {
   internal class FieldWrapper
   {

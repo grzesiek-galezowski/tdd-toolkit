@@ -1,4 +1,5 @@
 ﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {

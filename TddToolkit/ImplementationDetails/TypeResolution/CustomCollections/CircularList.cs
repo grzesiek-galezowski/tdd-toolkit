@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
   public class CircularList<T>
   {

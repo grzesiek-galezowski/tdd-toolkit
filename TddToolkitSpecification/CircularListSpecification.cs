@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
 namespace TddToolkitSpecification
 {

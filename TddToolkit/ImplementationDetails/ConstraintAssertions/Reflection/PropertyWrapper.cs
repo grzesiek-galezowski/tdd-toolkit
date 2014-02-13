@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
+namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
 {
   internal class PropertyWrapper
   {

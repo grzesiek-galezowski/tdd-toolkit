@@ -5,6 +5,7 @@ using System.Reflection;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
 namespace TddEbook.TddToolkit
 {

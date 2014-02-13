@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using NSubstitute.Core;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
+namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
 {
   public class BinaryOperator<T, TResult>
   {

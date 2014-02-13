@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
   class ArrayElementPicking
   {

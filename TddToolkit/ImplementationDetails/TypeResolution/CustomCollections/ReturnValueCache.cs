@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
   internal class ReturnValueCache
   {

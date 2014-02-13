@@ -1,3 +1,5 @@
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
+
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeConcreteClass<T> : IResolution<T>

@@ -4,7 +4,9 @@ using Ploeh.AutoFixture;
 using System.Linq;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 
 namespace TddEbook.TddToolkit
 {
