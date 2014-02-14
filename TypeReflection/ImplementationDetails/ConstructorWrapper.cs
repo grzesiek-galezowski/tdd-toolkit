@@ -3,18 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
+namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  public interface IConstructorWrapper
-  {
-    bool HasNonPointerArgumentsOnly();
-    bool HasLessParametersThan(int numberOfParams);
-    int GetParametersCount();
-    bool HasAbstractOrInterfaceArguments();
-    List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator);
-    bool IsParameterless();
-  }
-
   internal class ConstructorWrapper : IConstructorWrapper
   {
     private readonly ConstructorInfo _constructor;

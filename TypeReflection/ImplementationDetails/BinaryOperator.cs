@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using NSubstitute.Core;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
+namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  public class BinaryOperator<T, TResult>
+
+  public class BinaryOperator<T, TResult> : TypeReflection.IBinaryOperator<T,TResult>
   {
     private readonly MethodInfo _method;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
+namespace TddEbook.TypeReflection
 {
   public static class TypeOfType
   {

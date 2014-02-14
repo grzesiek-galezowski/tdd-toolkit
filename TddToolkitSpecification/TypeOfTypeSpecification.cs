@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
+using TddEbook.TypeReflection;
 
 namespace TddToolkitSpecification
 {

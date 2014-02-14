@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
-using TddEbook.TddToolkit.ImplementationDetails.Common.Reflection;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {

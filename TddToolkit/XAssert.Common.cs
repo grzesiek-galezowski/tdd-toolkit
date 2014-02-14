@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using FluentAssertions;
 using TddEbook.TddToolkit.Helpers.Constraints;
@@ -10,6 +9,7 @@ using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
 using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
 {
@@ -103,13 +103,13 @@ namespace TddEbook.TddToolkit
 
     public static void IsEqualityOperatorDefinedFor<T>()
     {
-      ExecutionOf(() => BinaryOperator.EqualityFrom<T>()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => TypeOf<T>.Equality()).ShouldNotThrow<Exception>();
     }
 
 
     public static void IsInequalityOperatorDefinedFor<T>()
     {
-      ExecutionOf(() => BinaryOperator.InequalityFrom<T>()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => TypeOf<T>.Inequality()).ShouldNotThrow<Exception>();
     }
 
     public static void All(Action<AssertionRecorder> asserts)

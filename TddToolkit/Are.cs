@@ -1,6 +1,5 @@
 ﻿using TddEbook.TddToolkit.ImplementationDetails;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
 {
@@ -14,12 +13,12 @@ namespace TddEbook.TddToolkit
 
     public static bool EqualInTermsOfEqualityOperator<T>(T instance1, T instance2) where T : class
     {
-      return BinaryOperator.EqualityFrom<T>().Evaluate(instance1, instance2);
+      return TypeOf<T>.Equality().Evaluate(instance1, instance2);
     }
 
     public static bool NotEqualInTermsOfInEqualityOperator<T>(T instance1, T instance2) where T : class
     {
-      return BinaryOperator.InequalityFrom<T>().Evaluate(instance1, instance2);
+      return TypeOf<T>.Inequality().Evaluate(instance1, instance2);
     }
   }
 }

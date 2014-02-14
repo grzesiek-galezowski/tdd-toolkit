@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
+namespace TddEbook.TypeReflection
 {
   public class NoSuchOperatorInTypeException : Exception
   {

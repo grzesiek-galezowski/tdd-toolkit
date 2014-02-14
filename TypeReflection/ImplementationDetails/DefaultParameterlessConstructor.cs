@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
+namespace TddEbook.TypeReflection.ImplementationDetails
 {
   internal class DefaultParameterlessConstructor : IConstructorWrapper
   {

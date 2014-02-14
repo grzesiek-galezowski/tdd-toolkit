@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
+namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  public class PropertyWrapper
+  public class PropertyWrapper : IPropertyWrapper
   {
     private readonly PropertyInfo _propertyInfo;
 

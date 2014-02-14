@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
+namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  public class FieldWrapper
+  internal class FieldWrapper : IFieldWrapper
   {
     private readonly FieldInfo _fieldInfo;
 
