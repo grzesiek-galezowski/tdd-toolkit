@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
+namespace TddEbook.TddToolkit.ImplementationDetails.Common.Reflection
 {
   public static class TypeOf<T>
   {
@@ -36,6 +37,25 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       var properties = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
       return properties.Select(p => new PropertyWrapper(p));
     }
+
+    public static IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
+    {
+      var type = typeof(T);
+      var constructors = ConstructorWrapper.ExtractAllFrom(type);
+      IConstructorWrapper leastParamsConstructor = null;
+      var numberOfParams = int.MaxValue;
+
+      foreach (var typeConstructor in constructors)
+      {
+        if (typeConstructor.HasNonPointerArgumentsOnly() && typeConstructor.HasLessParametersThan(numberOfParams))
+        {
+          leastParamsConstructor = typeConstructor;
+          numberOfParams = typeConstructor.GetParametersCount();
+        }
+      }
+      return leastParamsConstructor;
+    }
+
 
   }
 }

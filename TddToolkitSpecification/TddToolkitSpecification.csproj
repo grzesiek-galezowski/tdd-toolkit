@@ -57,6 +57,10 @@
       <Project>{a52e21f4-2301-4f4e-9361-be954fb490a0}</Project>
       <Name>TddToolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
+      <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>
+      <Name>TypeReflection</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddEbook.TddToolkit.ImplementationDetails.Common.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
@@ -16,7 +17,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 
     public int GetConstructorParametersCount()
     {
-      var constructor = PickConstructorWithLeastNonPointersParametersFrom(_type);
+      var constructor = TypeOf<T>.PickConstructorWithLeastNonPointersParameters();
       return constructor.GetParametersCount();
     }
 
@@ -34,33 +35,19 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 
     public List<object> GenerateConstructorParameters()
     {
-      var constructor = PickConstructorWithLeastNonPointersParametersFrom(_type);
-      var constructorParameters = constructor.GenerateAnyParameterValues();
+      var constructor = TypeOf<T>.PickConstructorWithLeastNonPointersParameters();
+      var constructorParameters = constructor.GenerateAnyParameterValues(
+        t => Any.Instance(t)
+        );
       return constructorParameters;
     }
 
-    public bool ConstructorHasAtLeastOneNonConcreteArgumentType(Type type)
+    public bool ConstructorHasAtLeastOneNonConcreteArgumentType()
     {
-      var constructor = PickConstructorWithLeastNonPointersParametersFrom(type);
+      var constructor = TypeOf<T>.PickConstructorWithLeastNonPointersParameters();
       return constructor.HasAbstractOrInterfaceArguments();
     }
 
-    private static IConstructorWrapper PickConstructorWithLeastNonPointersParametersFrom(Type type)
-    {
-      var constructors = ConstructorWrapper.ExtractAllFrom(type);
-      IConstructorWrapper leastParamsConstructor = null;
-      var numberOfParams = int.MaxValue;
-
-      foreach (var typeConstructor in constructors)
-      {
-        if (typeConstructor.HasNonPointerArgumentsOnly() && typeConstructor.HasLessParametersThan(numberOfParams))
-        {
-          leastParamsConstructor = typeConstructor;
-          numberOfParams = typeConstructor.GetParametersCount();
-        }
-      }
-      return leastParamsConstructor;
-    }
 
     public void FillFieldsAndPropertiesOf(T result)
     {

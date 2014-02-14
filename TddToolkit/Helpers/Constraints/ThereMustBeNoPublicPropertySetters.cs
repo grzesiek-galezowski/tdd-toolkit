@@ -3,6 +3,7 @@ using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
 using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
+using TddEbook.TddToolkit.ImplementationDetails.Common.Reflection;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {

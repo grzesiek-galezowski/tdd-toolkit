@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkit", "TddToolkit\TddToolkit.csproj", "{A52E21F4-2301-4F4E-9361-BE954FB490A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkitSpecification", "TddToolkitSpecification\TddToolkitSpecification.csproj", "{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}"
@@ -20,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depascalization", "Depascalization\Depascalization.csproj", "{9C6C135D-DB8E-4239-85DA-6141AA514CC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepascalizationApp", "DepascalizationApp\DepascalizationApp.csproj", "{A376B381-9BF9-47A4-95AE-3651818D332D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeReflection", "TypeReflection\TypeReflection.csproj", "{9B839C4B-BEFD-467F-80A7-B51C6352A985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,10 @@ Global
 		{A376B381-9BF9-47A4-95AE-3651818D332D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A376B381-9BF9-47A4-95AE-3651818D332D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A376B381-9BF9-47A4-95AE-3651818D332D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B839C4B-BEFD-467F-80A7-B51C6352A985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B839C4B-BEFD-467F-80A7-B51C6352A985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B839C4B-BEFD-467F-80A7-B51C6352A985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B839C4B-BEFD-467F-80A7-B51C6352A985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

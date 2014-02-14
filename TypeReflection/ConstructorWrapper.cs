@@ -11,11 +11,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
     bool HasLessParametersThan(int numberOfParams);
     int GetParametersCount();
     bool HasAbstractOrInterfaceArguments();
-    List<object> GenerateAnyParameterValues();
+    List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator);
     bool IsParameterless();
   }
 
-  public class ConstructorWrapper : IConstructorWrapper
+  internal class ConstructorWrapper : IConstructorWrapper
   {
     private readonly ConstructorInfo _constructor;
 
@@ -82,14 +82,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       }
     }
 
-    public List<object> GenerateAnyParameterValues()
+    public List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator)
     {
       var constructorParams = _constructor.GetParameters();
       var constructorValues = new List<object>();
 
       foreach (var constructorParam in constructorParams)
       {
-        constructorValues.Add(Any.Instance(constructorParam.ParameterType));
+        constructorValues.Add(instanceGenerator(constructorParam.ParameterType));
       }
       return constructorValues;
     }

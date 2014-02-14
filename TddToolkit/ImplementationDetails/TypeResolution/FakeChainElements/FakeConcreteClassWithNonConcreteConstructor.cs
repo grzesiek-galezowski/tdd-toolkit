@@ -8,7 +8,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public bool Applies()
     {
-      return _fallbackTypeGenerator.ConstructorHasAtLeastOneNonConcreteArgumentType(typeof(T));
+      return _fallbackTypeGenerator.ConstructorHasAtLeastOneNonConcreteArgumentType();
     }
 
     public T Apply()

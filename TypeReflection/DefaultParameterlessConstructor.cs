@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
 {
-  public class DefaultParameterlessConstructor : IConstructorWrapper
+  internal class DefaultParameterlessConstructor : IConstructorWrapper
   {
     public bool HasNonPointerArgumentsOnly()
     {
@@ -24,7 +25,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       return false;
     }
 
-    public List<object> GenerateAnyParameterValues()
+    public List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator)
     {
       return new List<object>();
     }
