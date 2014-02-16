@@ -60,7 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Are.cs" />
-    <Compile Include="ImplementationDetails\AssertionRecorder.cs" />
+    <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
+    <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
     <Compile Include="Empty.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="ImplementationDetails\ConstraintAssertions\CustomCollections\ConstraintsViolations.cs" />
     <Compile Include="Helpers\Constraints\HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects.cs" />
     <Compile Include="ImplementationDetails\ConstraintAssertions\IConstraint.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\RecordedAssertions.cs" />
+    <Compile Include="ImplementationDetails\Common\RecordedAssertions.cs" />
     <Compile Include="Helpers\Constraints\StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="Helpers\Constraints\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="Helpers\Constraints\StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />

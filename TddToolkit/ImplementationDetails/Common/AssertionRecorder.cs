@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using System.Diagnostics;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
+  //TODO examine similarities with RecordedAssertions
   public class AssertionRecorder
   {
     private int assertionNumber = 1;
@@ -19,6 +19,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     private string ExtractMessagesFromAll(List<AssertionFailed> _failedAssertions)
     {
       string result = "the following assertions shouldn't have failed: " + Environment.NewLine;
+
       foreach (var failedAssertion in _failedAssertions)
       {
         result += failedAssertion.Header();
@@ -109,33 +110,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       }
       
       assertionNumber++;
-    }
-  }
-
-  public class AssertionFailed
-  {
-    private Exception e;
-    private int assertionNumber;
-
-    public AssertionFailed(Exception e, int assertionNumber)
-    {
-      this.e = e;
-      this.assertionNumber = assertionNumber;
-    }
-
-    public static AssertionFailed With(Exception e, int assertionNumber)
-    {
-      return new AssertionFailed(e, assertionNumber);
-    }
-
-    public string Header()
-    {
-      return "Assertion no. " + assertionNumber + " failed: " + e.Message + " " + Environment.NewLine;
-    }
-
-    public override string ToString()
-    {
-      return e.ToString();
     }
   }
 }

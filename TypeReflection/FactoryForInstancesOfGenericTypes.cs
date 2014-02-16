@@ -7,11 +7,11 @@ namespace TddEbook.TypeReflection
     object NewInstanceOf(Type type);
   }
 
-  public class FactoryForInstancesOfGenericTypesWith1Type : FactoryForInstancesOfGenericTypes
+  public class FactoryForInstancesOfGenericTypesWith1Generic : FactoryForInstancesOfGenericTypes
   {
     private readonly Func<Type, object> _factoryMethod;
 
-    public FactoryForInstancesOfGenericTypesWith1Type(Func<Type, object> factoryMethod)
+    public FactoryForInstancesOfGenericTypesWith1Generic(Func<Type, object> factoryMethod)
     {
       _factoryMethod = factoryMethod;
     }
@@ -23,11 +23,11 @@ namespace TddEbook.TypeReflection
     }
   }
 
-  public class FactoryForInstancesOfGenericTypesWith2Types : FactoryForInstancesOfGenericTypes
+  public class FactoryForInstancesOfGenericTypesWith2Generics : FactoryForInstancesOfGenericTypes
   {
     private readonly Func<Type, Type, object> _factoryMethod;
 
-    public FactoryForInstancesOfGenericTypesWith2Types(Func<Type, Type, object> factoryMethod)
+    public FactoryForInstancesOfGenericTypesWith2Generics(Func<Type, Type, object> factoryMethod)
     {
       _factoryMethod = factoryMethod;
     }

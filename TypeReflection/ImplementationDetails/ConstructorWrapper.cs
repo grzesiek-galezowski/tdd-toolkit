@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  internal class ConstructorWrapper : IConstructorWrapper
+  public class ConstructorWrapper : IConstructorWrapper
   {
     private readonly ConstructorInfo _constructor;
 

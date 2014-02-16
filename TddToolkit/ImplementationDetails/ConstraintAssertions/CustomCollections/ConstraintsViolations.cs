@@ -26,7 +26,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.CustomCollections.Constraint
         + Environment.NewLine + MessageContainingAll(_violations));
     }
 
-    private string MessageContainingAll(IEnumerable<string> violations)
+    private static string MessageContainingAll(IEnumerable<string> violations)
     {
       return violations.Any() ? violations.Aggregate((a, b) => a + Environment.NewLine + b) : "No violations.";
     }

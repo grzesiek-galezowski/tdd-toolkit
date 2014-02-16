@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  internal class DefaultParameterlessConstructor : IConstructorWrapper
+  public class DefaultParameterlessConstructor : IConstructorWrapper
   {
     public bool HasNonPointerArgumentsOnly()
     {

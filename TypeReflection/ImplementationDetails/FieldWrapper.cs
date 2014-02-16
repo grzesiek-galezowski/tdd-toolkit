@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
-  internal class FieldWrapper : IFieldWrapper
+  public class FieldWrapper : IFieldWrapper
   {
     private readonly FieldInfo _fieldInfo;
 

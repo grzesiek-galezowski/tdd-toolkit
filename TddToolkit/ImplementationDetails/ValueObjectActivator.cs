@@ -8,8 +8,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
 {
   public class ValueObjectActivator<T>
   {
-    readonly FallbackTypeGenerator<T> _fallbackTypeGenerator = new FallbackTypeGenerator<T>();
+    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
     private List<object> _constructorArguments;
+
+    public ValueObjectActivator(FallbackTypeGenerator<T> fallbackTypeGenerator)
+    {
+      this._fallbackTypeGenerator = fallbackTypeGenerator;
+    }
 
     private T CreateInstanceWithNewConstructorArguments()
     {
@@ -24,7 +29,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
 
     public static ValueObjectActivator<T> FreshInstance()
     {
-      return new ValueObjectActivator<T>();
+      return new ValueObjectActivator<T>(new FallbackTypeGenerator<T>());
     }
 
     public T CreateInstanceAsValueObjectWithFreshParameters()
