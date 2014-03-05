@@ -1,5 +1,6 @@
 ﻿using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions
+
+namespace TddEbook.TddToolkit.ImplementationDetails.Common
 {
   public class RecordedAssertions
   {

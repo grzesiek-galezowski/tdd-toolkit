@@ -37,10 +37,6 @@
     <AssemblyOriginatorKeyFile>TypeReflection.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NSubstitute, Version=1.7.2.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET40\NSubstitute.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -53,6 +49,7 @@
     <Compile Include="ImplementationDetails\FieldWrapper.cs" />
     <Compile Include="IConstructorWrapper.cs" />
     <Compile Include="IFieldWrapper.cs" />
+    <Compile Include="ImplementationDetails\Maybe.cs" />
     <Compile Include="IPropertyWrapper.cs" />
     <Compile Include="NoSuchOperatorInTypeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

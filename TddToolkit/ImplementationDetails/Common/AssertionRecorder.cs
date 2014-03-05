@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.ImplementationDetails.Common
 {
   //TODO examine similarities with RecordedAssertions
   public class AssertionRecorder
   {
     private int assertionNumber = 1;
-    public List<AssertionFailed> _exceptions = new List<AssertionFailed>();
+    private readonly List<AssertionFailed> _exceptions = new List<AssertionFailed>();
 
     internal void AssertTrue()
     {
       XAssert.Equal(0, _exceptions.Count, ExtractMessagesFromAll(_exceptions));
     }
 
-    private string ExtractMessagesFromAll(List<AssertionFailed> _failedAssertions)
+    private string ExtractMessagesFromAll(List<AssertionFailed> failedAssertions)
     {
       string result = "the following assertions shouldn't have failed: " + Environment.NewLine;
 
-      foreach (var failedAssertion in _failedAssertions)
+      foreach (var failedAssertion in failedAssertions)
       {
         result += failedAssertion.Header();
       }
 
-      foreach (var failedAssertion in _failedAssertions)
+      foreach (var failedAssertion in failedAssertions)
       {
         result += failedAssertion + Environment.NewLine;
       }

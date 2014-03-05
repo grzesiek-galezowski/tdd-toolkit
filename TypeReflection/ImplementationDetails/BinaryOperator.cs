@@ -1,10 +1,9 @@
 ﻿using System.Reflection;
-using NSubstitute.Core;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
 
-  public class BinaryOperator<T, TResult> : TypeReflection.IBinaryOperator<T,TResult>
+  public class BinaryOperator<T, TResult> : IBinaryOperator<T,TResult>
   {
     private readonly MethodInfo _method;
 
@@ -20,9 +19,9 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public static BinaryOperator<T, bool> Wrap(Maybe<MethodInfo> maybeOperator, string op)
     {
-      if (maybeOperator.HasValue())
+      if (maybeOperator.HasValue)
       {
-        return new BinaryOperator<T, bool>(maybeOperator.ValueOrDefault());
+        return new BinaryOperator<T, bool>(maybeOperator.Value);
       }
       else
       {

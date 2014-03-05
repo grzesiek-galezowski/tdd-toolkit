@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
 namespace TddToolkitSpecification
@@ -47,7 +47,5 @@ namespace TddToolkitSpecification
       XAssert.Equal(returnedElement3, element1);
       XAssert.Equal(returnedElement4, element2);
     }
-
-
   }
 }

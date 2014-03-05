@@ -1,5 +1,4 @@
-﻿using System;
-namespace TddEbook.TypeReflection
+﻿namespace TddEbook.TypeReflection
 {
   public interface IPropertyWrapper
   {

@@ -7,10 +7,10 @@ namespace TddEbook.TypeReflection
     public static bool Is<T>()
     {
       var type = typeof (T);
-      return type.FullName == typeof (Type).FullName || IsTypeWithinBaseHierarchyOf(type);
+      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
     }
 
-    private static bool IsTypeWithinBaseHierarchyOf(Type type)
+    private static bool IsTypeOfTypeWithinBaseHierarchyOf(Type type)
     {
       var baseType = type.BaseType;
       if (baseType == null)
@@ -23,7 +23,7 @@ namespace TddEbook.TypeReflection
       }
       else
       {
-        return IsTypeWithinBaseHierarchyOf(baseType);
+        return IsTypeOfTypeWithinBaseHierarchyOf(baseType);
       }
       
     }

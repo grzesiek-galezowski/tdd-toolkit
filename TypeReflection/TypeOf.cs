@@ -1,4 +1,3 @@
-using NSubstitute.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,14 +62,14 @@ namespace TddEbook.TypeReflection
     {
       var equality = typeof(T).GetMethod(OpEquality);
 
-      return equality == null ? Maybe<MethodInfo>.Nothing() : new Maybe<MethodInfo>(equality);
+      return equality == null ? Maybe<MethodInfo>.Nothing : new Maybe<MethodInfo>(equality);
     }
 
     private static Maybe<MethodInfo> InequalityMethodOf()
     {
       var inequality = typeof(T).GetMethod(OpInequality);
 
-      return inequality == null ? Maybe<MethodInfo>.Nothing() : new Maybe<MethodInfo>(inequality);
+      return inequality == null ? Maybe<MethodInfo>.Nothing : new Maybe<MethodInfo>(inequality);
     }
 
     public static IBinaryOperator<T, bool> Equality()
