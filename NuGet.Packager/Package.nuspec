@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.9</version>
+        <version>1.0.10</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial</description>
-        <releaseNotes>Hopefully removed nasty libz-related info</releaseNotes>
+        <releaseNotes>Using 1.1.0.0 version of LibZ</releaseNotes>
         <language>en-US</language>
     </metadata>
     <files>
