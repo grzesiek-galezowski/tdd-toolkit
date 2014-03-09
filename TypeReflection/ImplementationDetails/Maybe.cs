@@ -55,11 +55,28 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return HasValue ? Value : alternativeValue;
     }
 
+    public Maybe<T> Otherwise(Maybe<T> alternative)
+    {
+      return HasValue ? this : alternative;
+    }
+
+
     public override string ToString()
     {
       return HasValue ? Value.ToString() : "<Nothing>";
     }
-  }
 
+    public Maybe<U> To<U>() where U : class
+    {
+      if (!HasValue)
+      {
+        return Maybe<U>.Nothing;
+      }
+      else
+      {
+        return Maybe.Wrap(Value as U);
+      }
+    }
+  }
 
 }
