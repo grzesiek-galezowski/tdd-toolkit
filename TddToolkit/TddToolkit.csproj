@@ -45,13 +45,13 @@
       <HintPath>..\packages\CompareNETObjects.1.7.4.0\lib\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
     </Reference>
     <Reference Include="LibZ.Bootstrap">
-      <HintPath>..\packages\LibZ.Bootstrap.1.0.3.7\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
+      <HintPath>..\packages\LibZ.Bootstrap.1.1.0.0\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="Ploeh.AutoFixture">
-      <HintPath>..\packages\AutoFixture.3.16.6\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+      <HintPath>..\packages\AutoFixture.3.16.8\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -150,7 +150,7 @@
 %25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.0.3.7\tools\libz.exe
+    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.0\tools\libz.exe
 %25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk</PostBuildEvent>
   </PropertyGroup>
 </Project>
