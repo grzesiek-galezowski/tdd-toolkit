@@ -94,4 +94,97 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       }
     }
   }
+
+  public class FallbackTypeGenerator
+  {
+    private TypeWrapper _typeWrapper;
+    private Type _type;
+
+    public FallbackTypeGenerator(Type type)
+    {
+      _typeWrapper = new TypeWrapper(type);
+      _type = type;
+    }
+
+    public int GetConstructorParametersCount()
+    {
+      var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+      return constructor.GetParametersCount();
+    }
+
+    public T GenerateInstance()
+    {
+      var constructorParameters = GenerateConstructorParameters();
+      return GenerateInstance(constructorParameters);
+    }
+
+    public T GenerateInstance(IEnumerable<object> constructorParameters)
+    {
+      var instance = Activator.CreateInstance(_type, constructorParameters.ToArray());
+      return (T)instance;
+    }
+
+    public List<object> GenerateConstructorParameters()
+    {
+      var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+      var constructorParameters = constructor.GenerateAnyParameterValues(
+        t => Any.Instance(t)
+        );
+      return constructorParameters;
+    }
+
+    public bool ConstructorHasAtLeastOneNonConcreteArgumentType()
+    {
+      var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+      return constructor.HasAbstractOrInterfaceArguments();
+    }
+
+
+    public void FillFieldsAndPropertiesOf(object result)
+    {
+      FillPropertyValues(result);
+      FillFieldValues(result);
+    }
+
+    private static void FillFieldValues(object result)
+    {
+      var fields = _type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+      foreach (var field in fields)
+      {
+        try
+        {
+          field.SetValue(result, Any.Instance(field.FieldType));
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine(e.Message);
+        }
+      }
+    }
+
+    private static void FillPropertyValues(object result)
+    {
+      var properties = _type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite);
+
+      foreach (var property in properties)
+      {
+        try
+        {
+          var propertyType = property.PropertyType;
+
+          if (!property.GetGetMethod().IsAbstract)
+          {
+            var value = Any.Instance(propertyType);
+            property.SetValue(result, value, null);
+          }
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine(e.Message);
+        }
+      }
+    }
+  }
+
+
 }
