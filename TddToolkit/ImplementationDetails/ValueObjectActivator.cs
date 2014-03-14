@@ -8,43 +8,80 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
 {
   public class ValueObjectActivator<T>
   {
-    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
-    private List<object> _constructorArguments;
+    private readonly ValueObjectActivator _activator;
 
-    public ValueObjectActivator(FallbackTypeGenerator<T> fallbackTypeGenerator)
+    public ValueObjectActivator(ValueObjectActivator activator)
     {
-      this._fallbackTypeGenerator = fallbackTypeGenerator;
+      _activator = activator;
     }
 
-    private T CreateInstanceWithNewConstructorArguments()
+    public static ValueObjectActivator<T> FreshInstance()
+    {
+      return new ValueObjectActivator<T>(ValueObjectActivator.FreshInstance(typeof(T)));
+    }
+
+    public T CreateInstanceAsValueObjectWithFreshParameters()
+    {
+      return (T)_activator.CreateInstanceAsValueObjectWithFreshParameters();
+    }
+
+    public T CreateInstanceAsValueObjectWithPreviousParameters()
+    {
+      return (T)_activator.CreateInstanceAsValueObjectWithPreviousParameters();
+    }
+
+    public int GetConstructorParametersCount()
+    {
+      return _activator.GetConstructorParametersCount();
+    }
+
+    public T CreateInstanceAsValueObjectWithModifiedParameter(int i)
+    {
+      return (T)_activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
+    }
+  }
+
+  public class ValueObjectActivator
+  {
+    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+    private List<object> _constructorArguments;
+    private Type _type;
+
+    public ValueObjectActivator(FallbackTypeGenerator fallbackTypeGenerator, Type type)
+    {
+      this._fallbackTypeGenerator = fallbackTypeGenerator;
+      _type = type;
+    }
+
+    private object CreateInstanceWithNewConstructorArguments()
     {
       _constructorArguments = _fallbackTypeGenerator.GenerateConstructorParameters();
       return CreateInstanceWithCurrentConstructorArguments();
     }
 
-    private T CreateInstanceWithCurrentConstructorArguments()
+    private object CreateInstanceWithCurrentConstructorArguments()
     {
       return CreateInstance(_constructorArguments);
     }
 
-    public static ValueObjectActivator<T> FreshInstance()
+    public static ValueObjectActivator FreshInstance(Type type)
     {
-      return new ValueObjectActivator<T>(new FallbackTypeGenerator<T>());
+      return new ValueObjectActivator(new FallbackTypeGenerator(type), type);
     }
 
-    public T CreateInstanceAsValueObjectWithFreshParameters()
+    public object CreateInstanceAsValueObjectWithFreshParameters()
     {
-      var instance = default(T);
+      var instance = GetDefaultValue(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithNewConstructorArguments(); })
-        .ShouldNotThrow(typeof(T) + " cannot even be created as a value object");
+        .ShouldNotThrow(_type + " cannot even be created as a value object");
       return instance;
     }
 
-    public T CreateInstanceAsValueObjectWithPreviousParameters()
+    public object CreateInstanceAsValueObjectWithPreviousParameters()
     {
-      var instance = default(T);
+      var instance = GetDefaultValue(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithCurrentConstructorArguments(); })
-        .ShouldNotThrow(typeof(T) + " cannot even be created as a value object");
+        .ShouldNotThrow(_type + " cannot even be created as a value object");
       return instance;
     }
 
@@ -53,23 +90,34 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
       return _fallbackTypeGenerator.GetConstructorParametersCount();
     }
 
-    public T CreateInstanceAsValueObjectWithModifiedParameter(int i)
+    public object CreateInstanceAsValueObjectWithModifiedParameter(int i)
     {
       var modifiedArguments = _constructorArguments.ToList();
       modifiedArguments[i] = Any.Instance(modifiedArguments[i].GetType());
       return CreateInstance(modifiedArguments);
     }
 
-    private T CreateInstance(List<object> parameters)
+    private object CreateInstance(List<object> parameters)
     {
       if (parameters.Count > 0)
       {
-        return (T) Activator.CreateInstance(typeof (T), parameters.ToArray());
+        return Activator.CreateInstance(_type, parameters.ToArray());
       }
       else
       {
-        return Activator.CreateInstance<T>();
+        return Activator.CreateInstance(_type);
       }
     }
+
+    private object GetDefaultValue(Type t)
+    {
+      if (t.IsValueType)
+      {
+        return Activator.CreateInstance(t);
+      }
+
+      return null;
+    }
   }
+
 }

@@ -9,89 +9,43 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
   public class FallbackTypeGenerator<T>
   {
     private readonly Type _type;
+    private FallbackTypeGenerator _fallbackTypeGenerator;
 
     public FallbackTypeGenerator()
     {
       _type = typeof (T);
+      _fallbackTypeGenerator = new FallbackTypeGenerator(_type);
     }
 
     public int GetConstructorParametersCount()
     {
-      var constructor = TypeOf<T>.PickConstructorWithLeastNonPointersParameters();
-      return constructor.GetParametersCount();
+      return _fallbackTypeGenerator.GetConstructorParametersCount();
     }
 
     public T GenerateInstance()
     {
-      var constructorParameters = GenerateConstructorParameters();
-      return GenerateInstance(constructorParameters);
+      return (T)_fallbackTypeGenerator.GenerateInstance();
     }
 
     public T GenerateInstance(IEnumerable<object> constructorParameters)
     {
-      var instance = Activator.CreateInstance(_type, constructorParameters.ToArray());
-      return (T)instance;
+      return (T)_fallbackTypeGenerator.GenerateInstance(constructorParameters);
     }
 
     public List<object> GenerateConstructorParameters()
     {
-      var constructor = TypeOf<T>.PickConstructorWithLeastNonPointersParameters();
-      var constructorParameters = constructor.GenerateAnyParameterValues(
-        t => Any.Instance(t)
-        );
-      return constructorParameters;
+      return _fallbackTypeGenerator.GenerateConstructorParameters();
     }
 
     public bool ConstructorHasAtLeastOneNonConcreteArgumentType()
     {
-      var constructor = TypeOf<T>.PickConstructorWithLeastNonPointersParameters();
-      return constructor.HasAbstractOrInterfaceArguments();
+      return _fallbackTypeGenerator.ConstructorHasAtLeastOneNonConcreteArgumentType();
     }
 
 
     public void FillFieldsAndPropertiesOf(T result)
     {
-      FillPropertyValues(result);
-      FillFieldValues(result);
-    }
-
-    private static void FillFieldValues(T result)
-    {
-      var fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
-      foreach (var field in fields)
-      {
-        try
-        {
-          field.SetValue(result, Any.Instance(field.FieldType));
-        }
-        catch (Exception e)
-        {
-          Console.WriteLine(e.Message);
-        }
-      }
-    }
-
-    private static void FillPropertyValues(T result)
-    {
-      var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite);
-
-      foreach (var property in properties)
-      {
-        try
-        {
-          var propertyType = property.PropertyType;
-
-          if (!property.GetGetMethod().IsAbstract)
-          {
-            var value = Any.Instance(propertyType);
-            property.SetValue(result, value, null);
-          }
-        }
-        catch (Exception e)
-        {
-          Console.WriteLine(e.Message);
-        }
-      }
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
     }
   }
 
@@ -112,16 +66,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       return constructor.GetParametersCount();
     }
 
-    public T GenerateInstance()
+    public object GenerateInstance()
     {
       var constructorParameters = GenerateConstructorParameters();
       return GenerateInstance(constructorParameters);
     }
 
-    public T GenerateInstance(IEnumerable<object> constructorParameters)
+    public object GenerateInstance(IEnumerable<object> constructorParameters)
     {
       var instance = Activator.CreateInstance(_type, constructorParameters.ToArray());
-      return (T)instance;
+      return instance;
     }
 
     public List<object> GenerateConstructorParameters()
@@ -146,7 +100,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       FillFieldValues(result);
     }
 
-    private static void FillFieldValues(object result)
+    private void FillFieldValues(object result)
     {
       var fields = _type.GetFields(BindingFlags.Public | BindingFlags.Instance);
       foreach (var field in fields)
@@ -162,7 +116,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
       }
     }
 
-    private static void FillPropertyValues(object result)
+    private void FillPropertyValues(object result)
     {
       var properties = _type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite);
 
