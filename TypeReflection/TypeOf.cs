@@ -8,79 +8,139 @@ namespace TddEbook.TypeReflection
 {
   public static class TypeOf<T>
   {
-    public static bool HasParameterlessConstructor(Type type)
+    private static readonly TypeWrapper _typeWrapper;
+
+    static TypeOf()
     {
-      var constructors = ConstructorWrapper.ExtractAllFrom(type);
-      return constructors.Any(c => c.IsParameterless());
+      _typeWrapper = new TypeWrapper(typeof (T));
+    }
+
+    public static bool HasParameterlessConstructor()
+    {
+      return _typeWrapper.HasParameterlessConstructor();
     }
 
     public static bool IsImplementationOfOpenGeneric(Type openGenericType)
     {
-      return typeof(T).GetInterfaces().Any(
-        ifaceType => ifaceType.IsGenericType && ifaceType.GetGenericTypeDefinition() == openGenericType);
+      return _typeWrapper.IsImplementationOfOpenGeneric(openGenericType);
     }
 
     public static bool IsConcrete()
     {
-      return !typeof(T).IsAbstract && !typeof(T).IsInterface;
+      return _typeWrapper.IsConcrete();
     }
 
     public static IEnumerable<IFieldWrapper> GetAllInstanceFields()
     {
-      var fields = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-      return fields.Select(f => new FieldWrapper(f));
+      return _typeWrapper.GetAllInstanceFields();
     }
 
     public static IEnumerable<IPropertyWrapper> GetAllInstanceProperties()
     {
-      var properties = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
-      return properties.Select(p => new PropertyWrapper(p));
+      return _typeWrapper.GetAllInstanceProperties();
     }
 
     public static IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
     {
-      var type = typeof(T);
-      var constructors = ConstructorWrapper.ExtractAllFrom(type);
+      return _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+    }
+
+    public static IBinaryOperator<T, bool> Equality()
+    {
+      return BinaryOperator<T, bool>.Wrap(_typeWrapper.Equality());
+    }
+
+    public static IBinaryOperator<T, bool> Inequality()
+    {
+      return BinaryOperator<T, bool>.Wrap(_typeWrapper.Inequality());
+    }
+  }
+
+  public class TypeWrapper
+  {
+    private readonly Type _type;
+
+    public TypeWrapper(Type type)
+    {
+      _type = type;
+    }
+
+    public bool HasParameterlessConstructor()
+    {
+      var constructors = ConstructorWrapper.ExtractAllFrom(_type);
+      return constructors.Any(c => c.IsParameterless());
+    }
+
+    public bool IsImplementationOfOpenGeneric(Type openGenericType)
+    {
+      return _type.GetInterfaces().Any(
+        ifaceType => ifaceType.IsGenericType && ifaceType.GetGenericTypeDefinition() == openGenericType);
+    }
+
+    public bool IsConcrete()
+    {
+      return !_type.IsAbstract && !_type.IsInterface;
+    }
+
+    public IEnumerable<IFieldWrapper> GetAllInstanceFields()
+    {
+      var fields = _type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+      return fields.Select(f => new FieldWrapper(f));
+    }
+
+    public IEnumerable<IPropertyWrapper> GetAllInstanceProperties()
+    {
+      var properties = _type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+      return properties.Select(p => new PropertyWrapper(p));
+    }
+
+    public IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
+    {
+      var constructors = ConstructorWrapper.ExtractAllFrom(_type);
       IConstructorWrapper leastParamsConstructor = null;
       var numberOfParams = int.MaxValue;
 
       foreach (var typeConstructor in constructors)
       {
-        if (typeConstructor.HasNonPointerArgumentsOnly() && typeConstructor.HasLessParametersThan(numberOfParams))
+        if (
+          typeConstructor.HasNonPointerArgumentsOnly()
+          && typeConstructor.HasLessParametersThan(numberOfParams))
         {
           leastParamsConstructor = typeConstructor;
           numberOfParams = typeConstructor.GetParametersCount();
         }
       }
+
       return leastParamsConstructor;
     }
 
     private const string OpEquality = "op_Equality";
     private const string OpInequality = "op_Inequality";
 
-    private static Maybe<MethodInfo> EqualityMethod()
+    private Maybe<MethodInfo> EqualityMethod()
     {
-      var equality = typeof(T).GetMethod(OpEquality);
+      var equality = _type.GetMethod(OpEquality);
 
       return equality == null ? Maybe<MethodInfo>.Nothing : new Maybe<MethodInfo>(equality);
     }
 
-    private static Maybe<MethodInfo> InequalityMethodOf()
+    private Maybe<MethodInfo> InequalityMethodOf()
     {
-      var inequality = typeof(T).GetMethod(OpInequality);
+      var inequality = _type.GetMethod(OpInequality);
 
       return inequality == null ? Maybe<MethodInfo>.Nothing : new Maybe<MethodInfo>(inequality);
     }
 
-    public static IBinaryOperator<T, bool> Equality()
+    public IBinaryOperator Equality()
     {
-      return BinaryOperator<T, bool>.Wrap(EqualityMethod(), "operator ==");
+      return BinaryOperator.Wrap(EqualityMethod(), "operator ==");
     }
 
-    public static IBinaryOperator<T, bool> Inequality()
+    public IBinaryOperator Inequality()
     {
-      return BinaryOperator<T, bool>.Wrap(InequalityMethodOf(), "operator !=");
+      return BinaryOperator.Wrap(InequalityMethodOf(), "operator !=");
     }
 
   }
+
 }

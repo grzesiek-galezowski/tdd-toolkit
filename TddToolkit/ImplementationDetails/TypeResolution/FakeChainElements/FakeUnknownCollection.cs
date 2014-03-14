@@ -12,7 +12,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return TypeOf<T>.IsConcrete() &&
         typeof (T).IsGenericType &&
         TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>))
-        && TypeOf<T>.HasParameterlessConstructor(typeof(T));
+        && TypeOf<T>.HasParameterlessConstructor();
+      
     }
 
 

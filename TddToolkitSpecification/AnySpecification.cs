@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
+using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddToolkitSpecification
 {
@@ -420,7 +421,25 @@ namespace TddToolkitSpecification
       //THEN
       Assert.NotNull(action);
     }
-    
+
+    [Test]
+    public void ShouldAllowCreatingDifferentMaybesOfConcreteClasses()
+    {
+      var maybeString1 = Any.Instance<Maybe<string>>();
+      var maybeString2 = Any.Instance<Maybe<string>>();
+
+      XAssert.NotEqual(maybeString1, maybeString2);
+    }
+
+    [Test]
+    public void ShouldAllowCreatingDifferentMaybesOfInterfaces()
+    {
+      var maybeImplementation1 = Any.Instance<Maybe<RecursiveInterface>>();
+      var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
+
+      XAssert.NotEqual(maybeImplementation1, maybeImplementation2);
+    }
+
 
     public interface RecursiveInterface
     {

@@ -58,7 +58,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
       var modifiedArguments = _constructorArguments.ToList();
       modifiedArguments[i] = Any.Instance(modifiedArguments[i].GetType());
       return CreateInstance(modifiedArguments);
-
     }
 
     private T CreateInstance(List<object> parameters)
