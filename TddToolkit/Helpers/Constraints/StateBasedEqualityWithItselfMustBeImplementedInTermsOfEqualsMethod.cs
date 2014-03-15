@@ -5,11 +5,11 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
+  public class StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
 
-    public StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod(ValueObjectActivator<T> activator)
+    public StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod(ValueObjectActivator activator)
     {
       _activator = activator;
     }

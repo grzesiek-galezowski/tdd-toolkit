@@ -5,12 +5,12 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {
-  public class StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator<T>
-    : IConstraint where T : class
+  public class StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator
+    : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
 
-    public StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator(ValueObjectActivator<T> activator)
+    public StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator(ValueObjectActivator activator)
     {
       _activator = activator;
     }
@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
     public void CheckAndRecord(ConstraintsViolations violations)
     {
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
-      RecordedAssertions.True(Are.EqualInTermsOfEqualityOperator(instance1, instance1), 
+      RecordedAssertions.True(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance1), 
         "a == a should return true", violations);
     }
   }

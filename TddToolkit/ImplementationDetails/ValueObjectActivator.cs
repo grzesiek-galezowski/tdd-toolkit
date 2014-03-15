@@ -118,6 +118,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
 
       return null;
     }
+
+    public Type TargetType
+    {
+      get
+      {
+        return _type;
+      }
+    }
   }
 
 }

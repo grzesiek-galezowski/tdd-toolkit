@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
@@ -54,11 +55,15 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return _method.Invoke(null, new[] { instance1, instance2 });
     }
 
-    public static BinaryOperator Wrap(Maybe<MethodInfo> maybeOperator, string op)
+    public static IBinaryOperator Wrap(
+      Type type, 
+      Maybe<MethodInfo> maybeOperator, 
+      Maybe<MethodInfo> maybeFallbackOperator, 
+      string op)
     {
-      if (maybeOperator.HasValue)
+      if (maybeOperator.Otherwise(maybeFallbackOperator).HasValue)
       {
-        return new BinaryOperator(maybeOperator.Value);
+        return new BinaryOperator(maybeOperator.Otherwise(maybeFallbackOperator).Value);
       }
       else
       {

@@ -1,14 +1,21 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
+﻿using System;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {
-  public class StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator<T> 
-    : IConstraint where T : class
+  public class StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator : IConstraint
   {
+    private Type _type;
+
+    public StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator(Type type)
+    {
+      _type = type;
+    }
+
     public void CheckAndRecord(ConstraintsViolations violations)
     {
- 	    XAssert.IsInequalityOperatorDefinedFor<T>();
+ 	    XAssert.IsInequalityOperatorDefinedFor(_type);
     }
 }
 }

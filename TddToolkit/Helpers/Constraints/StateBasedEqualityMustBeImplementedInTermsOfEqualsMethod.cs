@@ -5,11 +5,11 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
+  public class StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
 
-    public StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod(ValueObjectActivator<T> activator)
+    public StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod(ValueObjectActivator activator)
     {
       _activator = activator;
     }
@@ -19,6 +19,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
       var instance2 = _activator.CreateInstanceAsValueObjectWithPreviousParameters();
 
+      //TODO how to test equatable???
       RecordedAssertions.True(instance1.Equals(instance2), "a.Equals(b) should return true if both are created with the same arguments", violations);
       RecordedAssertions.True(instance2.Equals(instance1), "b.Equals(a) should return true if both are created with the same arguments", violations);
       RecordedAssertions.True(((object)instance1).Equals((object)instance2), "(object)a.Equals((object)b) should return true if both are created with the same arguments", violations);

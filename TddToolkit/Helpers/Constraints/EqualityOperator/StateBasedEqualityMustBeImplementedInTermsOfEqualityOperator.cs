@@ -1,15 +1,16 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails.Common;
+﻿using System;
+using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
 using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {
-  public class StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator<T> : IConstraint where T : class
+  public class StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
 
-    public StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator(ValueObjectActivator<T> activator)
+    public StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator(ValueObjectActivator activator)
     {
       _activator = activator;
     }
@@ -19,9 +20,9 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
       var instance2 = _activator.CreateInstanceAsValueObjectWithPreviousParameters();
 
-      RecordedAssertions.True(Are.EqualInTermsOfEqualityOperator(instance1, instance2), 
+      RecordedAssertions.True(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance2), 
         "a == b should return true if both are created with the same arguments", violations);
-      RecordedAssertions.True(Are.EqualInTermsOfEqualityOperator(instance2, instance1), 
+      RecordedAssertions.True(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance2, instance1), 
         "b == a should return true if both are created with the same arguments", violations);
     }
   }

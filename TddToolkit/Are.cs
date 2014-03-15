@@ -1,4 +1,5 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails;
+﻿using System;
+using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
@@ -20,5 +21,16 @@ namespace TddEbook.TddToolkit
     {
       return TypeOf<T>.Inequality().Evaluate(instance1, instance2);
     }
+
+    public static bool EqualInTermsOfEqualityOperator(Type type, object instance1, object instance2)
+    {
+      return (bool)TypeWrapper.For(type).Equality().Evaluate(instance1, instance2);
+    }
+
+    public static bool NotEqualInTermsOfInEqualityOperator(Type type, object instance1, object instance2)
+    {
+      return (bool)TypeWrapper.For(type).Inequality().Evaluate(instance1, instance2);
+    }
+
   }
 }

@@ -6,13 +6,13 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects<T> : IConstraint
+  public class HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
     private readonly int[] _indexesOfConstructorArgumentsToSkip;
     
     public HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects(
-      ValueObjectActivator<T> activator,
+      ValueObjectActivator activator,
       int[] indexesOfConstructorArgumentsToSkip)
     {
       _activator = activator;

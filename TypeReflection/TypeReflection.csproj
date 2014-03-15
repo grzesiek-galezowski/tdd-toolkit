@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImplementationDetails\AlwaysTrueBinaryOperator.cs" />
     <Compile Include="ImplementationDetails\BinaryOperator.cs" />
     <Compile Include="IBinaryOperator.cs" />
     <Compile Include="ImplementationDetails\ConstructorWrapper.cs" />

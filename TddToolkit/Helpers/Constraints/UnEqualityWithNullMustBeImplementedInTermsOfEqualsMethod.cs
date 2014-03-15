@@ -5,11 +5,11 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
+  public class UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
 
-    public UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod(ValueObjectActivator<T> activator)
+    public UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod(ValueObjectActivator activator)
     {
       _activator = activator;
     }

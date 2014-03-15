@@ -16,7 +16,7 @@ namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
-    public static void TypeAdheresToConstraints<T>(IEnumerable<IConstraint> constraints) where T : class
+    public static void TypeAdheresToConstraints(IEnumerable<IConstraint> constraints)
     {
       var violations = ConstraintsViolations.Empty();
       foreach (var constraint in constraints)
@@ -27,64 +27,71 @@ namespace TddEbook.TddToolkit
       violations.AssertNone();
     }
 
-    public static void IsValue<T>() where T : class
+    public static void IsValue<T>()
     {
       IsValue<T>(ValueTypeTraits.Default());
     }
 
-    public static void IsValue<T>(ValueTypeTraits traits) where T : class
+    public static void IsValue<T>(ValueTypeTraits traits)
     {
-      var activator = ValueObjectActivator<T>.FreshInstance();
+      if (typeof(T).IsPrimitive)
+      {
+        return;
+      }
+      else
+      {
+        var activator = ValueObjectActivator.FreshInstance(typeof(T));
 
-      var constraints = CreateConstraintsBasedOn<T>(traits, activator);
+        var constraints = CreateConstraintsBasedOn(typeof(T), traits, activator);
 
-      XAssert.TypeAdheresToConstraints<T>(constraints);
+        XAssert.TypeAdheresToConstraints(constraints);
+      }
     }
 
-    private static IEnumerable<IConstraint> CreateConstraintsBasedOn<T>
-      (ValueTypeTraits traits, ValueObjectActivator<T> activator)
-      where T : class
+    private static IEnumerable<IConstraint> 
+      CreateConstraintsBasedOn(Type t, ValueTypeTraits traits, ValueObjectActivator activator)
     {
+
       var constraints = new List<IConstraint>();
 
       if(traits.RequireAllFieldsReadOnly)
       {
-        constraints.Add(new AllFieldsMustBeReadOnly<T>());
+        constraints.Add(new AllFieldsMustBeReadOnly(t));
       }
 
-      constraints.Add(new ThereMustBeNoPublicPropertySetters<T>());
-      constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod<T>(activator));
-      constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator));
+      constraints.Add(new ThereMustBeNoPublicPropertySetters(t));
+      constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod(activator));
+      constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod(activator));
 
-      constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T>(activator, 
+      constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod(activator, 
         traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
       
-      constraints.Add(new HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects<T>(activator,
+      constraints.Add(new HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects(activator,
         traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
 
       if(traits.RequireSafeUnequalityToNull)
       {
-        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod<T>(activator));
+        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod(activator));
       }
 
 
       if (traits.RequireEqualityAndUnequalityOperatorImplementation)
       {
         //equality operator
-        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator<T>());
-        constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator<T>(activator));
-        constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator<T>(activator));
-        constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualityOperator<T>(activator,
+        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator(t));
+        constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator(activator));
+        constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator(activator));
+        constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualityOperator(activator,
           traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
-        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator<T>(activator));
+        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator(activator));
 
         //inequality operator
-        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator<T>());
-        constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfInequalityOperator<T>(activator));
-        constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator<T>(activator));
-        constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator<T>(activator,
+        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator(t));
+        constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfInequalityOperator(activator));
+        constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator(activator));
+        constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator(activator,
           traits.IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify.ToArray()));
-        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator<T>(activator));
+        constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator(activator));
       
 
       }
@@ -124,6 +131,17 @@ namespace TddEbook.TddToolkit
     private static Action ExecutionOf(Action func)
     {
       return func;
+    }
+
+
+    public static void IsEqualityOperatorDefinedFor(Type type)
+    {
+      ExecutionOf(() => TypeWrapper.For(type).Equality()).ShouldNotThrow<Exception>();
+    }
+
+    public static void IsInequalityOperatorDefinedFor(Type type)
+    {
+      ExecutionOf(() => TypeWrapper.For(type).Inequality()).ShouldNotThrow<Exception>();
     }
 
   }

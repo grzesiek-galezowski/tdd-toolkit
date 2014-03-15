@@ -6,13 +6,13 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {
-  public class StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod<T> : IConstraint
+  public class StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
     private readonly int[] _indexesOfConstructorArgumentsToSkip;
 
     public StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod(
-      ValueObjectActivator<T> activator, int[] indexesOfConstructorArgumentsToSkip)
+      ValueObjectActivator activator, int[] indexesOfConstructorArgumentsToSkip)
     {
       _activator = activator;
       this._indexesOfConstructorArgumentsToSkip = indexesOfConstructorArgumentsToSkip;

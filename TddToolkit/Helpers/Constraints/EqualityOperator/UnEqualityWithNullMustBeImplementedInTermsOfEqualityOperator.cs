@@ -5,26 +5,24 @@ using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAsse
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {
-  public class UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator<T> : IConstraint where T : class
+  public class UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator : IConstraint
   {
-    private readonly ValueObjectActivator<T> _activator;
+    private readonly ValueObjectActivator _activator;
 
-    public UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator(ValueObjectActivator<T> activator)
+    public UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator(ValueObjectActivator activator)
     {
       _activator = activator;
     }
 
     public void CheckAndRecord(ConstraintsViolations violations)
     {
+      object aNull = null;
+         
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
-      RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(instance1, null), 
+      RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, aNull), 
         "a == null should return false", violations);
-      RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(null, instance1), 
+      RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, aNull, instance1), 
         "null == a should return false", violations);
-
-      T null1 = null;
-      T null2 = null;
-      RecordedAssertions.True(null1 == null2, "null == null should be true", violations);
     }
   }
 }

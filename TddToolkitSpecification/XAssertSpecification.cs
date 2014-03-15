@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TddEbook.TddToolkit;
+using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddToolkitSpecification
 {
@@ -32,7 +33,21 @@ namespace TddToolkitSpecification
       Assert.Throws<AssertionException>(() =>
         XAssert.IsValue<ProperValueTypeWithoutEqualityOperator>()
       );
+      
     }
+
+    [Test]
+    public void ShouldWorkForStructuresWithDefaultEquality()
+    {
+      XAssert.IsValue<Maybe<string>>();
+    }
+
+    [Test]
+    public void ShouldWorkForPrimitves()
+    {
+      XAssert.IsValue<int>();
+    }
+
 
     [Test]
     public void ShouldAggregateMultipleAssertionsWhenAssertionAll()
