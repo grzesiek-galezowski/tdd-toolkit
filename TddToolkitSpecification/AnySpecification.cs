@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
 using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddToolkitSpecification
@@ -33,13 +32,19 @@ namespace TddToolkitSpecification
       var type3 = Any.Instance<Type>();
 
       //THEN
-      XAssert.NotNull(type1);
-      XAssert.NotNull(type2);
-      XAssert.NotNull(type3);
+      XAssert.All(assert =>
+        {
+          assert.NotNull(type1);
+          assert.NotNull(type2);
+          assert.NotNull(type3);
+        });
 
-      XAssert.NotEqual(type1, type2);
-      XAssert.NotEqual(type2, type3);
-      XAssert.NotEqual(type3, type1);
+      XAssert.All(assert =>
+        {
+          assert.NotEqual(type1, type2);
+          assert.NotEqual(type2, type3);
+          assert.NotEqual(type3, type1);
+        });
     }
 
     [Test]
@@ -129,11 +134,14 @@ namespace TddToolkitSpecification
       var obj2 = Any.Instance<ISimple>();
 
       //THEN
-      XAssert.NotNull(obj1.GetTypeProperty);
-      XAssert.NotNull(obj2.GetTypeProperty);
-      XAssert.NotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
-      XAssert.Equal(obj1.GetTypeProperty, obj1.GetTypeProperty);
-      XAssert.Equal(obj2.GetTypeProperty, obj2.GetTypeProperty);
+      XAssert.All(assert =>
+        {
+          assert.NotNull(obj1.GetTypeProperty);
+          assert.NotNull(obj2.GetTypeProperty);
+          assert.NotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
+          assert.Equal(obj1.GetTypeProperty, obj1.GetTypeProperty);
+          assert.Equal(obj2.GetTypeProperty, obj2.GetTypeProperty);
+        });
     }
 
     [Test]
@@ -154,10 +162,13 @@ namespace TddToolkitSpecification
       var createdProxy = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
 
       //THEN
-      XAssert.NotNull(createdProxy.ConstructorArgument);
-      XAssert.NotNull(createdProxy.ConstructorNestedArgument);
-      XAssert.NotEqual(default(int), createdProxy.AbstractInt);
-      XAssert.NotEqual(default(int), createdProxy.SettableInt);
+      XAssert.All(assert =>
+        {
+          assert.NotNull(createdProxy.ConstructorArgument);
+          assert.NotNull(createdProxy.ConstructorNestedArgument);
+          assert.NotEqual(default(int), createdProxy.AbstractInt);
+          assert.NotEqual(default(int), createdProxy.SettableInt);
+        });
     }
 
     [Test]
@@ -288,11 +299,14 @@ namespace TddToolkitSpecification
       var char3 = Any.AlphaChar();
 
       //THEN
-      XAssert.NotEqual(char1, char2);
-      XAssert.NotEqual(char2, char3);
-      Assert.True(Char.IsLetter(char1));
-      Assert.True(Char.IsLetter(char2));
-      Assert.True(Char.IsLetter(char3));
+      XAssert.All(assert =>
+        {
+          assert.NotEqual(char1, char2);
+          assert.NotEqual(char2, char3);
+          assert.True(Char.IsLetter(char1));
+          assert.True(Char.IsLetter(char2));
+          assert.True(Char.IsLetter(char3));
+        });
     }
 
     [Test]
@@ -304,11 +318,14 @@ namespace TddToolkitSpecification
       var char3 = Any.DigitChar();
 
       //THEN
-      XAssert.NotEqual(char1, char2);
-      XAssert.NotEqual(char2, char3);
-      Assert.True(Char.IsDigit(char1));
-      Assert.True(Char.IsDigit(char2));
-      Assert.True(Char.IsDigit(char3));
+      XAssert.All(assert =>
+        {
+          assert.NotEqual(char1, char2);
+          assert.NotEqual(char2, char3);
+          assert.True(Char.IsDigit(char1));
+          assert.True(Char.IsDigit(char2));
+          assert.True(Char.IsDigit(char3));
+        });
     }
 
     [Test, Timeout(1000)]
@@ -323,8 +340,11 @@ namespace TddToolkitSpecification
       var primitive = Any.Instance<int>();
       var interfaceImplementation = Any.Instance<ISimple>();
 
-      Assert.NotNull(interfaceImplementation);
-      XAssert.NotEqual(default(int), primitive);
+      XAssert.All(assert =>
+        {
+          assert.NotNull(interfaceImplementation);
+          assert.NotEqual(default(int), primitive);
+        });
     }
 
 
@@ -346,8 +366,7 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldSupportGeneratingOtherObjectsThanNull()
     {
-      Assert.DoesNotThrow(() =>
-      { Any.OtherThan<string>(null); });
+      Assert.DoesNotThrow(() => Any.OtherThan<string>(null));
     }
 
     [Test]
@@ -360,9 +379,12 @@ namespace TddToolkitSpecification
       var y1 = y.Keys.First();
       var y2 = y.Values.First();
       
-      XAssert.Equal(3, y.Count);
-      Assert.NotNull(y1);
-      Assert.NotNull(y2);
+      XAssert.All(assert =>
+      {
+        assert.Equal(3, y.Count);
+        assert.NotNull(y1);
+        assert.NotNull(y2);
+      });
     }
 
     [Test]
@@ -407,9 +429,11 @@ namespace TddToolkitSpecification
     public void ShouldSupportCreationOfKeyValuePairs()
     {
       var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
-      XAssert.NotNull(kvp);
-      XAssert.NotNull(kvp.Key);
-      XAssert.NotNull(kvp.Value);
+      XAssert.All(assert =>
+        {
+          assert.NotNull(kvp.Key);
+          assert.NotNull(kvp.Value);
+        });
     }
 
     [Test]

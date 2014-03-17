@@ -1,3 +1,4 @@
+using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
@@ -11,8 +12,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   {
     private readonly IChainElement<T> _chainHead;
 
-    public static IFakeChain<T> NewInstance(CachedGeneration cachedGeneration, NestingLimit nestingLimit)
+    public static IFakeChain<T> NewInstance(
+      CachedGeneration cachedGeneration, 
+      NestingLimit nestingLimit,
+      ProxyGenerator proxyGenerator)
     {
+      
       return new LimitedFakeChain<T>(
         nestingLimit,
         new FakeChain<T>(
@@ -26,8 +31,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary(),
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfKeyValuePair(),
           new ChainElement<T>(new FakeUnknownCollection<T>(),
-          new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration),
-          new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration),
+          new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator),
+          new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration, proxyGenerator),
           new ChainElement<T>(new FakeConcreteClassWithNonConcreteConstructor<T>(),
           new ChainElement<T>(new FakeConcreteClass<T>(),
           new InvalidChainElement<T>()))))))))))))))));

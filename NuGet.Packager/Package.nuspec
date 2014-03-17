@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.10</version>
+        <version>1.0.12</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial</description>
-        <releaseNotes>Using 1.1.0.0 version of LibZ</releaseNotes>
+        <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
+        <releaseNotes>Greatly improved performance of creating instances of interfaces and abstract classes by caching ProxyGenerator instance</releaseNotes>
         <language>en-US</language>
     </metadata>
     <files>

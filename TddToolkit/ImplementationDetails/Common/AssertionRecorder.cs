@@ -110,5 +110,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
       
       assertionNumber++;
     }
+
+    public void NotNull<T>(T obj) where T : class
+    {
+      LogException(() => obj.Should().NotBeNull());
+    }
+
+    public void NotEqual<T>(T reference, T actual)
+    {
+      LogException(() => actual.Should().NotBe(reference));
+    }
   }
 }

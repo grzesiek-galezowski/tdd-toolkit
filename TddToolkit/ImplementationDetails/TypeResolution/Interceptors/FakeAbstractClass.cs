@@ -7,10 +7,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
   internal class FakeAbstractClass<T> : IResolution<T>
   {
     private readonly CachedGeneration _generation;
+    private ProxyGenerator _proxyGenerator;
 
-    public FakeAbstractClass(CachedGeneration generation)
+    public FakeAbstractClass(CachedGeneration generation, ProxyGenerator proxyGenerator)
     {
       _generation = generation;
+      _proxyGenerator = proxyGenerator;
     }
 
     public bool Applies()
@@ -21,7 +23,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
     public T Apply()
     {
       var fallbackTypeGenerator = new FallbackTypeGenerator<T>();
-      var result = (T)(new ProxyGenerator().CreateClassProxy(
+      var result = (T)(_proxyGenerator.CreateClassProxy(
         typeof(T),
         fallbackTypeGenerator.GenerateConstructorParameters().ToArray(),
         new IInterceptor[] {new AbstractClassInterceptor(_generation)}));

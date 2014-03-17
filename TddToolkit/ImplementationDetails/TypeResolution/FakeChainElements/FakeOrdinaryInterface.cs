@@ -5,10 +5,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   internal class FakeOrdinaryInterface<T> : IResolution<T>
   {
+    private readonly ProxyGenerator _proxyGenerator;
     private readonly InterfaceInterceptor _interceptor;
 
-    public FakeOrdinaryInterface(CachedGeneration cachedGeneration)
+    public FakeOrdinaryInterface(CachedGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
+      _proxyGenerator = proxyGenerator;
       _interceptor = new InterfaceInterceptor(cachedGeneration);
     }
 
@@ -19,7 +21,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public T Apply()
     {
-      return (T)new ProxyGenerator().CreateInterfaceProxyWithoutTarget(typeof(T), _interceptor);
+      return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(typeof(T), _interceptor);
     }
   }
 }

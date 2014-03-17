@@ -3,7 +3,6 @@ using System.Reflection;
 using Ploeh.AutoFixture;
 using System.Linq;
 using Castle.DynamicProxy;
-using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
@@ -13,6 +12,7 @@ namespace TddEbook.TddToolkit
   public partial class Any
   {
     private static readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
+    private static readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
 
     static Any()
     {
@@ -101,12 +101,12 @@ namespace TddEbook.TddToolkit
 
     public static T InstanceOf<T>()
     {
-      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve();
+      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit, _proxyGenerator).Resolve();
     }
 
     public static T Instance<T>()
     {
-      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit).Resolve();
+      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit, _proxyGenerator).Resolve();
     }
 
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
