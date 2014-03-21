@@ -177,15 +177,6 @@ namespace TddEbook.TddToolkit
       return collection;
     }
 
-    private static ISet<T> AddManyTo<T>(ISet<T> set, int length)
-    {
-      for (int i = 0; i < length; ++i)
-      {
-        set.Add(Any.Instance<T>());
-      }
-      return set;
-    }
-
     public static object KeyValuePair(Type keyType, Type valueType)
     {
       return Activator.CreateInstance(

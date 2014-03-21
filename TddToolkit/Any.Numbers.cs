@@ -57,9 +57,9 @@
       return ValueOf<decimal>();
     }
 
-    public static decimal DecimalOtherThan(decimal other)
+    public static decimal DecimalOtherThan(params decimal[] others)
     {
-      return ValueOtherThan(other);
+      return ValueOtherThan(others);
     }
 
     public static uint UnsignedInt()
@@ -67,9 +67,9 @@
       return ValueOf<uint>();
     }
 
-    public static uint UnsignedIntOtherThan(uint other)
+    public static uint UnsignedIntOtherThan(params uint[] others)
     {
-      return ValueOtherThan(other);
+      return ValueOtherThan(others);
     }
 
     public static ushort UnsignedShort()
@@ -77,9 +77,9 @@
       return ValueOf<ushort>();
     }
 
-    public static ushort UnsignedShortOtherThan(ushort other)
+    public static ushort UnsignedShortOtherThan(params ushort[] others)
     {
-      return ValueOtherThan(other);
+      return ValueOtherThan(others);
     }
 
     public static short ShortInteger()
@@ -87,9 +87,9 @@
       return ValueOf<short>();
     }
 
-    public static short ShortIntegerOtherThan(short other)
+    public static short ShortIntegerOtherThan(params short[] others)
     {
-      return ValueOtherThan(other);
+      return ValueOtherThan(others);
     }
   }
 }
