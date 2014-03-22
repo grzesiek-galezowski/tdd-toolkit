@@ -8,26 +8,24 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public static CompareLogic Comparison()
     {
       var comparisonMechanism = new CompareLogic
+      {
+        Config = new ComparisonConfig()
         {
-          Config = new ComparisonConfig()
-          {
-            CompareChildren = true,
-            CompareFields = true,
-            ComparePrivateFields = true,
-            ComparePrivateProperties = true,
-            CompareProperties = true,
-            CompareReadOnly = true,
-            MaxDifferences = 1
-          }
-        };
-      AddCriteriaForComparingTypesReferenceTo(comparisonMechanism);
+          CompareChildren = true,
+          CompareFields = true,
+          ComparePrivateFields = true,
+          ComparePrivateProperties = true,
+          CompareProperties = true,
+          CompareReadOnly = true,
+          MaxDifferences = 1
+        }
+      };
+
+      comparisonMechanism.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
+
       return comparisonMechanism;
     }
 
-    private static void AddCriteriaForComparingTypesReferenceTo(CompareLogic compareObjects)
-    {
-      compareObjects.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
-    }
 
 
   }
