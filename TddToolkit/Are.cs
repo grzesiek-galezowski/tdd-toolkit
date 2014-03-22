@@ -9,7 +9,7 @@ namespace TddEbook.TddToolkit
     public static bool Alike<T>(T expected, T actual)
     {
       var comparison = ObjectGraph.Comparison();
-      return comparison.Compare(expected, actual);
+      return !(comparison.Compare(expected, actual).ExceededDifferences);
     }
 
     public static bool EqualInTermsOfEqualityOperator<T>(T instance1, T instance2) where T : class

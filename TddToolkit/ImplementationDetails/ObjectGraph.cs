@@ -5,50 +5,30 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 {
   public static class ObjectGraph
   {
-    public static CompareObjects Comparison()
+    public static CompareLogic Comparison()
     {
-      var comparisonMechanism = new CompareObjects
+      var comparisonMechanism = new CompareLogic
         {
-          CompareChildren = true,
-          CompareFields = true,
-          ComparePrivateFields = true,
-          ComparePrivateProperties = true,
-          CompareProperties = true,
-          CompareReadOnly = true,
-          MaxDifferences = 1
+          Config = new ComparisonConfig()
+          {
+            CompareChildren = true,
+            CompareFields = true,
+            ComparePrivateFields = true,
+            ComparePrivateProperties = true,
+            CompareProperties = true,
+            CompareReadOnly = true,
+            MaxDifferences = 1
+          }
         };
       AddCriteriaForComparingTypesReferenceTo(comparisonMechanism);
       return comparisonMechanism;
     }
 
-    private static void AddCriteriaForComparingTypesReferenceTo(CompareObjects compareObjects)
+    private static void AddCriteriaForComparingTypesReferenceTo(CompareLogic compareObjects)
     {
-      compareObjects.IsUseCustomTypeComparer = type => IsPartOfReflectionApi(type) || IsDynamicProxy(type);
-
-      compareObjects.CustomComparer = (objects, o1, o2, arg4) =>
-        {
-          if (!object.ReferenceEquals(o1, o2))
-          {
-            objects.Differences.Add(new Difference
-              {
-                Object1Value = o1.ToString(),
-                Object2Value = o2.ToString(),
-                ActualName = "Reference to " + o2.GetType() + ": ",
-                ExpectedName = "Reference to " + o1.GetType(),
-              });
-          }
-        };
+      compareObjects.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
     }
 
-    private static bool IsPartOfReflectionApi(Type type)
-    {
-      return type.Namespace != null && type.Namespace.StartsWith("System.Reflection");
-    }
-
-    private static bool IsDynamicProxy(Type type)
-    {
-      return type.Namespace != null && type.Namespace.StartsWith("Castle.");
-    }
 
   }
 }
