@@ -1,14 +1,15 @@
 using System;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
+using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal class CachedGeneration
+  internal class CachedReturnValueGeneration
   {
-    private readonly ReturnValueCache _cache;
+    private readonly PerMethodCache<object> _cache;
 
-    public CachedGeneration(ReturnValueCache cache)
+    public CachedReturnValueGeneration(PerMethodCache<object> cache)
     {
       _cache = cache;
     }
@@ -24,7 +25,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     private object GetReturnTypeFor(IInvocation invocation)
     {
-      var cacheKey = ReturnValueCacheKey.For(invocation);
+      var cacheKey = PerMethodCacheKey.For(invocation);
       if (!_cache.AlreadyContainsValueFor(cacheKey))
       {
         var returnType = invocation.Method.ReturnType;
@@ -40,4 +41,33 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       return returnType != typeof (void);
     }
   }
+
+  internal class CachedHookGeneration
+  {
+    private readonly PerMethodCache<Action<object[]>> _cache;
+
+    public CachedHookGeneration(PerMethodCache<Action<object[]>> cache)
+    {
+      _cache = cache;
+    }
+
+    public void SetupHookFor(object proxy, MethodInfo methodCall, Action<object[]> hook)
+    {
+      _cache.Add(PerMethodCacheKey.For(methodCall, proxy), hook);
+    }
+
+    public Action<object[]> GetHookFor(IInvocation invocation)
+    {
+      var cacheKey = PerMethodCacheKey.For(invocation);
+      if (!_cache.AlreadyContainsValueFor(cacheKey))
+      {
+        return new Action<object[]>(objects => 1.Equals(1));
+      }
+
+      return _cache.ValueFor(cacheKey);
+    }
+
+  }
+
+
 }

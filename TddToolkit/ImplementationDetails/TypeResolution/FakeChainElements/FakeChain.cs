@@ -13,7 +13,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly IChainElement<T> _chainHead;
 
     public static IFakeChain<T> NewInstance(
-      CachedGeneration cachedGeneration, 
+      CachedReturnValueGeneration cachedGeneration, 
       NestingLimit nestingLimit,
       ProxyGenerator proxyGenerator)
     {

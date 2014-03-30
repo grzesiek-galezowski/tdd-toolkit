@@ -5,9 +5,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
   internal class AbstractClassInterceptor : IInterceptor
   {
-    private readonly CachedGeneration _cachedGeneration;
+    private readonly CachedReturnValueGeneration _cachedGeneration;
 
-    public AbstractClassInterceptor(CachedGeneration cachedGeneration)
+    public AbstractClassInterceptor(CachedReturnValueGeneration cachedGeneration)
     {
       _cachedGeneration = cachedGeneration;
     }

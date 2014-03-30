@@ -35,6 +35,8 @@ namespace TddEbook.TddToolkit
       return any;
     }
 
+    public string Name { get { return _methodInfo.Name; } }
+
     private Method(MethodInfo method)
     {
       _methodInfo = method;

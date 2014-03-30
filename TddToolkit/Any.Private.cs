@@ -14,7 +14,8 @@ namespace TddEbook.TddToolkit
       private static readonly Fixture Generator = new Fixture();
       private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
       private static readonly RegularExpressionGenerator RegexGenerator = new RegularExpressionGenerator();
-      private static readonly CachedGeneration CachedGeneration = new CachedGeneration(new ReturnValueCache());
+      private static readonly CachedReturnValueGeneration CachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
+      private static readonly CachedHookGeneration CachedHookGeneration = new CachedHookGeneration(new PerMethodCache<Action<object[]>>());
       private static readonly CircularList<char> Letters = new CircularList<char>("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
       private static readonly CircularList<char> Digits = new CircularList<char>("5647382910".ToCharArray());
       private static readonly CircularList<Type> Types = new CircularList<Type>(

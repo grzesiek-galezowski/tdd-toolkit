@@ -8,7 +8,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly ProxyGenerator _proxyGenerator;
     private readonly InterfaceInterceptor _interceptor;
 
-    public FakeOrdinaryInterface(CachedGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    public FakeOrdinaryInterface(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
       _proxyGenerator = proxyGenerator;
       _interceptor = new InterfaceInterceptor(cachedGeneration);

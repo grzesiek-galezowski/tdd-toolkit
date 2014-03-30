@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection.ImplementationDetails;
+using System.Linq.Expressions;
 
 namespace TddToolkitSpecification
 {
@@ -464,9 +465,29 @@ namespace TddToolkitSpecification
       XAssert.NotEqual(maybeImplementation1, maybeImplementation2);
     }
 
+    [Test]
+    public void ShouldAllowCreatingSpyableInstances()
+    {
+      //GIVEN
+      object arg1 = null, arg2 = null;
+      var instance = Any.Spyable<RecursiveInterface>();
+
+      Spy.On(instance)
+        .When(m => m.GetNestedWithArguments(default(int), default(int)))
+        .Do(args => { arg1 = args[0]; arg2 = args[1]; });
+
+      //WHEN
+      var result = instance.GetNestedWithArguments(1, 2);
+
+      //THEN
+      Assert.AreEqual(1, arg1);
+      Assert.AreEqual(2, arg2);
+      XAssert.NotNull(result);
+    }
 
     public interface RecursiveInterface
     {
+      List<RecursiveInterface> GetNestedWithArguments(int a, int b);
       List<RecursiveInterface> GetNested();
       IDictionary<string, RecursiveInterface> NestedAsDictionary { get; }
       RecursiveInterface Nested { get; }

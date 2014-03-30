@@ -6,6 +6,7 @@ using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
+using TddEbook.TddToolkit.ImplementationDetails.Spying;
 
 namespace TddEbook.TddToolkit
 {
@@ -81,12 +82,32 @@ namespace TddEbook.TddToolkit
     {
       if (typeof(T).IsInterface)
       {
-        return new ProxyGenerator().CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
+        return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
       }
       else
       {
         throw new Exception("Exploding instances can be created out of interfaces only!");
       }
+    }
+
+    public static T Spyable<T>()
+    {
+      if (typeof(T).IsInterface)
+      {
+        return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
+          typeof(T), 
+          new Type[] { typeof(ISpyable<T>) }, 
+          new SpyingInterceptor<T>(
+            new InterfaceInterceptor(CachedGeneration),
+            CachedHookGeneration
+          )
+        );
+      }
+      else
+      {
+        throw new Exception("Exploding instances can be created out of interfaces only!");
+      }
+
     }
 
     public static MethodInfo Method()

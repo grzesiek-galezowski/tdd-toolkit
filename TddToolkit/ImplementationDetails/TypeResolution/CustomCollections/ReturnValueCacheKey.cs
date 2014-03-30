@@ -4,22 +4,27 @@ using Castle.DynamicProxy;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
-  internal class ReturnValueCacheKey : IEquatable<ReturnValueCacheKey>
+  internal class PerMethodCacheKey : IEquatable<PerMethodCacheKey>
   {
     private readonly MethodInfo _method;
     private readonly object _proxy;
 
-    private ReturnValueCacheKey(MethodInfo method, object proxy)
+    private PerMethodCacheKey(MethodInfo method, object proxy)
     {
       _method = method;
       _proxy = proxy;
     }
 
-    public static ReturnValueCacheKey For(IInvocation invocation)
+    public static PerMethodCacheKey For(MethodInfo method, object proxy)
     {
-      return new ReturnValueCacheKey(invocation.Method, invocation.Proxy);
+      return new PerMethodCacheKey(method, proxy);
     }
-    public bool Equals(ReturnValueCacheKey other)
+
+    public static PerMethodCacheKey For(IInvocation invocation)
+    {
+      return new PerMethodCacheKey(invocation.Method, invocation.Proxy);
+    }
+    public bool Equals(PerMethodCacheKey other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -31,7 +36,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((ReturnValueCacheKey) obj);
+      return Equals((PerMethodCacheKey) obj);
     }
 
     public override int GetHashCode()
@@ -42,12 +47,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
       }
     }
 
-    public static bool operator ==(ReturnValueCacheKey left, ReturnValueCacheKey right)
+    public static bool operator ==(PerMethodCacheKey left, PerMethodCacheKey right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(ReturnValueCacheKey left, ReturnValueCacheKey right)
+    public static bool operator !=(PerMethodCacheKey left, PerMethodCacheKey right)
     {
       return !Equals(left, right);
     }

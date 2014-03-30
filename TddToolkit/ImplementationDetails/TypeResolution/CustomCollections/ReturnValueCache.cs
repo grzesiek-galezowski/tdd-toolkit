@@ -2,21 +2,21 @@ using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
-  internal class ReturnValueCache
+  internal class PerMethodCache<T>
   {
-    private readonly Dictionary<ReturnValueCacheKey, object> _cache = new Dictionary<ReturnValueCacheKey, object>();
+    private readonly Dictionary<PerMethodCacheKey, T> _cache = new Dictionary<PerMethodCacheKey, T>();
     
-    public bool AlreadyContainsValueFor(ReturnValueCacheKey cacheKey)
+    public bool AlreadyContainsValueFor(PerMethodCacheKey cacheKey)
     {
       return _cache.ContainsKey(cacheKey);
     }
 
-    public void Add(ReturnValueCacheKey cacheKey, object returnValue)
+    public void Add(PerMethodCacheKey cacheKey, T cachedObject)
     {
-      _cache.Add(cacheKey, returnValue);
+      _cache.Add(cacheKey, cachedObject);
     }
 
-    public object ValueFor(ReturnValueCacheKey cacheKey)
+    public T ValueFor(PerMethodCacheKey cacheKey)
     {
       return _cache[cacheKey];
     }
