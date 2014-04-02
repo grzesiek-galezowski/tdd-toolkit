@@ -8,6 +8,7 @@ using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection.ImplementationDetails;
 using System.Linq.Expressions;
+using NSubstitute;
 
 namespace TddToolkitSpecification
 {
@@ -465,10 +466,50 @@ namespace TddToolkitSpecification
       XAssert.NotEqual(maybeImplementation1, maybeImplementation2);
     }
 
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValuesUnlessStubbed()
+    {
+      //TODO split into two
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
+
+      XAssert.NotEqual(default(int), instance.Object.Number);
+      instance.Prototype.Number.Returns(44543);
+      XAssert.Equal(44543, instance.Object.Number);
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
+    {
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
+
+      CallVoidMethodOn(instance.Object);
+      instance.Prototype.Received(1).VoidMethod();
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndOverrideNullInterfaceReturnValues()
+    {
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
+      var anotherInstance = Substitute.For<RecursiveInterface>();
+
+      instance.Prototype.Nested.Returns(null as RecursiveInterface);
+      Assert.NotNull(instance.Object.Nested);
+      
+      instance.Prototype.Nested.Returns(anotherInstance);
+      XAssert.Equal<RecursiveInterface>(anotherInstance, instance.Object.Nested);
+      XAssert.Equal<RecursiveInterface>(instance.Prototype.Nested, instance.Object.Nested);
+    }
+
+    private void CallVoidMethodOn(RecursiveInterface recursiveInterface)
+    {
+      recursiveInterface.VoidMethod();
+    }
+
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNestedWithArguments(int a, int b);
       List<RecursiveInterface> GetNested();
+      void VoidMethod();
       IDictionary<string, RecursiveInterface> NestedAsDictionary { get; }
       RecursiveInterface Nested { get; }
       int Number { get; }
@@ -546,6 +587,7 @@ namespace TddToolkitSpecification
         throw new Exception("Let's suppose dummy data cause this method to throw exception");
       }
     }
+
 
   }
 

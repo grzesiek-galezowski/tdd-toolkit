@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
-  internal class CachedReturnValueGeneration
+  public class CachedReturnValueGeneration
   {
     private readonly PerMethodCache<object> _cache;
 

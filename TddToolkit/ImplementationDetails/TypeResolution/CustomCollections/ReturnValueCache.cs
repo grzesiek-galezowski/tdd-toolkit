@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
-  internal class PerMethodCache<T>
+  public class PerMethodCache<T>
   {
     private readonly Dictionary<PerMethodCacheKey, T> _cache = new Dictionary<PerMethodCacheKey, T>();
     

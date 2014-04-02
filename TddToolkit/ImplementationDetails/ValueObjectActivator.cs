@@ -71,7 +71,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
 
     public object CreateInstanceAsValueObjectWithFreshParameters()
     {
-      var instance = GetDefaultValue(_type);
+      var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithNewConstructorArguments(); })
         .ShouldNotThrow(_type + " cannot even be created as a value object");
       return instance;
@@ -79,7 +79,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
 
     public object CreateInstanceAsValueObjectWithPreviousParameters()
     {
-      var instance = GetDefaultValue(_type);
+      var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithCurrentConstructorArguments(); })
         .ShouldNotThrow(_type + " cannot even be created as a value object");
       return instance;
@@ -109,7 +109,18 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
       }
     }
 
-    private object GetDefaultValue(Type t)
+    public Type TargetType
+    {
+      get
+      {
+        return _type;
+      }
+    }
+  }
+
+  public class DefaultValue
+  {
+    public static object Of(Type t)
     {
       if (t.IsValueType)
       {
@@ -117,14 +128,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflect
       }
 
       return null;
-    }
-
-    public Type TargetType
-    {
-      get
-      {
-        return _type;
-      }
     }
   }
 

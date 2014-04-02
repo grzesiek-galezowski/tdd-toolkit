@@ -86,6 +86,8 @@
     <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="ValueTypeTraits.cs" />
+    <Compile Include="WrapperDuo.cs" />
+    <Compile Include="WrappingInterceptor.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
     <Compile Include="XAssert.Simple.cs" />
@@ -151,7 +153,7 @@
 %25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.0\tools\libz.exe
-%25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk</PostBuildEvent>
+    <PostBuildEvent>rem set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.0\tools\libz.exe
+rem %25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk</PostBuildEvent>
   </PropertyGroup>
 </Project>

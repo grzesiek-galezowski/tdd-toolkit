@@ -89,6 +89,27 @@ namespace TddEbook.TddToolkit
       }
     }
 
+    public static WrapperDuo<T> WrapperOver<T>(T interfaceImplementation) where T : class
+    {
+      if (typeof(T).IsInterface)
+      {
+        return WrapperDuo<T>.With(
+          interfaceImplementation,
+          _proxyGenerator.CreateInterfaceProxyWithTarget<T>(
+            interfaceImplementation, 
+            new WrappingInterceptor(
+              new InterfaceInterceptor(
+                CachedGeneration)))
+          );
+      }
+      else
+      {
+        throw new Exception("Only wrappers around interfaces are allowed. Get yourself one by extracting interface");
+      }
+
+    }
+
+
     public static MethodInfo Method()
     {
       return ValueOf<MethodInfo>();
