@@ -42,32 +42,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     }
   }
 
-  internal class CachedHookGeneration
-  {
-    private readonly PerMethodCache<Action<object[]>> _cache;
-
-    public CachedHookGeneration(PerMethodCache<Action<object[]>> cache)
-    {
-      _cache = cache;
-    }
-
-    public void SetupHookFor(object proxy, MethodInfo methodCall, Action<object[]> hook)
-    {
-      _cache.Add(PerMethodCacheKey.For(methodCall, proxy), hook);
-    }
-
-    public Action<object[]> GetHookFor(IInvocation invocation)
-    {
-      var cacheKey = PerMethodCacheKey.For(invocation);
-      if (!_cache.AlreadyContainsValueFor(cacheKey))
-      {
-        return new Action<object[]>(objects => 1.Equals(1));
-      }
-
-      return _cache.ValueFor(cacheKey);
-    }
-
-  }
 
 
 }
