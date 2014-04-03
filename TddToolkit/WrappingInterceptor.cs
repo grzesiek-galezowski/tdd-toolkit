@@ -24,5 +24,10 @@ namespace TddEbook.TddToolkit
         interfaceInterceptor.Intercept(invocation);
       }
     }
+
+    internal void DoNotOverride(System.Reflection.MethodInfo methodInfo)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

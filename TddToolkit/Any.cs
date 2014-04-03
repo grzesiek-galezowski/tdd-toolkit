@@ -93,14 +93,14 @@ namespace TddEbook.TddToolkit
     {
       if (typeof(T).IsInterface)
       {
+        var wrappingInterceptor = new WrappingInterceptor(new InterfaceInterceptor(CachedGeneration));
         return WrapperDuo<T>.With(
           interfaceImplementation,
           _proxyGenerator.CreateInterfaceProxyWithTarget<T>(
             interfaceImplementation, 
-            new WrappingInterceptor(
-              new InterfaceInterceptor(
-                CachedGeneration)))
-          );
+            wrappingInterceptor),
+          wrappingInterceptor
+        );
       }
       else
       {
