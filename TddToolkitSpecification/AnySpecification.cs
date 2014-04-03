@@ -535,8 +535,8 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndAllowSkippingOverrideOfMethodDefaultReturnValue()
     {
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>())
-        .NoOverrideFor(m => m.Nested)
-        .NoOverrideFor(m => m.GetNested());
+        .NoOverrideOf(m => m.Nested)
+        .NoOverrideOf(m => m.GetNested());
 
       instance.Prototype.Nested.Returns(null as RecursiveInterface);
 
@@ -548,8 +548,8 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndAllowForcingOverrideOfMethodReturnValueDespiteItBeingNotDefault()
     {
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>())
-        .ForceOverrideFor(m => m.Number)
-        .ForceOverrideFor(m => m.GetNumber());
+        .ForceOverrideOf(m => m.Number)
+        .ForceOverrideOf(m => m.GetNumber());
 
       instance.Prototype.Number.Returns(-9999);
       instance.Prototype.GetNumber().Returns(-9998);
