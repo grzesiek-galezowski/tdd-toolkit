@@ -21,7 +21,7 @@ namespace TddEbook.TddToolkit
       _wrappingInterceptor = wrappingInterceptor;
     }
 
-    public WrapperDuo<T> DoNotOverride(Expression<Action<T>> method)
+    public WrapperDuo<T> NoOverrideFor(Expression<Action<T>> method)
     {
       if (method.Body is MethodCallExpression)
       {
@@ -34,7 +34,7 @@ namespace TddEbook.TddToolkit
       }
     }
 
-    public WrapperDuo<T> DoNotOverride<TResult>(Expression<Func<T, TResult>> method)
+    public WrapperDuo<T> NoOverrideFor<TResult>(Expression<Func<T, TResult>> method)
     {
       if (method.Body is MethodCallExpression)
       {

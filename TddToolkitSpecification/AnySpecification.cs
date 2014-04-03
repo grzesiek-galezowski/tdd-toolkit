@@ -467,36 +467,61 @@ namespace TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValuesUnlessStubbed()
+    public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
     {
-      //TODO split into two
+      //GIVEN
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
 
-      XAssert.NotEqual(default(int), instance.Object.Number);
+      //WHEN
+      var result = instance.Object.Number;
+
+      //THEN
+      XAssert.NotEqual(default(int), result);
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
+    {
+      //GIVEN
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
       instance.Prototype.Number.Returns(44543);
-      XAssert.Equal(44543, instance.Object.Number);
+      
+      //WHEN
+      var result = instance.Object.Number;
+
+      //THEN
+      XAssert.Equal(44543, result);
     }
 
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
     {
+      //GIVEN
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
 
-      CallVoidMethodOn(instance.Object);
+      //WHEN
+      instance.Object.VoidMethod();
+
+      //THEN
       instance.Prototype.Received(1).VoidMethod();
     }
 
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndOverrideNullInterfaceReturnValues()
     {
-      //TODO split into two
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
+      instance.Prototype.Nested.Returns(null as RecursiveInterface);
+
+      Assert.NotNull(instance.Object.Nested);
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
+    {
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
       var anotherInstance = Substitute.For<RecursiveInterface>();
-
-      instance.Prototype.Nested.Returns(null as RecursiveInterface);
-      Assert.NotNull(instance.Object.Nested);
-      
       instance.Prototype.Nested.Returns(anotherInstance);
+
       XAssert.Equal(anotherInstance, instance.Object.Nested);
       XAssert.Equal(instance.Prototype.Nested, instance.Object.Nested);
     }
@@ -504,22 +529,16 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndAllowSkippingOverrideOfMethodDefaultReturnValue()
     {
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
-      instance.Prototype.Nested.Returns(null as RecursiveInterface);
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>())
+        .NoOverrideFor(m => m.Nested)
+        .NoOverrideFor(m => m.GetNested());
 
-      instance
-        .DoNotOverride(m => m.Nested)
-        .DoNotOverride(m => m.GetNested());
+      instance.Prototype.Nested.Returns(null as RecursiveInterface);
 
       Assert.Null(instance.Object.GetNested());
       Assert.Null(instance.Object.Nested);
     }
 
-
-    private void CallVoidMethodOn(RecursiveInterface recursiveInterface)
-    {
-      recursiveInterface.VoidMethod();
-    }
 
     public interface RecursiveInterface
     {
