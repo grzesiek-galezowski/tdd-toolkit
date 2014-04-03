@@ -509,10 +509,15 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndOverrideNullInterfaceReturnValues()
     {
+      //GIVEN
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
       instance.Prototype.Nested.Returns(null as RecursiveInterface);
 
-      Assert.NotNull(instance.Object.Nested);
+      //WHEN
+      var result = instance.Object.Nested;
+
+      //THEN
+      Assert.NotNull(result);
     }
 
     [Test]
@@ -539,6 +544,22 @@ namespace TddToolkitSpecification
       Assert.Null(instance.Object.Nested);
     }
 
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndAllowForcingOverrideOfMethodReturnValueDespiteItBeingNotDefault()
+    {
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>())
+        .ForceOverrideFor(m => m.Number)
+        .ForceOverrideFor(m => m.GetNumber());
+
+      instance.Prototype.Number.Returns(-9999);
+      instance.Prototype.GetNumber().Returns(-9998);
+
+      XAssert.NotEqual(default(int), instance.Object.Number);
+      XAssert.NotEqual(default(int), instance.Object.GetNumber());
+      XAssert.NotEqual(-9999, instance.Object.Number);
+      XAssert.NotEqual(-9998, instance.Object.GetNumber());
+    }
+
 
     public interface RecursiveInterface
     {
@@ -548,6 +569,7 @@ namespace TddToolkitSpecification
       IDictionary<string, RecursiveInterface> NestedAsDictionary { get; }
       RecursiveInterface Nested { get; }
       int Number { get; }
+      int GetNumber();
     }
 
     public interface ISimple

@@ -10,6 +10,7 @@ namespace TddEbook.TddToolkit
   {
     private readonly HashSet<MethodInfo> _methodsNotToOverride = new HashSet<MethodInfo>();
     private readonly InterfaceInterceptor _interfaceInterceptor;
+    private readonly HashSet<MethodInfo> _methodsWithForcedOverride = new HashSet<MethodInfo>();
 
     public WrappingInterceptor(InterfaceInterceptor interfaceInterceptor)
     {
@@ -19,6 +20,10 @@ namespace TddEbook.TddToolkit
     {
       invocation.Proceed();
       if (IsDefaultValueAResultOf(invocation) && !_methodsNotToOverride.Contains(invocation.Method))
+      {
+        _interfaceInterceptor.Intercept(invocation);
+      }
+      else if (_methodsWithForcedOverride.Contains(invocation.Method))
       {
         _interfaceInterceptor.Intercept(invocation);
       }
@@ -32,6 +37,11 @@ namespace TddEbook.TddToolkit
     internal void DoNotOverride(MethodInfo methodInfo)
     {
       _methodsNotToOverride.Add(methodInfo);
+    }
+
+    public void ForceOverride(MethodInfo methodInfo)
+    {
+      _methodsWithForcedOverride.Add(methodInfo);
     }
   }
 }

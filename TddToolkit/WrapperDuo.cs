@@ -21,11 +21,16 @@ namespace TddEbook.TddToolkit
       _wrappingInterceptor = wrappingInterceptor;
     }
 
-    public WrapperDuo<T> NoOverrideFor(Expression<Action<T>> method)
+    public WrapperDuo<T> NoOverrideFor<TResult>(Expression<Func<T, TResult>> method)
     {
       if (method.Body is MethodCallExpression)
       {
-        _wrappingInterceptor.DoNotOverride(((MethodCallExpression)method.Body).Method);
+        _wrappingInterceptor.DoNotOverride(ExtractMethodInfoFromMethodCallExpression(method));
+        return this;
+      }
+      else if (method.Body is MemberExpression)
+      {
+        ExtractPropertyGetExpressionFrom(method, _wrappingInterceptor.DoNotOverride);
         return this;
       }
       else
@@ -34,27 +39,37 @@ namespace TddEbook.TddToolkit
       }
     }
 
-    public WrapperDuo<T> NoOverrideFor<TResult>(Expression<Func<T, TResult>> method)
+    public WrapperDuo<T> ForceOverrideFor<TResult>(Expression<Func<T, TResult>> method)
     {
       if (method.Body is MethodCallExpression)
       {
-        _wrappingInterceptor.DoNotOverride(((MethodCallExpression)method.Body).Method);
+        _wrappingInterceptor.ForceOverride(ExtractMethodInfoFromMethodCallExpression(method));
         return this;
       }
       else if (method.Body is MemberExpression)
       {
-        var member = ((MemberExpression)method.Body).Member;
-        var propertyInfo = member as PropertyInfo;
-        if (propertyInfo != null)
-        {
-          _wrappingInterceptor.DoNotOverride(propertyInfo.GetGetMethod());
-        }
+        ExtractPropertyGetExpressionFrom(method, _wrappingInterceptor.ForceOverride);
         return this;
       }
       else
       {
         throw new ArgumentException("skipping " + Maybe.Wrap(method) + " not allowed.");
       }
+    }
+
+    private static void ExtractPropertyGetExpressionFrom<TResult>(Expression<Func<T, TResult>> method, Action<MethodInfo> destinationCall)
+    {
+      var member = ((MemberExpression) method.Body).Member;
+      var propertyInfo = member as PropertyInfo;
+      if (propertyInfo != null)
+      {
+        destinationCall(propertyInfo.GetGetMethod());
+      }
+    }
+
+    private static MethodInfo ExtractMethodInfoFromMethodCallExpression<TResult>(Expression<Func<T, TResult>> method)
+    {
+      return ((MethodCallExpression)method.Body).Method;
     }
 
 
@@ -62,5 +77,6 @@ namespace TddEbook.TddToolkit
     {
       return new WrapperDuo<T>(original, wrapped, wrappingInterceptor);
     }
+
   }
 }
