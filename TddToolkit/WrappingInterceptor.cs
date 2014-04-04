@@ -2,17 +2,16 @@
 using Castle.DynamicProxy;
 using System.Collections.Generic;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 
 namespace TddEbook.TddToolkit
 {
   public class WrappingInterceptor : IInterceptor
   {
     private readonly HashSet<MethodInfo> _methodsNotToOverride = new HashSet<MethodInfo>();
-    private readonly InterfaceInterceptor _interfaceInterceptor;
+    private readonly IInterceptor _interfaceInterceptor;
     private readonly HashSet<MethodInfo> _methodsWithForcedOverride = new HashSet<MethodInfo>();
 
-    public WrappingInterceptor(InterfaceInterceptor interfaceInterceptor)
+    public WrappingInterceptor(IInterceptor interfaceInterceptor)
     {
       this._interfaceInterceptor = interfaceInterceptor;
     }
