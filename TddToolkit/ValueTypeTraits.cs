@@ -4,7 +4,7 @@ namespace TddEbook.TddToolkit
 {
   public class ValueTypeTraits
   {
-    private ValueTypeTraits()
+    protected ValueTypeTraits()
     {
       IndexesOfConstructorArgumentsIndexesThatDoNotContituteAValueIdentify = new List<int>();
       RequireAllFieldsReadOnly = true;
