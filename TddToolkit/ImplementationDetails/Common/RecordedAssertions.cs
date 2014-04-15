@@ -1,4 +1,5 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+﻿using System;
+using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.Common
 {
@@ -25,6 +26,18 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
     public static void Equal<T>(T i, T i2, string message, ConstraintsViolations errors)
     {
       True(Equals(i, i2), message, errors);
+    }
+
+    public static void DoesNotThrow(Action action, string message, ConstraintsViolations errors)
+    {
+      try
+      {
+        action();
+      }
+      catch (Exception e)
+      {
+        errors.Add(message + ", but instead caught: " + e);
+      }
     }
   }
 }

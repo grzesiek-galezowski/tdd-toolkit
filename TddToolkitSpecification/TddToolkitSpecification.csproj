@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
+    <Compile Include="IncrementalType.cs" />
     <Compile Include="ObjectWithAttributeOnMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnySpecification.cs" />

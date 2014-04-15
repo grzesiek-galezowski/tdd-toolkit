@@ -28,10 +28,14 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
         {
           var instance2 = _activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
 
-          RecordedAssertions.True(Are.NotEqualInTermsOfInEqualityOperator(_activator.TargetType, instance1, instance2), 
-            "a != b should return true if both are created with different argument" + i, violations);
-          RecordedAssertions.True(Are.NotEqualInTermsOfInEqualityOperator(_activator.TargetType, instance1, instance2), 
-            "b != a should return true if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.True(Are.NotEqualInTermsOfInEqualityOperator(_activator.TargetType, instance1, instance2), 
+              "a != b should return true if both are created with different argument" + i, violations),
+              "a != b should return true if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.True(Are.NotEqualInTermsOfInEqualityOperator(_activator.TargetType, instance1, instance2), 
+              "b != a should return true if both are created with different argument" + i, violations),
+              "b != a should return true if both are created with different argument" + i, violations);
         }
       }
     }

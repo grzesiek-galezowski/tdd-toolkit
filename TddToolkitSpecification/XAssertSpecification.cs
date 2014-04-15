@@ -48,6 +48,12 @@ namespace TddToolkitSpecification
       XAssert.IsValue<int>();
     }
 
+    [Test]
+    public void Lalalala()
+    {
+      XAssert.IsValue<IncrementalType>();
+    }
+
 
     [Test]
     public void ShouldAggregateMultipleAssertionsWhenAssertionAll()

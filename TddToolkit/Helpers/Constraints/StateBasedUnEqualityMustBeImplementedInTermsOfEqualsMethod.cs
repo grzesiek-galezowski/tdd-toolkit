@@ -27,10 +27,22 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
         {
           var instance2 = _activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
 
-          RecordedAssertions.False(instance1.Equals(instance2), "a.Equals(b) should return false if both are created with different argument" + i, violations);
-          RecordedAssertions.False(instance2.Equals(instance1), "b.Equals(a) should return false if both are created with different argument" + i, violations);
-          RecordedAssertions.False(((object)instance1).Equals((object)instance2), "(object)a.Equals((object)b) should return false if both are created with different argument" + i, violations);
-          RecordedAssertions.False(((object)instance2).Equals((object)instance1), "(object)b.Equals((object)a) should return false if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.False(instance1.Equals(instance2), 
+            "a.Equals(b) should return false if both are created with different argument" + i, violations),
+            "a.Equals(b) should return false if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.False(instance2.Equals(instance1), 
+            "b.Equals(a) should return false if both are created with different argument" + i, violations),
+            "b.Equals(a) should return false if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.False(((object)instance1).Equals((object)instance2), 
+            "(object)a.Equals((object)b) should return false if both are created with different argument" + i, violations),
+            "(object)a.Equals((object)b) should return false if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.False(((object)instance2).Equals((object)instance1), 
+            "(object)b.Equals((object)a) should return false if both are created with different argument" + i, violations),
+            "(object)b.Equals((object)a) should return false if both are created with different argument" + i, violations);
         }
       }
     }

@@ -28,12 +28,21 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
         if (ArgumentIsPartOfValueIdentity(i))
         {
           var instance2 = _activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
-          RecordedAssertions.NotEqual(instance1.GetHashCode(), instance2.GetHashCode(),
-            "b.GetHashCode() and b.GetHashCode() should return different values when both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.NotEqual(instance1.GetHashCode(), instance2.GetHashCode(),
+              "b.GetHashCode() and b.GetHashCode() should return different values when both are created with different argument" + i, violations),
+              "b.GetHashCode() and b.GetHashCode() should return different values when both are created with different argument" + i, violations);
         }
       }
 
-      RecordedAssertions.Equal(instance1.GetHashCode(), instance3.GetHashCode(), "a.GetHashCode() and b.GetHashCode() should return same values when both are created with same arguments", violations);
+      RecordedAssertions.DoesNotThrow(() =>
+        RecordedAssertions.Equal(instance1.GetHashCode(), instance3.GetHashCode(),
+          "a.GetHashCode() and b.GetHashCode() should return same values when both are created with same arguments", violations),
+          "a.GetHashCode() and b.GetHashCode() should return same values when both are created with same arguments", violations);
+      RecordedAssertions.DoesNotThrow(() =>
+        RecordedAssertions.Equal(instance1.GetHashCode(), instance3.GetHashCode(),
+          "a.GetHashCode() and b.GetHashCode() should return same values when both are created with same arguments", violations),
+          "a.GetHashCode() and b.GetHashCode() should return same values when both are created with same arguments", violations);
     }
 
     private bool ArgumentIsPartOfValueIdentity(int i)

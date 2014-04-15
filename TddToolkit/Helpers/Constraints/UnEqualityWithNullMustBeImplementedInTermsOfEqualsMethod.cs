@@ -17,7 +17,10 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
     public void CheckAndRecord(ConstraintsViolations violations)
     {
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
-      RecordedAssertions.False(((object)instance1).Equals(null), "a.Equals(null) should return false", violations);
+      RecordedAssertions.DoesNotThrow(() =>
+        RecordedAssertions.False(((object)instance1).Equals(null), 
+        "a.Equals(null) should return false", violations),
+        "a.Equals(null) should return false", violations);
     }
   }
 }

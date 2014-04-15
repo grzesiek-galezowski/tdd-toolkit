@@ -19,9 +19,14 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
       object aNull = null;
          
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
-      RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, aNull), 
+      RecordedAssertions.DoesNotThrow(() =>
+        RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, aNull), 
+          "a == null should return false", violations), 
         "a == null should return false", violations);
-      RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, aNull, instance1), 
+
+      RecordedAssertions.DoesNotThrow(() =>
+        RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, aNull, instance1),
+          "null == a should return false", violations),
         "null == a should return false", violations);
     }
   }

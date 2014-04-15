@@ -18,8 +18,10 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
     public void CheckAndRecord(ConstraintsViolations violations)
     {
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
-      RecordedAssertions.False(Are.NotEqualInTermsOfInEqualityOperator(_activator.TargetType, instance1, instance1), 
-        "a != a should return false", violations);
+      RecordedAssertions.DoesNotThrow(() =>
+        RecordedAssertions.False(Are.NotEqualInTermsOfInEqualityOperator(_activator.TargetType, instance1, instance1), 
+          "a != a should return false", violations),
+          "a != a should return false", violations);
     }
   }
 }

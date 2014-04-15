@@ -28,8 +28,14 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
         {
           var instance2 = _activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
 
-          RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance2), "a == b should return false if both are created with different argument" + i, violations);
-          RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance2), "b == a should return false if both are created with different argument" + i, violations);
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance2), "a == b should return false if both are created with different argument" + i, violations),
+            "a == b should return false if both are created with different argument" + i, violations
+          );
+          RecordedAssertions.DoesNotThrow(() =>
+            RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance2), "b == a should return false if both are created with different argument" + i, violations),
+            "b == a should return false if both are created with different argument" + i, violations
+          );
         }
       }
     }
