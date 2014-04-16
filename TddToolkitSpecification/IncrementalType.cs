@@ -5,14 +5,12 @@ using System.Text;
 
 namespace TddToolkitSpecification
 {
-  public class IncrementalType
+  public class IncrementalType : IEquatable<IncrementalType>
   {
     public IncrementalType(int x, string y)
     {
       _x = x;
       _y = y;
-      throw new Exception();
-
     }
 
     public string _y { get; set; }
@@ -21,6 +19,7 @@ namespace TddToolkitSpecification
 
     public static bool operator ==(IncrementalType a, IncrementalType b)
     {
+      throw new Exception();
       return false;
     }
 
@@ -37,6 +36,11 @@ namespace TddToolkitSpecification
     public override int GetHashCode()
     {
       return 0;
+    }
+
+    public bool Equals(IncrementalType other)
+    {
+      throw new NotImplementedException();
     }
   }
 }
