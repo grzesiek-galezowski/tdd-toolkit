@@ -89,7 +89,7 @@
     <Compile Include="Method.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="WrapperDuo.cs" />
-    <Compile Include="WrappingInterceptor.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\Interceptors\WrappingInterceptor.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
     <Compile Include="XAssert.Simple.cs" />

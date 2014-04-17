@@ -560,7 +560,6 @@ namespace TddToolkitSpecification
       XAssert.NotEqual(-9998, instance.Object.GetNumber());
     }
 
-
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNestedWithArguments(int a, int b);
