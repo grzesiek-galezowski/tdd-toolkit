@@ -132,6 +132,10 @@ namespace TddEbook.TddToolkit
       return EnumerableSortedDescending<T>(Many);
     }
 
+    public static IEnumerator<T> Enumerator<T>()
+    {
+      return Any.List<T>().GetEnumerator();
+    }
 
     public static object List(Type type)
     {
@@ -184,6 +188,11 @@ namespace TddEbook.TddToolkit
         Any.Instance(keyType), Any.Instance(valueType)
         );
     }
+    
 
+    public static object Enumerator(Type type)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+    }
   }
 }

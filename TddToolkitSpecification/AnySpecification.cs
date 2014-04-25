@@ -560,6 +560,36 @@ namespace TddToolkitSpecification
       XAssert.NotEqual(-9998, instance.Object.GetNumber());
     }
 
+    [Test]
+    public void ShouldBeAbleToGenerateFiniteInstancesOfGenericEnumerators()
+    {
+      //GIVEN
+      var enumerator = Any.Instance<IEnumerator<string>>();
+
+      //WHEN
+      var element1 = enumerator.Current;
+      enumerator.MoveNext();
+      var element2 = enumerator.Current;
+
+      //THEN
+      XAssert.NotEqual(element2, element1);
+    }
+
+    [Test]
+    public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
+    {
+      //GIVEN
+      var instance = Any.Instance<IObservableConcurrentDictionary<string, string>>();
+
+      //WHEN
+      var element1 = instance.GetEnumerator().Current;
+      instance.GetEnumerator().MoveNext();
+      var element2 = instance.GetEnumerator().Current;
+
+      //THEN
+      XAssert.NotEqual(element2, element1);
+    }
+
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNestedWithArguments(int a, int b);
@@ -647,6 +677,16 @@ namespace TddToolkitSpecification
 
   }
 
+  public interface IObservableConcurrentDictionary<TKey, TValue> 
+    : IObservable<Tuple<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
+  {
+    void TryAdd(TKey key, TValue value);
+    TValue this[TKey key] { get; set; }
+    void TryRemove(TKey key);
+    bool TryGetValue(TKey key, out TValue value);
+  }
+
+
   public class MyOwnCollection<T> : ICollection<T>
   {
     List<T> _list = new List<T>();
@@ -690,4 +730,5 @@ namespace TddToolkitSpecification
     public bool IsReadOnly { get { return false; } }
   }
 }
+
 

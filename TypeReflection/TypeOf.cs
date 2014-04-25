@@ -54,6 +54,12 @@ namespace TddEbook.TypeReflection
     {
       return BinaryOperator<T, bool>.Wrap(_typeWrapper.Inequality());
     }
+
+    public static bool IsInterface()
+    {
+      return _typeWrapper.IsInterface();
+    }
+
   }
 
   public class TypeWrapper
@@ -70,6 +76,12 @@ namespace TddEbook.TypeReflection
       var constructors = ConstructorWrapper.ExtractAllFrom(_type);
       return constructors.Any(c => c.IsParameterless());
     }
+
+    public bool IsOpenGeneric(Type openGenericType)
+    {
+      return _type.IsGenericType && _type.GetGenericTypeDefinition() == openGenericType;
+    }
+
 
     public bool IsImplementationOfOpenGeneric(Type openGenericType)
     {
@@ -172,6 +184,10 @@ namespace TddEbook.TypeReflection
     }
 
 
+    public bool IsInterface()
+    {
+      return _type.IsInterface;
+    }
   }
 
 }

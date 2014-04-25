@@ -1,5 +1,10 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
@@ -30,12 +35,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedSet(),
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary(),
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfKeyValuePair(),
+          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfEnumerator(),
           new ChainElement<T>(new FakeUnknownCollection<T>(),
           new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator),
           new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration, proxyGenerator),
           new ChainElement<T>(new FakeConcreteClassWithNonConcreteConstructor<T>(),
           new ChainElement<T>(new FakeConcreteClass<T>(),
-          new InvalidChainElement<T>()))))))))))))))));
+          new InvalidChainElement<T>())))))))))))))))));
     }
 
 
@@ -49,4 +55,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return _chainHead.Resolve();
     }
   }
+
+
 }
