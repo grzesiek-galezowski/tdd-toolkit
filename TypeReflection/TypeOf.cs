@@ -60,6 +60,10 @@ namespace TddEbook.TypeReflection
       return _typeWrapper.IsInterface();
     }
 
+    public static bool Is<T1>()
+    {
+      return typeof (T) == typeof (T1);
+    }
   }
 
   public class TypeWrapper

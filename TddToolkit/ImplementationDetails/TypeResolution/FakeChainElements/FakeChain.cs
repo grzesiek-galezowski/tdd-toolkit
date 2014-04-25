@@ -35,13 +35,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedSet(),
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary(),
           new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfKeyValuePair(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfEnumerator(),
+          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfGenericEnumerator(),
+          new ChainElement<T>(new FakeEnumerator<T>(),
           new ChainElement<T>(new FakeUnknownCollection<T>(),
           new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator),
           new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration, proxyGenerator),
           new ChainElement<T>(new FakeConcreteClassWithNonConcreteConstructor<T>(),
           new ChainElement<T>(new FakeConcreteClass<T>(),
-          new InvalidChainElement<T>())))))))))))))))));
+          new InvalidChainElement<T>()))))))))))))))))));
     }
 
 
@@ -56,5 +57,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     }
   }
 
+  public class FakeEnumerator<T> : IResolution<T>
+  {
+    public bool Applies()
+    {
+      return TypeOf<T>.Is<IEnumerator>();
+    }
 
+    public T Apply()
+    {
+      return (T)(Any.Array<object>().GetEnumerator());
+    }
+  }
 }

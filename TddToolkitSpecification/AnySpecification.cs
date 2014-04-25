@@ -576,6 +576,23 @@ namespace TddToolkitSpecification
     }
 
     [Test]
+    public void ShouldBeAbleToGenerateFiniteInstancesOfNonGenericEnumerators()
+    {
+      //GIVEN
+      var enumerator = Any.Instance<IEnumerator>();
+
+      //WHEN
+      enumerator.MoveNext();
+      var element1 = enumerator.Current;
+      enumerator.MoveNext();
+      var element2 = enumerator.Current;
+
+      //THEN
+      XAssert.NotEqual(element2, element1);
+    }
+
+
+    [Test]
     public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
     {
       //GIVEN

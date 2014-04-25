@@ -56,7 +56,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         typeof(System.Array));
     }
 
-    public static IResolution<T> CreateResolutionOfEnumerator()
+    public static IResolution<T> CreateResolutionOfGenericEnumerator()
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(Any.Enumerator),
