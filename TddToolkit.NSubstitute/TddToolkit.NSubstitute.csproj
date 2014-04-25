@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LibZ.Bootstrap">
-      <HintPath>..\packages\LibZ.Bootstrap.1.1.0.1\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
+      <HintPath>..\packages\LibZ.Bootstrap.1.1.0.2\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
@@ -65,7 +65,7 @@
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.1\tools\libz.exe
+    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.2\tools\libz.exe
 %25LIBZ%25 inject-dll --assembly TddToolkit.NSubstitute.dll --include *.dll --exclude TddToolkit.NSubstitute.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
 </PostBuildEvent>
   </PropertyGroup>

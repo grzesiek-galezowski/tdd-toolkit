@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TddToolkitSpecification
 {
@@ -9,17 +6,16 @@ namespace TddToolkitSpecification
   {
     public IncrementalType(int x, string y)
     {
-      _x = x;
-      _y = y;
+      X = x;
+      Y = y;
     }
 
-    public string _y { get; set; }
+    public string Y { get; set; }
 
-    public int _x { get; set; }
+    public int X { get; set; }
 
     public static bool operator ==(IncrementalType a, IncrementalType b)
     {
-      throw new Exception();
       return false;
     }
 
