@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints

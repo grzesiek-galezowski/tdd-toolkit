@@ -1,7 +1,7 @@
-﻿using TddEbook.TddToolkit.ImplementationDetails.Common;
+﻿using TddEbook.TddToolkit.ImplementationDetails;
+using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
-using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints
 {

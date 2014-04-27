@@ -1,6 +1,6 @@
 ﻿using System;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
-using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 
 namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 {

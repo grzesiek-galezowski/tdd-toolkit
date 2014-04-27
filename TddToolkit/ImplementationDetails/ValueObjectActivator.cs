@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection
+namespace TddEbook.TddToolkit.ImplementationDetails
 {
   public class ValueObjectActivator<T>
   {

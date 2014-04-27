@@ -85,6 +85,7 @@
     <Compile Include="ImplementationDetails\ObjectGraph.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
     <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\IntegerSequence.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="WrapperDuo.cs" />

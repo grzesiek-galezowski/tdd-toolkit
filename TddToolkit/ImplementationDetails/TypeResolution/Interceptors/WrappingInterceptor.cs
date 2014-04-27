@@ -1,9 +1,8 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using Castle.DynamicProxy;
-using System.Collections.Generic;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
   public class WrappingInterceptor : IInterceptor
   {

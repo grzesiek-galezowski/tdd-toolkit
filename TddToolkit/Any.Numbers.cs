@@ -1,7 +1,14 @@
-﻿namespace TddEbook.TddToolkit
+﻿using System.Collections.Generic;
+using System.Linq;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
+using TddEbook.TypeReflection.ImplementationDetails;
+
+namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
+    private static readonly HashSet<IntegerSequence> _sequences = new HashSet<IntegerSequence>();
+
     public static int Integer()
     {
       return ValueOf<int>();
@@ -90,6 +97,14 @@
     public static short ShortIntegerOtherThan(params short[] others)
     {
       return ValueOtherThan(others);
+    }
+
+    public static int IntegerFromSequence(int startingValue = 0, int step = 1)
+    {
+      var sequence = new IntegerSequence(startingValue, step);
+      var finalSequence = Maybe.Wrap(_sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
+      _sequences.Add(finalSequence);
+      return finalSequence.Next();
     }
   }
 }

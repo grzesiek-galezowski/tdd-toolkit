@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using TddEbook.TypeReflection;
 
-namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Reflection
+namespace TddEbook.TddToolkit.ImplementationDetails
 {
   public class FallbackTypeGenerator<T>
   {

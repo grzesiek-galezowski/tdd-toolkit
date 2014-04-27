@@ -607,6 +607,16 @@ namespace TddToolkitSpecification
       XAssert.NotEqual(element2, element1);
     }
 
+    [Test]
+    public void ShouldAllowGeneratingIntegersFromSequence()
+    {
+      var value1 = Any.IntegerFromSequence(startingValue: 12, step: 112);
+      var value2 = Any.IntegerFromSequence(startingValue: 12, step: 112);
+
+      XAssert.Equal(value1, value2 - 112);
+      Assert.Greater(value1, 12);
+    }
+
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNestedWithArguments(int a, int b);

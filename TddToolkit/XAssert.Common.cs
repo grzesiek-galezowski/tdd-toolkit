@@ -5,11 +5,11 @@ using System.Reflection;
 using FluentAssertions;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
+using TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator;
 using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
-using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.Reflection;
-using TddEbook.TddToolkit.ImplementationDetails.CustomCollections.ConstraintAssertions;
+using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
