@@ -81,6 +81,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithCurrentConstructorArguments(); })
         .ShouldNotThrow(_type + " cannot even be created as a value object");
+
       return instance;
     }
 
