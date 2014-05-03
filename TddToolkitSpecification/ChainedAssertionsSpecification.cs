@@ -62,7 +62,31 @@ namespace TddToolkitSpecification
         .AssertGreaterThan(4, "g")
         .AssertLessOrEqualTo(5, "le")
         .AssertLessOrEqualTo(6, "le2")
-        .AssertLessThan(6, "l");
+        .AssertLessThan(6, "l")
+        .AssertPositive("positive");
+    }
+
+    [Test]
+    public void ShouldAllowAssertingOnCollections()
+    {
+      //GIVEN
+      var collection = new[] {"Amber", "Annie", "Eve", "Julie"};
+
+      //THEN
+      var e = Assert.Throws<AssertionException>(() =>
+      {
+        collection
+          .AssertContains("Annie", "Annie")
+          .AssertDoesNotContain("Jodie", "should not contain Jodie")
+          .AssertContains<string[], string>(s => s.StartsWith("Ju"), "predicate1")
+          .AssertIsNotEmpty("not empty")
+          .AssertIsInAcendingOrder("ascending order")
+          [0]
+          .AssertEqualTo("Amber", "Amber")
+          .AssertEqualTo("Lol", "This should fail");
+        ;
+      });
+      StringAssert.Contains("This should fail", e.Message);
     }
 
     public class Level1

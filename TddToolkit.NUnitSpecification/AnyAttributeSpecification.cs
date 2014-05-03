@@ -9,6 +9,7 @@ namespace TddToolkitSpecification
 {
   public class AnyAttributeSpecification
   {
+    /*
     [Test, Category("DoesNotRunWithCustomRunners"), Ignore("not yet supported by most tools")]
     public void ShouldAllowPassingDifferentObjectsAndPrimitivesThroughParameters
     (
@@ -40,7 +41,7 @@ namespace TddToolkitSpecification
 
       XAssert.NotEqual(3, nonThree);
     }
-
+    */
   }
 
   public interface ISimple
