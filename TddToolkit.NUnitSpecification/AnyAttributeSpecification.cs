@@ -9,7 +9,7 @@ namespace TddToolkitSpecification
 {
   public class AnyAttributeSpecification
   {
-    [Test, Category("DoesNotRunWithCustomRunners")]
+    [Test, Category("DoesNotRunWithCustomRunners"), Ignore("not yet supported by most tools")]
     public void ShouldAllowPassingDifferentObjectsAndPrimitivesThroughParameters
     (
       [Any] int anInt,

@@ -40,6 +40,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChainedAssertionsSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
     <Compile Include="IncrementalType.cs" />
