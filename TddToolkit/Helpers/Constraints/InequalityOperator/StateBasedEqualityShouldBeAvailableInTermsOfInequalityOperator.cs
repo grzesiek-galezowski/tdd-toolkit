@@ -6,7 +6,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator
 {
   public class StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator : IConstraint
   {
-    private Type _type;
+    private readonly Type _type;
 
     public StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator(Type type)
     {

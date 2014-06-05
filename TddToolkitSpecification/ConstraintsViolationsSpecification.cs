@@ -2,7 +2,7 @@
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class ConstraintsViolationsSpecification
   {

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class TypeOfTypeSpecification
   {

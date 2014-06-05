@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit
     {
       Generator.Register(() => Types.Next());
       Generator.Register(() => MethodList.Next());
-      Generator.Register(() => new Exception(Any.String(), new Exception(Any.String())));
+      Generator.Register(() => new Exception(String(), new Exception(String())));
       Generator.Customize(new MultipleCustomization());
     }
 
@@ -92,7 +92,7 @@ namespace TddEbook.TddToolkit
     public static WrapperDuo<T> WrapperOver<T>(
       T interfaceImplementation) where T : class
     {
-      return WrapperOver<T>(interfaceImplementation, _ => { });
+      return WrapperOver(interfaceImplementation, _ => { });
     }
 
     public static WrapperDuo<T> WrapperOver<T>(
@@ -106,7 +106,7 @@ namespace TddEbook.TddToolkit
         
         return WrapperDuo<T>.With(
           interfaceImplementation,
-          _proxyGenerator.CreateInterfaceProxyWithTarget<T>(
+          _proxyGenerator.CreateInterfaceProxyWithTarget(
             interfaceImplementation, 
             wrappingInterceptor),
           wrappingInterceptor
@@ -116,7 +116,7 @@ namespace TddEbook.TddToolkit
       {
         return WrapperDuo<T>.With(
           interfaceImplementation,
-          _proxyGenerator.CreateClassProxyWithTarget<T>(
+          _proxyGenerator.CreateClassProxyWithTarget(
             interfaceImplementation, 
             wrappingInterceptor),
           wrappingInterceptor
@@ -152,7 +152,7 @@ namespace TddEbook.TddToolkit
 
     public static T OtherThan<T>(params T[] omittedValues)
     {
-      if(object.ReferenceEquals(omittedValues, null))
+      if(ReferenceEquals(omittedValues, null))
       {
         return Instance<T>();
       }
@@ -179,7 +179,7 @@ namespace TddEbook.TddToolkit
 
     public static Exception Exception()
     {
-      return Any.ValueOf<Exception>();
+      return ValueOf<Exception>();
     }
 
     public static int Port()

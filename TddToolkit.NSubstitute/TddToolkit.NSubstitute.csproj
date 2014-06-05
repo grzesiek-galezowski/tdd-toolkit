@@ -7,7 +7,7 @@
     <ProjectGuid>{E5ABA2D3-7E69-4D84-B7C3-EF67FE20EEE5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TddToolkit.NSubstitute</RootNamespace>
+    <RootNamespace>TddEbook.TddToolkit.NSubstitute</RootNamespace>
     <AssemblyName>TddToolkit.NSubstitute</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

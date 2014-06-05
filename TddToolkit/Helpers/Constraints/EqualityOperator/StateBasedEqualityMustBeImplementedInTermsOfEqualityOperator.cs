@@ -1,5 +1,4 @@
-﻿using System;
-using TddEbook.TddToolkit.ImplementationDetails;
+﻿using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;

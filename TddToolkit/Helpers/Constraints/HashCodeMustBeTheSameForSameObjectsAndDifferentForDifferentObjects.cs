@@ -47,7 +47,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 
     private bool ArgumentIsPartOfValueIdentity(int i)
     {
-      return !this._indexesOfConstructorArgumentsToSkip.Contains(i);
+      return !_indexesOfConstructorArgumentsToSkip.Contains(i);
     }
   }
 }

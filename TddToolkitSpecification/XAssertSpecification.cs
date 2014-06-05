@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection.ImplementationDetails;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class XAssertSpecification
   {
@@ -20,9 +20,7 @@ namespace TddToolkitSpecification
       XAssert.IsValue<ProperValueTypeWithOneArgumentIdentity>(
         ValueTypeTraits.Custom.SkipConstructorArgument(0));
 
-      Assert.Throws<AssertionException>(() => 
-        XAssert.IsValue<ProperValueTypeWithOneArgumentIdentity>()
-      );
+      Assert.Throws<AssertionException>(XAssert.IsValue<ProperValueTypeWithOneArgumentIdentity>);
     }
 
     [Test]
@@ -30,9 +28,7 @@ namespace TddToolkitSpecification
     {
       XAssert.IsValue<ProperValueType>();
 
-      Assert.Throws<AssertionException>(() =>
-        XAssert.IsValue<ProperValueTypeWithoutEqualityOperator>()
-      );
+      Assert.Throws<AssertionException>(XAssert.IsValue<ProperValueTypeWithoutEqualityOperator>);
       
     }
 
@@ -109,7 +105,7 @@ namespace TddToolkitSpecification
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
+      if (obj.GetType() != GetType()) return false;
       return Equals((ProperValueTypeWithOneArgumentIdentity)obj);
     }
 
@@ -123,11 +119,11 @@ namespace TddToolkitSpecification
 
     public static bool operator ==(ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
     {
-      if(object.ReferenceEquals(left, null) && object.ReferenceEquals(right, null))
+      if(ReferenceEquals(left, null) && ReferenceEquals(right, null))
       {
         return true;
       }
-      else if(object.ReferenceEquals(left, null))
+      else if(ReferenceEquals(left, null))
       {
         return false;
       }
@@ -147,7 +143,7 @@ namespace TddToolkitSpecification
 
     public ProperValueTypeWithOneArgumentIdentity(int a, IEnumerable<int> anArray)
     {
-      this._a = a;
+      _a = a;
       _anArray = anArray;
     }
   }
@@ -165,7 +161,7 @@ namespace TddToolkitSpecification
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
+      if (obj.GetType() != GetType()) return false;
       return Equals((ProperValueType)obj);
     }
 
@@ -192,7 +188,7 @@ namespace TddToolkitSpecification
 
     public ProperValueType(int a, IEnumerable<int> anArray)
     {
-      this._a = a;
+      _a = a;
       _anArray = anArray;
     }
   }
@@ -210,7 +206,7 @@ namespace TddToolkitSpecification
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
+      if (obj.GetType() != GetType()) return false;
       return Equals((ProperValueTypeWithoutEqualityOperator)obj);
     }
 
@@ -227,7 +223,7 @@ namespace TddToolkitSpecification
 
     public ProperValueTypeWithoutEqualityOperator(int a, IEnumerable<int> anArray)
     {
-      this._a = a;
+      _a = a;
       _anArray = anArray;
     }
   }

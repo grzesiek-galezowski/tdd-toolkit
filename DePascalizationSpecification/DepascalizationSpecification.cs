@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Globalization;
+using NUnit.Framework;
 using System;
 using TddEbook.TddToolkit;
 
@@ -47,7 +48,7 @@ namespace DePascalizationSpecification
           {
             for (var i = 0; i < splitExpected.Length ; i++)
             {
-              assert.Equal(splitExpected[i].Trim(), splitResult[i].Trim(), i.ToString());
+              assert.Equal(splitExpected[i].Trim(), splitResult[i].Trim(), i.ToString(CultureInfo.InvariantCulture));
             }
           });
       }

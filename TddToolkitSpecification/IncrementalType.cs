@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class IncrementalType : IEquatable<IncrementalType>
   {

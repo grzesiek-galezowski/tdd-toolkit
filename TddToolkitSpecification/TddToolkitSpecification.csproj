@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>TddToolkitSpecification</RootNamespace>
+    <RootNamespace>TddEbook.TddToolkitSpecification</RootNamespace>
     <AssemblyName>TddToolkitSpecification</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

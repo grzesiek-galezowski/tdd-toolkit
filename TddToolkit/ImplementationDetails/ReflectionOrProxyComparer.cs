@@ -1,9 +1,6 @@
 ﻿using KellermanSoftware.CompareNetObjects;
 using KellermanSoftware.CompareNetObjects.TypeComparers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
@@ -21,7 +18,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       object object2, 
       string breadCrumb)
     {
-        if (!object.ReferenceEquals(object1, object2))
+        if (!ReferenceEquals(object1, object2))
         {
           result.Differences.Add(new Difference
           {

@@ -66,7 +66,7 @@ namespace TddEbook.TddToolkit
       var list = new SortedList<TKey, TValue>();
       for (int i = 0; i < length; ++i)
       {
-        list.Add(Any.Instance<TKey>(), Any.Instance<TValue>());
+        list.Add(Instance<TKey>(), Instance<TValue>());
       }
       return list;
     }
@@ -97,7 +97,7 @@ namespace TddEbook.TddToolkit
       var dict = new Dictionary<TKey, TValue>();
       for (int i = 0; i < length; ++i)
       {
-        dict.Add(Any.Instance<TKey>(), Any.Instance<TValue>());
+        dict.Add(Instance<TKey>(), Instance<TValue>());
       }
       return dict;
     }
@@ -112,7 +112,7 @@ namespace TddEbook.TddToolkit
       var dict = new SortedDictionary<TKey, TValue>();
       for (int i = 0; i < length; ++i)
       {
-        dict.Add(Any.Instance<TKey>(), Any.Instance<TValue>());
+        dict.Add(Instance<TKey>(), Instance<TValue>());
       }
       return dict;
     }
@@ -134,7 +134,7 @@ namespace TddEbook.TddToolkit
 
     public static IEnumerator<T> Enumerator<T>()
     {
-      return Any.List<T>().GetEnumerator();
+      return List<T>().GetEnumerator();
     }
 
     public static object List(Type type)
@@ -176,7 +176,7 @@ namespace TddEbook.TddToolkit
     {
       for (int i = 0; i < many; ++i)
       {
-        collection.Add(Any.Instance<T>());
+        collection.Add(Instance<T>());
       }
       return collection;
     }
@@ -185,7 +185,7 @@ namespace TddEbook.TddToolkit
     {
       return Activator.CreateInstance(
         typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), 
-        Any.Instance(keyType), Any.Instance(valueType)
+        Instance(keyType), Instance(valueType)
         );
     }
     

@@ -150,7 +150,7 @@ namespace TddEbook.TypeReflection
     private Maybe<MethodInfo> ValueTypeEqualityMethod()
     {
       return _type.IsValueType ?
-        Maybe.Wrap(this.GetType().GetMethod("ValuesEqual"))
+        Maybe.Wrap(GetType().GetMethod("ValuesEqual"))
         : Maybe<MethodInfo>.Nothing;
 
     }
@@ -158,18 +158,18 @@ namespace TddEbook.TypeReflection
     private Maybe<MethodInfo> ValueTypeInequalityMethod()
     {
       return _type.IsValueType ?
-        Maybe.Wrap(this.GetType().GetMethod("ValuesNotEqual")) 
+        Maybe.Wrap(GetType().GetMethod("ValuesNotEqual")) 
         : Maybe<MethodInfo>.Nothing;
     }
 
     public IBinaryOperator Equality()
     {
-      return BinaryOperator.Wrap(_type, EqualityMethod(), ValueTypeEqualityMethod(), "operator ==");
+      return BinaryOperator.Wrap(EqualityMethod(), ValueTypeEqualityMethod(), "operator ==");
     }
 
     public IBinaryOperator Inequality()
     {
-      return BinaryOperator.Wrap(_type, InequalityMethod(), ValueTypeInequalityMethod(), "operator !=");
+      return BinaryOperator.Wrap(InequalityMethod(), ValueTypeInequalityMethod(), "operator !=");
     }
 
     public static TypeWrapper For(Type type)
@@ -179,12 +179,12 @@ namespace TddEbook.TypeReflection
 
     public static bool ValuesEqual(object instance1, object instance2)
     {
-      return ValueType.Equals(instance1, instance2);
+      return Equals(instance1, instance2);
     }
 
     public static bool ValuesNotEqual(object instance1, object instance2)
     {
-      return !ValueType.Equals(instance1, instance2);
+      return !Equals(instance1, instance2);
     }
 
 

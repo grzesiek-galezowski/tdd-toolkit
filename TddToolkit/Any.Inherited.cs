@@ -4,7 +4,7 @@
     {
       protected T Any<T>()
       {
-        return TddEbook.TddToolkit.Any.Instance<T>();
+        return TddToolkit.Any.Instance<T>();
       }
     }
 

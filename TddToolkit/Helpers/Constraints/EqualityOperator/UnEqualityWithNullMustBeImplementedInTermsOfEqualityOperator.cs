@@ -16,16 +16,14 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
 
     public void CheckAndRecord(ConstraintsViolations violations)
     {
-      object aNull = null;
-         
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
       RecordedAssertions.DoesNotThrow(() =>
-        RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, aNull), 
+        RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, null), 
           "a == null should return false", violations), 
         "a == null should return false", violations);
 
       RecordedAssertions.DoesNotThrow(() =>
-        RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, aNull, instance1),
+        RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, null, instance1),
           "null == a should return false", violations),
         "null == a should return false", violations);
     }

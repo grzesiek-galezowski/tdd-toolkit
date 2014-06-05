@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 
     public WrappingInterceptor(IInterceptor interfaceInterceptor)
     {
-      this._interfaceInterceptor = interfaceInterceptor;
+      _interfaceInterceptor = interfaceInterceptor;
     }
     public void Intercept(IInvocation invocation)
     {

@@ -47,14 +47,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public bool HasAbstractOrInterfaceArguments()
     {
-      foreach (var argument in _constructor.GetParameters())
-      {
-        if (argument.ParameterType.IsAbstract || argument.ParameterType.IsInterface)
-        {
-          return true;
-        }
-      }
-      return false;
+      return _constructor.GetParameters().Any(argument => argument.ParameterType.IsAbstract || argument.ParameterType.IsInterface);
     }
 
     public static IEnumerable<IConstructorWrapper> ExtractAllFrom(Type type)
@@ -86,7 +79,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public bool IsParameterless()
     {
-      return this.GetParametersCount() == 0;
+      return GetParametersCount() == 0;
     }
   }
 }

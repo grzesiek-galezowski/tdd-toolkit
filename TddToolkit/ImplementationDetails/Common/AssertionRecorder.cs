@@ -7,7 +7,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
   //TODO examine similarities with RecordedAssertions
   public class AssertionRecorder
   {
-    private int assertionNumber = 1;
+    private int _assertionNumber = 1;
     private readonly List<AssertionFailed> _exceptions = new List<AssertionFailed>();
 
     internal void AssertTrue()
@@ -105,10 +105,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
       }
       catch (Exception e)
       {
-        _exceptions.Add(AssertionFailed.With(e, assertionNumber));
+        _exceptions.Add(AssertionFailed.With(e, _assertionNumber));
       }
       
-      assertionNumber++;
+      _assertionNumber++;
     }
 
     public void NotNull<T>(T obj) where T : class

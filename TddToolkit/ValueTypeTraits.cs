@@ -45,7 +45,7 @@ namespace TddEbook.TddToolkit
 
     public static ValueTypeTraits Default()
     {
-      return ValueTypeTraits.Full();
+      return Full();
     }
 
     public ValueTypeTraits SkipConstructorArgument(int constructorArgumentIndex)
@@ -56,8 +56,10 @@ namespace TddEbook.TddToolkit
 
     public static ValueTypeTraits Full()
     {
-      var result = new ValueTypeTraits();
-      result.RequireEqualityAndUnequalityOperatorImplementation = true;
+      var result = new ValueTypeTraits
+      {
+        RequireEqualityAndUnequalityOperatorImplementation = true
+      };
       return result;
     }
   }

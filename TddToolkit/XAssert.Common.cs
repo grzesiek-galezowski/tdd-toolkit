@@ -21,8 +21,7 @@ namespace TddEbook.TddToolkit
       var violations = ConstraintsViolations.Empty();
       foreach (var constraint in constraints)
       {
-        RecordedAssertions.DoesNotThrow(() =>
-          constraint.CheckAndRecord(violations),
+        RecordedAssertions.DoesNotThrow(() => constraint.CheckAndRecord(violations),
         "Did not expect exception", violations);
       }
 
@@ -36,15 +35,11 @@ namespace TddEbook.TddToolkit
 
     public static void IsValue<T>(ValueTypeTraits traits)
     {
-      if (typeof(T).IsPrimitive)
+      if (!typeof (T).IsPrimitive)
       {
-        return;
-      }
-      else
-      {
-        var activator = ValueObjectActivator.FreshInstance(typeof(T));
+        var activator = ValueObjectActivator.FreshInstance(typeof (T));
 
-        var constraints = CreateConstraintsBasedOn(typeof(T), traits, activator);
+        var constraints = CreateConstraintsBasedOn(typeof (T), traits, activator);
 
         XAssert.TypeAdheresToConstraints(constraints);
       }

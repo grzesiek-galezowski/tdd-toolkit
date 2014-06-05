@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 
-namespace TddEbook.TddToolkit.NUnitExtensions
+namespace TddEbook.TddToolkit.Nunit.NUnitExtensions
 {
   [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
   public class AnyAttribute  : ParameterDataAttribute
@@ -26,7 +26,7 @@ namespace TddEbook.TddToolkit.NUnitExtensions
 
     public override IEnumerable GetData(ParameterInfo parameter)
     {
-      return new[] { Any.InstanceOtherThanObjects(parameter.ParameterType, new [] {_omittedValues}) };
+      return new[] { Any.InstanceOtherThanObjects(parameter.ParameterType, new object[] { _omittedValues }) };
     }
   }
 

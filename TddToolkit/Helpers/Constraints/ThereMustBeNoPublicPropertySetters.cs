@@ -8,7 +8,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 {
   public class ThereMustBeNoPublicPropertySetters : IConstraint
   {
-    private Type _type;
+    private readonly Type _type;
     
     public ThereMustBeNoPublicPropertySetters(Type type)
     {

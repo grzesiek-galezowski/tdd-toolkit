@@ -44,11 +44,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails
   {
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
     private List<object> _constructorArguments;
-    private Type _type;
+    private readonly Type _type;
 
     public ValueObjectActivator(FallbackTypeGenerator fallbackTypeGenerator, Type type)
     {
-      this._fallbackTypeGenerator = fallbackTypeGenerator;
+      _fallbackTypeGenerator = fallbackTypeGenerator;
       _type = type;
     }
 

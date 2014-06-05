@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
@@ -23,18 +22,6 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return (TResult)_method.Evaluate(instance1, instance2);
     }
 
-    public static BinaryOperator<T, bool> Wrap(Maybe<MethodInfo> maybeOperator, string op)
-    {
-      if (maybeOperator.HasValue)
-      {
-        return new BinaryOperator<T, bool>(maybeOperator.Value);
-      }
-      else
-      {
-        throw new NoSuchOperatorInTypeException("No method " + op + " on type " + typeof(T));
-      }
-    }
-
     public static IBinaryOperator<T, bool> Wrap(IBinaryOperator binaryOperator)
     {
       return new BinaryOperator<T, bool>(binaryOperator);
@@ -56,7 +43,6 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     }
 
     public static IBinaryOperator Wrap(
-      Type type, 
       Maybe<MethodInfo> maybeOperator, 
       Maybe<MethodInfo> maybeFallbackOperator, 
       string op)

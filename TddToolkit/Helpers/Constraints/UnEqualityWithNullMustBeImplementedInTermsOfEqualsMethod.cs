@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
     {
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
       RecordedAssertions.DoesNotThrow(() =>
-        RecordedAssertions.False(((object)instance1).Equals(null), 
+        RecordedAssertions.False(instance1.Equals(null), 
         "a.Equals(null) should return false", violations),
         "a.Equals(null) should return false", violations);
     }

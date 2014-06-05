@@ -7,7 +7,7 @@
     <ProjectGuid>{68DCBAC1-1218-4E61-B92C-EA2C8D0E7A3C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TddToolkit.Nunit</RootNamespace>
+    <RootNamespace>TddEbook.TddToolkit.Nunit</RootNamespace>
     <AssemblyName>TddToolkit.Nunit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

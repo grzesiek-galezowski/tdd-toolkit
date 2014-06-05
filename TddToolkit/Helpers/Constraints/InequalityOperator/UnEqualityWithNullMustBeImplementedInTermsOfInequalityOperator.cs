@@ -27,6 +27,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator
           "null != a should return true", violations),
           "null != a should return true", violations);
       
+      //TODO remove? 
       object null1 = null;
       object null2 = null;
 

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using TddEbook.TddToolkit;
+﻿using NUnit.Framework;
 using TddEbook.TddToolkit.ChainedAssertions;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class ChainedAssertionsSpecification
   {
@@ -30,22 +25,10 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldAllowTestingForEqualityWithMessage()
     {
-      //GIVEN
-      var levels = new Level1();
-
-      //THEN
-      levels.AssertNotNull("l1")
-        ._l2.AssertNotNull("l2")
-        ._l3.AssertNotNull("l3")
-        ._l4.AssertNotNull("l4")
-        ._str.AssertEqualTo("aaa", "l4str");
+      Level4.Str.AssertEqualTo("aaa", "l4str");
 
       var e = Assert.Throws<AssertionException>(() =>
-        levels.AssertNotNull("l1")
-          ._l2.AssertNotNull("l2")
-          ._l3.AssertNotNull("l3")
-          ._l4.AssertNotNull("l4")
-          ._str.AssertNotNull("l4NotNull")
+        Level4.Str.AssertNotNull("l4NotNull")
           .AssertEqualTo("abc", "l4str")
 
         );
@@ -73,41 +56,37 @@ namespace TddToolkitSpecification
       var collection = new[] {"Amber", "Annie", "Eve", "Julie"};
 
       //THEN
-      var e = Assert.Throws<AssertionException>(() =>
-      {
-        collection
-          .AssertContains("Annie", "Annie")
-          .AssertDoesNotContain("Jodie", "should not contain Jodie")
-          .AssertContains<string[], string>(s => s.StartsWith("Ju"), "predicate1")
-          .AssertIsNotEmpty("not empty")
-          .AssertIsInAcendingOrder("ascending order")
-          [0]
-          .AssertEqualTo("Amber", "Amber")
-          .AssertEqualTo("Lol", "This should fail");
-        ;
-      });
+      var e = Assert.Throws<AssertionException>(() => collection
+                                                        .AssertContains("Annie", "Annie")
+                                                        .AssertDoesNotContain("Jodie", "should not contain Jodie")
+                                                        .AssertContains<string[], string>(s => s.StartsWith("Ju"), "predicate1")
+                                                        .AssertIsNotEmpty("not empty")
+                                                        .AssertIsInAcendingOrder("ascending order")
+                                                        [0]
+                                                        .AssertEqualTo("Amber", "Amber")
+                                                        .AssertEqualTo("Lol", "This should fail"));
       StringAssert.Contains("This should fail", e.Message);
     }
 
     public class Level1
     {
-      public Level2 _l2 = new Level2();
+      public readonly Level2 _l2 = new Level2();
     }
 
     public class Level2
     {
-      public Level3 _l3 = new Level3();
+      public readonly Level3 _l3 = new Level3();
     }
 
     public class Level3
     {
-      public Level4 _l4 = new Level4();
+      public readonly Level4 _l4 = new Level4();
     }
 
     public class Level4
     {
-      public Level5 _l5 = null;
-      public string _str = "aaa";
+      public readonly Level5 _l5 = null;
+      public const string Str = "aaa";
     }
 
     public class Level5

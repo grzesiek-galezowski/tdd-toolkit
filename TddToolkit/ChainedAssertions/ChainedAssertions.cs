@@ -32,7 +32,6 @@ namespace TddEbook.TddToolkit.ChainedAssertions
       return instance;
     }
 
-
     public static T AssertDoesNotContain<T, U>(this T instance, U containedInstance, string message) where T : IEnumerable<U>
     {
       instance.Should().NotContain(containedInstance);

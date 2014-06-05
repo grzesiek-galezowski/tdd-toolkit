@@ -9,7 +9,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
   public class FallbackTypeGenerator<T>
   {
     private readonly Type _type;
-    private FallbackTypeGenerator _fallbackTypeGenerator;
+    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
 
     public FallbackTypeGenerator()
     {
@@ -51,8 +51,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
   public class FallbackTypeGenerator
   {
-    private TypeWrapper _typeWrapper;
-    private Type _type;
+    private readonly TypeWrapper _typeWrapper;
+    private readonly Type _type;
 
     public FallbackTypeGenerator(Type type)
     {
@@ -81,9 +81,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public List<object> GenerateConstructorParameters()
     {
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
-      var constructorParameters = constructor.GenerateAnyParameterValues(
-        t => Any.Instance(t)
-        );
+      var constructorParameters = constructor.GenerateAnyParameterValues(Any.Instance);
       return constructorParameters;
     }
 

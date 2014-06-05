@@ -1,7 +1,6 @@
 using System;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
-using System.Reflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
@@ -17,7 +16,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     public void SetupReturnValueFor(IInvocation invocation)
     {
       var returnType = invocation.Method.ReturnType;
-      if (this.AppliesTo(returnType))
+      if (AppliesTo(returnType))
       {
         invocation.ReturnValue = GetReturnTypeFor(invocation);
       }

@@ -1,5 +1,4 @@
-﻿using System;
-using KellermanSoftware.CompareNetObjects;
+﻿using KellermanSoftware.CompareNetObjects;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
@@ -9,7 +8,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     {
       var comparisonMechanism = new CompareLogic
       {
-        Config = new ComparisonConfig()
+        Config = new ComparisonConfig
         {
           CompareChildren = true,
           CompareFields = true,

@@ -1,5 +1,4 @@
 ﻿using System;
-using Ploeh.AutoFixture;
 
 namespace TddEbook.TddToolkit
 {

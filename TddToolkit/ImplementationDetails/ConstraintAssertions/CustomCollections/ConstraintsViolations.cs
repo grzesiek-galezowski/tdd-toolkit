@@ -5,12 +5,6 @@ using FluentAssertions;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections
 {
-  public interface IConstraintsViolations
-  {
-    void AssertNone();
-    void Add(string violationDetails);
-  }
-
   public class ConstraintsViolations : IConstraintsViolations
   {
     private readonly List<string> _violations = new List<string>();
@@ -23,7 +17,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomC
     public void AssertNone()
     {
       _violations.Any().Should().BeFalse("The type should not fail any value type assertions, but failed: " 
-        + Environment.NewLine + MessageContainingAll(_violations));
+                                         + Environment.NewLine + MessageContainingAll(_violations));
     }
 
     private static string MessageContainingAll(IEnumerable<string> violations)
@@ -35,5 +29,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomC
     {
       _violations.Add(violationDetails);
     }
+  }
+
+  public interface IConstraintsViolations
+  {
+    void AssertNone();
+    void Add(string violationDetails);
   }
 }

@@ -15,7 +15,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
       ValueObjectActivator activator, int[] indexesOfConstructorArgumentsToSkip)
     {
       _activator = activator;
-      this._indexesOfConstructorArgumentsToSkip = indexesOfConstructorArgumentsToSkip;
+      _indexesOfConstructorArgumentsToSkip = indexesOfConstructorArgumentsToSkip;
     }
 
     public void CheckAndRecord(ConstraintsViolations violations)
@@ -23,33 +23,35 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
       var instance1 = _activator.CreateInstanceAsValueObjectWithFreshParameters();
       for (var i = 0; i < _activator.GetConstructorParametersCount(); ++i)
       {
+        var currentParamIndex = i;
+
         if (ArgumentIsPartOfValueIdentity(i))
         {
           var instance2 = _activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
 
           RecordedAssertions.DoesNotThrow(() =>
-            RecordedAssertions.False(instance1.Equals(instance2), 
-            "a.Equals(b) should return false if both are created with different argument" + i, violations),
-            "a.Equals(b) should return false if both are created with different argument" + i, violations);
+            RecordedAssertions.False(instance1.Equals(instance2),
+            "a.Equals(b) should return false if both are created with different argument" + currentParamIndex, violations),
+            "a.Equals(b) should return false if both are created with different argument" + currentParamIndex, violations);
           RecordedAssertions.DoesNotThrow(() =>
-            RecordedAssertions.False(instance2.Equals(instance1), 
-            "b.Equals(a) should return false if both are created with different argument" + i, violations),
-            "b.Equals(a) should return false if both are created with different argument" + i, violations);
+            RecordedAssertions.False(instance2.Equals(instance1),
+            "b.Equals(a) should return false if both are created with different argument" + currentParamIndex, violations),
+            "b.Equals(a) should return false if both are created with different argument" + currentParamIndex, violations);
           RecordedAssertions.DoesNotThrow(() =>
-            RecordedAssertions.False(((object)instance1).Equals((object)instance2), 
-            "(object)a.Equals((object)b) should return false if both are created with different argument" + i, violations),
-            "(object)a.Equals((object)b) should return false if both are created with different argument" + i, violations);
+            RecordedAssertions.False(instance1.Equals(instance2),
+            "(object)a.Equals((object)b) should return false if both are created with different argument" + currentParamIndex, violations),
+            "(object)a.Equals((object)b) should return false if both are created with different argument" + currentParamIndex, violations);
           RecordedAssertions.DoesNotThrow(() =>
-            RecordedAssertions.False(((object)instance2).Equals((object)instance1), 
-            "(object)b.Equals((object)a) should return false if both are created with different argument" + i, violations),
-            "(object)b.Equals((object)a) should return false if both are created with different argument" + i, violations);
+            RecordedAssertions.False(instance2.Equals(instance1),
+            "(object)b.Equals((object)a) should return false if both are created with different argument" + currentParamIndex, violations),
+            "(object)b.Equals((object)a) should return false if both are created with different argument" + currentParamIndex, violations);
         }
       }
     }
 
     private bool ArgumentIsPartOfValueIdentity(int i)
     {
-      return !this._indexesOfConstructorArgumentsToSkip.Contains(i);
+      return !_indexesOfConstructorArgumentsToSkip.Contains(i);
     }
   }
 }

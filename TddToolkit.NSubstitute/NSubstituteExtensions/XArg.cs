@@ -1,6 +1,6 @@
 ﻿using NSubstitute;
 
-namespace TddEbook.TddToolkit.NSubstitute
+namespace TddEbook.TddToolkit.NSubstitute.NSubstituteExtensions
 {
   public class XArg
   {

@@ -8,7 +8,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 {
   public class AllFieldsMustBeReadOnly : IConstraint
   {
-    private Type _type;
+    private readonly Type _type;
 
     public AllFieldsMustBeReadOnly(Type type)
     {

@@ -7,7 +7,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
   public class StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator
     : IConstraint
   {
-    private Type _type;
+    private readonly Type _type;
 
     public StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator(Type type)
     {

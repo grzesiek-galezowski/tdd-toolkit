@@ -7,10 +7,9 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection.ImplementationDetails;
-using System.Linq.Expressions;
 using NSubstitute;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class AnySpecification
   {
@@ -153,8 +152,8 @@ namespace TddToolkitSpecification
       var createdProxy = Any.Instance<ObjectWithInterfaceInConstructor>();
 
       //THEN
-      XAssert.NotNull(createdProxy.ConstructorArgument);
-      XAssert.NotNull(createdProxy.ConstructorNestedArgument);
+      XAssert.NotNull(createdProxy._constructorArgument);
+      XAssert.NotNull(createdProxy._constructorNestedArgument);
     }
 
     [Test]
@@ -166,8 +165,8 @@ namespace TddToolkitSpecification
       //THEN
       XAssert.All(assert =>
         {
-          assert.NotNull(createdProxy.ConstructorArgument);
-          assert.NotNull(createdProxy.ConstructorNestedArgument);
+          assert.NotNull(createdProxy._constructorArgument);
+          assert.NotNull(createdProxy._constructorNestedArgument);
           assert.NotEqual(default(int), createdProxy.AbstractInt);
           assert.NotEqual(default(int), createdProxy.SettableInt);
         });
@@ -638,9 +637,9 @@ namespace TddToolkitSpecification
     public class ObjectWithInterfaceInConstructor
     {
       private readonly int _a;
-      public readonly ISimple ConstructorArgument;
+      public readonly ISimple _constructorArgument;
       private readonly string _b;
-      public readonly ObjectWithInterfaceInConstructor ConstructorNestedArgument;
+      public readonly ObjectWithInterfaceInConstructor _constructorNestedArgument;
 
       public ObjectWithInterfaceInConstructor(
         int a, 
@@ -649,18 +648,18 @@ namespace TddToolkitSpecification
         ObjectWithInterfaceInConstructor constructorNestedArgument)
       {
         _a = a;
-        ConstructorArgument = constructorArgument;
+        _constructorArgument = constructorArgument;
         _b = b;
-        ConstructorNestedArgument = constructorNestedArgument;
+        _constructorNestedArgument = constructorNestedArgument;
       }
     }
 
     public abstract class AbstractObjectWithInterfaceInConstructor
     {
       private readonly int _a;
-      public readonly ISimple ConstructorArgument;
+      public readonly ISimple _constructorArgument;
       private readonly string _b;
-      public readonly ObjectWithInterfaceInConstructor ConstructorNestedArgument;
+      public readonly ObjectWithInterfaceInConstructor _constructorNestedArgument;
 
       public AbstractObjectWithInterfaceInConstructor(
         int a,
@@ -669,9 +668,9 @@ namespace TddToolkitSpecification
         ObjectWithInterfaceInConstructor constructorNestedArgument)
       {
         _a = a;
-        ConstructorArgument = constructorArgument;
+        _constructorArgument = constructorArgument;
         _b = b;
-        ConstructorNestedArgument = constructorNestedArgument;
+        _constructorNestedArgument = constructorNestedArgument;
       }
 
       public abstract int AbstractInt { get; }

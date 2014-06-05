@@ -10,13 +10,13 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator
     : IConstraint
   {
     private readonly ValueObjectActivator _activator;
-    private int[] _indexesOfConstructorArgumentsToSkip;
+    private readonly int[] _indexesOfConstructorArgumentsToSkip;
 
     public StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator(
       ValueObjectActivator activator, int[] indexesOfConstructorArgumentsToSkip)
     {
       _activator = activator;
-      this._indexesOfConstructorArgumentsToSkip = indexesOfConstructorArgumentsToSkip;
+      _indexesOfConstructorArgumentsToSkip = indexesOfConstructorArgumentsToSkip;
     }
 
     public void CheckAndRecord(ConstraintsViolations violations)
@@ -42,7 +42,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator
 
     private bool ArgumentIsPartOfValueIdentity(int i)
     {
-      return !this._indexesOfConstructorArgumentsToSkip.Contains(i);
+      return !_indexesOfConstructorArgumentsToSkip.Contains(i);
     }
   }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentAssertions;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.Common

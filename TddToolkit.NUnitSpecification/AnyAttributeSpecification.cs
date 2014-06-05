@@ -1,11 +1,7 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.NUnitExtensions;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkit.NUnitSpecification
 {
   public class AnyAttributeSpecification
   {
@@ -68,7 +64,7 @@ namespace TddToolkitSpecification
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
+      if (obj.GetType() != GetType()) return false;
       return Equals((ProperValueType)obj);
     }
 
@@ -95,7 +91,7 @@ namespace TddToolkitSpecification
 
     public ProperValueType(int a, IEnumerable<int> anArray)
     {
-      this._a = a;
+      _a = a;
       _anArray = anArray;
     }
   }

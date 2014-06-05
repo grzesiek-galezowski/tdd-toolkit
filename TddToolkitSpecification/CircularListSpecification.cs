@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
-namespace TddToolkitSpecification
+namespace TddEbook.TddToolkitSpecification
 {
   public class CircularListSpecification
   {

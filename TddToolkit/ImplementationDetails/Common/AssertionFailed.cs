@@ -4,13 +4,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
 {
   public class AssertionFailed
   {
-    private readonly Exception e;
-    private readonly int assertionNumber;
+    private readonly Exception _e;
+    private readonly int _assertionNumber;
 
     public AssertionFailed(Exception e, int assertionNumber)
     {
-      this.e = e;
-      this.assertionNumber = assertionNumber;
+      _e = e;
+      _assertionNumber = assertionNumber;
     }
 
     public static AssertionFailed With(Exception e, int assertionNumber)
@@ -22,12 +22,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
     {
       return String.Format(
         "Assertion no. {0} failed: {1} {2}", 
-        assertionNumber, e.Message, Environment.NewLine);
+        _assertionNumber, _e.Message, Environment.NewLine);
     }
 
     public override string ToString()
     {
-      return e.ToString();
+      return _e.ToString();
     }
   }
 }
