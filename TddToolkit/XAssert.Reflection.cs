@@ -59,6 +59,15 @@ namespace TddEbook.TddToolkit
       }
 
 
+      public static void IsNotReferencedBy(Assembly assembly1, Assembly assembly2)
+      {
+        assembly1.GetReferencedAssemblies().Should().Contain(assembly2.GetName(), "======" + assembly2.GetName().Name + " should not be referenced by " + 
+          assembly1.GetName().Name  + " ======");
+      }
 
+      public static void IsNotReferencedBy(Assembly assembly1, Type type)
+      {
+        IsNotReferencedBy(assembly1, type.Assembly);
+      }
     }
 }

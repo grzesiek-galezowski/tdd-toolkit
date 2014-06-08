@@ -47,6 +47,13 @@ namespace TddEbook.TddToolkitSpecification
       StringAssert.Contains("_gieniek", e.Message);
     }
 
+    [Test]
+    public void ShouldFailReferenceAssertionWhenAssemblyReferencesOtherAssembly()
+    {
+      var assembly1 = typeof(RecordedAssertionsSpecification).Assembly;
+      Assert.Throws<AssertionException>(() => XAssert.IsNotReferencedBy(assembly1, typeof(TestAttribute)));
+    }
+
     public class Lol2
     {
       private static int _gieniek = 123;
