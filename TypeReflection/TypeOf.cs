@@ -78,7 +78,7 @@ namespace TddEbook.TypeReflection
 
     public bool HasParameterlessConstructor()
     {
-      var constructors = ConstructorWrapper.ExtractAllFrom(_type);
+      var constructors = ConstructorWrapper.ExtractAllPublicFrom(_type);
       return constructors.Any(c => c.IsParameterless());
     }
 
@@ -123,7 +123,7 @@ namespace TddEbook.TypeReflection
 
     public IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
     {
-      var constructors = ConstructorWrapper.ExtractAllFrom(_type);
+      var constructors = ConstructorWrapper.ExtractAllPublicFrom(_type);
       IConstructorWrapper leastParamsConstructor = null;
       var numberOfParams = int.MaxValue;
 
@@ -224,6 +224,10 @@ namespace TddEbook.TypeReflection
       return typeof(MulticastDelegate).IsAssignableFrom(type.BaseType);
     }
 
+    public IEnumerable<IEventWrapper> GetAllNonPublicEvents()
+    {
+      return _type.GetEvents(BindingFlags.NonPublic | BindingFlags.Instance).Select(e => new EventWrapper(e));
+    }
   }
 
 }

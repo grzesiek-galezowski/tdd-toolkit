@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using FluentAssertions;
 using TddEbook.TypeReflection;
+using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddEbook.TddToolkit
 {
@@ -34,7 +35,7 @@ namespace TddEbook.TddToolkit
       }
 
 
-      public static void NoStaticFieldsIn(Assembly assembly)
+      public static void EachTypeHasNoStaticFields(Assembly assembly)
       {
         var staticFields = new List<IFieldWrapper>();
         foreach (var type in assembly.GetTypes())
@@ -47,18 +48,6 @@ namespace TddEbook.TddToolkit
                              StringFrom(staticFields));
       }
 
-      private static string StringFrom(IEnumerable<IFieldWrapper> staticFields)
-      {
-        var result = "";
-        foreach (var field in staticFields)
-        {
-          result += field.GenerateExistenceMessage()
-            + Environment.NewLine;
-        }
-        return result;
-      }
-
-
       public static void IsNotReferencedBy(Assembly assembly1, Assembly assembly2)
       {
         assembly1.GetReferencedAssemblies().Should().Contain(assembly2.GetName(), "======" + assembly2.GetName().Name + " should not be referenced by " + 
@@ -68,6 +57,59 @@ namespace TddEbook.TddToolkit
       public static void IsNotReferencedBy(Assembly assembly1, Type type)
       {
         IsNotReferencedBy(assembly1, type.Assembly);
+      }
+
+      public static void EachTypeDoesNotDeclareNonPublicEvents(Assembly assembly)
+      {
+        var nonPublicEvents = new List<IEventWrapper>();
+        
+        foreach (var type in assembly.GetTypes())
+        {
+          nonPublicEvents.AddRange(TypeWrapper.For(type).GetAllNonPublicEvents());
+        }
+
+        nonPublicEvents.Should()
+                    .BeEmpty("assembly " + assembly + " should not contain non-public events, but: " + Environment.NewLine +
+                             StringFrom(nonPublicEvents));
+      }
+
+      public static void EachTypeHasSingleConstructor(Assembly assembly)
+      {
+        var constructorLimitsExceeded = new List<Tuple<Type, int>>();
+        
+        foreach (var type in assembly.GetTypes())
+        {
+          var constructorCount = ConstructorWrapper.ExtractAllPublicFrom(type).Count();
+          if (constructorCount > 1)
+          {
+            constructorLimitsExceeded.Add(Tuple.Create(type, constructorCount)); 
+          }
+        }
+
+        constructorLimitsExceeded.Any().Should()
+                                 .BeFalse("assembly " + assembly +
+                                          " should not contain types with more than one constructor, but: " +
+                                          Environment.NewLine +
+                                          StringFrom(constructorLimitsExceeded));
+      }
+
+      private static string StringFrom(IEnumerable<IFieldWrapper> staticFields)
+      {
+        var result = new HashSet<string>(staticFields.Select(f => f.GenerateExistenceMessage()));
+        return string.Join(Environment.NewLine, result);
+      }
+
+      private static string StringFrom(IEnumerable<IEventWrapper> nonPublicEvents)
+      {
+        var result = new HashSet<string>(nonPublicEvents.Select(eventWrapper => eventWrapper.GenerateNonPublicExistenceMessage()));
+        return string.Join(Environment.NewLine, result);
+      }
+
+      private static string StringFrom(IEnumerable<Tuple<Type, int>> constructorLimitsExceeded)
+      {
+        var limits = new HashSet<Tuple<Type, int>>(constructorLimitsExceeded);
+        var result = limits.Select(l => l.Item1 + " contains " + l.Item2 + " constructors");
+        return string.Join(Environment.NewLine, result);
       }
     }
 }

@@ -50,7 +50,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return _constructor.GetParameters().Any(argument => argument.ParameterType.IsAbstract || argument.ParameterType.IsInterface);
     }
 
-    public static IEnumerable<IConstructorWrapper> ExtractAllFrom(Type type)
+    public static IEnumerable<IConstructorWrapper> ExtractAllPublicFrom(Type type)
     {
       var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
                  .Select(c => new ConstructorWrapper(c)).ToList();
