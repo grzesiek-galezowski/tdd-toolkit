@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddEbook.TypeReflection
@@ -104,6 +105,16 @@ namespace TddEbook.TypeReflection
       return fields.Select(f => new FieldWrapper(f));
     }
 
+    public IEnumerable<IFieldWrapper> GetAllStaticFields()
+    {
+      return GetAllFields(_type).Where(fieldInfo =>
+                                fieldInfo.IsStatic &&
+                                !IsConst(fieldInfo) &&
+                                !IsCompilerGenerated(fieldInfo) &&
+                                !IsDelegate(fieldInfo.FieldType))
+                                .Select(f => new FieldWrapper(f));
+    }
+
     public IEnumerable<IPropertyWrapper> GetAllInstanceProperties()
     {
       var properties = _type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
@@ -187,11 +198,32 @@ namespace TddEbook.TypeReflection
       return !Equals(instance1, instance2);
     }
 
-
     public bool IsInterface()
     {
       return _type.IsInterface;
     }
+
+    private static bool IsCompilerGenerated(FieldInfo fieldInfo)
+    {
+      return fieldInfo.FieldType.IsDefined(typeof(CompilerGeneratedAttribute), false);
+    }
+
+    private static bool IsConst(FieldInfo fieldInfo)
+    {
+      return fieldInfo.IsLiteral && !fieldInfo.IsInitOnly;
+    }
+
+    private static IEnumerable<FieldInfo> GetAllFields(Type type)
+    {
+      return type.GetNestedTypes().SelectMany(GetAllFields)
+                 .Concat(type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static));
+    }
+
+    private static bool IsDelegate(Type type)
+    {
+      return typeof(MulticastDelegate).IsAssignableFrom(type.BaseType);
+    }
+
   }
 
 }

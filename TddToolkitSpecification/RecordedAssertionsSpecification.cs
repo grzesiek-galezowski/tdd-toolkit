@@ -37,6 +37,25 @@ namespace TddEbook.TddToolkitSpecification
     }
 
 
+    [Test]
+    public void ShouldFailStaticFieldsAssertionIfAssemblyContainsAtLeastOneStaticField()
+    {
+      var assembly = typeof (RecordedAssertionsSpecification).Assembly;
+      
+      var e = Assert.Throws<AssertionException>(() => XAssert.NoStaticFieldsIn(assembly));
+      StringAssert.Contains("_lolek", e.Message);
+      StringAssert.Contains("_gieniek", e.Message);
+    }
+
+    public class Lol2
+    {
+      private static int _gieniek = 123;
+    }
+
+#pragma warning disable 169
+    private static int _lolek = 12;
+#pragma warning restore 169
+
   }
 
 

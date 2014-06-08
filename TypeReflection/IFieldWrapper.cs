@@ -4,5 +4,6 @@
   {
     bool IsNotDeveloperDefinedReadOnlyField();
     string ShouldNotBeMutableButIs();
+    string GenerateExistenceMessage();
   }
 }

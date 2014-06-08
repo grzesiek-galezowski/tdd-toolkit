@@ -23,5 +23,13 @@ namespace TddEbook.TypeReflection.ImplementationDetails
              + _fieldInfo.Name
              + " is mutable. Make this field readonly to pass the check.";
     }
+
+    public string GenerateExistenceMessage()
+    {
+      return "Type: " + _fieldInfo.DeclaringType +
+             " contains static field " + _fieldInfo.Name +
+             " of type " + _fieldInfo.FieldType;
+
+    }
   }
 }
