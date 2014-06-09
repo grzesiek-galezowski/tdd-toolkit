@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -25,7 +26,7 @@ namespace TddEbook.TddToolkit
         method.HasAttribute<TAttr>().Should().BeTrue();
       }
 
-      public static void NoStaticFieldsIn(Type type)
+      public static void NoStaticFields(Type type)
       {
         var staticFields = new List<IFieldWrapper>(TypeWrapper.For(type).GetAllStaticFields());
 
@@ -35,7 +36,7 @@ namespace TddEbook.TddToolkit
       }
 
 
-      public static void EachTypeHasNoStaticFields(Assembly assembly)
+      public static void NoStaticFields(Assembly assembly)
       {
         var staticFields = new List<IFieldWrapper>();
         foreach (var type in assembly.GetTypes())
@@ -48,18 +49,18 @@ namespace TddEbook.TddToolkit
                              StringFrom(staticFields));
       }
 
-      public static void IsNotReferencedBy(Assembly assembly1, Assembly assembly2)
+      public static void NoReference(Assembly assembly1, Assembly assembly2)
       {
         assembly1.GetReferencedAssemblies().Should().Contain(assembly2.GetName(), "======" + assembly2.GetName().Name + " should not be referenced by " + 
           assembly1.GetName().Name  + " ======");
       }
 
-      public static void IsNotReferencedBy(Assembly assembly1, Type type)
+      public static void NoReference(Assembly assembly1, Type type)
       {
-        IsNotReferencedBy(assembly1, type.Assembly);
+        NoReference(assembly1, type.Assembly);
       }
 
-      public static void EachTypeDoesNotDeclareNonPublicEvents(Assembly assembly)
+      public static void NoNonPublicEvents(Assembly assembly)
       {
         var nonPublicEvents = new List<IEventWrapper>();
         
@@ -73,7 +74,7 @@ namespace TddEbook.TddToolkit
                              StringFrom(nonPublicEvents));
       }
 
-      public static void EachTypeHasSingleConstructor(Assembly assembly)
+      public static void SingleConstructor(Assembly assembly)
       {
         var constructorLimitsExceeded = new List<Tuple<Type, int>>();
         

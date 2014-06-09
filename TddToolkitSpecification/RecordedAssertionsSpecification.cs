@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using System;
+using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.Common;
@@ -42,7 +43,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       var assembly = typeof (RecordedAssertionsSpecification).Assembly;
       
-      var e = Assert.Throws<AssertionException>(() => XAssert.EachTypeHasNoStaticFields(assembly));
+      var e = Assert.Throws<AssertionException>(() => XAssert.NoStaticFields(assembly));
       StringAssert.Contains("_lolek", e.Message);
       StringAssert.Contains("_gieniek", e.Message);
       StringAssert.Contains("StaticProperty", e.Message);
@@ -52,7 +53,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldFailReferenceAssertionWhenAssemblyReferencesOtherAssembly()
     {
       var assembly1 = typeof(RecordedAssertionsSpecification).Assembly;
-      Assert.Throws<AssertionException>(() => XAssert.IsNotReferencedBy(assembly1, typeof(TestAttribute)));
+      Assert.Throws<AssertionException>(() => XAssert.NoReference(assembly1, typeof(TestAttribute)));
     }
 
 
@@ -60,14 +61,15 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldFailNonPublicEventsAssertionWhenAssemblyContainsAtLeastOneNonPublicEvent()
     {
       var assembly = typeof (RecordedAssertionsSpecification).Assembly;
-      Assert.Throws<AssertionException>(() => XAssert.EachTypeDoesNotDeclareNonPublicEvents(assembly));
+      Assert.Throws<AssertionException>(() => XAssert.NoNonPublicEvents(assembly));
     }
 
     [Test] //TODO 1. only single constructor! 2. class inheritance levels, 3. private/protected events
     public void ShouldFailConstructorLimitAssertionWhenAnyClassContainsAtLeastOneConstructor()
     {
       var assembly = typeof (RecordedAssertionsSpecification).Assembly;
-      Assert.Throws<AssertionException>(() => XAssert.EachTypeHasSingleConstructor(assembly));
+      var exception = Assert.Throws<AssertionException>(() => XAssert.SingleConstructor(assembly));
+      StringAssert.DoesNotContain("MyException", exception.Message);
     }
 
 
@@ -109,5 +111,10 @@ namespace TddEbook.TddToolkitSpecification
     {
 
     }
+  }
+
+  public class MyException : Exception
+  {
+    
   }
 }

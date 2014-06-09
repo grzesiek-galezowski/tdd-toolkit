@@ -38,7 +38,7 @@ namespace TddEbook.TypeReflection
 
     public static IEnumerable<IPropertyWrapper> GetAllInstanceProperties()
     {
-      return _typeWrapper.GetAllInstanceProperties();
+      return _typeWrapper.GetAllPublicInstanceProperties();
     }
 
     public static IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
@@ -101,7 +101,10 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IFieldWrapper> GetAllInstanceFields()
     {
-      var fields = _type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+      var fields = _type.GetFields(
+        BindingFlags.Instance 
+        | BindingFlags.Public 
+        | BindingFlags.NonPublic);
       return fields.Select(f => new FieldWrapper(f));
     }
 
@@ -115,7 +118,7 @@ namespace TddEbook.TypeReflection
                                 .Select(f => new FieldWrapper(f));
     }
 
-    public IEnumerable<IPropertyWrapper> GetAllInstanceProperties()
+    public IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties()
     {
       var properties = _type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
       return properties.Select(p => new PropertyWrapper(p));
@@ -216,7 +219,11 @@ namespace TddEbook.TypeReflection
     private static IEnumerable<FieldInfo> GetAllFields(Type type)
     {
       return type.GetNestedTypes().SelectMany(GetAllFields)
-                 .Concat(type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static));
+                 .Concat(type.GetFields(
+                 BindingFlags.Public 
+                 | BindingFlags.NonPublic 
+                 | BindingFlags.Static
+                 | BindingFlags.DeclaredOnly));
     }
 
     private static bool IsDelegate(Type type)
@@ -226,7 +233,11 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IEventWrapper> GetAllNonPublicEvents()
     {
-      return _type.GetEvents(BindingFlags.NonPublic | BindingFlags.Instance).Select(e => new EventWrapper(e));
+      return _type.GetEvents(
+        BindingFlags.NonPublic 
+        | BindingFlags.Instance
+        | BindingFlags.DeclaredOnly)
+        .Select(e => new EventWrapper(e));
     }
   }
 
