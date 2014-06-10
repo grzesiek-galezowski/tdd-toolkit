@@ -231,13 +231,30 @@ namespace TddEbook.TypeReflection
       return typeof(MulticastDelegate).IsAssignableFrom(type.BaseType);
     }
 
-    public IEnumerable<IEventWrapper> GetAllNonPublicEvents()
+    public IEnumerable<IEventWrapper> GetAllNonPublicEventsWithoutExplicitlyImplemented()
     {
       return _type.GetEvents(
         BindingFlags.NonPublic 
         | BindingFlags.Instance
         | BindingFlags.DeclaredOnly)
+        .Where(IsNotExplicitlyImplemented)
         .Select(e => new EventWrapper(e));
+    }
+
+    private bool IsNotExplicitlyImplemented(EventInfo eventInfo)
+    {
+      //bug this implementation is wrong
+      var interfaces = eventInfo.DeclaringType.GetInterfaces();
+      foreach (var @interface in interfaces)
+      {
+        if (eventInfo.DeclaringType != null 
+          && eventInfo.DeclaringType.GetInterfaceMap(@interface).TargetMethods.Where(m => m.IsPrivate).Contains(eventInfo.GetAddMethod()))
+        {
+          return false;
+        }
+        
+      }
+      return true;
     }
   }
 

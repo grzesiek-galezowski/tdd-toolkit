@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using FluentAssertions;
 using TddEbook.TypeReflection;
 using TddEbook.TypeReflection.ImplementationDetails;
@@ -66,7 +64,7 @@ namespace TddEbook.TddToolkit
         
         foreach (var type in assembly.GetTypes())
         {
-          nonPublicEvents.AddRange(TypeWrapper.For(type).GetAllNonPublicEvents());
+          nonPublicEvents.AddRange(TypeWrapper.For(type).GetAllNonPublicEventsWithoutExplicitlyImplemented());
         }
 
         nonPublicEvents.Should()

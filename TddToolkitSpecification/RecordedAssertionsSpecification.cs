@@ -61,7 +61,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldFailNonPublicEventsAssertionWhenAssemblyContainsAtLeastOneNonPublicEvent()
     {
       var assembly = typeof (RecordedAssertionsSpecification).Assembly;
-      Assert.Throws<AssertionException>(() => XAssert.NoNonPublicEvents(assembly));
+      var ex = Assert.Throws<AssertionException>(() => XAssert.NoNonPublicEvents(assembly));
+      StringAssert.DoesNotContain("explicitlyImplementedEvent", ex.Message);
     }
 
     [Test] //TODO 1. only single constructor! 2. class inheritance levels, 3. private/protected events
@@ -94,9 +95,9 @@ namespace TddEbook.TddToolkitSpecification
 
   }
 
-  delegate void AnyEventHandler(object sender, AnyEventHandlerArgs args);
+  public delegate void AnyEventHandler(object sender, AnyEventHandlerArgs args);
 
-  interface AnyEventHandlerArgs
+  public interface AnyEventHandlerArgs
   {
   }
 
@@ -116,5 +117,19 @@ namespace TddEbook.TddToolkitSpecification
   public class MyException : Exception
   {
     
+  }
+
+  public interface ExplicitlyImplemented
+  {
+    event AnyEventHandler explicitlyImplementedEvent;    
+  }
+
+  public class ExplicitImplementation : ExplicitlyImplemented
+  {
+    event AnyEventHandler ExplicitlyImplemented.explicitlyImplementedEvent
+    {
+      add { throw new NotImplementedException(); }
+      remove { throw new NotImplementedException(); }
+    }
   }
 }
