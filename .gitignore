@@ -79,3 +79,5 @@ _NCrunch_*/
 NuGet.Packager/NuGet.exe.old
 TddToolkit/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.suo
+*.suo
+TddToolkit.v11.suo

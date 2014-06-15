@@ -243,12 +243,13 @@ namespace TddEbook.TypeReflection
 
     private bool IsNotExplicitlyImplemented(EventInfo eventInfo)
     {
-      if (eventInfo.DeclaringType != null)
+      var eventDeclaringType = eventInfo.DeclaringType;
+      if (eventDeclaringType != null)
       {
-        var interfaces = eventInfo.DeclaringType.GetInterfaces();
+        var interfaces = eventDeclaringType.GetInterfaces();
         foreach (var @interface in interfaces)
         {
-          var methodsImplementedInInterface = eventInfo.DeclaringType.GetInterfaceMap(@interface).TargetMethods;
+          var methodsImplementedInInterface = eventDeclaringType.GetInterfaceMap(@interface).TargetMethods;
           var addMethod = eventInfo.GetAddMethod(true);
           if (methodsImplementedInInterface.Where(m => m.IsPrivate).Contains(addMethod))
           {
