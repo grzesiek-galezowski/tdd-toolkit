@@ -241,7 +241,7 @@ namespace TddEbook.TypeReflection
         .Select(e => new EventWrapper(e));
     }
 
-    private bool IsNotExplicitlyImplemented(EventInfo eventInfo)
+    private static bool IsNotExplicitlyImplemented(EventInfo eventInfo)
     {
       var eventDeclaringType = eventInfo.DeclaringType;
       if (eventDeclaringType != null)

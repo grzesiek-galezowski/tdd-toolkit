@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using FluentAssertions;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.Common
@@ -97,6 +98,31 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
       LogException(() => other.Should().BeSameAs(expected));
     }
 
+    public void NoStaticFields(Assembly assembly)
+    {
+      LogException(() => XAssert.NoStaticFields(assembly));
+    }
+
+    public void NoReference(Assembly assembly1, Assembly assembly2)
+    {
+      LogException(() => XAssert.NoReference(assembly1, assembly2));
+    }
+
+    public void NoReference(Assembly assembly1, Type type)
+    {
+      LogException(() => XAssert.NoReference(assembly1, type));
+    }
+
+    public void NoNonPublicEvents(Assembly assembly)
+    {
+      LogException(() => XAssert.NoNonPublicEvents(assembly));
+    }
+
+    public void SingleConstructor(Assembly assembly)
+    {
+      LogException(() => XAssert.SingleConstructor(assembly));
+    }
+
     internal void LogException(Action action)
     {
       try
@@ -107,7 +133,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
       {
         _exceptions.Add(AssertionFailed.With(e, _assertionNumber));
       }
-      
+
       _assertionNumber++;
     }
 
