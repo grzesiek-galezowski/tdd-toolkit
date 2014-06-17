@@ -60,12 +60,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.0.3.7\tools\libz.exe
-%25LIBZ%25 inject-dll --assembly TddToolkit.NSubstitute.dll --include *.dll --exclude TddToolkit.NSubstitute.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
-</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.2\tools\libz.exe
+      <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.2\tools\libz.exe
 %25LIBZ%25 inject-dll --assembly TddToolkit.NSubstitute.dll --include *.dll --exclude TddToolkit.NSubstitute.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
 </PostBuildEvent>
   </PropertyGroup>
