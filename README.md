@@ -1,4 +1,6 @@
-tdd-toolkit
+[![Build status](https://ci.appveyor.com/api/projects/status/cuik88kcuy9qbr2n)](https://ci.appveyor.com/project/grzesiek-galezowski/tdd-toolkit)
+
+tdd-toolkit 
 ===========
 
 Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook.
