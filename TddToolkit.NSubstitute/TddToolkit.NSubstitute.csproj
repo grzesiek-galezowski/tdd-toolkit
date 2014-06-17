@@ -65,6 +65,7 @@
   <PropertyGroup>
     <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.2\tools\libz.exe
 %25LIBZ%25 inject-dll --assembly TddToolkit.NSubstitute.dll --include *.dll --exclude TddToolkit.NSubstitute.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
+end
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -78,9 +79,10 @@
     <PostBuildEvent>if DEFINED APPVEYOR GOTO end
 set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.1.0.2\tools\libz.exe
 %25LIBZ%25 inject-dll --assembly TddToolkit.NSubstitute.dll --include *.dll --exclude TddToolkit.NSubstitute.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
+:end
 </PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
