@@ -62,6 +62,12 @@
     <Folder Include="src\" />
     <Folder Include="tools\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
+      <Project>{a52e21f4-2301-4f4e-9361-be954fb490a0}</Project>
+      <Name>TddToolkit</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
