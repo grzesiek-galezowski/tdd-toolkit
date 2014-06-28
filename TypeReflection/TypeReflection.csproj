@@ -62,6 +62,7 @@
     <Compile Include="ImplementationDetails\PropertyWrapper.cs" />
     <Compile Include="TypeOf.cs" />
     <Compile Include="TypeOfType.cs" />
+    <Compile Include="TypeWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -19,27 +19,131 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       NestingLimit nestingLimit,
       ProxyGenerator proxyGenerator)
     {
-      
-      return new LimitedFakeChain<T>(
-        nestingLimit,
-        new FakeChain<T>(
-          new ChainElement<T>(new FakeSpecialCase<T>(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfArray(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleIEnumerableAndList(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleSet(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleDictionary(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedList(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedSet(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfKeyValuePair(),
-          new ChainElement<T>(SpecialCasesOfResolutions<T>.CreateResolutionOfGenericEnumerator(),
-          new ChainElement<T>(new FakeEnumerator<T>(),
-          new ChainElement<T>(new FakeUnknownCollection<T>(),
-          new ChainElement<T>(new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator),
-          new ChainElement<T>(new FakeAbstractClass<T>(cachedGeneration, proxyGenerator),
-          new ChainElement<T>(new FakeConcreteClassWithNonConcreteConstructor<T>(),
-          new ChainElement<T>(new FakeConcreteClass<T>(),
-          new InvalidChainElement<T>()))))))))))))))))));
+      return LimitedTo(nestingLimit,
+        OrderedChainOfGenerationsWithTheFollowingLogic(
+          TryTo(ResolveTheMostSpecificCases(),
+          ElseTryTo(ResolveAsArray(),
+          ElseTryTo(ResolveAsSimpleEnumerableAndList(),
+          ElseTryTo(ResolveAsSimpleSet(),
+          ElseTryTo(ResolveAsSimpleDictionary(),
+          ElseTryTo(ResolveAsSortedList(),
+          ElseTryTo(ResolveAsSortedSet(),
+          ElseTryTo(ResolveAsSortedDictionary(),
+          ElseTryTo(ResolveAsKeyValuePair(),
+          ElseTryTo(ResolveAsGenericEnumerator(),
+          ElseTryTo(ResolveAsObjectEnumerator(),
+          ElseTryTo(ResolveAsCollectionWithHeuristics(),
+          ElseTryTo(ResolveAsInterfaceImplementationUsing(cachedGeneration, proxyGenerator),
+          ElseTryTo(ResolveAsAbstractClassImplementationUsing(cachedGeneration, proxyGenerator),
+          ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+          ElseTryTo(ResolveAsConcreteClass(),
+          ElseReportUnsupportedType()
+      ))))))))))))))))));
+    }
+
+    private static FakeChain<T> OrderedChainOfGenerationsWithTheFollowingLogic(IChainElement<T> first)
+    {
+      return new FakeChain<T>(first);
+    }
+
+    private static IFakeChain<T> LimitedTo(NestingLimit nestingLimit, FakeChain<T> fakeChain)
+    {
+      return new LimitedFakeChain<T>(nestingLimit, fakeChain);
+    }
+
+    private static FakeConcreteClass<T> ResolveAsConcreteClass()
+    {
+      return new FakeConcreteClass<T>();
+    }
+
+    private static FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
+    {
+      return new FakeConcreteClassWithNonConcreteConstructor<T>();
+    }
+
+    private static FakeAbstractClass<T> ResolveAsAbstractClassImplementationUsing(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    {
+      return new FakeAbstractClass<T>(cachedGeneration, proxyGenerator);
+    }
+
+    private static FakeOrdinaryInterface<T> ResolveAsInterfaceImplementationUsing(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    {
+      return new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator);
+    }
+
+    private static FakeUnknownCollection<T> ResolveAsCollectionWithHeuristics()
+    {
+      return new FakeUnknownCollection<T>();
+    }
+
+    private static FakeEnumerator<T> ResolveAsObjectEnumerator()
+    {
+      return new FakeEnumerator<T>();
+    }
+
+    private static IResolution<T> ResolveAsGenericEnumerator()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfGenericEnumerator();
+    }
+
+    private static IResolution<T> ResolveAsKeyValuePair()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfKeyValuePair();
+    }
+
+    private static IResolution<T> ResolveAsSortedDictionary()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary();
+    }
+
+    private static IResolution<T> ResolveAsSortedSet()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedSet();
+    }
+
+    private static IResolution<T> ResolveAsSortedList()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedList();
+    }
+
+    private static ResolutionOfTypeWithGenerics<T> ResolveAsSimpleDictionary()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleDictionary();
+    }
+
+    private static ResolutionOfTypeWithGenerics<T> ResolveAsSimpleSet()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleSet();
+    }
+
+    private static ResolutionOfTypeWithGenerics<T> ResolveAsSimpleEnumerableAndList()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleIEnumerableAndList();
+    }
+
+    private static FakeSpecialCase<T> ResolveTheMostSpecificCases()
+    {
+      return new FakeSpecialCase<T>();
+    }
+
+    private static InvalidChainElement<T> ElseReportUnsupportedType()
+    {
+      return new InvalidChainElement<T>();
+    }
+
+    private static ChainElement<T> ElseTryTo(IResolution<T> handleArraysInSpecialWay, IChainElement<T> chainElement)
+    {
+      return new ChainElement<T>(handleArraysInSpecialWay, chainElement);
+    }
+
+    private static IChainElement<T> TryTo(FakeSpecialCase<T> fakeSpecialCase, IChainElement<T> chainElement)
+    {
+      return new ChainElement<T>(fakeSpecialCase, chainElement);
+    }
+
+    private static IResolution<T> ResolveAsArray()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfArray();
     }
 
 
