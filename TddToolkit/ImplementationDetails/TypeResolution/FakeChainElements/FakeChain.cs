@@ -15,9 +15,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly IChainElement<T> _chainHead;
 
     public static IFakeChain<T> NewInstance(
-      CachedReturnValueGeneration cachedGeneration, 
+      CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, 
       NestingLimit nestingLimit,
-      ProxyGenerator proxyGenerator)
+      ProxyGenerator generationIsDoneUsingProxies)
     {
       return LimitedTo(nestingLimit,
         OrderedChainOfGenerationsWithTheFollowingLogic(
@@ -33,8 +33,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           ElseTryTo(ResolveAsGenericEnumerator(),
           ElseTryTo(ResolveAsObjectEnumerator(),
           ElseTryTo(ResolveAsCollectionWithHeuristics(),
-          ElseTryTo(ResolveAsInterfaceImplementationUsing(cachedGeneration, proxyGenerator),
-          ElseTryTo(ResolveAsAbstractClassImplementationUsing(cachedGeneration, proxyGenerator),
+          ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+          ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
           ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
           ElseTryTo(ResolveAsConcreteClass(),
           ElseReportUnsupportedType()
@@ -61,12 +61,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new FakeConcreteClassWithNonConcreteConstructor<T>();
     }
 
-    private static FakeAbstractClass<T> ResolveAsAbstractClassImplementationUsing(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    private static FakeAbstractClass<T> ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
       return new FakeAbstractClass<T>(cachedGeneration, proxyGenerator);
     }
 
-    private static FakeOrdinaryInterface<T> ResolveAsInterfaceImplementationUsing(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    private static FakeOrdinaryInterface<T> ResolveAsInterfaceImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
       return new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator);
     }
