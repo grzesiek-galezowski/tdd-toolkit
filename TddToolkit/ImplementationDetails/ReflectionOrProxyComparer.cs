@@ -12,29 +12,26 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     }
 
-    public override void CompareType(
-      ComparisonResult result, 
-      object object1, 
-      object object2, 
-      string breadCrumb)
-    {
-        if (!ReferenceEquals(object1, object2))
-        {
-          result.Differences.Add(new Difference
-          {
-            Object1Value = object1.ToString(),
-            Object2Value = object2.ToString(),
-            ActualName = "Reference to " + object2.GetType() + ": ",
-            ExpectedName = "Reference to " + object1.GetType(),
-            MessagePrefix = breadCrumb
-          });
-        }
-    }
-
     public override bool IsTypeMatch(Type type1, Type type2)
     {
       return ((IsPartOfReflectionApi(type1) && IsPartOfReflectionApi(type2))
         || (IsDynamicProxy(type1) && IsDynamicProxy(type2)));
+    }
+
+    public override void CompareType(CompareParms _)
+    {
+      if (!ReferenceEquals(_.Object1, _.Object2))
+      {
+        _.Result.Differences.Add(new Difference
+        {
+          Object1Value = _.Object1.ToString(),
+          Object2Value = _.Object2.ToString(),
+          ActualName = "Reference to " + _.Object2Type + ": ",
+          ExpectedName = "Reference to " + _.Object1Type,
+          MessagePrefix = _.BreadCrumb
+        });
+      }
+
     }
 
     private bool IsPartOfReflectionApi(Type type)

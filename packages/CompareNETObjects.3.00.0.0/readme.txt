@@ -1,1 +1,0 @@
-Hey cool developer!  Check out our other cool software at www.kellermansoftware.com
