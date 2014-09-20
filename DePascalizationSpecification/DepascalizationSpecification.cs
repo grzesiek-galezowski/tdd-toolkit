@@ -43,7 +43,7 @@ namespace DePascalizationSpecification
         var depascalizedVersion = depascalization.OfNUnitReport(input);
 
         //THEN
-        var splitResult = depascalizedVersion.Split('\n');
+        var splitResult = depascalizedVersion.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
         XAssert.All(assert =>
           {
             for (var i = 0; i < splitExpected.Length ; i++)
