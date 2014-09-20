@@ -36,14 +36,14 @@ namespace DePascalizationSpecification
         //GIVEN
         const string input = ExampleNUnitReport.Text;
         const string expectedReport = ExampleNUnitReport.DepascalizedText;
-        var splitExpected = expectedReport.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        var splitExpected = expectedReport.Split(new[] { '>' }, StringSplitOptions.None);
         var depascalization = new Depascalization.Depascalization();
 
         //WHEN
         var depascalizedVersion = depascalization.OfNUnitReport(input);
 
         //THEN
-        var splitResult = depascalizedVersion.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        var splitResult = depascalizedVersion.Split(new[] { '>' }, StringSplitOptions.None);
         XAssert.All(assert =>
           {
             for (var i = 0; i < splitExpected.Length ; i++)
