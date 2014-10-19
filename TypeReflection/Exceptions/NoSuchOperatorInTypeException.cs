@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddEbook.TypeReflection
+namespace TddEbook.TypeReflection.Exceptions
 {
   public class NoSuchOperatorInTypeException : Exception
   {

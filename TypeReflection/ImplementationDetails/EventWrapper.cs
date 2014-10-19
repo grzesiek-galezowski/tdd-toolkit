@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
+using TddEbook.TypeReflection.Interfaces;
 
-namespace TddEbook.TypeReflection
+namespace TddEbook.TypeReflection.ImplementationDetails
 {
   public class EventWrapper : IEventWrapper
   {

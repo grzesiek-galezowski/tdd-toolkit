@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using TddEbook.TypeReflection.Exceptions;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
@@ -6,11 +8,6 @@ namespace TddEbook.TypeReflection.ImplementationDetails
   public class BinaryOperator<T, TResult> : IBinaryOperator<T,TResult>
   {
     private readonly IBinaryOperator _method;
-
-    public BinaryOperator(MethodInfo method)
-    {
-      _method = new BinaryOperator(method);
-    }
 
     private BinaryOperator(IBinaryOperator binaryOperator)
     {

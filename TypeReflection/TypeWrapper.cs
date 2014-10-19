@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TddEbook.TypeReflection.ImplementationDetails;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
 {
@@ -18,7 +19,7 @@ namespace TddEbook.TypeReflection
 
     public bool HasParameterlessConstructor()
     {
-      var constructors = ConstructorWrapper.ExtractAllPublicFrom(_type);
+      var constructors = For(_type).GetAllPublicConstructors();
       return constructors.Any(c => c.IsParameterless());
     }
 
@@ -66,7 +67,7 @@ namespace TddEbook.TypeReflection
 
     public IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
     {
-      var constructors = ConstructorWrapper.ExtractAllPublicFrom(_type);
+      var constructors = For(_type).GetAllPublicConstructors();
       IConstructorWrapper leastParamsConstructor = null;
       var numberOfParams = int.MaxValue;
 
@@ -198,6 +199,22 @@ namespace TddEbook.TypeReflection
         }
       }
       return true;
+    }
+
+    public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
+    {
+      var constructors = _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
+           .Select(c => new ConstructorWrapper(c)).ToList();
+
+      if (!constructors.Any())
+      {
+        return new List<IConstructorWrapper> { new DefaultParameterlessConstructor() };
+      }
+      else
+      {
+        return constructors;
+      }
+
     }
   }
 }

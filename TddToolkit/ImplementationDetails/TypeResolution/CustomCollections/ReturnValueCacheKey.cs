@@ -15,11 +15,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
       _proxy = proxy;
     }
 
-    public static PerMethodCacheKey For(MethodInfo method, object proxy)
-    {
-      return new PerMethodCacheKey(method, proxy);
-    }
-
     public static PerMethodCacheKey For(IInvocation invocation)
     {
       return new PerMethodCacheKey(invocation.Method, invocation.Proxy);

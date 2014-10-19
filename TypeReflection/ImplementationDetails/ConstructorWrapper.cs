@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {
@@ -48,21 +49,6 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     public bool HasAbstractOrInterfaceArguments()
     {
       return _constructor.GetParameters().Any(argument => argument.ParameterType.IsAbstract || argument.ParameterType.IsInterface);
-    }
-
-    public static IEnumerable<IConstructorWrapper> ExtractAllPublicFrom(Type type)
-    {
-      var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-                 .Select(c => new ConstructorWrapper(c)).ToList();
-      
-      if (!constructors.Any())
-      {
-        return new List<IConstructorWrapper> {new DefaultParameterlessConstructor()};
-      }
-      else
-      {
-        return constructors;
-      }
     }
 
     public List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator)

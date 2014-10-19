@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using FluentAssertions;
 using TddEbook.TypeReflection;
-using TddEbook.TypeReflection.ImplementationDetails;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit
 {
@@ -78,7 +78,7 @@ namespace TddEbook.TddToolkit
         
         foreach (var type in assembly.GetTypes())
         {
-          var constructorCount = ConstructorWrapper.ExtractAllPublicFrom(type).Count();
+          var constructorCount = TypeWrapper.For(type).GetAllPublicConstructors().Count();
           if (constructorCount > 1)
           {
             constructorLimitsExceeded.Add(Tuple.Create(type, constructorCount)); 

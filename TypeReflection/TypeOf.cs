@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TddEbook.TypeReflection.ImplementationDetails;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
 {
@@ -45,6 +46,7 @@ namespace TddEbook.TypeReflection
 
     public static IBinaryOperator<T, bool> Equality()
     {
+
       return BinaryOperator<T, bool>.Wrap(_typeWrapper.Equality());
     }
 

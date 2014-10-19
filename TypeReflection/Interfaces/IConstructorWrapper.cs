@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TddEbook.TypeReflection
+namespace TddEbook.TypeReflection.Interfaces
 {
   public interface IConstructorWrapper
   {

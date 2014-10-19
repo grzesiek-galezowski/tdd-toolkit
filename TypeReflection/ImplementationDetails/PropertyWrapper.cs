@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
 {

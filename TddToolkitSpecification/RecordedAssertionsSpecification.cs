@@ -77,10 +77,14 @@ namespace TddEbook.TddToolkitSpecification
 
     public class Lol2
     {
+#pragma warning disable 169
       private static int _gieniek = 123;
+#pragma warning restore 169
     }
 
+#pragma warning disable 67
     protected event AnyEventHandler _changed;
+#pragma warning restore 67
 
 
 #pragma warning disable 169

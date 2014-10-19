@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using TddEbook.TddToolkit;
-using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddEbook.TddToolkitSpecification
 {

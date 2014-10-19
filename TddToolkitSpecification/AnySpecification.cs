@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TypeReflection.ImplementationDetails;
 using NSubstitute;
 
 namespace TddEbook.TddToolkitSpecification

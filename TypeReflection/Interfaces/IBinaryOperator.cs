@@ -1,4 +1,4 @@
-﻿namespace TddEbook.TypeReflection
+﻿namespace TddEbook.TypeReflection.Interfaces
 {
   public interface IBinaryOperator<in T, out TResult>
   {

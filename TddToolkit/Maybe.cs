@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddEbook.TypeReflection.ImplementationDetails
+namespace TddEbook.TddToolkit
 {
   public static class Maybe
   {
