@@ -4,7 +4,6 @@ tdd-toolkit
 ===========
 
 Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook.
-
 NuGet package: https://www.nuget.org/packages/Tdd-Toolkit/
 
 The idea of "Any" class is taken from guys at www.sustainabletdd.com
