@@ -116,7 +116,7 @@ Enumerable of objects of type T:
     
 Enumerable of objects of type T different than passed excluded ones:
 
-    Any.EnumerableWithout<T>(params T[] excluded) where T : class
+    Any.EnumerableWithout<T>(params T[] excluded)
     
 Array of objects of type T:
 
@@ -124,7 +124,7 @@ Array of objects of type T:
     
 Array of objects of type T different than passed excluded ones:
     
-    Any.ArrayWithout<T>(params T[] excluded) where T : class
+    Any.ArrayWithout<T>(params T[] excluded)
     
 List of objects of type T:
     
@@ -164,6 +164,7 @@ TimeSpan:
 Generic generation method for values only (subset of Any.Instance<T>()):  
 
     Any.ValueOf<T>()
+    Any.Value<T>()
 
 Like above, but makes sure none of the passed values will not get returned:
 
@@ -196,7 +197,8 @@ Exploding type (any overridable method called on created instance throws an exce
     
 Generic generation method for objects only (subset of Any.Instance<T>()):      
     
-    Any.InstanceOf<T>() where T : class
+    Any.InstanceOf<T>()
+    Any.Instance<T>()
     
 URI object:
     
