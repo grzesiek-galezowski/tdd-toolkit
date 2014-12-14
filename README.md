@@ -1,5 +1,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/cuik88kcuy9qbr2n)](https://ci.appveyor.com/project/grzesiek-galezowski/tdd-toolkit)
 
+<a href="https://scan.coverity.com/projects/3636">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/3636/badge.svg"/>
+</a>
+
 tdd-toolkit 
 ===========
 
