@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
+using NSubstitute;
 using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddEbook.TddToolkit

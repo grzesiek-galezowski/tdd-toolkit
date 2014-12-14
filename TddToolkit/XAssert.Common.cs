@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FluentAssertions;
+using NSubstitute;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator;
@@ -41,12 +42,11 @@ namespace TddEbook.TddToolkit
 
         var constraints = CreateConstraintsBasedOn(typeof (T), traits, activator);
 
-        XAssert.TypeAdheresToConstraints(constraints);
+        TypeAdheresToConstraints(constraints);
       }
     }
 
-    private static IEnumerable<IConstraint> 
-      CreateConstraintsBasedOn(Type t, ValueTypeTraits traits, ValueObjectActivator activator)
+    private static IEnumerable<IConstraint> CreateConstraintsBasedOn(Type t, ValueTypeTraits traits, ValueObjectActivator activator)
     {
 
       var constraints = new List<IConstraint>();
@@ -140,6 +140,5 @@ namespace TddEbook.TddToolkit
     {
       ExecutionOf(() => TypeWrapper.For(type).Inequality()).ShouldNotThrow<Exception>();
     }
-
   }
 }

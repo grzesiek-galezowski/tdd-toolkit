@@ -41,10 +41,10 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net40\FluentAssertions.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net40\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net40\FluentAssertions.Core.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net40\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects">
       <HintPath>..\packages\CompareNETObjects.3.01.0.0\lib\net40\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Are.cs" />
+    <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
@@ -91,11 +92,16 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
     <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\IntegerSequence.cs" />
+    <Compile Include="LockAssertions.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="Method.cs" />
+    <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />
+    <Compile Include="LockSpecificAssertions\ReadLockSlimAssertions.cs" />
+    <Compile Include="SyncAssert.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="WrapperDuo.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\Interceptors\WrappingInterceptor.cs" />
+    <Compile Include="LockSpecificAssertions\WriteLockSlimAssertions.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
     <Compile Include="XAssert.Simple.cs" />

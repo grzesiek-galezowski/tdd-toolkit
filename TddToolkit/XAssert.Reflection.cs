@@ -95,20 +95,20 @@ namespace TddEbook.TddToolkit
       private static string StringFrom(IEnumerable<IFieldWrapper> staticFields)
       {
         var result = new HashSet<string>(staticFields.Select(f => f.GenerateExistenceMessage()));
-        return string.Join(Environment.NewLine, result);
+        return String.Join(Environment.NewLine, result);
       }
 
       private static string StringFrom(IEnumerable<IEventWrapper> nonPublicEvents)
       {
         var result = new HashSet<string>(nonPublicEvents.Select(eventWrapper => eventWrapper.GenerateNonPublicExistenceMessage()));
-        return string.Join(Environment.NewLine, result);
+        return String.Join(Environment.NewLine, result);
       }
 
       private static string StringFrom(IEnumerable<Tuple<Type, int>> constructorLimitsExceeded)
       {
         var limits = new HashSet<Tuple<Type, int>>(constructorLimitsExceeded);
         var result = limits.Select(l => l.Item1 + " contains " + l.Item2 + " constructors");
-        return string.Join(Environment.NewLine, result);
+        return String.Join(Environment.NewLine, result);
       }
     }
 }
