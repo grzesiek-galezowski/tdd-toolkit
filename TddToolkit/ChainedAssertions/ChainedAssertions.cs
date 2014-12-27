@@ -22,7 +22,7 @@ namespace TddEbook.TddToolkit.ChainedAssertions
 
     public static T AssertContains<T, U>(this T instance, U containedInstance, string message) where T : IEnumerable<U>
     {
-      instance.Should().Contain(containedInstance);
+      instance.Should().Contain(containedInstance, message);
       return instance;
     }
 
@@ -34,7 +34,7 @@ namespace TddEbook.TddToolkit.ChainedAssertions
 
     public static T AssertDoesNotContain<T, U>(this T instance, U containedInstance, string message) where T : IEnumerable<U>
     {
-      instance.Should().NotContain(containedInstance);
+      instance.Should().NotContain(containedInstance, message);
       return instance;
     }
 
@@ -106,37 +106,37 @@ namespace TddEbook.TddToolkit.ChainedAssertions
 
     public static int AssertPositive(this int instance, string message)
     {
-      instance.Should().BePositive();
+      instance.Should().BePositive(message);
       return instance;
     }
 
     public static long AssertPositive(this long instance, string message)
     {
-      instance.Should().BePositive();
+      instance.Should().BePositive(message);
       return instance;
     }
 
     public static double AssertPositive(this double instance, string message)
     {
-      instance.Should().BePositive();
+      instance.Should().BePositive(message);
       return instance;
     }
 
     public static int AssertNegative(this int instance, string message)
     {
-      instance.Should().BeNegative();
+      instance.Should().BeNegative(message);
       return instance;
     }
 
     public static long AssertNegative(this long instance, string message)
     {
-      instance.Should().BeNegative();
+      instance.Should().BeNegative(message);
       return instance;
     }
 
     public static double AssertNegative(this double instance, string message)
     {
-      instance.Should().BeNegative();
+      instance.Should().BeNegative(message);
       return instance;
     }
 
