@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ChainedAssertionsSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
+    <Compile Include="CloneSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
     <Compile Include="IncrementalType.cs" />
     <Compile Include="MyService.cs" />

@@ -71,7 +71,7 @@ namespace TddEbook.TddToolkit
 
   public static class SyncAssert
   {
-    public static void AssertSynchronizes<T>(this T wrappingObject, Action<T> callToCheck, LockAssertions lockAssertions, T wrappedObjectMock) where T : class
+    public static void AssertSynchronizes<T>(this T wrappingObject, T wrappedObjectMock, Action<T> callToCheck, LockAssertions lockAssertions) where T : class
     {
       XAssert.Synchronizes(wrappingObject, callToCheck, lockAssertions, wrappedObjectMock);
     }

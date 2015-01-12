@@ -52,6 +52,9 @@
     <Reference Include="LibZ.Bootstrap">
       <HintPath>..\packages\LibZ.Bootstrap.1.1.0.2\lib\net40-client\LibZ.Bootstrap.dll</HintPath>
     </Reference>
+    <Reference Include="NClone">
+      <HintPath>..\packages\NClone.1.1.1\lib\net40\NClone.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.8.1.0\lib\net40\NSubstitute.dll</HintPath>
     </Reference>
@@ -70,6 +73,7 @@
     <Compile Include="Are.cs" />
     <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
+    <Compile Include="Clone.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
     <Compile Include="Empty.cs" />

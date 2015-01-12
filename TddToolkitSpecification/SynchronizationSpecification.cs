@@ -17,7 +17,7 @@ namespace TddEbook.TddToolkitSpecification
         var service = new ReadSynchronizedMyService(wrappedObjectMock, aLock);
 
         //WHEN - THEN
-        service.AssertSynchronizes(s => s.VoidCall(1), Blocking.ReadOn(aLock), wrappedObjectMock);
+        service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCall(1), Blocking.ReadOn(aLock));
       }
 
       [Test]
@@ -28,7 +28,7 @@ namespace TddEbook.TddToolkitSpecification
         var service = new WriteSynchronizedMyService(wrappedObjectMock, new ReaderWriterLockSlim());
 
         //WHEN - THEN
-        service.AssertSynchronizes(s => s.VoidCall(1), Blocking.WriteOn(service.Lock), wrappedObjectMock);
+        service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCall(1), Blocking.WriteOn(service.Lock));
       }
 
       [Test]
@@ -39,7 +39,7 @@ namespace TddEbook.TddToolkitSpecification
         var service = new MonitorSynchronizedMyService(wrappedObjectMock, new object());
 
         //WHEN - THEN
-        service.AssertSynchronizes(s => s.VoidCall(1), Blocking.MonitorOn(service.Lock), wrappedObjectMock);
+        service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCall(1), Blocking.MonitorOn(service.Lock));
       }
 
       [Test]
@@ -85,7 +85,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() => 
-          service.AssertSynchronizes(s => s.VoidCallNotEntered(1), Blocking.MonitorOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotEntered(1), Blocking.MonitorOn(service.Lock)));
       }
 
       [Test]
@@ -97,7 +97,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() => 
-          service.AssertSynchronizes(s => s.VoidCallNotExited(1), Blocking.MonitorOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotExited(1), Blocking.MonitorOn(service.Lock)));
       }
 
       [Test]
@@ -109,7 +109,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() => 
-          service.AssertSynchronizes(s => s.VoidCallNotExitedOnException(1), Blocking.MonitorOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotExitedOnException(1), Blocking.MonitorOn(service.Lock)));
       }
 
       [Test]
@@ -158,7 +158,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() =>
-          service.AssertSynchronizes(s => s.VoidCallNotEntered(1), Blocking.ReadOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotEntered(1), Blocking.ReadOn(service.Lock)));
       }
 
       [Test]
@@ -170,7 +170,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() =>
-          service.AssertSynchronizes(s => s.VoidCallNotExited(1), Blocking.ReadOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotExited(1), Blocking.ReadOn(service.Lock)));
       }
 
       [Test]
@@ -182,7 +182,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() =>
-          service.AssertSynchronizes(s => s.VoidCallNotExitedOnException(1), Blocking.ReadOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotExitedOnException(1), Blocking.ReadOn(service.Lock)));
       }
 
       [Test]
@@ -233,7 +233,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() =>
-          service.AssertSynchronizes(s => s.VoidCallNotEntered(1), Blocking.WriteOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotEntered(1), Blocking.WriteOn(service.Lock)));
       }
 
       [Test]
@@ -245,7 +245,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() =>
-          service.AssertSynchronizes(s => s.VoidCallNotExited(1), Blocking.WriteOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotExited(1), Blocking.WriteOn(service.Lock)));
       }
 
       [Test]
@@ -257,7 +257,7 @@ namespace TddEbook.TddToolkitSpecification
 
         //WHEN - THEN
         Assert.Catch<Exception>(() =>
-          service.AssertSynchronizes(s => s.VoidCallNotExitedOnException(1), Blocking.WriteOn(service.Lock), wrappedObjectMock));
+          service.AssertSynchronizes(wrappedObjectMock, s => s.VoidCallNotExitedOnException(1), Blocking.WriteOn(service.Lock)));
       }
 
       [Test]
