@@ -186,9 +186,7 @@ namespace TddEbook.TddToolkit
 
           try
           {
-            Console.WriteLine("Creating instance");
             fallbackTypeGenerator.GenerateInstance(parameters);
-            Console.WriteLine("Managed to create instance... odd...");
             violations.Add("Not guarded against nulls: " + constructor + ", Not guarded parameter: " +
                            constructor.GetDescriptionForParameter(i));
           }
