@@ -801,6 +801,72 @@ namespace TddEbook.TddToolkitSpecification
     public int Lol110 { get; set; }
     public int Lol111 { get; set; }
   }
+
+  public class AnySubstituteSpecification
+  {
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
+    {
+      //GIVEN
+      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+
+      //WHEN
+      var result = instance.Number;
+
+      //THEN
+      XAssert.NotEqual(default(int), result);
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
+    {
+      //GIVEN
+      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+      instance.Number.Returns(44543);
+
+      //WHEN
+      var result = instance.Number;
+
+      //THEN
+      XAssert.Equal(44543, result);
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
+    {
+      //GIVEN
+      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+
+      //WHEN
+      instance.VoidMethod();
+
+      //THEN
+      instance.Received(1).VoidMethod();
+    }
+
+    [Test]
+    public void ShouldReturnNonNullImplementationsOfInnerObjects()
+    {
+      //GIVEN
+      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+
+      //WHEN
+      var result = instance.Nested;
+
+      //THEN
+      Assert.NotNull(result);
+    }
+
+    [Test]
+    public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
+    {
+      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+      var anotherInstance = Substitute.For<AnySpecification.RecursiveInterface>();
+      instance.Nested.Returns(anotherInstance);
+
+      XAssert.Equal(anotherInstance, instance.Nested);
+    }
+  }
 }
 
 

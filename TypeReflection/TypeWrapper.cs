@@ -26,9 +26,16 @@ namespace TddEbook.TypeReflection
     IEnumerable<IConstructorWrapper> GetAllPublicConstructors();
     IEnumerable<IFieldWrapper> GetAllPublicInstanceFields();
     IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties();
+    IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue();
     bool HasConstructorWithParameters();
     bool CanBeAssignedNullValue();
     Type ToClrType();
+  }
+
+  public interface IMethodWrapper
+  {
+    object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory);
+    object GenerateAnyReturnValue(Func<Type, object> valueFactory);
   }
 
   public class TypeWrapper : ITypeWrapper
@@ -256,6 +263,14 @@ namespace TddEbook.TypeReflection
       return _type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite).Select(p => new PropertyWrapper(p));
     }
 
+    public IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue()
+    {
+      return _type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+        .Where(p => p.ReturnType != typeof(void)).
+        Select(p => new MethodWrapper(p));
+    }
+    //TODO even strict mocks can be done this way...
+
     public bool HasConstructorWithParameters()
     {
       return _type.IsPrimitive;
@@ -269,6 +284,28 @@ namespace TddEbook.TypeReflection
     public Type ToClrType()
     {
       return _type; //todo at the very end, this should be removed
+    }
+  }
+
+  public class MethodWrapper : IMethodWrapper //todo move to separate file
+  {
+    private readonly MethodInfo _methodInfo;
+
+    public MethodWrapper(MethodInfo methodInfo)
+    {
+      _methodInfo = methodInfo;
+    }
+
+    public object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory)
+    {
+      var parameters = _methodInfo.GetParameters().Select(constructorParam => valueFactory(constructorParam.ParameterType)).ToArray();
+      var returnValue = _methodInfo.Invoke(instance, parameters);
+      return returnValue;
+    }
+
+    public object GenerateAnyReturnValue(Func<Type, object> valueFactory)
+    {
+      return valueFactory.Invoke(_methodInfo.ReturnType);
     }
   }
 
@@ -424,6 +461,11 @@ namespace TddEbook.TypeReflection
         _allPublicInstanceWritableProperties = Maybe.Wrap(_typeWrapper.GetPublicInstanceWritableProperties());
       }
       return _allPublicInstanceWritableProperties.Value;
+    }
+
+    public IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue()
+    {
+      throw new NotImplementedException();
     }
 
     public bool HasConstructorWithParameters()

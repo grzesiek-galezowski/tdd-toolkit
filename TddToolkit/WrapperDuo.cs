@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using NSubstitute;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
 {
@@ -76,4 +78,5 @@ namespace TddEbook.TddToolkit
     }
 
   }
+
 }

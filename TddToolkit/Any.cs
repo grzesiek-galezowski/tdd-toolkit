@@ -1,11 +1,13 @@
 using System;
 using System.Reflection;
+using NSubstitute;
 using Ploeh.AutoFixture;
 using System.Linq;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
 {
@@ -149,6 +151,21 @@ namespace TddEbook.TddToolkit
     {
       return OtherThan(omittedValues.Cast<T>().ToArray());
     }
+
+    public static T SubstituteOf<T>() where T : class
+    {
+      var type = typeof(T);
+      var sub = Substitute.For<T>();
+
+      var methods = TypeWrapper.For(type).GetAllPublicInstanceMethodsWithReturnValue();
+
+      foreach (var method in methods)
+      {
+        method.InvokeWithAnyArgsOn(sub, Instance).ReturnsForAnyArgs(method.GenerateAnyReturnValue(Instance));
+      }
+      return sub;
+    }
+
 
     public static T OtherThan<T>(params T[] omittedValues)
     {
