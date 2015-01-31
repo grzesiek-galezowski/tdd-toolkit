@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using NSubstitute;
+using NUnit.Framework;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator;
@@ -12,6 +13,7 @@ using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 using TddEbook.TypeReflection;
+using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit
 {
@@ -34,14 +36,23 @@ namespace TddEbook.TddToolkit
       IsValue<T>(ValueTypeTraits.Default());
     }
 
+    public static void HasNullProtectedConstructors<T>()
+    {
+      var type = TypeWrapper.For(typeof(T));
+      
+      if (!type.HasConstructorWithParameters())
+      {
+        var constraints = new List<IConstraint> { new ConstructorsMustBeNullProtected(type.ToClrType())};
+        TypeAdheresToConstraints(constraints);
+      }
+    }
+
     public static void IsValue<T>(ValueTypeTraits traits)
     {
       if (!typeof (T).IsPrimitive)
       {
         var activator = ValueObjectActivator.FreshInstance(typeof (T));
-
         var constraints = CreateConstraintsBasedOn(typeof (T), traits, activator);
-
         TypeAdheresToConstraints(constraints);
       }
     }
@@ -139,6 +150,61 @@ namespace TddEbook.TddToolkit
     public static void IsInequalityOperatorDefinedFor(Type type)
     {
       ExecutionOf(() => TypeWrapper.For(type).Inequality()).ShouldNotThrow<Exception>();
+    }
+  }
+
+  public class ConstructorsMustBeNullProtected : IConstraint
+  {
+    private readonly Type _type;
+
+    public ConstructorsMustBeNullProtected(Type type)
+    {
+      _type = type;
+    }
+
+    public void CheckAndRecord(ConstraintsViolations violations)
+    {
+      var constructors = TypeWrapper.For(_type).GetAllPublicConstructors();
+      var fallbackTypeGenerator = new FallbackTypeGenerator(_type);
+
+      foreach (var constructor in constructors)
+      {
+        AssertNullCheckForEveryPossibleArgumentOf(violations, constructor, fallbackTypeGenerator);
+      }      
+    }
+
+    private static void AssertNullCheckForEveryPossibleArgumentOf(IConstraintsViolations violations,
+                                                                  IConstructorWrapper constructor,
+                                                                  FallbackTypeGenerator fallbackTypeGenerator)
+    {
+      for (int i = 0; i < constructor.GetParametersCount(); ++i)
+      {
+        var parameters = constructor.GenerateAnyParameterValues(Any.Instance);
+        if (TypeWrapper.For(parameters[i]).CanBeAssignedNullValue())
+        {
+          parameters[i] = null;
+
+          try
+          {
+            Console.WriteLine("Creating instance");
+            fallbackTypeGenerator.GenerateInstance(parameters);
+            Console.WriteLine("Managed to create instance... odd...");
+            violations.Add("Not guarded against nulls: " + constructor + ", Not guarded parameter: " +
+                           constructor.GetDescriptionForParameter(i));
+          }
+          catch (TargetInvocationException exception)
+          {
+            if (exception.InnerException.GetType() == typeof (ArgumentNullException))
+            {
+              //do nothing, this is the expected case
+            }
+            else
+            {
+              throw;
+            }
+          }
+        }
+      }
     }
   }
 }

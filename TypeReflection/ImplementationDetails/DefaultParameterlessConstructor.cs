@@ -6,6 +6,13 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 {
   public class DefaultParameterlessConstructor : IConstructorWrapper
   {
+    private static readonly IConstructorWrapper _instance = new DefaultParameterlessConstructor();
+
+    public static IConstructorWrapper Instance
+    {
+      get { return _instance; }
+    }
+
     public bool HasNonPointerArgumentsOnly()
     {
       return true;
@@ -34,6 +41,11 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     public bool IsParameterless()
     {
       return true;
+    }
+
+    public string GetDescriptionForParameter(int i)
+    {
+      return string.Empty;
     }
   }
 }

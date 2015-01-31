@@ -7,6 +7,22 @@ namespace TddEbook.TddToolkitSpecification
 {
   public class XAssertSpecification
   {
+
+    [Test]
+    public void ShouldThrowAssertionExceptionWhenTypeIsNotGuardedAgainstNullConstructorParameters()
+    {
+      var exception = Assert.Throws<AssertionException>(XAssert.HasNullProtectedConstructors<NotGuardedObject>);
+      StringAssert.Contains("Not guarded parameter: String b", exception.Message);
+      StringAssert.Contains("Not guarded parameter: String dede", exception.Message);
+      StringAssert.DoesNotContain("Not guarded parameter: Int32 a", exception.Message);
+    }
+
+    [Test]
+    public void ShouldNotThrowAssertionExceptionWhenTypeIsGuardedAgainstNullConstructorParameters()
+    {
+      Assert.DoesNotThrow(XAssert.HasNullProtectedConstructors<GuardedObject>);
+    }
+
     [Test]
     public void ShouldPassValueTypeAssertionForProperValueType()
     {
@@ -90,6 +106,7 @@ namespace TddEbook.TddToolkitSpecification
       );
     }
   }
+
 
   public class ProperValueTypeWithOneArgumentIdentity : IEquatable<ProperValueTypeWithOneArgumentIdentity>
   {
@@ -226,4 +243,24 @@ namespace TddEbook.TddToolkitSpecification
       _anArray = anArray;
     }
   }
+
+
+  public class NotGuardedObject
+  {
+    public NotGuardedObject(int a, string b, int c, string dede)
+    {
+      
+    }
+
+  }
+
+  public class GuardedObject
+  {
+    public GuardedObject(int a, string b, int c, string dede)
+    {
+      Guard.ArgumentNotNull(b, "x");
+      Guard.ArgumentNotNull(dede, "y");
+    }
+  }
+
 }

@@ -11,5 +11,6 @@ namespace TddEbook.TypeReflection.Interfaces
     bool HasAbstractOrInterfaceArguments();
     List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator);
     bool IsParameterless();
+    string GetDescriptionForParameter(int i);
   }
 }

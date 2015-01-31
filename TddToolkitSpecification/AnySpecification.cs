@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using NSubstitute;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
+using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -170,6 +173,39 @@ namespace TddEbook.TddToolkitSpecification
           assert.NotEqual(default(int), createdProxy.SettableInt);
         });
     }
+
+    [Test, Ignore("aaa")]
+    public void Performance()
+    {
+      //GIVEN
+      //5.5 sec, 8 sec
+      var circularList = new CircularList<string>("a", "b", "c");
+      var clone = Clone.Of(circularList);
+      
+      Stopwatch stopwatch = new Stopwatch();
+      stopwatch.Start();
+      for (int i = 0; i < 200000; ++i)
+      {
+        //var createdProxy = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
+        
+        XAssert.Alike(circularList, clone);
+
+        /*IEnumerable<FieldWrapper> result;
+        if (dict.TryGetValue(type, out result))
+        {
+          x = result;
+        }
+        else
+        {
+          x = type.GetFields(BindingFlags.Public | BindingFlags.Instance).Select(f => new FieldWrapper(f));
+          dict[type] = result;
+          x = result;
+        }*/
+      }
+      stopwatch.Stop();
+      Assert.AreEqual(0, stopwatch.ElapsedMilliseconds);
+    }
+
 
     [Test]
     public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
@@ -749,6 +785,21 @@ namespace TddEbook.TddToolkitSpecification
 
     public int Count { get { return _list.Count; } }
     public bool IsReadOnly { get { return false; } }
+  }
+
+  public abstract class DataStructure
+  {
+    public int Lol11 { get; set; }
+    public int Lol12 { get; set; }
+    public int Lol13 { get; set; }
+    public int Lol14 { get; set; }
+    public int Lol15 { get; set; }
+    public int Lol16 { get; set; }
+    public int Lol17 { get; set; }
+    public int Lol18 { get; set; }
+    public int Lol19 { get; set; }
+    public int Lol110 { get; set; }
+    public int Lol111 { get; set; }
   }
 }
 

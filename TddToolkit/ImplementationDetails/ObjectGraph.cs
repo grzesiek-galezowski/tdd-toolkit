@@ -4,9 +4,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 {
   public static class ObjectGraph
   {
-    public static CompareLogic Comparison()
+    private static readonly CompareLogic _comparisonMechanism;
+
+    static ObjectGraph()
     {
-      var comparisonMechanism = new CompareLogic
+      _comparisonMechanism = new CompareLogic
       {
         Config = new ComparisonConfig
         {
@@ -20,9 +22,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails
         }
       };
 
-      comparisonMechanism.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
+      _comparisonMechanism.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
+    }
 
-      return comparisonMechanism;
+    public static CompareLogic Comparison()
+    {
+      return _comparisonMechanism;
     }
 
 

@@ -17,7 +17,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomC
     public void AssertNone()
     {
       _violations.Any().Should().BeFalse("The type should not fail any value type assertions, but failed: " 
-                                         + Environment.NewLine + MessageContainingAll(_violations));
+                                         + Environment.NewLine + MessageContainingAll(_violations) + Environment.NewLine);
     }
 
     private static string MessageContainingAll(IEnumerable<string> violations)

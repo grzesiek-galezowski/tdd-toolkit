@@ -28,7 +28,6 @@ namespace TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator
         if (ArgumentIsPartOfValueIdentity(i))
         {
           var instance2 = _activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
-
           
           RecordedAssertions.DoesNotThrow(() =>
             RecordedAssertions.False(Are.EqualInTermsOfEqualityOperator(_activator.TargetType, instance1, instance2), "a == b should return false if both are created with different argument" + currentParamIndex, violations),

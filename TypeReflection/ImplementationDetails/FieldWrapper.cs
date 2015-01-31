@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using TddEbook.TypeReflection.Interfaces;
 
@@ -32,5 +33,12 @@ namespace TddEbook.TypeReflection.ImplementationDetails
              " of type " + _fieldInfo.FieldType;
 
     }
+
+    public void SetValue(object result, object instance)
+    {
+      _fieldInfo.SetValue(result, instance);
+    }
+
+    public Type FieldType { get { return _fieldInfo.FieldType; } }
   }
 }

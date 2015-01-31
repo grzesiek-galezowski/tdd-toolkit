@@ -7,11 +7,11 @@ namespace TddEbook.TypeReflection
 {
   public static class TypeOf<T>
   {
-    private static readonly TypeWrapper _typeWrapper;
+    private static readonly ITypeWrapper _typeWrapper;
 
     static TypeOf()
     {
-      _typeWrapper = new TypeWrapper(typeof (T));
+      _typeWrapper = TypeWrapper.For(typeof (T));
     }
 
     public static bool HasParameterlessConstructor()

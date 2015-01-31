@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
@@ -22,6 +23,18 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return "Value objects are immutable by design, but Property "
              + _propertyInfo.Name
              + " is mutable. Declare property setter as private to pass this check";
+    }
+
+    public bool HasAbstractGetter()
+    {
+      return _propertyInfo.GetGetMethod().IsAbstract;
+    }
+
+    public Type PropertyType { get { return _propertyInfo.PropertyType; } }
+
+    public void SetValue(object result, object value)
+    {
+      _propertyInfo.SetValue(result, value, null);
     }
   }
 }

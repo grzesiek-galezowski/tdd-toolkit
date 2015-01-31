@@ -51,12 +51,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
   public class FallbackTypeGenerator
   {
-    private readonly TypeWrapper _typeWrapper;
+    private readonly ITypeWrapper _typeWrapper;
     private readonly Type _type;
 
     public FallbackTypeGenerator(Type type)
     {
-      _typeWrapper = new TypeWrapper(type);
+      _typeWrapper = TypeWrapper.For(type);
       _type = type;
     }
 
@@ -100,7 +100,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private void FillFieldValues(object result)
     {
-      var fields = _type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+      var fields = _typeWrapper.GetAllPublicInstanceFields();
       foreach (var field in fields)
       {
         try
@@ -116,7 +116,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private void FillPropertyValues(object result)
     {
-      var properties = _type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite);
+      var properties = _typeWrapper.GetPublicInstanceWritableProperties();
 
       foreach (var property in properties)
       {
@@ -124,10 +124,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails
         {
           var propertyType = property.PropertyType;
 
-          if (!property.GetGetMethod().IsAbstract)
+          if (!property.HasAbstractGetter())
           {
             var value = Any.Instance(propertyType);
-            property.SetValue(result, value, null);
+            property.SetValue(result, value);
           }
         }
         catch (Exception e)
