@@ -1,4 +1,6 @@
+
 [![Build status](https://ci.appveyor.com/api/projects/status/cuik88kcuy9qbr2n)](https://ci.appveyor.com/project/grzesiek-galezowski/tdd-toolkit)
+[![NuGet version](https://badge.fury.io/nu/tdd-toolkit.svg)](http://badge.fury.io/nu/tdd-toolkit)
 
 <a href="https://scan.coverity.com/projects/3636">
   <img alt="Coverity Scan Build Status"
@@ -10,7 +12,7 @@ tdd-toolkit
 
 Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook.
 
-[![NuGet version](https://badge.fury.io/nu/tdd-toolkit.svg)](http://badge.fury.io/nu/tdd-toolkit)
+
 
 The idea of "Any" class is taken from guys at www.sustainabletdd.com
 
