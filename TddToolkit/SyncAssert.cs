@@ -31,11 +31,16 @@ namespace TddEbook.TddToolkit
         });
 
         callToCheck(wrappingObject);
-        throw new Exception("The specified method was probably not called by the proxy with exactly the same arguments it received");
+        throw new Exception(
+          "The specified method was probably not called by the proxy with exactly the same arguments it received");
       }
       catch
       {
         lockAssertions.AssertUnlocked();
+      }
+      finally
+      {
+        wrappedObjectMock.ClearReceivedCalls();
       }
     }
 
@@ -43,11 +48,19 @@ namespace TddEbook.TddToolkit
                                                           LockAssertions lockAssertions)
       where T : class
     {
-      wrappedObjectMock.When(callToCheck).Do(_ => lockAssertions.AssertLocked());
-      lockAssertions.AssertUnlocked();
-      callToCheck(wrappingObject);
-      lockAssertions.AssertUnlocked();
-      callToCheck(wrappedObjectMock.Received(1));
+      try
+      {
+
+        wrappedObjectMock.When(callToCheck).Do(_ => lockAssertions.AssertLocked());
+        lockAssertions.AssertUnlocked();
+        callToCheck(wrappingObject);
+        lockAssertions.AssertUnlocked();
+        callToCheck(wrappedObjectMock.Received(1));
+      }
+      finally
+      {
+        wrappedObjectMock.ClearReceivedCalls();
+      }
     }
 
     private static void LockShouldBeReleasedAfterACall<T, TReturn>(T wrappingObject, T wrappedObjectMock,
@@ -55,17 +68,25 @@ namespace TddEbook.TddToolkit
                                                                    LockAssertions lockAssertions)
       where T : class
     {
-      var cannedResult = Any.Instance<TReturn>();
-      callToCheck(wrappedObjectMock).Returns((ci) =>
+      try
       {
-        lockAssertions.AssertLocked();
-        return cannedResult;
-      });
+        var cannedResult = Any.Instance<TReturn>();
+        callToCheck(wrappedObjectMock).Returns((ci) =>
+        {
+          lockAssertions.AssertLocked();
+          return cannedResult;
+        });
 
-      lockAssertions.AssertUnlocked();
-      var actualResult = callToCheck(wrappingObject);
-      lockAssertions.AssertUnlocked();
-      Equal(cannedResult, actualResult, "The specified method was probably not called by the proxy with exactly the same arguments it received or it did not return the value obtained from wrapped call");
+        lockAssertions.AssertUnlocked();
+        var actualResult = callToCheck(wrappingObject);
+        lockAssertions.AssertUnlocked();
+        Equal(cannedResult, actualResult,
+              "The specified method was probably not called by the proxy with exactly the same arguments it received or it did not return the value obtained from wrapped call");
+      }
+      finally
+      {
+        wrappedObjectMock.ClearReceivedCalls();
+      }
     }
   }
 
