@@ -84,7 +84,7 @@ namespace TddEbook.TddToolkit
               "The specified method was probably not called by the proxy with exactly the same arguments it received or it did not return the value obtained from wrapped call");
       }
       finally
-      {
+      { 
         wrappedObjectMock.ClearReceivedCalls();
       }
     }
