@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;

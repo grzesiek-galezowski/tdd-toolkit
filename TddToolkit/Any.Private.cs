@@ -33,6 +33,7 @@ namespace TddEbook.TddToolkit
 
       private static readonly CircularList<MethodInfo> MethodList = new CircularList<MethodInfo>(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
       private static readonly NestingLimit NestingLimit = NestingLimit.Of(5);
+      private static readonly int[] PossibleOctetValues = System.Linq.Enumerable.Range(0, 255).ToArray();
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
       {

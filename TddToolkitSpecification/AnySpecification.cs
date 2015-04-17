@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -24,6 +25,18 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.NotEqual(int1, int2);
+    }    
+    
+    [Test]
+    public void ShouldGenerateDifferentIpAddressEachTime()
+    {
+      //GIVEN
+      var address1 = Any.Instance<IPAddress>();
+      var address2 = Any.Instance<IPAddress>();
+
+      //THEN
+      XAssert.NotEqual(address1, address2);
+      XAssert.NotEqual(address1.ToString(), address2.ToString());
     }
 
     [Test]

@@ -3,6 +3,7 @@ using System.Reflection;
 using NSubstitute;
 using Ploeh.AutoFixture;
 using System.Linq;
+using System.Net;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
@@ -21,7 +22,13 @@ namespace TddEbook.TddToolkit
       Generator.Register(() => Types.Next());
       Generator.Register(() => MethodList.Next());
       Generator.Register(() => new Exception(String(), new Exception(String())));
+      Generator.Register(() => new IPAddress(new byte[] { Any.Octet(), Any.Octet(), Any.Octet(), Any.Octet() }));
       Generator.Customize(new MultipleCustomization());
+    }
+
+    public static IPAddress IpAddress()
+    {
+      return Generator.Create<IPAddress>();
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)

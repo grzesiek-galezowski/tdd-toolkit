@@ -105,5 +105,10 @@ namespace TddEbook.TddToolkit
       _sequences.Add(finalSequence);
       return finalSequence.Next();
     }
+
+    public static byte Octet()
+    {
+      return Any.Byte();
+    }
   }
 }
