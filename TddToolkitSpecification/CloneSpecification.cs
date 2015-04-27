@@ -22,5 +22,25 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Alike(circularList, clone);
       XAssert.NotSame(circularList, clone);
     }
+
+    [Test]
+    public void ShouldHaveNotPropagateChangesFromClonedInstancesToOriginals()
+    {
+      var data = Any.Instance<ConcreteDataStructure>();
+
+      var prevData = Clone.Of(data);
+
+      Do(data);
+
+      Assert.Throws<AssertionException>(() =>
+      {
+        XAssert.Alike(prevData, data);
+      });
+    }
+
+    private void Do(ConcreteDataStructure data)
+    {
+      data.Span = TimeSpan.FromDays(12334);
+    }
   }
 }
