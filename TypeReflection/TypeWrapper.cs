@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +11,6 @@ namespace TddEbook.TypeReflection
   public interface ITypeWrapper
   {
     bool HasPublicParameterlessConstructor();
-    bool IsOpenGeneric(Type openGenericType);
     bool IsImplementationOfOpenGeneric(Type openGenericType);
     bool IsConcrete();
     IEnumerable<IFieldWrapper> GetAllInstanceFields();
@@ -52,6 +50,11 @@ namespace TddEbook.TypeReflection
       return GetPublicParameterlessConstructorInfo() != null;
     }
 
+    private bool HasNonPublicParameterlessConstructor()
+    {
+      return GetNonPublicParameterlessConstructorInfo() != null;
+    }
+
     private ConstructorInfo GetNonPublicParameterlessConstructorInfo()
     {
       return _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
@@ -61,12 +64,6 @@ namespace TddEbook.TypeReflection
     {
       return _type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
     }
-
-    public bool IsOpenGeneric(Type openGenericType)
-    {
-      return _type.IsGenericType && _type.GetGenericTypeDefinition() == openGenericType;
-    }
-
 
     public bool IsImplementationOfOpenGeneric(Type openGenericType)
     {
@@ -272,12 +269,18 @@ namespace TddEbook.TypeReflection
       {
         return internalConstructors;
       }
+      else if (HasNonPublicParameterlessConstructor())
+      {
+        return new List<IConstructorWrapper>
+        {
+          new DefaultParameterlessConstructor(GetNonPublicParameterlessConstructorInfo())
+        };
+      }
       else
       {
-        return new List<IConstructorWrapper> { new DefaultParameterlessConstructor(GetNonPublicParameterlessConstructorInfo()) };
+        return new List<IConstructorWrapper>();
       }
     }
-
 
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
     {
@@ -322,203 +325,6 @@ namespace TddEbook.TypeReflection
     public Type ToClrType()
     {
       return _type; //todo at the very end, this should be removed
-    }
-  }
-
-  public class MethodWrapper : IMethodWrapper //todo move to separate file
-  {
-    private readonly MethodInfo _methodInfo;
-
-    public MethodWrapper(MethodInfo methodInfo)
-    {
-      _methodInfo = methodInfo;
-    }
-
-    public object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory)
-    {
-      var parameters = _methodInfo.GetParameters().Select(constructorParam => valueFactory(constructorParam.ParameterType)).ToArray();
-      var returnValue = _methodInfo.Invoke(instance, parameters);
-      return returnValue;
-    }
-
-    public object GenerateAnyReturnValue(Func<Type, object> valueFactory)
-    {
-      return valueFactory.Invoke(_methodInfo.ReturnType);
-    }
-  }
-
-  public class MemoizingTypeWrapper : ITypeWrapper
-  {
-    private readonly ITypeWrapper _typeWrapper;
-
-    private bool? _hasParameterlessConstructor;
-    private bool? _isOpenGeneric;
-    private bool? _isImplementationOfOpenGeneric;
-    private bool? _isConcrete;
-    private Maybe<IEnumerable<IFieldWrapper>> _allStaticFields;
-    private Maybe<IEnumerable<IFieldWrapper>> _allPublicInstanceFields;
-    private Maybe<IEnumerable<IPropertyWrapper>> _allPublicInstanceProperties;
-    private Maybe<IEnumerable<IPropertyWrapper>> _allPublicInstanceWritableProperties;
-    private Maybe<IConstructorWrapper> _constructorWithLeastNonPointersParameters;
-    private Maybe<IBinaryOperator> _equality;
-    private Maybe<IBinaryOperator> _inequality;
-    private bool? _isInterface;
-    private Maybe<IEnumerable<IEventWrapper>> _allNonPublicEventsWithoutExplicitlyImplemented;
-    private Maybe<IEnumerable<IConstructorWrapper>> _allPublicConstructors;
-    private Maybe<IEnumerable<IFieldWrapper>> _allInstanceFields;
-
-    public MemoizingTypeWrapper(ITypeWrapper typeWrapper)
-    {
-      _typeWrapper = typeWrapper;
-    }
-
-    public bool HasPublicParameterlessConstructor()
-    {
-      if (!_hasParameterlessConstructor.HasValue)
-      {
-        _hasParameterlessConstructor = _typeWrapper.HasPublicParameterlessConstructor();
-      }
-      return _hasParameterlessConstructor.Value;
-    }
-
-    public bool IsOpenGeneric(Type openGenericType)
-    {
-      return _typeWrapper.IsOpenGeneric(openGenericType); //bug deal with it later
-    }
-
-    public bool IsImplementationOfOpenGeneric(Type openGenericType)
-    {
-      return _typeWrapper.IsImplementationOfOpenGeneric(openGenericType); //bug deal with it later
-    }
-
-    public bool IsConcrete()
-    {
-      if (!_isConcrete.HasValue)
-      {
-        _isConcrete = _typeWrapper.IsConcrete();
-      }
-      return _isConcrete.Value;
-    }
-
-    public IEnumerable<IFieldWrapper> GetAllInstanceFields()
-    {
-      if (!_allInstanceFields.HasValue)
-      {
-        _allInstanceFields = Maybe.Wrap(_typeWrapper.GetAllInstanceFields());
-      }
-      return _allInstanceFields.Value;
-    }
-
-    public IEnumerable<IFieldWrapper> GetAllStaticFields()
-    {
-      if (!_allStaticFields.HasValue)
-      {
-        _allStaticFields = Maybe.Wrap(_typeWrapper.GetAllStaticFields());
-      }
-      return _allStaticFields.Value;
-    }
-
-    public IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties()
-    {
-      if (!_allPublicInstanceProperties.HasValue)
-      {
-        _allPublicInstanceProperties = Maybe.Wrap(_typeWrapper.GetAllPublicInstanceProperties());
-      }
-      return _allPublicInstanceProperties.Value;
-    }
-
-    public IConstructorWrapper PickConstructorWithLeastNonPointersParameters()
-    {
-      if (!_constructorWithLeastNonPointersParameters.HasValue)
-      {
-        _constructorWithLeastNonPointersParameters = Maybe.Wrap(_typeWrapper.PickConstructorWithLeastNonPointersParameters());
-      }
-      return _constructorWithLeastNonPointersParameters.Value;
-    }
-
-    public IBinaryOperator Equality()
-    {
-      if (!_equality.HasValue)
-      {
-        _equality = Maybe.Wrap(_typeWrapper.Equality());
-      }
-      return _equality.Value;
-
-    }
-
-    public IBinaryOperator Inequality()
-    {
-      if (!_inequality.HasValue)
-      {
-        _inequality = Maybe.Wrap(_typeWrapper.Inequality());
-      }
-      return _inequality.Value;
-    }
-
-    public bool IsInterface()
-    {
-      if (!_isInterface.HasValue)
-      {
-        _isInterface = _typeWrapper.IsInterface();
-      }
-      return _isInterface.Value;
-
-    }
-
-    public IEnumerable<IEventWrapper> GetAllNonPublicEventsWithoutExplicitlyImplemented()
-    {
-      if (!_allNonPublicEventsWithoutExplicitlyImplemented.HasValue)
-      {
-        _allNonPublicEventsWithoutExplicitlyImplemented = Maybe.Wrap(_typeWrapper.GetAllNonPublicEventsWithoutExplicitlyImplemented());
-      }
-      return _allNonPublicEventsWithoutExplicitlyImplemented.Value;
-    }
-
-    public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
-    {
-      if (!_allPublicConstructors.HasValue)
-      {
-        _allPublicConstructors = Maybe.Wrap(_typeWrapper.GetAllPublicConstructors());
-      }
-      return _allPublicConstructors.Value;
-    }
-
-    public IEnumerable<IFieldWrapper> GetAllPublicInstanceFields()
-    {
-      if (!_allPublicInstanceFields.HasValue)
-      {
-        _allPublicInstanceFields = Maybe.Wrap(_typeWrapper.GetAllPublicInstanceFields());
-      }
-      return _allPublicInstanceFields.Value;
-    }
-
-    public IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties()
-    {
-      if (!_allPublicInstanceWritableProperties.HasValue)
-      {
-        _allPublicInstanceWritableProperties = Maybe.Wrap(_typeWrapper.GetPublicInstanceWritableProperties());
-      }
-      return _allPublicInstanceWritableProperties.Value;
-    }
-
-    public IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue()
-    {
-      throw new NotImplementedException();
-    }
-
-    public bool HasConstructorWithParameters()
-    {
-      return _typeWrapper.HasConstructorWithParameters();
-    }
-
-    public bool CanBeAssignedNullValue()
-    {
-      throw new NotImplementedException();
-    }
-
-    public Type ToClrType()
-    {
-      throw new NotImplementedException();
     }
   }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FluentAssertions;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
@@ -63,17 +64,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     public object GenerateInstance()
     {
-      return _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWithParametersCreatedBy(Any.Instance);
+      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWithParametersCreatedBy(Any.Instance);
+      XAssert.Equal(_type, instance.GetType());
+      return instance;
     }
 
     public object GenerateInstance(IEnumerable<object> constructorParameters)
     {
-      return _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWith(constructorParameters);
+      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWith(constructorParameters);
+      XAssert.Equal(_type, instance.GetType());
+      return instance;
     }
 
     public List<object> GenerateConstructorParameters()
     {
-      
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
       var constructorParameters = constructor.GenerateAnyParameterValues(Any.Instance);
       return constructorParameters;

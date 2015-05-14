@@ -275,7 +275,7 @@ namespace TddEbook.TddToolkitSpecification
   {
     private readonly string _extension;
 
-    private FileExtension(string extension)
+    internal FileExtension(string extension)
     {
       this._extension = extension;
     }

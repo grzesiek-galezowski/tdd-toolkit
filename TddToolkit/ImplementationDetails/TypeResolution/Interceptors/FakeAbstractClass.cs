@@ -24,8 +24,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
       var fallbackTypeGenerator = new FallbackTypeGenerator<T>();
       var result = (T)(_proxyGenerator.CreateClassProxy(
         typeof(T),
-        fallbackTypeGenerator.GenerateConstructorParameters().ToArray(),
-        new IInterceptor[] {new AbstractClassInterceptor(_generation)}));
+        fallbackTypeGenerator.GenerateConstructorParameters().ToArray(), 
+        new AbstractClassInterceptor(_generation)));
       fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
       return result;
     }
