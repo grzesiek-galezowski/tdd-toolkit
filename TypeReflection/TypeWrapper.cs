@@ -49,7 +49,17 @@ namespace TddEbook.TypeReflection
 
     public bool HasPublicParameterlessConstructor()
     {
-      return _type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) != null;
+      return GetPublicParameterlessConstructorInfo() != null;
+    }
+
+    private ConstructorInfo GetNonPublicParameterlessConstructorInfo()
+    {
+      return _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
+    }
+
+    private ConstructorInfo GetPublicParameterlessConstructorInfo()
+    {
+      return _type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
     }
 
     public bool IsOpenGeneric(Type openGenericType)
@@ -246,7 +256,7 @@ namespace TddEbook.TypeReflection
       }
       else if (HasPublicParameterlessConstructor() || _type.IsPrimitive || _type.IsAbstract)
       {
-        return new List<IConstructorWrapper> {DefaultParameterlessConstructor.Instance};
+        return new List<IConstructorWrapper> {new DefaultParameterlessConstructor(GetPublicParameterlessConstructorInfo())};
       }
       else
       {
@@ -264,9 +274,10 @@ namespace TddEbook.TypeReflection
       }
       else
       {
-        return new List<IConstructorWrapper> { DefaultParameterlessConstructor.Instance };
+        return new List<IConstructorWrapper> { new DefaultParameterlessConstructor(GetNonPublicParameterlessConstructorInfo()) };
       }
     }
+
 
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
     {
