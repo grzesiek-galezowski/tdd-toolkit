@@ -99,14 +99,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private object CreateInstance(List<object> parameters)
     {
-      if (parameters.Count > 0)
-      {
-        return Activator.CreateInstance(_type, parameters.ToArray());
-      }
-      else
-      {
-        return Activator.CreateInstance(_type);
-      }
+      return _fallbackTypeGenerator.GenerateInstance(parameters.ToArray());
     }
 
     public Type TargetType

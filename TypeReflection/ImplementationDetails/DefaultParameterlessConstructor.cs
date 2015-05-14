@@ -47,5 +47,15 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     {
       return string.Empty;
     }
+
+    public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
+    {
+      return new object(); //bug this should be corrected!
+    }
+
+    public object InvokeWith(IEnumerable<object> constructorParameters)
+    {
+      return new object(); //bug this should be corrected!
+    }
   }
 }

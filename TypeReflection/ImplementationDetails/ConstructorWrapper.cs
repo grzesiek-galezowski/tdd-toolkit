@@ -75,6 +75,16 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return GetDescriptionFor(_constructor.GetParameters()[i]);
     }
 
+    public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
+    {
+      return _constructor.Invoke(this.GenerateAnyParameterValues(instanceGenerator).ToArray());
+    }
+
+    public object InvokeWith(IEnumerable<object> constructorParameters)
+    {
+      return _constructor.Invoke(constructorParameters.ToArray());
+    }
+
     public override string ToString()
     {
       var description = _constructor.DeclaringType.Name + "(";

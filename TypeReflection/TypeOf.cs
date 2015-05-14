@@ -16,7 +16,7 @@ namespace TddEbook.TypeReflection
 
     public static bool HasParameterlessConstructor()
     {
-      return _typeWrapper.HasParameterlessConstructor();
+      return _typeWrapper.HasPublicParameterlessConstructor();
     }
 
     public static bool IsImplementationOfOpenGeneric(Type openGenericType)

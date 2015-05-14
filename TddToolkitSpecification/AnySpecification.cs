@@ -853,6 +853,7 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(anotherInstance, instance.Nested);
     }
   }
+
 }
 
 

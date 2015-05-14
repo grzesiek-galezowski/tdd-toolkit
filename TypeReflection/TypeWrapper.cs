@@ -11,7 +11,7 @@ namespace TddEbook.TypeReflection
 {
   public interface ITypeWrapper
   {
-    bool HasParameterlessConstructor();
+    bool HasPublicParameterlessConstructor();
     bool IsOpenGeneric(Type openGenericType);
     bool IsImplementationOfOpenGeneric(Type openGenericType);
     bool IsConcrete();
@@ -47,10 +47,9 @@ namespace TddEbook.TypeReflection
       _type = type;
     }
 
-    public bool HasParameterlessConstructor()
+    public bool HasPublicParameterlessConstructor()
     {
-      var constructors = For(_type).GetAllPublicConstructors();
-      return constructors.Any(c => c.IsParameterless());
+      return _type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) != null;
     }
 
     public bool IsOpenGeneric(Type openGenericType)
@@ -239,18 +238,46 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
     {
-      var constructors = _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-           .Select(c => new ConstructorWrapper(c)).ToList();
+      var publicConstructors = TryToObtainPublicConstructors();
 
-      if (!constructors.Any())
+      if (publicConstructors.Any())
       {
-        return new List<IConstructorWrapper> { DefaultParameterlessConstructor.Instance };
+        return publicConstructors;
+      }
+      else if (HasPublicParameterlessConstructor() || _type.IsPrimitive || _type.IsAbstract)
+      {
+        return new List<IConstructorWrapper> {DefaultParameterlessConstructor.Instance};
       }
       else
       {
-        return constructors;
+        return GetAllInternalConstructors();
       }
+    }
 
+    private IEnumerable<IConstructorWrapper> GetAllInternalConstructors()
+    {
+      var internalConstructors = TryToObtainInternalConstructors();
+
+      if (internalConstructors.Any())
+      {
+        return internalConstructors;
+      }
+      else
+      {
+        return new List<IConstructorWrapper> { DefaultParameterlessConstructor.Instance };
+      }
+    }
+
+    private List<IConstructorWrapper> TryToObtainInternalConstructors()
+    {
+      return _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic).Where(c => c.IsAssembly)
+        .Select(c => (IConstructorWrapper)(new ConstructorWrapper(c))).ToList();
+    }
+
+    private List<ConstructorWrapper> TryToObtainPublicConstructors()
+    {
+      return _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
+        .Select(c => new ConstructorWrapper(c)).ToList();
     }
 
     public IEnumerable<IFieldWrapper> GetAllPublicInstanceFields()
@@ -334,11 +361,11 @@ namespace TddEbook.TypeReflection
       _typeWrapper = typeWrapper;
     }
 
-    public bool HasParameterlessConstructor()
+    public bool HasPublicParameterlessConstructor()
     {
       if (!_hasParameterlessConstructor.HasValue)
       {
-        _hasParameterlessConstructor = _typeWrapper.HasParameterlessConstructor();
+        _hasParameterlessConstructor = _typeWrapper.HasPublicParameterlessConstructor();
       }
       return _hasParameterlessConstructor.Value;
     }

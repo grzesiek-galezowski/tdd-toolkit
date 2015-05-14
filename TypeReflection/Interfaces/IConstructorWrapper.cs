@@ -12,5 +12,7 @@ namespace TddEbook.TypeReflection.Interfaces
     List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator);
     bool IsParameterless();
     string GetDescriptionForParameter(int i);
+    object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator);
+    object InvokeWith(IEnumerable<object> constructorParameters);
   }
 }

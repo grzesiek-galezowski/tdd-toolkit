@@ -27,11 +27,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return (T)_fallbackTypeGenerator.GenerateInstance();
     }
 
-    public T GenerateInstance(IEnumerable<object> constructorParameters)
-    {
-      return (T)_fallbackTypeGenerator.GenerateInstance(constructorParameters);
-    }
-
     public List<object> GenerateConstructorParameters()
     {
       return _fallbackTypeGenerator.GenerateConstructorParameters();
@@ -68,18 +63,17 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     public object GenerateInstance()
     {
-      var constructorParameters = GenerateConstructorParameters();
-      return GenerateInstance(constructorParameters);
+      return _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWithParametersCreatedBy(Any.Instance);
     }
 
     public object GenerateInstance(IEnumerable<object> constructorParameters)
     {
-      var instance = Activator.CreateInstance(_type, constructorParameters.ToArray());
-      return instance;
+      return _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWith(constructorParameters);
     }
 
     public List<object> GenerateConstructorParameters()
     {
+      
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
       var constructorParameters = constructor.GenerateAnyParameterValues(Any.Instance);
       return constructorParameters;
