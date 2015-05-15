@@ -5,41 +5,6 @@ using FluentAssertions;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
-  public class ValueObjectActivator<T>
-  {
-    private readonly ValueObjectActivator _activator;
-
-    public ValueObjectActivator(ValueObjectActivator activator)
-    {
-      _activator = activator;
-    }
-
-    public static ValueObjectActivator<T> FreshInstance()
-    {
-      return new ValueObjectActivator<T>(ValueObjectActivator.FreshInstance(typeof(T)));
-    }
-
-    public T CreateInstanceAsValueObjectWithFreshParameters()
-    {
-      return (T)_activator.CreateInstanceAsValueObjectWithFreshParameters();
-    }
-
-    public T CreateInstanceAsValueObjectWithPreviousParameters()
-    {
-      return (T)_activator.CreateInstanceAsValueObjectWithPreviousParameters();
-    }
-
-    public int GetConstructorParametersCount()
-    {
-      return _activator.GetConstructorParametersCount();
-    }
-
-    public T CreateInstanceAsValueObjectWithModifiedParameter(int i)
-    {
-      return (T)_activator.CreateInstanceAsValueObjectWithModifiedParameter(i);
-    }
-  }
-
   public class ValueObjectActivator
   {
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
@@ -73,6 +38,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithNewConstructorArguments(); })
         .ShouldNotThrow(_type + " cannot even be created as a value object");
+      XAssert.Equal(_type, instance.GetType());
       return instance;
     }
 
@@ -81,7 +47,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithCurrentConstructorArguments(); })
         .ShouldNotThrow(_type + " cannot even be created as a value object");
-
+      XAssert.Equal(_type, instance.GetType());
       return instance;
     }
 
