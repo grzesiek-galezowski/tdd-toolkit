@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using TddEbook.TddToolkit;
 
 namespace TddEbook.TddToolkitSpecification
@@ -36,6 +37,13 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
+    public void ShouldPreferInternalNonRecursiveConstructorsToPublicRecursiveOnes()
+    {
+      Assert.DoesNotThrow(() => Any.Instance<DirectoryPath>());
+      Assert.DoesNotThrow(() => XAssert.IsValue<DirectoryPath>());
+    }
+
+    [Test]
     public void ShouldAllowSpecifyingConstructorArgumentsNotTakenIntoAccountDuringValueBehaviorCheck()
     {
       XAssert.IsValue<ProperValueTypeWithOneArgumentIdentity>(
@@ -50,7 +58,7 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.IsValue<ProperValueType>();
 
       Assert.Throws<AssertionException>(XAssert.IsValue<ProperValueTypeWithoutEqualityOperator>);
-      
+
     }
 
     [Test]
@@ -77,13 +85,13 @@ namespace TddEbook.TddToolkitSpecification
           assert.True(true);
           assert.Contains("bb", "aa");
         })
-      );
+        );
 
-      StringAssert.Contains("Assertion no. 1 failed: Expected object to be 1, but found 3", 
+      StringAssert.Contains("Assertion no. 1 failed: Expected object to be 1, but found 3",
         exception.ToString());
-      StringAssert.Contains("Assertion no. 2 failed: Expected object to be 2, but found 44", 
+      StringAssert.Contains("Assertion no. 2 failed: Expected object to be 2, but found 44",
         exception.ToString());
-      StringAssert.Contains("Assertion no. 3 failed: Expected object to be \"aa\", but found \"123\"", 
+      StringAssert.Contains("Assertion no. 3 failed: Expected object to be \"aa\", but found \"123\"",
         exception.ToString());
       StringAssert.DoesNotContain("Assertion no. 4 failed", exception.ToString());
       StringAssert.Contains("Assertion no. 5 failed: Expected string \"bb\" to contain \"aa\"",
@@ -95,10 +103,10 @@ namespace TddEbook.TddToolkitSpecification
     {
       Assert.Throws<AssertionException>(() =>
         XAssert.AttributeExistsOnMethodOf<AttributeFixture>(
-          new CultureAttribute("AnyCulture"), 
-          o => o.NonDecoratedMethod(0,0)
-        )
-      );
+          new CultureAttribute("AnyCulture"),
+          o => o.NonDecoratedMethod(0, 0)
+          )
+        );
     }
 
     [Test]
@@ -108,8 +116,8 @@ namespace TddEbook.TddToolkitSpecification
         XAssert.AttributeExistsOnMethodOf<AttributeFixture>(
           new CultureAttribute("AnyCulture"),
           o => o.DecoratedMethod(0, 0)
-        )
-      );
+          )
+        );
     }
   }
 
@@ -128,7 +136,7 @@ namespace TddEbook.TddToolkitSpecification
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != GetType()) return false;
-      return Equals((ProperValueTypeWithOneArgumentIdentity)obj);
+      return Equals((ProperValueTypeWithOneArgumentIdentity) obj);
     }
 
     public override int GetHashCode()
@@ -139,13 +147,14 @@ namespace TddEbook.TddToolkitSpecification
       }
     }
 
-    public static bool operator ==(ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
+    public static bool operator ==(
+      ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
     {
-      if(ReferenceEquals(left, null) && ReferenceEquals(right, null))
+      if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
       {
         return true;
       }
-      else if(ReferenceEquals(left, null))
+      else if (ReferenceEquals(left, null))
       {
         return false;
       }
@@ -155,7 +164,8 @@ namespace TddEbook.TddToolkitSpecification
       }
     }
 
-    public static bool operator !=(ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
+    public static bool operator !=(
+      ProperValueTypeWithOneArgumentIdentity left, ProperValueTypeWithOneArgumentIdentity right)
     {
       return !Equals(left, right);
     }
@@ -184,14 +194,14 @@ namespace TddEbook.TddToolkitSpecification
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != GetType()) return false;
-      return Equals((ProperValueType)obj);
+      return Equals((ProperValueType) obj);
     }
 
     public override int GetHashCode()
     {
       unchecked
       {
-        return (_a * 397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
+        return (_a*397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
       }
     }
 
@@ -229,14 +239,14 @@ namespace TddEbook.TddToolkitSpecification
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != GetType()) return false;
-      return Equals((ProperValueTypeWithoutEqualityOperator)obj);
+      return Equals((ProperValueTypeWithoutEqualityOperator) obj);
     }
 
     public override int GetHashCode()
     {
       unchecked
       {
-        return (_a * 397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
+        return (_a*397) ^ (_anArray != null ? _anArray.GetHashCode() : 0);
       }
     }
 
@@ -255,7 +265,7 @@ namespace TddEbook.TddToolkitSpecification
   {
     public NotGuardedObject(int a, string b, int c, string dede)
     {
-      
+
     }
 
   }
@@ -297,7 +307,7 @@ namespace TddEbook.TddToolkitSpecification
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((FileExtension)obj);
+      return Equals((FileExtension) obj);
     }
 
     public override int GetHashCode()
@@ -318,6 +328,60 @@ namespace TddEbook.TddToolkitSpecification
   }
 
 
+  public class DirectoryPath : IEquatable<DirectoryPath>
+  {
+    private readonly string _path;
 
+    internal DirectoryPath(string path)
+    {
+      _path = path;
+    }
 
+    public DirectoryPath(DirectoryPath path, string directoryName)
+      : this(Path.Combine(path.ToString(), directoryName.ToString()))
+    {
+
+    }
+
+    public override string ToString()
+    {
+      return _path;
+    }
+
+    public bool Equals(DirectoryPath other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return string.Equals(_path, other._path);
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      if (obj.GetType() != this.GetType()) return false;
+      return Equals((DirectoryPath) obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return _path.GetHashCode();
+    }
+
+    public static bool operator ==(DirectoryPath left, DirectoryPath right)
+    {
+      return Equals(left, right);
+    }
+
+    public static bool operator !=(DirectoryPath left, DirectoryPath right)
+    {
+      return !Equals(left, right);
+    }
+
+  }
 }
+
+
+
+
+
