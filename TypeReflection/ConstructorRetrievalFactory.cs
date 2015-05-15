@@ -6,14 +6,14 @@ namespace TddEbook.TypeReflection
 {
   static internal class ConstructorRetrievalFactory
   {
-    public static IEnumerable<IConstructorWrapper> Create(IConstructorRetrieval constructors)
+    public static ConstructorRetrieval Create()
     {
       return 
         PublicNonRecursiveConstructors(
           PublicParameterlessConstructors(
             InternalParameterlessConstructorsWithoutRecursion(
               InternalParameterlessConstructors()
-              ))).RetrieveFrom(constructors);
+              )));
     }
 
     private static PublicNonRecursiveConstructorRetrieval PublicNonRecursiveConstructors(ConstructorRetrieval next)

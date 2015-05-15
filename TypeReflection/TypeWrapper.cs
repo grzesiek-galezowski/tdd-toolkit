@@ -37,17 +37,16 @@ namespace TddEbook.TypeReflection
     object GenerateAnyReturnValue(Func<Type, object> valueFactory);
   }
 
-  public interface IConstructorRetrieval
+  public interface IConstructorQueries
   {
     bool HasPublicParameterlessConstructor();
     ConstructorInfo GetNonPublicParameterlessConstructorInfo();
     ConstructorInfo GetPublicParameterlessConstructorInfo();
-    IEnumerable<IConstructorWrapper> GetAllPublicConstructors();
     List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursion();
     List<ConstructorWrapper> TryToObtainPublicConstructors();
   }
 
-  public class TypeWrapper : ITypeWrapper, IConstructorRetrieval
+  public class TypeWrapper : ITypeWrapper, IConstructorQueries
   {
     private readonly Type _type;
 
@@ -61,16 +60,12 @@ namespace TddEbook.TypeReflection
       return GetPublicParameterlessConstructorInfo() != null || _type.IsPrimitive || _type.IsAbstract;
     }
 
-<<<<<<< HEAD
-    public ConstructorInfo GetNonPublicParameterlessConstructorInfo()
-=======
     private bool HasNonPublicParameterlessConstructor()
     {
       return GetNonPublicParameterlessConstructorInfo() != null;
     }
 
-    private ConstructorInfo GetNonPublicParameterlessConstructorInfo()
->>>>>>> 63714cdf05d005ef1ed08d5a8abea09ea319eca3
+    public ConstructorInfo GetNonPublicParameterlessConstructorInfo()
     {
       return _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
     }
@@ -260,52 +255,11 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
     {
-<<<<<<< HEAD
-      return ConstructorRetrievalFactory.Create(this);
+      return ConstructorRetrievalFactory.Create().RetrieveFrom(this);
     }
 
 
     public List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursion()
-=======
-      var publicConstructors = TryToObtainPublicConstructors();
-
-      if (publicConstructors.Any())
-      {
-        return publicConstructors;
-      }
-      else if (HasPublicParameterlessConstructor() || _type.IsPrimitive || _type.IsAbstract)
-      {
-        return new List<IConstructorWrapper> {new DefaultParameterlessConstructor(GetPublicParameterlessConstructorInfo())};
-      }
-      else
-      {
-        return GetAllInternalConstructors();
-      }
-    }
-
-    private IEnumerable<IConstructorWrapper> GetAllInternalConstructors()
-    {
-      var internalConstructors = TryToObtainInternalConstructors();
-
-      if (internalConstructors.Any())
-      {
-        return internalConstructors;
-      }
-      else if (HasNonPublicParameterlessConstructor())
-      {
-        return new List<IConstructorWrapper>
-        {
-          new DefaultParameterlessConstructor(GetNonPublicParameterlessConstructorInfo())
-        };
-      }
-      else
-      {
-        return new List<IConstructorWrapper>();
-      }
-    }
-
-    private List<IConstructorWrapper> TryToObtainInternalConstructors()
->>>>>>> 63714cdf05d005ef1ed08d5a8abea09ea319eca3
     {
       var constructorInfos = _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
       var enumerable = constructorInfos.Where(c => c.IsAssembly);
@@ -352,30 +306,6 @@ namespace TddEbook.TypeReflection
       return _type; //todo at the very end, this should be removed
     }
   }
-<<<<<<< HEAD
-
-
-  public class MethodWrapper : IMethodWrapper //todo move to separate file
-  {
-    private readonly MethodInfo _methodInfo;
-
-    public MethodWrapper(MethodInfo methodInfo)
-    {
-      _methodInfo = methodInfo;
-    }
-
-    public object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory)
-    {
-      var parameters = _methodInfo.GetParameters().Select(constructorParam => valueFactory(constructorParam.ParameterType)).ToArray();
-      var returnValue = _methodInfo.Invoke(instance, parameters);
-      return returnValue;
-    }
-
-    public object GenerateAnyReturnValue(Func<Type, object> valueFactory)
-    {
-      return valueFactory.Invoke(_methodInfo.ReturnType);
-    }
-  }
 
   public class MemoizingTypeWrapper : ITypeWrapper
   {
@@ -409,11 +339,6 @@ namespace TddEbook.TypeReflection
         _hasParameterlessConstructor = _typeWrapper.HasPublicParameterlessConstructor();
       }
       return _hasParameterlessConstructor.Value;
-    }
-
-    public bool IsOpenGeneric(Type openGenericType)
-    {
-      return _typeWrapper.IsOpenGeneric(openGenericType); //bug deal with it later
     }
 
     public bool IsImplementationOfOpenGeneric(Type openGenericType)
@@ -551,6 +476,4 @@ namespace TddEbook.TypeReflection
       throw new NotImplementedException();
     }
   }
-=======
->>>>>>> 63714cdf05d005ef1ed08d5a8abea09ea319eca3
 }

@@ -5,6 +5,6 @@ namespace TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals
 {
   public interface ConstructorRetrieval
   {
-    IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorRetrieval constructors);
+    IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors);
   }
 }

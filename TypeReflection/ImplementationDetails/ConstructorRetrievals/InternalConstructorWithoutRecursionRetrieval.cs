@@ -13,7 +13,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals
       _next = next;
     }
 
-    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorRetrieval constructors)
+    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
     {
       var internalConstructors = constructors.TryToObtainInternalConstructorsWithoutRecursion();
 
