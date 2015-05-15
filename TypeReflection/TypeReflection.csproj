@@ -46,6 +46,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstructorRetrievalFactory.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\ConstructorRetrieval.cs" />
     <Compile Include="ImplementationDetails\EventWrapper.cs" />
     <Compile Include="Interfaces\IEventWrapper.cs" />
     <Compile Include="ImplementationDetails\BinaryOperator.cs" />
@@ -59,8 +61,12 @@
     <Compile Include="Maybe.cs" />
     <Compile Include="Interfaces\IPropertyWrapper.cs" />
     <Compile Include="Exceptions\NoSuchOperatorInTypeException.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\NonPublicParameterlessConstructorRetrieval.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\InternalConstructorWithoutRecursionRetrieval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ImplementationDetails\PropertyWrapper.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\PublicParameterlessConstructorRetrieval.cs" />
     <Compile Include="TypeOf.cs" />
     <Compile Include="TypeOfType.cs" />
     <Compile Include="TypeWrapper.cs" />

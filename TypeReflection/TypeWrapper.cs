@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TddEbook.TypeReflection.ImplementationDetails;
+using TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
@@ -38,7 +39,17 @@ namespace TddEbook.TypeReflection
     object GenerateAnyReturnValue(Func<Type, object> valueFactory);
   }
 
-  public class TypeWrapper : ITypeWrapper
+  public interface IConstructorRetrieval
+  {
+    bool HasPublicParameterlessConstructor();
+    ConstructorInfo GetNonPublicParameterlessConstructorInfo();
+    ConstructorInfo GetPublicParameterlessConstructorInfo();
+    IEnumerable<IConstructorWrapper> GetAllPublicConstructors();
+    List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursion();
+    List<ConstructorWrapper> TryToObtainPublicConstructors();
+  }
+
+  public class TypeWrapper : ITypeWrapper, IConstructorRetrieval
   {
     private readonly Type _type;
 
@@ -49,15 +60,15 @@ namespace TddEbook.TypeReflection
 
     public bool HasPublicParameterlessConstructor()
     {
-      return GetPublicParameterlessConstructorInfo() != null;
+      return GetPublicParameterlessConstructorInfo() != null || _type.IsPrimitive || _type.IsAbstract;
     }
 
-    private ConstructorInfo GetNonPublicParameterlessConstructorInfo()
+    public ConstructorInfo GetNonPublicParameterlessConstructorInfo()
     {
       return _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
     }
 
-    private ConstructorInfo GetPublicParameterlessConstructorInfo()
+    public ConstructorInfo GetPublicParameterlessConstructorInfo()
     {
       return _type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
     }
@@ -248,44 +259,19 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
     {
-      var publicConstructors = TryToObtainPublicConstructors();
-
-      if (publicConstructors.Any())
-      {
-        return publicConstructors;
-      }
-      else if (HasPublicParameterlessConstructor() || _type.IsPrimitive || _type.IsAbstract)
-      {
-        return new List<IConstructorWrapper> {new DefaultParameterlessConstructor(GetPublicParameterlessConstructorInfo())};
-      }
-      else
-      {
-        return GetAllInternalConstructors();
-      }
+      return ConstructorRetrievalFactory.Create(this);
     }
 
-    private IEnumerable<IConstructorWrapper> GetAllInternalConstructors()
+
+    public List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursion()
     {
-      var internalConstructors = TryToObtainInternalConstructors();
-
-      if (internalConstructors.Any())
-      {
-        return internalConstructors;
-      }
-      else
-      {
-        return new List<IConstructorWrapper> { new DefaultParameterlessConstructor(GetNonPublicParameterlessConstructorInfo()) };
-      }
+      var constructorInfos = _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
+      var enumerable = constructorInfos.Where(c => c.IsAssembly);
+      var wrappers = enumerable.Select(c => (IConstructorWrapper)(new ConstructorWrapper(c))).ToList();
+      return wrappers;
     }
 
-
-    private List<IConstructorWrapper> TryToObtainInternalConstructors()
-    {
-      return _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic).Where(c => c.IsAssembly)
-        .Select(c => (IConstructorWrapper)(new ConstructorWrapper(c))).ToList();
-    }
-
-    private List<ConstructorWrapper> TryToObtainPublicConstructors()
+    public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
       return _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
         .Select(c => new ConstructorWrapper(c)).ToList();
@@ -324,6 +310,7 @@ namespace TddEbook.TypeReflection
       return _type; //todo at the very end, this should be removed
     }
   }
+
 
   public class MethodWrapper : IMethodWrapper //todo move to separate file
   {

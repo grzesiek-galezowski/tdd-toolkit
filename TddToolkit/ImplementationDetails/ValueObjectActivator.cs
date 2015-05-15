@@ -60,7 +60,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private object CreateInstanceWithCurrentConstructorArguments()
     {
-      return CreateInstance(_constructorArguments);
+      return _fallbackTypeGenerator.GenerateInstance(_constructorArguments.ToArray());
     }
 
     public static ValueObjectActivator FreshInstance(Type type)
@@ -94,12 +94,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     {
       var modifiedArguments = _constructorArguments.ToList();
       modifiedArguments[i] = Any.Instance(modifiedArguments[i].GetType());
-      return CreateInstance(modifiedArguments);
-    }
-
-    private object CreateInstance(List<object> parameters)
-    {
-      return _fallbackTypeGenerator.GenerateInstance(parameters.ToArray());
+      return _fallbackTypeGenerator.GenerateInstance(modifiedArguments.ToArray());
     }
 
     public Type TargetType

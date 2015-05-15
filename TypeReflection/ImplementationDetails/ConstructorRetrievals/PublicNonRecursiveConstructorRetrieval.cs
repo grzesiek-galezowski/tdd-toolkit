@@ -1,0 +1,30 @@
+using System.Collections.Generic;
+using System.Linq;
+using TddEbook.TypeReflection.Interfaces;
+
+namespace TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals
+{
+  public class PublicNonRecursiveConstructorRetrieval : ConstructorRetrieval
+  {
+    private readonly ConstructorRetrieval _next;
+
+    public PublicNonRecursiveConstructorRetrieval(ConstructorRetrieval next)
+    {
+      _next = next;
+    }
+
+    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorRetrieval constructors)
+    {
+      var publicConstructors = constructors.TryToObtainPublicConstructors();
+
+      if (publicConstructors.Any())
+      {
+        return publicConstructors;
+      }
+      else
+      {
+        return _next.RetrieveFrom(constructors);
+      }
+    }
+  }
+}
