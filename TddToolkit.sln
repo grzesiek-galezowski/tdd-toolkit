@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkit", "TddToolkit\TddToolkit.csproj", "{A52E21F4-2301-4F4E-9361-BE954FB490A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkitSpecification", "TddToolkitSpecification\TddToolkitSpecification.csproj", "{DA7531D4-39EB-4513-9D03-E34C9C97C4F3}"
@@ -29,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8CC2BB
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpinOffs", "SpinOffs", "{E124DF3D-6AA9-4668-94AB-30C2295B7A00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,16 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{68DCBAC1-1218-4E61-B92C-EA2C8D0E7A3C} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{E5ABA2D3-7E69-4D84-B7C3-EF67FE20EEE5} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{CD8A3743-791B-4C26-8F8B-89CF287258E9} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{F4B78F56-6C81-4754-A1B7-67E87E2493F6} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{8DFA27D2-D7BC-4039-89A4-CC24AEA70C88} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{9C6C135D-DB8E-4239-85DA-6141AA514CC4} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
+		{A376B381-9BF9-47A4-95AE-3651818D332D} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = TddToolkit\TddToolkit.csproj
