@@ -13,7 +13,7 @@ namespace TddEbook.TypeReflection
   public struct Maybe<T> where T : class
   {
     private readonly T _value;
-    private static readonly Maybe<T> _nothing = new Maybe<T>();
+    private static readonly Maybe<T> _not = new Maybe<T>();
 
     public Maybe(T instance)
       : this()
@@ -42,9 +42,9 @@ namespace TddEbook.TypeReflection
       }
     }
 
-    public static Maybe<T> Nothing
+    public static Maybe<T> Not
     {
-      get { return _nothing; }
+      get { return _not; }
     }
 
     public T ValueOr(T alternativeValue)
@@ -57,6 +57,10 @@ namespace TddEbook.TypeReflection
       return HasValue ? this : alternative;
     }
 
+    public static implicit operator Maybe<T>(T instance)
+    {
+      return Maybe.Wrap(instance);
+    }
 
     public override string ToString()
     {
@@ -67,7 +71,7 @@ namespace TddEbook.TypeReflection
     {
       if (!HasValue)
       {
-        return Maybe<U>.Nothing;
+        return Maybe<U>.Not;
       }
       else
       {

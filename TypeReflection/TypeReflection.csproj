@@ -42,15 +42,14 @@
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.8.1.0\lib\net40\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture">
-      <HintPath>..\packages\AutoFixture.3.30.4\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture, Version=3.30.5.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.30.5\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-
     <Compile Include="ConstructorRetrievalFactory.cs" />
     <Compile Include="ImplementationDetails\ConstructorRetrievals\ConstructorRetrieval.cs" />
     <Compile Include="ConstructorNotFoundException.cs" />
@@ -64,6 +63,7 @@
     <Compile Include="ImplementationDetails\FieldWrapper.cs" />
     <Compile Include="Interfaces\IConstructorWrapper.cs" />
     <Compile Include="Interfaces\IFieldWrapper.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\InternalRecursiveConstructorRetrieval.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="Interfaces\IPropertyWrapper.cs" />
     <Compile Include="Exceptions\NoSuchOperatorInTypeException.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="ImplementationDetails\PropertyWrapper.cs" />
     <Compile Include="ImplementationDetails\ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs" />
     <Compile Include="ImplementationDetails\ConstructorRetrievals\PublicParameterlessConstructorRetrieval.cs" />
+    <Compile Include="ImplementationDetails\ConstructorRetrievals\PublicRecursiveConstructorsRetrieval.cs" />
     <Compile Include="TypeOf.cs" />
     <Compile Include="TypeOfType.cs" />
     <Compile Include="TypeWrapper.cs" />

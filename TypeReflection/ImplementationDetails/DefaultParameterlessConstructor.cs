@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TddEbook.TypeReflection.Interfaces;
 
@@ -7,11 +8,11 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 {
   public class DefaultParameterlessConstructor : IConstructorWrapper
   {
-    private readonly ConstructorInfo _constructor;
+    private readonly Func<object> _creation;
 
-    public DefaultParameterlessConstructor(ConstructorInfo constructor)
+    public DefaultParameterlessConstructor(Func<object> creation)
     {
-      _constructor = constructor;
+      _creation = creation;
     }
 
     public bool HasNonPointerArgumentsOnly()
@@ -51,12 +52,27 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
     {
-      return _constructor.Invoke(new object[]{});
+      return _creation.Invoke();
     }
 
     public object InvokeWith(IEnumerable<object> constructorParameters)
     {
-      return _constructor.Invoke(new object[] { });
+      return _creation.Invoke();
+    }
+
+    public bool HasAnyArgumentOfType(Type type)
+    {
+      return false;
+    }
+
+    public static IConstructorWrapper ForOrdinaryType(ConstructorInfo constructorInfo)
+    {
+      return new DefaultParameterlessConstructor(() => constructorInfo.Invoke(new object[]{}));
+    }
+
+    public static IEnumerable<IConstructorWrapper> ForValue(Type type)
+    {
+      return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type))};
     }
   }
 }

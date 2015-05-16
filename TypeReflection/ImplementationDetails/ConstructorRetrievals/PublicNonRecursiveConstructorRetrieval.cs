@@ -15,7 +15,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals
 
     public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
     {
-      var publicConstructors = constructors.TryToObtainPublicConstructors();
+      var publicConstructors = constructors.TryToObtainPublicConstructorsWithoutRecursiveArguments();
 
       if (publicConstructors.Any())
       {

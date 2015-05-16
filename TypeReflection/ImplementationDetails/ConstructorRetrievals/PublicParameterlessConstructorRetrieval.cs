@@ -14,9 +14,10 @@ namespace TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals
 
     public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
     {
-      if (constructors.HasPublicParameterlessConstructor())
+      var constructor = constructors.GetPublicParameterlessConstructor();
+      if (constructor.HasValue)
       {
-        return new List<IConstructorWrapper> {new DefaultParameterlessConstructor(constructors.GetPublicParameterlessConstructorInfo())};
+        return new List<IConstructorWrapper> {constructor.Value};
       }
       else
       {

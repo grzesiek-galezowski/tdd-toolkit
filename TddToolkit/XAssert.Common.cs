@@ -180,7 +180,7 @@ namespace TddEbook.TddToolkit
       for (int i = 0; i < constructor.GetParametersCount(); ++i)
       {
         var parameters = constructor.GenerateAnyParameterValues(Any.Instance);
-        if (TypeWrapper.For(parameters[i]).CanBeAssignedNullValue())
+        if (TypeWrapper.ForTypeOf(parameters[i]).CanBeAssignedNullValue())
         {
           parameters[i] = null;
 

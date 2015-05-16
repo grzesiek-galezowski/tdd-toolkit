@@ -4,22 +4,21 @@ using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals
 {
-  public class InternalConstructorWithoutRecursionRetrieval : ConstructorRetrieval
+  class InternalRecursiveConstructorRetrieval : ConstructorRetrieval
   {
     private readonly ConstructorRetrieval _next;
 
-    public InternalConstructorWithoutRecursionRetrieval(ConstructorRetrieval next)
+    public InternalRecursiveConstructorRetrieval(ConstructorRetrieval next)
     {
       _next = next;
     }
 
     public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
     {
-      var internalConstructors = constructors.TryToObtainInternalConstructorsWithoutRecursiveArguments();
-
-      if (internalConstructors.Any())
+      var foundConstructors = constructors.TryToObtainInternalConstructorsWithRecursiveArguments();
+      if (foundConstructors.Any())
       {
-        return internalConstructors;
+        return foundConstructors.ToArray();
       }
       else
       {

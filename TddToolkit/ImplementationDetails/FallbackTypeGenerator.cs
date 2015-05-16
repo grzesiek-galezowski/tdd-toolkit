@@ -59,19 +59,21 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public int GetConstructorParametersCount()
     {
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
-      return constructor.GetParametersCount();
+      return constructor.Value.GetParametersCount(); //bug backward compatibility (for now)
     }
 
     public object GenerateInstance()
     {
-      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWithParametersCreatedBy(Any.Instance);
+      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters()
+        .Value.InvokeWithParametersCreatedBy(Any.Instance);  //bug backward compatibility (for now)
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }
 
     public object GenerateInstance(IEnumerable<object> constructorParameters)
     {
-      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters().InvokeWith(constructorParameters);
+      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters().Value  //bug backward compatibility (for now)
+        .InvokeWith(constructorParameters);
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }
@@ -79,14 +81,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public List<object> GenerateConstructorParameters()
     {
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
-      var constructorParameters = constructor.GenerateAnyParameterValues(Any.Instance);
+      var constructorParameters = constructor.Value  //bug backward compatibility (for now)
+        .GenerateAnyParameterValues(Any.Instance);
       return constructorParameters;
     }
 
     public bool ConstructorHasAtLeastOneNonConcreteArgumentType()
     {
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
-      return constructor.HasAbstractOrInterfaceArguments();
+      return constructor.Value  //bug backward compatibility (for now)
+        .HasAbstractOrInterfaceArguments();
     }
 
 

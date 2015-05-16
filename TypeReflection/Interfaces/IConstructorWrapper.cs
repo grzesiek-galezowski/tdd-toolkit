@@ -14,5 +14,6 @@ namespace TddEbook.TypeReflection.Interfaces
     string GetDescriptionForParameter(int i);
     object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator);
     object InvokeWith(IEnumerable<object> constructorParameters);
+    bool HasAnyArgumentOfType(Type type);
   }
 }

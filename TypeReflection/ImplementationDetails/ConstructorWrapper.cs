@@ -110,5 +110,10 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     {
       return parameter.ParameterType.Name + " " + parameter.Name;
     }
+
+    public bool HasAnyArgumentOfType(Type type)
+    {
+      return _constructor.GetParameters().Any(p => p.ParameterType == type);
+    }
   }
 }
