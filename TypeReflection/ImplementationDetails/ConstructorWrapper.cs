@@ -115,5 +115,15 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     {
       return _constructor.GetParameters().Any(p => p.ParameterType == type);
     }
+
+    public bool IsInternal()
+    {
+      return IsInternal(_constructor);
+    }
+
+    public static bool IsInternal(ConstructorInfo c)
+    {
+      return c.IsAssembly && !c.IsPublic && !c.IsStatic;
+    }
   }
 }

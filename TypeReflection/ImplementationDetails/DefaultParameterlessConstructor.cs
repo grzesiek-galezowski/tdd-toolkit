@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection.ImplementationDetails
@@ -63,6 +64,11 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     public bool HasAnyArgumentOfType(Type type)
     {
       return false;
+    }
+
+    public bool IsInternal()
+    {
+      return false; //?? actually, this is not right...
     }
 
     public static IConstructorWrapper ForOrdinaryType(ConstructorInfo constructorInfo)

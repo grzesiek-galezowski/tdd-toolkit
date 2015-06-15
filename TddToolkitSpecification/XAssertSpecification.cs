@@ -303,6 +303,15 @@ namespace TddEbook.TddToolkitSpecification
       return _extension;
     }
 
+    public static FileExtension Value(string extensionString)
+    {
+      FileExtensionAssert.NotNull(extensionString);
+      FileExtensionAssert.NotEmpty(extensionString);
+      FileExtensionAssert.Valid(extensionString);
+
+      return new FileExtension(extensionString);
+    }
+
     public bool Equals(FileExtension other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -315,7 +324,7 @@ namespace TddEbook.TddToolkitSpecification
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((FileExtension) obj);
+      return Equals((FileExtension)obj);
     }
 
     public override int GetHashCode()
@@ -333,6 +342,33 @@ namespace TddEbook.TddToolkitSpecification
       return !Equals(left, right);
     }
 
+  }
+
+  static internal class FileExtensionAssert
+  {
+    internal static void Valid(string extensionString)
+    {
+      if (Path.GetExtension(extensionString) != extensionString)
+      {
+        throw new ArgumentException("Invalid extension " + extensionString, "extensionString");
+      }
+    }
+
+    internal static void NotEmpty(string extensionString)
+    {
+      if (extensionString == String.Empty)
+      {
+        throw new ArgumentException("Tried to create an extension with empty value");
+      }
+    }
+
+    internal static void NotNull(string extensionString)
+    {
+      if (extensionString == null)
+      {
+        throw new ArgumentException("Tried to create an extension with null value");
+      }
+    }
   }
 
 
@@ -384,6 +420,23 @@ namespace TddEbook.TddToolkitSpecification
     public static bool operator !=(DirectoryPath left, DirectoryPath right)
     {
       return !Equals(left, right);
+    }
+
+  }
+
+  public class FileName
+  {
+    private readonly string _path;
+
+    internal FileName(string path)
+    {
+      _path = path;
+    }
+
+    public FileName(FileNameWithoutExtension nameWithoutExtension, FileExtension extension)
+      : this(nameWithoutExtension.ToString() + extension.ToString())
+    {
+
     }
 
   }

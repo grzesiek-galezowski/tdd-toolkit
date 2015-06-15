@@ -1,16 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using NSubstitute;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
-using TddEbook.TypeReflection.ImplementationDetails;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -25,8 +22,8 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.NotEqual(int1, int2);
-    }    
-    
+    }
+
     [Test]
     public void ShouldGenerateDifferentIpAddressEachTime()
     {
@@ -49,18 +46,18 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.All(assert =>
-        {
-          assert.NotNull(type1);
-          assert.NotNull(type2);
-          assert.NotNull(type3);
-        });
+      {
+        assert.NotNull(type1);
+        assert.NotNull(type2);
+        assert.NotNull(type3);
+      });
 
       XAssert.All(assert =>
-        {
-          assert.NotEqual(type1, type2);
-          assert.NotEqual(type2, type3);
-          assert.NotEqual(type3, type1);
-        });
+      {
+        assert.NotEqual(type1, type2);
+        assert.NotEqual(type2, type3);
+        assert.NotEqual(type3, type1);
+      });
     }
 
     [Test]
@@ -80,7 +77,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       //GIVEN
       var obj = Any.Instance<ISimple>();
-      
+
       //WHEN
       obj = obj.GetInterface();
 
@@ -139,7 +136,10 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
 
-      foreach (var simple in enumerable) { XAssert.NotNull(simple); }
+      foreach (var simple in enumerable)
+      {
+        XAssert.NotNull(simple);
+      }
     }
 
     [Test]
@@ -151,13 +151,13 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.All(assert =>
-        {
-          assert.NotNull(obj1.GetTypeProperty);
-          assert.NotNull(obj2.GetTypeProperty);
-          assert.NotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
-          assert.Equal(obj1.GetTypeProperty, obj1.GetTypeProperty);
-          assert.Equal(obj2.GetTypeProperty, obj2.GetTypeProperty);
-        });
+      {
+        assert.NotNull(obj1.GetTypeProperty);
+        assert.NotNull(obj2.GetTypeProperty);
+        assert.NotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
+        assert.Equal(obj1.GetTypeProperty, obj1.GetTypeProperty);
+        assert.Equal(obj2.GetTypeProperty, obj2.GetTypeProperty);
+      });
     }
 
     [Test]
@@ -179,12 +179,12 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.All(assert =>
-        {
-          assert.NotNull(createdProxy._constructorArgument);
-          assert.NotNull(createdProxy._constructorNestedArgument);
-          assert.NotEqual(default(int), createdProxy.AbstractInt);
-          assert.NotEqual(default(int), createdProxy.SettableInt);
-        });
+      {
+        assert.NotNull(createdProxy._constructorArgument);
+        assert.NotNull(createdProxy._constructorNestedArgument);
+        assert.NotEqual(default(int), createdProxy.AbstractInt);
+        assert.NotEqual(default(int), createdProxy.SettableInt);
+      });
     }
 
     [Test]
@@ -214,9 +214,9 @@ namespace TddEbook.TddToolkitSpecification
       //GIVEN
       var x = Any.Instance<MethodInfo>();
       var y = Any.Instance<MethodInfo>();
-      
+
       //THEN
-      XAssert.NotAlike(x,y);
+      XAssert.NotAlike(x, y);
 
     }
 
@@ -226,7 +226,7 @@ namespace TddEbook.TddToolkitSpecification
       //GIVEN
       var exception1 = Any.Instance<Exception>();
       var exception2 = Any.Instance<Exception>();
-      
+
       //THEN
       XAssert.NotAlike(exception2, exception1);
     }
@@ -240,7 +240,7 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.NotEqual(int1, int2);
-      Assert.That(int1, Is.Not.InRange(1,10));
+      Assert.That(int1, Is.Not.InRange(1, 10));
       Assert.That(int2, Is.Not.InRange(1, 10));
     }
 
@@ -273,10 +273,10 @@ namespace TddEbook.TddToolkitSpecification
     {
       //GIVEN
       const string exampleRegex = @"content/([A-Za-z0-9\-]+)\.aspx$";
-      
+
       //WHEN
       var result = Any.StringMatching(exampleRegex);
-      
+
       //THEN
       Assert.True(Regex.IsMatch(result, exampleRegex));
     }
@@ -316,13 +316,13 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.All(assert =>
-        {
-          assert.NotEqual(char1, char2);
-          assert.NotEqual(char2, char3);
-          assert.True(Char.IsLetter(char1));
-          assert.True(Char.IsLetter(char2));
-          assert.True(Char.IsLetter(char3));
-        });
+      {
+        assert.NotEqual(char1, char2);
+        assert.NotEqual(char2, char3);
+        assert.True(Char.IsLetter(char1));
+        assert.True(Char.IsLetter(char2));
+        assert.True(Char.IsLetter(char3));
+      });
     }
 
     [Test]
@@ -335,13 +335,13 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.All(assert =>
-        {
-          assert.NotEqual(char1, char2);
-          assert.NotEqual(char2, char3);
-          assert.True(Char.IsDigit(char1));
-          assert.True(Char.IsDigit(char2));
-          assert.True(Char.IsDigit(char3));
-        });
+      {
+        assert.NotEqual(char1, char2);
+        assert.NotEqual(char2, char3);
+        assert.True(Char.IsDigit(char1));
+        assert.True(Char.IsDigit(char2));
+        assert.True(Char.IsDigit(char3));
+      });
     }
 
     [Test, Timeout(1000)]
@@ -357,10 +357,10 @@ namespace TddEbook.TddToolkitSpecification
       var interfaceImplementation = Any.Instance<ISimple>();
 
       XAssert.All(assert =>
-        {
-          assert.NotNull(interfaceImplementation);
-          assert.NotEqual(default(int), primitive);
-        });
+      {
+        assert.NotNull(interfaceImplementation);
+        assert.NotEqual(default(int), primitive);
+      });
     }
 
 
@@ -394,7 +394,7 @@ namespace TddEbook.TddToolkitSpecification
       var y = x.NestedAsDictionary;
       var y1 = y.Keys.First();
       var y2 = y.Values.First();
-      
+
       XAssert.All(assert =>
       {
         assert.Equal(3, y.Count);
@@ -446,10 +446,10 @@ namespace TddEbook.TddToolkitSpecification
     {
       var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
       XAssert.All(assert =>
-        {
-          assert.NotNull(kvp.Key);
-          assert.NotNull(kvp.Value);
-        });
+      {
+        assert.NotNull(kvp.Key);
+        assert.NotNull(kvp.Value);
+      });
     }
 
     [Test]
@@ -498,7 +498,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       //GIVEN
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(), s => s.Number.Returns(44543));
-      
+
       //WHEN
       var result = instance.Object.Number;
 
@@ -547,7 +547,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndAllowSkippingOverrideOfMethodDefaultReturnValue()
     {
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(), s => s.Nested.Returns(null as RecursiveInterface))
+      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(),
+        s => s.Nested.Returns(null as RecursiveInterface))
         .NoOverrideOf(m => m.Nested)
         .NoOverrideOf(m => m.GetNested());
 
@@ -559,10 +560,10 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndAllowForcingOverrideOfMethodReturnValueDespiteItBeingNotDefault()
     {
       var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(), s =>
-        {
-          s.Number.Returns(-9999);
-          s.GetNumber().Returns(-9998);
-        }).ForceOverrideOf(m => m.Number).ForceOverrideOf(m => m.GetNumber());
+      {
+        s.Number.Returns(-9999);
+        s.GetNumber().Returns(-9998);
+      }).ForceOverrideOf(m => m.Number).ForceOverrideOf(m => m.GetNumber());
 
       XAssert.NotEqual(default(int), instance.Object.Number);
       XAssert.NotEqual(default(int), instance.Object.GetNumber());
@@ -648,7 +649,7 @@ namespace TddEbook.TddToolkitSpecification
       Type GetTypeProperty { get; }
       IEnumerable<ISimple> Simples { get; }
     }
-    
+
     public class ObjectWithInterfaceInConstructor
     {
       private readonly int _a;
@@ -657,9 +658,9 @@ namespace TddEbook.TddToolkitSpecification
       public readonly ObjectWithInterfaceInConstructor _constructorNestedArgument;
 
       public ObjectWithInterfaceInConstructor(
-        int a, 
-        ISimple constructorArgument, 
-        string b, 
+        int a,
+        ISimple constructorArgument,
+        string b,
         ObjectWithInterfaceInConstructor constructorNestedArgument)
       {
         _a = a;
@@ -714,7 +715,7 @@ namespace TddEbook.TddToolkitSpecification
 
   }
 
-  public interface IObservableConcurrentDictionary<TKey, TValue> 
+  public interface IObservableConcurrentDictionary<TKey, TValue>
     : IObservable<Tuple<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
   {
     void TryAdd(TKey key, TValue value);
@@ -726,7 +727,7 @@ namespace TddEbook.TddToolkitSpecification
 
   public class MyOwnCollection<T> : ICollection<T>
   {
-    List<T> _list = new List<T>();
+    private List<T> _list = new List<T>();
 
     public IEnumerator<T> GetEnumerator()
     {
@@ -763,8 +764,15 @@ namespace TddEbook.TddToolkitSpecification
       return _list.Remove(item);
     }
 
-    public int Count { get { return _list.Count; } }
-    public bool IsReadOnly { get { return false; } }
+    public int Count
+    {
+      get { return _list.Count; }
+    }
+
+    public bool IsReadOnly
+    {
+      get { return false; }
+    }
   }
 
   public class ConcreteDataStructure
@@ -852,8 +860,16 @@ namespace TddEbook.TddToolkitSpecification
 
       XAssert.Equal(anotherInstance, instance.Nested);
     }
-  }
 
+    [Test]
+    public void ShouldBeAbleToBypassStaticCreationMethodWhenConstructorIsInternal()
+    {
+      Assert.DoesNotThrow(() => Any.Instance<FileExtension>());
+      Assert.DoesNotThrow(() => Any.Instance<FileName>());
+    }
+
+  }
 }
+
 
 

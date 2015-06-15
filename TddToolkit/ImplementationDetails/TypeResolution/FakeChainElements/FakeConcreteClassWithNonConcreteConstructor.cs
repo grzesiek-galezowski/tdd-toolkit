@@ -6,7 +6,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public bool Applies()
     {
-      return _fallbackTypeGenerator.ConstructorHasAtLeastOneNonConcreteArgumentType();
+      return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
     public T Apply()

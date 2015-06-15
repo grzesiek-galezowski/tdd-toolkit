@@ -5,6 +5,7 @@ using Ploeh.AutoFixture;
 using System.Linq;
 using System.Net;
 using Castle.DynamicProxy;
+using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;

@@ -33,9 +33,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return _fallbackTypeGenerator.GenerateConstructorParameters();
     }
 
-    public bool ConstructorHasAtLeastOneNonConcreteArgumentType()
+    public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
     {
-      return _fallbackTypeGenerator.ConstructorHasAtLeastOneNonConcreteArgumentType();
+      return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
 
@@ -86,11 +86,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return constructorParameters;
     }
 
-    public bool ConstructorHasAtLeastOneNonConcreteArgumentType()
+    public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
     {
       var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
-      return constructor.Value  //bug backward compatibility (for now)
-        .HasAbstractOrInterfaceArguments();
+      return constructor.Value //bug backward compatibility (for now)
+        .HasAbstractOrInterfaceArguments()
+      || constructor.Value.IsInternal();
     }
 
 

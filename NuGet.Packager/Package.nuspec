@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.24</version>
+        <version>1.0.26</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
-        <releaseNotes>The preference order for constructors in fallback instance generator is changed - first, public constructors without recursion, then internal constructors without recursion, then public and internal with recursion.</releaseNotes>
+        <releaseNotes>Fixed even more errors in choosing constructors. When delegation to AutoFixture throws TargetInvocationException, use fallback generator.</releaseNotes>
         <language>en-US</language>
     </metadata>
     <files>

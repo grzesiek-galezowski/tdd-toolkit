@@ -15,5 +15,6 @@ namespace TddEbook.TypeReflection.Interfaces
     object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator);
     object InvokeWith(IEnumerable<object> constructorParameters);
     bool HasAnyArgumentOfType(Type type);
+    bool IsInternal();
   }
 }

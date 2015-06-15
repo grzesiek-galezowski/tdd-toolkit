@@ -283,11 +283,12 @@ namespace TddEbook.TypeReflection
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
     {
       var constructorInfos = _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-      var enumerable = constructorInfos.Where(c => c.IsAssembly);
+      var enumerable = constructorInfos.Where(ConstructorWrapper.IsInternal);
+
       var wrappers = enumerable.Select(c => (IConstructorWrapper) (new ConstructorWrapper(c))).ToList();
       return wrappers;
     }
-    
+
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
       return _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)

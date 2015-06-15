@@ -1,3 +1,6 @@
+using System;
+using System.Reflection;
+
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeConcreteClass<T> : IResolution<T>
@@ -17,7 +20,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       {
         return new FallbackTypeGenerator<T>().GenerateInstance();
       }
-
+      catch (TargetInvocationException)
+      {
+        return new FallbackTypeGenerator<T>().GenerateInstance();
+      }
     }
   }
 }
