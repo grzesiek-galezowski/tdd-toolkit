@@ -10,15 +10,5 @@ namespace DepascalizationApp
 
     [Option('o', "output", Required = true, HelpText = "Output report file name.")]
     public string OutputFile { get; set; }
-
-
-    [ParserState]
-    public IParserState LastParserState { get; set; }
-
-    [HelpOption]
-    public string GetUsage()
-    {
-      return HelpText.AutoBuild(this, helpText => HelpText.DefaultParsingErrorsHandler(this, helpText));
-    }
   }
 }
