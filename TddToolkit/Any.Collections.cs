@@ -46,6 +46,22 @@ namespace TddEbook.TddToolkit
       return EnumerableWithout(excluded).ToArray();
     }
 
+    public static T[] ArrayWith<T>(params T[] included)
+    {
+      return EnumerableWith(included).ToArray();
+    }
+
+    public static T[] ArrayWithout<T>(IEnumerable<T> excluded)
+    {
+      return EnumerableWithout(excluded.ToArray()).ToArray();
+    }
+
+    public static T[] ArrayWith<T>(IEnumerable<T> included)
+    {
+      return EnumerableWith(included.ToArray()).ToArray();
+    }
+
+
     public static List<T> List<T>()
     {
       return List<T>(Many);
@@ -55,6 +71,27 @@ namespace TddEbook.TddToolkit
     {
       return Enumerable<T>(length).ToList();
     }
+
+    public static List<T> ListWithout<T>(params T[] excluded)
+    {
+      return EnumerableWithout(excluded).ToList();
+    }
+
+    public static List<T> ListWith<T>(params T[] included)
+    {
+      return EnumerableWith(included).ToList();
+    }
+
+    public static List<T> ListWithout<T>(IEnumerable<T> excluded)
+    {
+      return EnumerableWithout(excluded.ToArray()).ToList();
+    }
+
+    public static List<T> ListWith<T>(IEnumerable<T> included)
+    {
+      return EnumerableWith(included.ToArray()).ToList();
+    }
+
 
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {

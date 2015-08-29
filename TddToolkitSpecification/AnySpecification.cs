@@ -442,6 +442,52 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
+    public void ShouldSupportCreatingArraysWithSpecificLiteralElements()
+    {
+      var array = Any.ArrayWith(1, 2, 3);
+
+      CollectionAssert.Contains(array, 1);
+      CollectionAssert.Contains(array, 2);
+      CollectionAssert.Contains(array, 3);
+      Assert.GreaterOrEqual(array.Length, 3);
+    }
+
+    [Test]
+    public void ShouldSupportCreatingListsWithSpecificLiteralElements()
+    {
+      var list = Any.ListWith(1, 2, 3);
+
+      CollectionAssert.Contains(list, 1);
+      CollectionAssert.Contains(list, 2);
+      CollectionAssert.Contains(list, 3);
+      Assert.GreaterOrEqual(list.Count, 3);
+    }
+
+    [Test]
+    public void ShouldSupportCreatingListsWithSpecificEnumerableOfElements()
+    {
+      var array = Any.ListWith<int>(new List<int> {1, 2, 3});
+
+      CollectionAssert.Contains(array, 1);
+      CollectionAssert.Contains(array, 2);
+      CollectionAssert.Contains(array, 3);
+      Assert.GreaterOrEqual(array.Count, 3);
+    }
+
+    [Test]
+    public void ShouldSupportCreatingArraysWithSpecificEnumerableOfElements()
+    {
+      var array = Any.ArrayWith<int>(new List<int> { 1, 2, 3 });
+
+      CollectionAssert.Contains(array, 1);
+      CollectionAssert.Contains(array, 2);
+      CollectionAssert.Contains(array, 3);
+      Assert.GreaterOrEqual(array.Length, 3);
+    }
+
+
+
+    [Test]
     public void ShouldSupportCreationOfKeyValuePairs()
     {
       var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NSubstitute;
 using Ploeh.AutoFixture;
@@ -241,6 +242,15 @@ namespace TddEbook.TddToolkit
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, omittedValues);
     }
 
+    public static IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
+    {
+      var list = new List<T>();
+      list.Add(Instance<T>());
+      list.AddRange(included);
+      list.Add(Instance<T>());
+
+      return list;
+    }
   }
 
   public class Type1 { }

@@ -91,5 +91,10 @@ namespace TddEbook.TddToolkit
       return Digits.Next();
     }
 
+    public static char Char()
+    {
+      return Instance<char>();
+    }
+
   }
 }
