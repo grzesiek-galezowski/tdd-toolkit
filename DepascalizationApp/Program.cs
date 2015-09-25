@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using CommandLine;
 
 namespace DepascalizationApp
@@ -9,15 +10,23 @@ namespace DepascalizationApp
     static int Main(string[] args)
     {
       var result = Parser.Default.ParseArguments<Options>(args);
+      var exitCode = 0;
 
-      var exitCode = result.Return(options => 
+      result.WithParsed(options => 
       {
         var fileContent = File.ReadAllText(options.InputFile);
         var outputXml = new Depascalization.Depascalization().OfNUnitReport(fileContent);
         File.WriteAllText(options.OutputFile, outputXml);
-        return 0;
-      },
-      errors => 1);
+      });
+
+      result.WithNotParsed(errors =>
+      {
+        foreach (var error in errors)
+        {
+          Console.WriteLine(error.Tag + ": " + error.ToString());
+        }
+        exitCode = 1;
+      });
 
       return exitCode;
     }
