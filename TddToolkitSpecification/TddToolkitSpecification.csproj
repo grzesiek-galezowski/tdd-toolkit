@@ -61,6 +61,7 @@
     <Compile Include="TypeOfTypeSpecification.cs" />
     <Compile Include="XArgSpecification.cs" />
     <Compile Include="XAssertSpecification.cs" />
+    <Compile Include="XReceivedSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
