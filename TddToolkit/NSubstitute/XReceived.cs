@@ -22,66 +22,23 @@ namespace TddEbook.TddToolkit.NSubstitute
     public void Assert(IQueryResults queryResult)
     {
       var querySpec = QuerySpecificationFrom(queryResult);
-      var allReceivedCalls = AllReceivedCallsWithExceptionOfPropertyGettersByTargetsOf(querySpec);
+      var allReceivedCalls = AllCallsExceptPropertyGettersReceivedByTargetsOf(querySpec);
 
       var callsSpecifiedButNotReceived = GetCallsExpectedButNoReceived(querySpec, allReceivedCalls);
       var callsReceivedButNotSpecified = GetCallsReceivedButNotExpected(querySpec, allReceivedCalls);
 
-      if (callsSpecifiedButNotReceived.Length > 0 || callsReceivedButNotSpecified.Length > 0)
+      if (callsSpecifiedButNotReceived.Any() || callsReceivedButNotSpecified.Any())
       {
         throw new CallSequenceNotFoundException(GetExceptionMessage(querySpec, allReceivedCalls,
           callsSpecifiedButNotReceived, callsReceivedButNotSpecified));
       }
     }
 
-    private ICall[] GetCallsReceivedButNotExpected(CallSpecAndTarget[] querySpec, ICall[] allReceivedCalls)
+    private ICall[] AllCallsExceptPropertyGettersReceivedByTargetsOf(CallSpecAndTarget[] querySpec)
     {
-      var copyOfQuerySpec = querySpec.ToList();
-
-      var notMatchedCalls = new List<ICall>();
-
-      foreach (var call in allReceivedCalls)
-      {
-        var matchingSpec = copyOfQuerySpec.FirstOrDefault(spec => Matches(call, spec));
-        if (matchingSpec != null)
-        {
-          copyOfQuerySpec.Remove(matchingSpec);
-        }
-        else
-        {
-          notMatchedCalls.Add(call);
-        }
-      }
-
-      return notMatchedCalls.ToArray();
-    }
-
-    private CallSpecAndTarget[] GetCallsExpectedButNoReceived(CallSpecAndTarget[] querySpec, ICall[] allReceivedCalls)
-    {
-      var copyOfAllReceivedCalls = allReceivedCalls.ToList();
-      var notMatchedSpecs = new List<CallSpecAndTarget>();
-
-      foreach (var spec in querySpec)
-      {
-        var matchingCall = copyOfAllReceivedCalls.FirstOrDefault(call => Matches(call, spec));
-        if (matchingCall != null)
-        {
-          copyOfAllReceivedCalls.Remove(matchingCall);
-        }
-        else
-        {
-          notMatchedSpecs.Add(spec);
-        }
-      }
-      return notMatchedSpecs.ToArray();
-    }
-
-    private ICall[] AllReceivedCallsWithExceptionOfPropertyGettersByTargetsOf(CallSpecAndTarget[] querySpec)
-    {
-      return querySpec.Select(s => s.Target).Distinct()
-        .SelectMany(target => target.ReceivedCalls())
-        .Where(x => this.IsNotPropertyGetterCall(x.GetMethodInfo()))
-        .ToArray();
+      var allUniqueTargets = querySpec.Select(s => s.Target).Distinct();
+      var allReceivedCalls = allUniqueTargets.SelectMany(target => target.ReceivedCalls());
+      return allReceivedCalls.Where(x => this.IsNotPropertyGetterCall(x.GetMethodInfo())).ToArray();
     }
 
     private CallSpecAndTarget[] QuerySpecificationFrom(IQueryResults queryResult)
@@ -127,5 +84,40 @@ namespace TddEbook.TddToolkit.NSubstitute
         , "*** Note: calls to property getters are not considered part of the query. ***");
     }
 
+    private static ICall[] GetCallsReceivedButNotExpected(CallSpecAndTarget[] expectedCalls, ICall[] receivedCalls)
+    {
+      return DifferenceBetween(receivedCalls, expectedCalls, Matches);
+    }
+
+    private static CallSpecAndTarget[] GetCallsExpectedButNoReceived(CallSpecAndTarget[] expectedCalls, ICall[] receivedCalls)
+    {
+      return DifferenceBetween(expectedCalls, receivedCalls, (call, spec) => Matches(spec, call));
+    }
+
+    private static T2[] DifferenceBetween<T1, T2>(
+      IEnumerable<T2> superset,
+      IEnumerable<T1> subset, Func<T2, T1, bool> matcher) where T1 : class where T2 : class
+    {
+      var copyOfSubset = subset.ToList();
+
+      var notMatchedCalls = new List<T2>();
+
+      foreach (var call in superset)
+      {
+        var matchingSubsetElement = copyOfSubset.FirstOrDefault(spec => matcher(call, spec));
+        if (matchingSubsetElement != null)
+        {
+          copyOfSubset.Remove(matchingSubsetElement);
+        }
+        else
+        {
+          notMatchedCalls.Add(call);
+        }
+      }
+
+      return notMatchedCalls.ToArray();
+    }
   }
+
+
 }
