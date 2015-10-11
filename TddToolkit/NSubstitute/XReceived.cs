@@ -76,7 +76,7 @@ namespace TddEbook.TddToolkit.NSubstitute
                            + "Calls received but not expected:\n{0}{4}\n\n"
                            + "{5}\n\n"
 
-        , (object) "\n    "
+        , "\n    "
         , sequenceFormatter.FormatQuery()
         , sequenceFormatter.FormatActualCalls()
         , sequenceFormatterForUnexpectedAndExcessiveCalls.FormatQuery()
@@ -95,19 +95,20 @@ namespace TddEbook.TddToolkit.NSubstitute
     }
 
     private static T2[] DifferenceBetween<T1, T2>(
-      IEnumerable<T2> superset,
-      IEnumerable<T1> subset, Func<T2, T1, bool> matcher) where T1 : class where T2 : class
+      IEnumerable<T2> collection1,
+      IEnumerable<T1> collection2, 
+      Func<T2, T1, bool> matchCriteria) where T1 : class where T2 : class
     {
-      var copyOfSubset = subset.ToList();
+      var copyOfCollection2 = collection2.ToList();
 
       var notMatchedCalls = new List<T2>();
 
-      foreach (var call in superset)
+      foreach (var call in collection1)
       {
-        var matchingSubsetElement = copyOfSubset.FirstOrDefault(spec => matcher(call, spec));
-        if (matchingSubsetElement != null)
+        var matchingSet2Element = copyOfCollection2.FirstOrDefault(spec => matchCriteria(call, spec));
+        if (matchingSet2Element != null)
         {
-          copyOfSubset.Remove(matchingSubsetElement);
+          copyOfCollection2.Remove(matchingSet2Element);
         }
         else
         {
@@ -118,6 +119,5 @@ namespace TddEbook.TddToolkit.NSubstitute
       return notMatchedCalls.ToArray();
     }
   }
-
 
 }
