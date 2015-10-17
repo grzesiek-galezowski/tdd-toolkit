@@ -914,6 +914,15 @@ namespace TddEbook.TddToolkitSpecification
       Assert.DoesNotThrow(() => Any.Instance<FileName>());
     }
 
+
+    [Test]
+    public void ShouldGenerateStringsContainingOtherObjects()
+    {
+      StringAssert.Contains("lol", Any.StringContaining("lol"));
+      StringAssert.Contains("lol", Any.StringContaining<string>("lol"));
+      StringAssert.Contains("2", Any.StringContaining(2));
+      StringAssert.Contains("C", Any.StringContaining('C'));
+    }
   }
 }
 

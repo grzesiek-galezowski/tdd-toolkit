@@ -36,6 +36,11 @@ namespace TddEbook.TddToolkit
       return ValueOtherThan(alreadyUsedStrings);
     }
 
+    public static string StringNotContaining<T>(params T[] excludedObjects)
+    {
+      return StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
+    }
+
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
       var preprocessedStrings = from str in excludedSubstrings
@@ -48,6 +53,11 @@ namespace TddEbook.TddToolkit
         result = String();
       } while (preprocessedStrings.Any(result.Contains));
       return result;
+    }
+
+    public static string StringContaining<T>(T obj)
+    {
+      return StringContaining(obj.ToString());
     }
 
     public static string StringContaining(string str)
