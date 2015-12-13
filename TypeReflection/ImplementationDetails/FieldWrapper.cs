@@ -23,7 +23,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     {
       return "Value objects are immutable, but field "
              + _fieldInfo.Name
-             + " is mutable. Make this field readonly to pass the check.";
+             + " of type " + _fieldInfo.DeclaringType + " is mutable. Make this field readonly to pass the check.";
     }
 
     public string GenerateExistenceMessage()

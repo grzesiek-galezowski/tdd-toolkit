@@ -18,8 +18,16 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 
     public void CheckAndRecord(ConstraintsViolations violations)
     {
-      var fields = TypeWrapper.For(_type).GetAllInstanceFields();
-      foreach (var item in fields.Where(item => item.IsNotDeveloperDefinedReadOnlyField()))
+      CheckImmutability(violations, _type);
+    }
+
+    private void CheckImmutability(ConstraintsViolations violations, Type type)
+    {
+      var fields = TypeWrapper.For(type).GetAllInstanceFields().ToList();
+      var fieldWrappers = fields
+        .Where(item => item.IsNotDeveloperDefinedReadOnlyField());
+
+      foreach (var item in fieldWrappers)
       {
         violations.Add(item.ShouldNotBeMutableButIs());
       }

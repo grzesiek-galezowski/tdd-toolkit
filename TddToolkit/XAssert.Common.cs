@@ -19,7 +19,7 @@ namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
-    public static void TypeAdheresToConstraints(IEnumerable<IConstraint> constraints)
+    public static void TypeAdheresTo(IEnumerable<IConstraint> constraints)
     {
       var violations = ConstraintsViolations.Empty();
       foreach (var constraint in constraints)
@@ -43,31 +43,35 @@ namespace TddEbook.TddToolkit
       if (!type.HasConstructorWithParameters())
       {
         var constraints = new List<IConstraint> { new ConstructorsMustBeNullProtected(type.ToClrType())};
-        TypeAdheresToConstraints(constraints);
+        TypeAdheresTo(constraints);
       }
     }
 
     public static void IsValue<T>(ValueTypeTraits traits)
     {
-      if (!typeof (T).IsPrimitive)
+      if (!ValueObjectWhiteList.Contains<T>())
       {
         var activator = ValueObjectActivator.FreshInstance(typeof (T));
         var constraints = CreateConstraintsBasedOn(typeof (T), traits, activator);
-        TypeAdheresToConstraints(constraints);
+        XAssert.TypeAdheresTo(constraints);
       }
     }
 
-    private static IEnumerable<IConstraint> CreateConstraintsBasedOn(Type t, ValueTypeTraits traits, ValueObjectActivator activator)
+
+    private static IEnumerable<IConstraint> CreateConstraintsBasedOn(
+      Type type, ValueTypeTraits traits, ValueObjectActivator activator)
     {
 
       var constraints = new List<IConstraint>();
 
+      constraints.Add(new HasToBeAConcreteClass(type));
+
       if(traits.RequireAllFieldsReadOnly)
       {
-        constraints.Add(new AllFieldsMustBeReadOnly(t));
+        constraints.Add(new AllFieldsMustBeReadOnly(type));
       }
 
-      constraints.Add(new ThereMustBeNoPublicPropertySetters(t));
+      constraints.Add(new ThereMustBeNoPublicPropertySetters(type));
       constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod(activator));
       constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod(activator));
 
@@ -86,7 +90,7 @@ namespace TddEbook.TddToolkit
       if (traits.RequireEqualityAndUnequalityOperatorImplementation)
       {
         //equality operator
-        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator(t));
+        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator(type));
         constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator(activator));
         constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator(activator));
         constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfEqualityOperator(activator,
@@ -94,7 +98,7 @@ namespace TddEbook.TddToolkit
         constraints.Add(new UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator(activator));
 
         //inequality operator
-        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator(t));
+        constraints.Add(new StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator(type));
         constraints.Add(new StateBasedEqualityMustBeImplementedInTermsOfInequalityOperator(activator));
         constraints.Add(new StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator(activator));
         constraints.Add(new StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator(activator,
@@ -113,8 +117,11 @@ namespace TddEbook.TddToolkit
 
     private static void InvokeGenericVersionOfMethod(Type type, string name)
     {
-      typeof(Any).GetMethods().Where(m => m.Name == name).First(m => m.GetParameters().Length == 0).
-        MakeGenericMethod(new[] { type }).Invoke(null, null);
+      var methodInfos = typeof(XAssert).GetMethods();
+      var methodsByGivenName = methodInfos.Where(m => m.Name == name);
+      var firstParameterlessVersion = methodsByGivenName.First(m => m.GetParameters().Length == 0);
+      var genericMethod = firstParameterlessVersion.MakeGenericMethod(new[] { type });
+      genericMethod.Invoke(null, null);
     }
 
     public static void IsEqualityOperatorDefinedFor<T>()
@@ -150,6 +157,29 @@ namespace TddEbook.TddToolkit
     public static void IsInequalityOperatorDefinedFor(Type type)
     {
       ExecutionOf(() => TypeWrapper.For(type).Inequality()).ShouldNotThrow<Exception>();
+    }
+  }
+
+  class HasToBeAConcreteClass : IConstraint
+  {
+    private readonly Type _type;
+
+    public HasToBeAConcreteClass(Type type)
+    {
+      _type = type;
+    }
+
+    public void CheckAndRecord(ConstraintsViolations violations)
+    {
+      if (_type.IsAbstract)
+      {
+        violations.Add("Type " + _type + " is abstract but abstract classes cannot be value objects");
+      }
+
+      if (_type.IsInterface)
+      {
+        violations.Add("Type " + _type + " is an interface but interfaces cannot be value objects");
+      }
     }
   }
 

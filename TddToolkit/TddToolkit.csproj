@@ -117,6 +117,7 @@
     <Compile Include="NSubstitute\XArg.cs" />
     <Compile Include="NSubstitute\XReceived.cs" />
     <Compile Include="SyncAssert.cs" />
+    <Compile Include="ValueObjectWhiteList.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="WrapperDuo.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\Interceptors\WrappingInterceptor.cs" />
