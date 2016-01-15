@@ -53,15 +53,26 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldCorrectlyCompareCollectionsInAssertAll()
     {
-
       // GIVEN
-      var x1 = new List<string> { "aaa" };
-      var x2 = new List<string> { "aaa" };
+      var x1 = new List<string> { "aaa", "bbb" };
+      var x2 = new List<string> { "aaa", "bbb" };
 
       var exception = Assert.Throws<AssertionException>(
         () => XAssert.All(recorder => recorder.Equal(x1, x2))
       );
-      StringAssert.Contains("Expected object to be {\"aaa\"}, but found {\"aaa\"}", exception.ToString());
+
+      StringAssert.Contains(
+        "Expected object to be {\"aaa\", \"bbb\"}, but found {\"aaa\", \"bbb\"}", 
+        exception.ToString());
+
+      XAssert.All(assert => assert.CollectionsEqual(x1, x2));
+
+      Assert.Throws<AssertionException>(
+        () => XAssert.All(recorder => 
+        recorder.CollectionsEqual(
+          x1, 
+          new List<string>() {"bbb", "aaa"}))
+      );
     }
 
     [Test]

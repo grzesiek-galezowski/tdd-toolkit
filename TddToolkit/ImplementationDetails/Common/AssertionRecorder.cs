@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using FluentAssertions;
 
@@ -27,7 +28,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
 
       foreach (var failedAssertion in failedAssertions)
       {
-        result += failedAssertion + Environment.NewLine;
+        result += string.Format("{0}{1}", failedAssertion, Environment.NewLine);
       }
 
       return result;
@@ -36,6 +37,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
     public void Equal<T>(T expected, T actual)
     {
       LogException(() => XAssert.Equal(expected, actual));
+    }
+
+    public void CollectionsEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual)
+    {
+      LogException(() => XAssert.CollectionsEqual(expected, actual));
     }
 
     public void Contains(string expected, string actual)
@@ -50,7 +56,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
 
     public void Contains(string expected, string actual, string message)
     {
-      LogException(() => expected.Should().Contain(actual, message));
+      LogException(() => expected.Should().Contain(actual, "{0}", message));
     }
 
     public void True(bool condition)
@@ -60,7 +66,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
 
     public void True(bool condition, string message)
     {
-      LogException(() => condition.Should().BeTrue(message));
+      LogException(() => condition.Should().BeTrue("{0}", message));
     }
 
     public void False(bool condition)
@@ -70,7 +76,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
 
     public void False(bool condition, string message)
     {
-      LogException(() => condition.Should().BeFalse(message));
+      LogException(() => condition.Should().BeFalse("{0}", message));
     }
 
     public void Alike<T>(T expected, T actual)

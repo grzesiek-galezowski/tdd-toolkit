@@ -1,4 +1,5 @@
 {
+  "$schema":"http://gcop.watch.masoud.g.e/public/js/gcop-schema.json",
   "ReadMe": "To learn how to configure this, see: http://gcop.watch.masoud.g.e/documentation/config",
   "Projects": [],
   "General": [
