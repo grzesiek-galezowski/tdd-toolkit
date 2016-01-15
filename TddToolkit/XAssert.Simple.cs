@@ -28,22 +28,22 @@ namespace TddEbook.TddToolkit
 
     public static void Equal<T>(T expected, T actual, string message)
     {
-      actual.Should().Be(expected, message);
+      actual.Should().Be(expected, "{0}", message);
     }
 
     public static void NotEqual<T>(T expected, T actual, string message)
     {
-      actual.Should().NotBe(expected, message);
+      actual.Should().NotBe(expected, "{0}", message);
     }
 
     public static void Same<T>(T expected, T actual, string message)
     {
-      actual.Should().BeSameAs(expected, message);
+      actual.Should().BeSameAs(expected, "{0}", message);
     }
 
     public static void NotSame<T>(T expected, T actual, string message)
     {
-      actual.Should().NotBeSameAs(expected, message);
+      actual.Should().NotBeSameAs(expected, "{0}", message);
     }
 
     public static void NotNull<T>(T item)
@@ -53,7 +53,7 @@ namespace TddEbook.TddToolkit
 
     public static void NotNull<T>(T item, string message)
     {
-      item.Should().NotBeNull(message);
+      item.Should().NotBeNull(message, "{0}", message);
     }
   }
 }

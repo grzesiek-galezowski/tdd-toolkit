@@ -50,6 +50,19 @@ namespace TddEbook.TddToolkitSpecification
       Assert.DoesNotThrow(() => XAssert.IsValue<FileNameWithoutExtension>());
     }
 
+    [Test]
+    public void ShouldCorrectlyCompareCollectionsInAssertAll()
+    {
+
+      // GIVEN
+      var x1 = new List<string> { "aaa" };
+      var x2 = new List<string> { "aaa" };
+
+      var exception = Assert.Throws<AssertionException>(
+        () => XAssert.All(recorder => recorder.Equal(x1, x2))
+      );
+      StringAssert.Contains("Expected object to be {\"aaa\"}, but found {\"aaa\"}", exception.ToString());
+    }
 
     [Test]
     public void ShouldAllowSpecifyingConstructorArgumentsNotTakenIntoAccountDuringValueBehaviorCheck()
