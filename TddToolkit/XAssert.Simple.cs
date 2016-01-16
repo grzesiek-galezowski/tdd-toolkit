@@ -47,6 +47,16 @@ namespace TddEbook.TddToolkit
       actual.Should().ContainInOrder(expected);
     }
 
+    public static void CollectionsEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual)
+    {
+      actual.Should().BeEquivalentTo(expected);
+    }
+    public static void CollectionsNotEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual)
+    {
+      actual.Should().BeEquivalentTo(expected);
+    }
+
+
     public static void NotEqual<T>(T expected, T actual, string message)
     {
       actual.Should().NotBe(expected, "{0}", message);
@@ -71,5 +81,6 @@ namespace TddEbook.TddToolkit
     {
       item.Should().NotBeNull(message, "{0}", message);
     }
+
   }
 }

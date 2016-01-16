@@ -44,6 +44,17 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
       LogException(() => XAssert.CollectionsEqual(expected, actual));
     }
 
+    public void CollectionsEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual)
+    {
+      LogException(() => XAssert.CollectionsEquivalent(expected, actual));
+    }
+
+    public void CollectionsNotEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual)
+    {
+      LogException(() => XAssert.CollectionsNotEquivalent(expected, actual));
+    }
+
+
     public void Contains(string expected, string actual)
     {
       LogException(() => expected.Should().Contain(actual));
