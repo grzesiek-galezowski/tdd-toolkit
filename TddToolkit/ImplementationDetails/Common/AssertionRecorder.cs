@@ -54,6 +54,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
       LogException(() => XAssert.Equal(expected, actual, message));
     }
 
+    public void Equivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, string message)
+    {
+      LogException(() => actual.Should().BeEquivalentTo(expected, "{0}", message));
+    }
+
+    public void Equivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual)
+    {
+      LogException(() => actual.Should().BeEquivalentTo(expected));
+    }
+
     public void Contains(string expected, string actual, string message)
     {
       LogException(() => expected.Should().Contain(actual, "{0}", message));
