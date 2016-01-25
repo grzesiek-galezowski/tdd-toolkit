@@ -12,6 +12,10 @@ namespace TddEbook.TddToolkit
     {
       return Generator.Create<string>();
     }
+    public static string String(string seed)
+    {
+      return Generator.Create(seed);
+    }
 
     public static string StringMatching(string pattern)
     {

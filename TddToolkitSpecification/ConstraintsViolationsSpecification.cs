@@ -45,5 +45,19 @@ namespace TddEbook.TddToolkitSpecification
       StringAssert.Contains(violation2, exception.Message);
       StringAssert.Contains(violation3, exception.Message);
     }
+
+    [Test]
+    public void ShouldBeAbleToGenerateSeededStrings()
+    {
+      //WHEN
+      const string seed = "xyz";
+      var violation1 = Any.String(seed);
+      var violation2 = Any.String(seed);
+
+      //THEN
+      StringAssert.StartsWith(seed, violation1);
+      StringAssert.StartsWith(seed, violation2);
+      Assert.AreNotEqual(violation1, violation2);
+    }
   }
 }
