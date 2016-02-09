@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using TddEbook.TddToolkit;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkitSpecification
 {

@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkitSpecification
 {

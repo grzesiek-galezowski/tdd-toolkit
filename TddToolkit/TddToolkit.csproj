@@ -109,7 +109,6 @@
     <Compile Include="ImplementationDetails\TypeResolution\IntegerSequence.cs" />
     <Compile Include="LibZResolver.cs" />
     <Compile Include="LockAssertions.cs" />
-    <Compile Include="Maybe.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />
     <Compile Include="LockSpecificAssertions\ReadLockSlimAssertions.cs" />
