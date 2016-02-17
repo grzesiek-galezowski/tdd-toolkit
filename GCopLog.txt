@@ -1,0 +1,1895 @@
+WebException @16.02.2016 18:34:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:35:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :collection
+                                                        .AssertContains("Annie", "Annie")
+                                                        .AssertDoesNotContain("Jodie", "should not contain Jodie")
+                                                        .AssertContains<string[], string>(s => s.StartsWith("Ju"), "predicate1")
+Source : 
+[Test]
+public void ShouldAllowAssertingOnCollections()
+{
+    //GIVEN
+    var collection = new[]{"Amber", "Annie", "Eve", "Julie"};
+    //THEN
+    var e = Assert.Throws<AssertionException>(() => collection.AssertContains("Annie", "Annie").AssertDoesNotContain("Jodie", "should not contain Jodie").AssertContains<string[], string>(s => s.StartsWith("Ju"), "predicate1").AssertIsNotEmpty("not empty").AssertIsInAcendingOrder("ascending order")[0].AssertEqualTo("Amber", "Amber").AssertEqualTo("Lol", "This should fail"));
+    StringAssert.Contains("This should fail", e.Message);
+}
+*******************************************************
+WebException @16.02.2016 18:35:09
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:35:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Specified argument was out of the range of valid values.
+Parameter name: index
+Node :collectionInstance.GetType().GetGenericArguments()
+Source : 
+public T Apply()
+{
+    var collectionType = typeof (T);
+    var collectionInstance = Activator.CreateInstance(collectionType);
+    var elementType = collectionInstance.GetType().GetGenericArguments().First();
+    var addMethod = collectionInstance.GetType().GetMethod("Add", new[]{elementType});
+    addMethod.Invoke(collectionInstance, new[]{Any.Instance(elementType)});
+    addMethod.Invoke(collectionInstance, new[]{Any.Instance(elementType)});
+    addMethod.Invoke(collectionInstance, new[]{Any.Instance(elementType)});
+    return (T)collectionInstance;
+}
+*******************************************************
+WebException @16.02.2016 18:36:09
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:39:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:44:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:49:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:54:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 18:59:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 19:04:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 19:09:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 19:14:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 19:19:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 19:24:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @16.02.2016 19:29:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:40:09
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:40:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool HasPublicParameterlessConstructor();
+
+*******************************************************
+WebException @17.02.2016 22:41:06
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:42:06
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:43:06
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:44:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:47:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:48:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:49:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:49:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:50:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:51:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:52:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:53:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:54:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:54:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:55:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:56:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:57:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:59:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 22:59:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:00:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:01:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:02:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:03:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:04:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:04:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:05:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:06:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:07:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:08:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:09:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:09:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:10:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:13:18
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:14:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:19:01
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:19:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:20:01
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:21:02
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:22:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:24:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:24:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:25:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:26:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:27:52
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:28:52
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:29:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:29:52
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:31:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:33:12
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:34:15
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:34:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:38:09
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:39:09
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:39:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:41:17
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:42:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:42:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:36
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:36
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:41
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:46
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:42:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:43:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @17.02.2016 23:43:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:43:19
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:25
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:43:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:40
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:43:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:43:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:43:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:01
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:05
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:44:10
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:44:10
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:44:12
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:15
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:16
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:44:25
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:28
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:44:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:35
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:44:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:44:44
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:44:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetNumber();
+
+*******************************************************
+WebException @17.02.2016 23:44:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :string GetString();
+
+*******************************************************
+WebException @17.02.2016 23:44:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:44:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:44:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:08
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:25
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:27
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:45:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:45:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:35
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:36
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:38
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:39
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:45:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:46:08
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:46:10
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:46:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:46:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:46:36
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:46:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:46:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:46:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNested();
+
+*******************************************************
+WebException @17.02.2016 23:46:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :ISimple GetInterface();
+
+*******************************************************
+WebException @17.02.2016 23:46:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryRemove(TKey key);
+
+*******************************************************
+WebException @17.02.2016 23:47:09
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:47:12
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:47:15
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:47:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:47:35
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:47:36
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:47:46
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:47:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:47:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:47:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:47:59
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:48:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:48:23
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @17.02.2016 23:48:23
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Add(string violationDetails);
+
+*******************************************************
+WebException @17.02.2016 23:48:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:48:40
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertNone();
+
+*******************************************************
+WebException @17.02.2016 23:48:40
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @17.02.2016 23:48:44
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:48:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:49:15
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:49:16
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:49:18
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:49:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertNone();
+
+*******************************************************
+WebException @17.02.2016 23:49:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @17.02.2016 23:49:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:49:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:49:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:49:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:49:52
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:50:00
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Start();
+
+*******************************************************
+WebException @17.02.2016 23:50:01
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void VoidCall(int i);
+
+*******************************************************
+WebException @17.02.2016 23:50:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Do(IEnumerable<int> ints);
+
+*******************************************************
+WebException @17.02.2016 23:50:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :protected abstract void ExitLock();
+
+*******************************************************
+WebException @17.02.2016 23:50:07
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @17.02.2016 23:50:17
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:50:17
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:50:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:50:24
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNested();
+
+*******************************************************
+WebException @17.02.2016 23:50:24
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetNumber();
+
+*******************************************************
+WebException @17.02.2016 23:50:24
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @17.02.2016 23:50:24
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :ISimple GetInterface();
+
+*******************************************************
+WebException @17.02.2016 23:50:24
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:50:24
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryRemove(TKey key);
+
+*******************************************************
+WebException @17.02.2016 23:50:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:50:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:50:34
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:50:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:50:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:50:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:50:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:50:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:51:06
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @17.02.2016 23:51:10
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Start();
+
+*******************************************************
+WebException @17.02.2016 23:51:11
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void VoidCall(int i);
+
+*******************************************************
+WebException @17.02.2016 23:51:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Do(IEnumerable<int> ints);
+
+*******************************************************
+WebException @17.02.2016 23:51:17
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :protected abstract void ExitLock();
+
+*******************************************************
+WebException @17.02.2016 23:51:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:51:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:51:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:51:42
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:51:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:51:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:51:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:52:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:52:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:52:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:52:27
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:52:27
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:52:27
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool TryGetValue(TKey key, out TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:52:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:52:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Start();
+
+*******************************************************
+WebException @17.02.2016 23:52:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void VoidCall(int i);
+
+*******************************************************
+WebException @17.02.2016 23:52:34
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Do(IEnumerable<int> ints);
+
+*******************************************************
+WebException @17.02.2016 23:52:35
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :protected abstract void ExitLock();
+
+*******************************************************
+WebException @17.02.2016 23:52:39
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @17.02.2016 23:52:42
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:53:00
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:53:01
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:53:08
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:53:17
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:53:19
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:53:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:53:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:53:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:53:34
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:53:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:53:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:54:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:54:05
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:54:23
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:54:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:54:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:54:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:54:49
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:55:01
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:55:02
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:55:05
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:55:10
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:55:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:55:22
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:55:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:55:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:55:42
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:55:42
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @17.02.2016 23:55:42
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:55:56
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:56:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:56:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:56:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:57:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:57:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:57:16
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:57:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:57:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetNumber();
+
+*******************************************************
+WebException @17.02.2016 23:57:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :string GetString();
+
+*******************************************************
+WebException @17.02.2016 23:57:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:57:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:57:41
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:57:41
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:58:00
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:58:00
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:58:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:58:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:58:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:58:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:58:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:58:44
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:58:44
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:58:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:58:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:58:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:58:54
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:59:02
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @17.02.2016 23:59:07
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @17.02.2016 23:59:07
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertNone();
+
+*******************************************************
+WebException @17.02.2016 23:59:25
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:59:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:59:31
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @17.02.2016 23:59:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:59:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @17.02.2016 23:59:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertNone();
+
+*******************************************************
+WebException @17.02.2016 23:59:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @17.02.2016 23:59:37
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @17.02.2016 23:59:44
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:59:44
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @17.02.2016 23:59:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @17.02.2016 23:59:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @18.02.2016 00:00:08
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @18.02.2016 00:00:08
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @18.02.2016 00:00:15
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @18.02.2016 00:00:15
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @18.02.2016 00:00:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @18.02.2016 00:00:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @18.02.2016 00:00:38
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @18.02.2016 00:00:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Start();
+
+*******************************************************
+WebException @18.02.2016 00:00:45
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void VoidCall(int i);
+
+*******************************************************
+WebException @18.02.2016 00:00:46
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Do(IEnumerable<int> ints);
+
+*******************************************************
+WebException @18.02.2016 00:00:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :protected abstract void ExitLock();
+
+*******************************************************
+WebException @18.02.2016 00:00:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @18.02.2016 00:00:57
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :int GetInt();
+
+*******************************************************
+WebException @18.02.2016 00:01:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :List<RecursiveInterface> GetNestedWithArguments(int a, int b);
+
+*******************************************************
+WebException @18.02.2016 00:01:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void TryAdd(TKey key, TValue value);
+
+*******************************************************
+WebException @18.02.2016 00:01:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Start();
+
+*******************************************************
+WebException @18.02.2016 00:01:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void VoidCall(int i);
+
+*******************************************************
+WebException @18.02.2016 00:01:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void Do(IEnumerable<int> ints);
+
+*******************************************************
+WebException @18.02.2016 00:01:04
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :protected abstract void ExitLock();
+
+*******************************************************
+WebException @18.02.2016 00:01:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool Applies();
+
+*******************************************************
+WebException @18.02.2016 00:01:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @18.02.2016 00:01:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :T Resolve();
+
+*******************************************************
+WebException @18.02.2016 00:01:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void CheckAndRecord(ConstraintsViolations violations);
+
+*******************************************************
+WebException @18.02.2016 00:01:21
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :void AssertUnlocked();
+
+*******************************************************
+WebException @18.02.2016 00:01:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************

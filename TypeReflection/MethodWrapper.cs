@@ -15,9 +15,13 @@ namespace TddEbook.TypeReflection
 
     public object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory)
     {
-      var parameters = _methodInfo.GetParameters().Select(constructorParam => valueFactory(constructorParam.ParameterType)).ToArray();
-      var returnValue = _methodInfo.Invoke(instance, parameters);
-      return returnValue;
+      var parameters = GenerateAnyValuesFor(valueFactory);
+      return _methodInfo.Invoke(instance, parameters);
+    }
+
+    private object[] GenerateAnyValuesFor(Func<Type, object> valueFactory)
+    {
+      return _methodInfo.GetParameters().Select(p => p.ParameterType).Select(valueFactory).ToArray();
     }
 
     public object GenerateAnyReturnValue(Func<Type, object> valueFactory)

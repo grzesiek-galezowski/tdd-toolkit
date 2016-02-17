@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -158,6 +159,68 @@ namespace TddEbook.TddToolkit
     {
       return SortedDictionary<TKey, TValue>(Many);
     }
+    public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length)
+    {
+      var dict = new ConcurrentDictionary<TKey, TValue>();
+      for (int i = 0; i < length; ++i)
+      {
+        dict.TryAdd(Instance<TKey>(), Instance<TValue>());
+      }
+      return dict;
+
+    }
+
+    public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
+    {
+      return ConcurrentDictionary<TKey, TValue>(Many);
+    }
+
+    public static ConcurrentStack<T> ConcurrentStack<T>()
+    {
+      return ConcurrentStack<T>(Many);
+    }
+
+    public static ConcurrentStack<T> ConcurrentStack<T>(int length)
+    {
+      var coll = new ConcurrentStack<T>();
+      for (int i = 0; i < length; ++i)
+      {
+        coll.Push(Instance<T>());
+      }
+      return coll;
+    }
+
+    public static ConcurrentQueue<T> ConcurrentQueue<T>()
+    {
+      return ConcurrentQueue<T>(Many);
+    }
+
+    public static ConcurrentQueue<T> ConcurrentQueue<T>(int length)
+    {
+      var coll = new ConcurrentQueue<T>();
+      for (int i = 0; i < length; ++i)
+      {
+        coll.Enqueue(Instance<T>());
+      }
+      return coll;
+
+    }
+
+    public static ConcurrentBag<T> ConcurrentBag<T>()
+    {
+      return ConcurrentBag<T>(Many);
+    }
+
+    public static ConcurrentBag<T> ConcurrentBag<T>(int length)
+    {
+      var coll = new ConcurrentBag<T>();
+      for (int i = 0; i < length; ++i)
+      {
+        coll.Add(Instance<T>());
+      }
+      return coll;
+
+    }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>(int length)
     {
@@ -189,6 +252,7 @@ namespace TddEbook.TddToolkit
       return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
+
     public static object SortedList(Type keyType, Type valueType)
     {
       return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
@@ -200,6 +264,11 @@ namespace TddEbook.TddToolkit
     }
 
     public static object SortedDictionary(Type keyType, Type valueType)
+    {
+      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+    }
+
+    public static object ConcurrentDictionary(Type keyType, Type valueType)
     {
       return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
@@ -231,5 +300,24 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
     }
+
+
+    public static object ConcurrentStack(Type type)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    public static object ConcurrentQueue(Type type)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    public static object ConcurrentBag(Type type)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+
+
   }
 }

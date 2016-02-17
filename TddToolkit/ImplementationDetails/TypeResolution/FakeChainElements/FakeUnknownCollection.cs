@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TddEbook.TypeReflection;
@@ -9,11 +10,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   {
     public bool Applies()
     {
+      var isCollection = TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IProducerConsumerCollection<>))
+               || TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>));
       return TypeOf<T>.IsConcrete() &&
-        typeof (T).IsGenericType &&
-        TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>))
-        && TypeOf<T>.HasParameterlessConstructor();
-      
+             typeof (T).IsGenericType &&
+             isCollection &&
+             TypeOf<T>.HasParameterlessConstructor();
+
     }
 
 
@@ -21,16 +24,23 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       var collectionType = typeof (T);
       var collectionInstance = Activator.CreateInstance(collectionType);
-      var elementType = collectionInstance.GetType().GetGenericArguments().First();
+      var elementTypes = collectionType.GetGenericArguments();
 
-      var addMethod = collectionInstance.GetType().GetMethod("Add", new[] { elementType });
+      var addMethod = collectionType.GetMethod("Add", elementTypes)
+        ?? collectionType.GetMethod("TryAdd", elementTypes)
+        ?? collectionType.GetMethod("Push", elementTypes)
+        ?? collectionType.GetMethod("Enqueue", elementTypes);
 
-      addMethod.Invoke(collectionInstance, new[] { Any.Instance(elementType) });
-      addMethod.Invoke(collectionInstance, new[] { Any.Instance(elementType) });
-      addMethod.Invoke(collectionInstance, new[] { Any.Instance(elementType) });
+      addMethod.Invoke(collectionInstance, AnyInstancesOf(elementTypes));
+      addMethod.Invoke(collectionInstance, AnyInstancesOf(elementTypes));
+      addMethod.Invoke(collectionInstance, AnyInstancesOf(elementTypes));
 
       return (T) collectionInstance;
     }
 
+    private static object[] AnyInstancesOf(Type[] elementTypes)
+    {
+      return elementTypes.Select(t => Any.Instance(t)).ToArray();
     }
   }
+}

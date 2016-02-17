@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Text.RegularExpressions;
 using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkitSpecification
@@ -416,6 +418,44 @@ namespace TddEbook.TddToolkitSpecification
       var sortedDictionary = Any.SortedDictionary<string, ISimple>(anyCount);
       var sortedEnumerable = Any.EnumerableSortedDescending<string>(anyCount);
       var enumerable = Any.Enumerable<RecursiveInterface>(anyCount);
+      var concurrentDictionary = Any.ConcurrentDictionary<string, ISimple>(anyCount);
+      var concurrentBag = Any.ConcurrentBag<string>(anyCount);
+      var concurrentQueue = Any.ConcurrentQueue<string>(anyCount);
+      var concurrentStack = Any.ConcurrentStack<string>(anyCount);
+
+      XAssert.All(assert =>
+      {
+        assert.Equal(anyCount, list.Count);
+        assert.Equal(anyCount, enumerable.Count());
+        assert.Equal(anyCount, array.Length);
+        assert.Equal(anyCount, set.Count);
+        assert.Equal(anyCount, dictionary.Count);
+        assert.Equal(anyCount, sortedList.Count);
+        assert.Equal(anyCount, sortedDictionary.Count);
+        assert.Equal(anyCount, concurrentDictionary.Count);
+        assert.Equal(anyCount, sortedEnumerable.Count());
+        assert.Equal(anyCount, concurrentBag.Count);
+        assert.Equal(anyCount, concurrentStack.Count);
+        assert.Equal(anyCount, concurrentQueue.Count);
+      });
+    }
+
+    [Test]
+    public void ShouldSupportGeneratingCollections()
+    {
+      const int anyCount = 3;
+      var list = Any.List<RecursiveInterface>();
+      var array = Any.Array<RecursiveInterface>();
+      var set = Any.Set<RecursiveInterface>();
+      var dictionary = Any.Dictionary<RecursiveInterface, ISimple>();
+      var sortedList = Any.SortedList<string, ISimple>();
+      var sortedDictionary = Any.SortedDictionary<string, ISimple>();
+      var sortedEnumerable = Any.EnumerableSortedDescending<string>();
+      var enumerable = Any.Enumerable<RecursiveInterface>();
+      var concurrentDictionary = Any.ConcurrentDictionary<string, ISimple>();
+      var concurrentBag = Any.ConcurrentBag<string>();
+      var concurrentQueue = Any.ConcurrentQueue<string>();
+      var concurrentStack = Any.ConcurrentStack<string>();
 
       XAssert.All(assert =>
       {
@@ -427,8 +467,45 @@ namespace TddEbook.TddToolkitSpecification
         assert.Equal(anyCount, sortedList.Count);
         assert.Equal(anyCount, sortedDictionary.Count);
         assert.Equal(anyCount, sortedEnumerable.Count());
+        assert.Equal(anyCount, concurrentDictionary.Count);
+        assert.Equal(anyCount, concurrentBag.Count);
+        assert.Equal(anyCount, concurrentStack.Count);
+        assert.Equal(anyCount, concurrentQueue.Count);
       });
     }
+
+    [Test]
+    public void ShouldSupportGeneratingCollectionsUsingGenericInstanceMethod()
+    {
+      const int anyCount = 3;
+      var list = Any.Instance<List<RecursiveInterface>>();
+      var array = Any.Instance<RecursiveInterface[]>();
+      var set = Any.Instance<HashSet<RecursiveInterface>>();
+      var dictionary = Any.Instance<Dictionary<RecursiveInterface, ISimple>>();
+      var sortedList = Any.Instance<SortedList<string, ISimple>>();
+      var sortedDictionary = Any.Instance<SortedDictionary<string, ISimple>>();
+      var enumerable = Any.Instance<IEnumerable<RecursiveInterface>>();
+      var concurrentDictionary = Any.Instance<ConcurrentDictionary<string, ISimple>>();
+      var concurrentStack = Any.Instance<ConcurrentStack<string>>();
+      var concurrentBag = Any.Instance<ConcurrentBag<string>>();
+      var concurrentQueue = Any.Instance<ConcurrentQueue<string>>();
+
+      XAssert.All(assert =>
+      {
+        assert.Equal(anyCount, list.Count);
+        assert.Equal(anyCount, enumerable.Count());
+        assert.Equal(anyCount, array.Length);
+        assert.Equal(anyCount, set.Count);
+        assert.Equal(anyCount, dictionary.Count);
+        assert.Equal(anyCount, sortedList.Count);
+        assert.Equal(anyCount, sortedDictionary.Count);
+        assert.Equal(anyCount, concurrentDictionary.Count);
+        assert.Equal(anyCount, concurrentStack.Count);
+        assert.Equal(anyCount, concurrentBag.Count);
+        assert.Equal(anyCount, concurrentQueue.Count);
+      });
+    }
+
 
     [Test]
     public void ShouldAllowCreatingCustomCollectionInstances()

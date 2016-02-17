@@ -30,6 +30,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           ElseTryTo(ResolveAsSortedList(),
           ElseTryTo(ResolveAsSortedSet(),
           ElseTryTo(ResolveAsSortedDictionary(),
+          ElseTryTo(ResolveAsConcurrentDictionary(),
+          ElseTryTo(ResolveAsConcurrentBag(),
+          ElseTryTo(ResolveAsConcurrentQueue(),
+          ElseTryTo(ResolveAsConcurrentStack(),
           ElseTryTo(ResolveAsKeyValuePair(),
           ElseTryTo(ResolveAsGenericEnumerator(),
           ElseTryTo(ResolveAsObjectEnumerator(),
@@ -39,8 +43,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
           ElseTryTo(ResolveAsConcreteClass(),
           ElseReportUnsupportedType()
-      ))))))))))))))))));
+      ))))))))))))))))))))));
     }
+
+    
 
     private static FakeChain<T> OrderedChainOfGenerationsWithTheFollowingLogic(IChainElement<T> first)
     {
@@ -77,6 +83,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new FakeUnknownCollection<T>();
     }
 
+
     private static FakeEnumerator<T> ResolveAsObjectEnumerator()
     {
       return new FakeEnumerator<T>();
@@ -95,6 +102,26 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private static IResolution<T> ResolveAsSortedDictionary()
     {
       return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary();
+    }
+
+    private static IResolution<T> ResolveAsConcurrentStack()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentStack();
+    }
+
+    private static IResolution<T> ResolveAsConcurrentQueue()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentQueue();
+    }
+
+    private static IResolution<T> ResolveAsConcurrentBag()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentBag();
+    }
+
+    private static IResolution<T> ResolveAsConcurrentDictionary()
+    {
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentDictionary();
     }
 
     private static IResolution<T> ResolveAsSortedSet()

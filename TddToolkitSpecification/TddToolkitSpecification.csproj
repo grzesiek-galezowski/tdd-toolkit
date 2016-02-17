@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnySpecification.cs" />
     <Compile Include="ReceivedNothingSpecification.cs" />
+    <Compile Include="SpecialCasesResolutionsSpecification.cs" />
     <Compile Include="SynchronizationSpecification.cs" />
     <Compile Include="RecordedAssertionsSpecification.cs" />
     <Compile Include="SynchronizedMyService.cs" />
