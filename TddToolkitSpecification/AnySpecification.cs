@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
@@ -172,6 +171,18 @@ namespace TddEbook.TddToolkitSpecification
       //THEN
       XAssert.NotNull(createdProxy._constructorArgument);
       XAssert.NotNull(createdProxy._constructorNestedArgument);
+    }
+
+    [Test]
+    public void ShouldFillPropertiesWhenCreatingDataStructures()
+    {
+      //WHEN
+      var instance = Any.Instance<ConcreteDataStructure>();
+      
+      //THEN
+      Assert.NotNull(instance.Data);
+      Assert.NotNull(instance._field);
+      Assert.NotNull(instance.Data.Text);
     }
 
     [Test]
@@ -605,97 +616,6 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
-    {
-      //GIVEN
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
-
-      //WHEN
-      var result = instance.Object.Number;
-
-      //THEN
-      XAssert.NotEqual(default(int), result);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
-    {
-      //GIVEN
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(), s => s.Number.Returns(44543));
-
-      //WHEN
-      var result = instance.Object.Number;
-
-      //THEN
-      XAssert.Equal(44543, result);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
-    {
-      //GIVEN
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
-
-      //WHEN
-      instance.Object.VoidMethod();
-
-      //THEN
-      instance.Prototype.Received(1).VoidMethod();
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndOverrideNullInterfaceReturnValues()
-    {
-      //GIVEN
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
-      instance.Prototype.Nested.Returns(null as RecursiveInterface);
-
-      //WHEN
-      var result = instance.Object.Nested;
-
-      //THEN
-      Assert.NotNull(result);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
-    {
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>());
-      var anotherInstance = Substitute.For<RecursiveInterface>();
-      instance.Prototype.Nested.Returns(anotherInstance);
-
-      XAssert.Equal(anotherInstance, instance.Object.Nested);
-      XAssert.Equal(instance.Prototype.Nested, instance.Object.Nested);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndAllowSkippingOverrideOfMethodDefaultReturnValue()
-    {
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(),
-        s => s.Nested.Returns(null as RecursiveInterface))
-        .NoOverrideOf(m => m.Nested)
-        .NoOverrideOf(m => m.GetNested());
-
-      Assert.Null(instance.Object.GetNested());
-      Assert.Null(instance.Object.Nested);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndAllowForcingOverrideOfMethodReturnValueDespiteItBeingNotDefault()
-    {
-      var instance = Any.WrapperOver(Substitute.For<RecursiveInterface>(), s =>
-      {
-        s.Number.Returns(-9999);
-        s.GetNumber().Returns(-9998);
-      }).ForceOverrideOf(m => m.Number).ForceOverrideOf(m => m.GetNumber());
-
-      XAssert.NotEqual(default(int), instance.Object.Number);
-      XAssert.NotEqual(default(int), instance.Object.GetNumber());
-      XAssert.NotEqual(-9999, instance.Object.Number);
-      XAssert.NotEqual(-9998, instance.Object.GetNumber());
-    }
-
-    [Test]
     public void ShouldBeAbleToGenerateFiniteInstancesOfGenericEnumerators()
     {
       //GIVEN
@@ -902,9 +822,17 @@ namespace TddEbook.TddToolkitSpecification
   public class ConcreteDataStructure
   {
     public TimeSpan Span { get; set; }
+    public ConcreteDataStructure2 Data { get; set; }
+
+    public ConcreteDataStructure2 _field;
   }
 
-  public abstract class DataStructure
+  public class ConcreteDataStructure2
+  {
+    public string Text { get; set; }
+  }
+
+  public abstract class AbstractDataStructure
   {
     public int Lol11 { get; set; }
     public TimeSpan Span { get; set; }
@@ -918,89 +846,6 @@ namespace TddEbook.TddToolkitSpecification
     public int Lol19 { get; set; }
     public int Lol110 { get; set; }
     public int Lol111 { get; set; }
-  }
-
-  public class AnySubstituteSpecification
-  {
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
-    {
-      //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
-
-      //WHEN
-      var result = instance.Number;
-
-      //THEN
-      XAssert.NotEqual(default(int), result);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
-    {
-      //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
-      instance.Number.Returns(44543);
-
-      //WHEN
-      var result = instance.Number;
-
-      //THEN
-      XAssert.Equal(44543, result);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
-    {
-      //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
-
-      //WHEN
-      instance.VoidMethod();
-
-      //THEN
-      instance.Received(1).VoidMethod();
-    }
-
-    [Test]
-    public void ShouldReturnNonNullImplementationsOfInnerObjects()
-    {
-      //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
-
-      //WHEN
-      var result = instance.Nested;
-
-      //THEN
-      Assert.NotNull(result);
-    }
-
-    [Test]
-    public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
-    {
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
-      var anotherInstance = Substitute.For<AnySpecification.RecursiveInterface>();
-      instance.Nested.Returns(anotherInstance);
-
-      XAssert.Equal(anotherInstance, instance.Nested);
-    }
-
-    [Test]
-    public void ShouldBeAbleToBypassStaticCreationMethodWhenConstructorIsInternal()
-    {
-      Assert.DoesNotThrow(() => Any.Instance<FileExtension>());
-      Assert.DoesNotThrow(() => Any.Instance<FileName>());
-    }
-
-
-    [Test]
-    public void ShouldGenerateStringsContainingOtherObjects()
-    {
-      StringAssert.Contains("lol", Any.StringContaining("lol"));
-      StringAssert.Contains("lol", Any.StringContaining<string>("lol"));
-      StringAssert.Contains("2", Any.StringContaining(2));
-      StringAssert.Contains("C", Any.StringContaining('C'));
-    }
   }
 }
 

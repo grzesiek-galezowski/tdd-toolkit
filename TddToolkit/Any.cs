@@ -100,42 +100,6 @@ namespace TddEbook.TddToolkit
       }
     }
 
-    public static WrapperDuo<T> WrapperOver<T>(
-      T interfaceImplementation) where T : class
-    {
-      return WrapperOver(interfaceImplementation, _ => { });
-    }
-
-    public static WrapperDuo<T> WrapperOver<T>(
-      T interfaceImplementation, Action<T> setup) where T : class
-    {
-      var wrappingInterceptor = new WrappingInterceptor(new InterfaceInterceptor(CachedGeneration));
-      setup(interfaceImplementation);
-
-      if (typeof(T).IsInterface)
-      {
-        
-        return WrapperDuo<T>.With(
-          interfaceImplementation,
-          _proxyGenerator.CreateInterfaceProxyWithTarget(
-            interfaceImplementation, 
-            wrappingInterceptor),
-          wrappingInterceptor
-        );
-      }
-      else
-      {
-        return WrapperDuo<T>.With(
-          interfaceImplementation,
-          _proxyGenerator.CreateClassProxyWithTarget(
-            interfaceImplementation, 
-            wrappingInterceptor),
-          wrappingInterceptor
-        );
-      }
-    }
-
-
     public static MethodInfo Method()
     {
       return ValueOf<MethodInfo>();
@@ -156,6 +120,7 @@ namespace TddEbook.TddToolkit
       return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit, _proxyGenerator).Resolve();
     }
 
+    // ReSharper disable once UnusedMember.Local
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
       return OtherThan(omittedValues.Cast<T>().ToArray());
@@ -175,10 +140,9 @@ namespace TddEbook.TddToolkit
       return sub;
     }
 
-
     public static T OtherThan<T>(params T[] omittedValues)
     {
-      if(ReferenceEquals(omittedValues, null))
+      if (omittedValues == null)
       {
         return Instance<T>();
       }
@@ -191,7 +155,6 @@ namespace TddEbook.TddToolkit
 
       return currentValue;
     }
-
 
     public static Uri Uri()
     {

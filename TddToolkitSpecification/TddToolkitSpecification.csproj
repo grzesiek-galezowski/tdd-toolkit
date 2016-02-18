@@ -46,6 +46,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnySubstituteSpecification.cs" />
     <Compile Include="ChainedAssertionsSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="CloneSpecification.cs" />
