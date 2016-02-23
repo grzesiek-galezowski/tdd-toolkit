@@ -2058,3 +2058,56 @@ The remote name could not be resolved: 'gcop.watch.masoud.g.e'
 WebException @19.02.2016 00:31:17
 The remote name could not be resolved: 'gcop.watch.masoud.g.e'
 *******************************************************
+WebException @2/23/2016 9:32:12 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:32:20 AM
+The remote server returned an error: (404) Not Found.
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool HasNonPointerArgumentsOnly();
+
+*******************************************************
+WebException @2/23/2016 9:32:39 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:34:01 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:35:01 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:35:01 AM
+The remote server returned an error: (404) Not Found.
+Actual error is :
+Value does not fall within the expected range.
+Node :internal static void Valid(string extensionString)
+    {
+      if (Path.GetExtension(extensionString) != extensionString)
+      {
+        throw new ArgumentException("Invalid extension " + extensionString, "extensionString");
+      }
+    }
+
+*******************************************************
+WebException @2/23/2016 9:36:36 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:37:13 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:38:36 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:42:12 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:47:12 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:52:13 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @2/23/2016 9:57:12 AM
+The remote server returned an error: (404) Not Found.
+*******************************************************
