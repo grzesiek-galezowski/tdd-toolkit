@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
@@ -111,5 +113,27 @@ namespace TddEbook.TddToolkit
     {
       return Any.Byte();
     }
+
+    public static int IntegerDividableBy(int quotient)
+    {
+      return _numbersToMultiply.Next() * quotient;
+    }
+
+    public static int IntegerNotDividableBy(int quotient)
+    {
+      AssertQuotientMakesSense(quotient);
+      return IntegerDividableBy(quotient) + 1;
+    }
+
+    private static void AssertQuotientMakesSense(int quotient)
+    {
+      if (quotient == 1 || quotient == -1 || quotient == 0)
+      {
+        throw new ArgumentException($"generating an integer not dividable by {quotient} is not supported");
+      }
+    }
+
+    private static CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
+      System.Linq.Enumerable.Range(1, 100).ToArray());
   }
 }

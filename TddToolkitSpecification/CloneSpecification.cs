@@ -15,7 +15,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldCloneCircularLists()
     {
-      var circularList = new CircularList<string>("a", "b", "c");
+      var circularList = CircularList.CreateStartingFrom0("a", "b", "c");
 
       var clone = Clone.Of(circularList);
 

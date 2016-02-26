@@ -1,23 +1,40 @@
+using System;
+
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
+  public static class CircularList
+  {
+    private static readonly Random _random = new Random(DateTime.UtcNow.Millisecond);
+
+    public static CircularList<T> CreateStartingFrom0<T>(params T[] items)
+    {
+      return new CircularList<T>(0, items);
+    }
+    public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
+    {
+      return new CircularList<T>(_random.Next(0,items.Length - 1), items);
+    }
+  }
+
   public class CircularList<T>
   {
     private readonly T[] _items;
-    private int _currentIndex;
+    private int _startingIndex;
 
-    public CircularList(params T[] items)
+    public CircularList(int startingIndex, params T[] items)
     {
       _items = items;
+      _startingIndex = startingIndex;
     }
 
     public T Next()
     {
-      if(_currentIndex > _items.Length - 1)
+      if(_startingIndex > _items.Length - 1)
       {
-        _currentIndex = 0; 
+        _startingIndex = 0; 
       }
-      var result = _items[_currentIndex];
-      _currentIndex++;
+      var result = _items[_startingIndex];
+      _startingIndex++;
       return result;
     }
   }

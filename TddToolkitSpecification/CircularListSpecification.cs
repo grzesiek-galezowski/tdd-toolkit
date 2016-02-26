@@ -13,7 +13,7 @@ namespace TddEbook.TddToolkitSpecification
       var element1 = Any.Integer();
       var element2 = Any.Integer();
       var element3 = Any.Integer();
-      var list = new CircularList<int>(element1, element2, element3);
+      var list = CircularList.CreateStartingFrom0(element1, element2, element3);
       //WHEN
 
       var returnedElement1 = list.Next();
@@ -32,7 +32,7 @@ namespace TddEbook.TddToolkitSpecification
       //GIVEN
       var element1 = Any.Integer();
       var element2 = Any.Integer();
-      var list = new CircularList<int>(element1, element2);
+      var list = CircularList.CreateStartingFrom0(element1, element2);
       //WHEN
 
       var returnedElement1 = list.Next();

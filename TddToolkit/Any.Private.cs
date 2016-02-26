@@ -14,10 +14,9 @@ namespace TddEbook.TddToolkit
       private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
       private static readonly RegularExpressionGenerator RegexGenerator = new RegularExpressionGenerator();
       private static readonly CachedReturnValueGeneration CachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
-      private static readonly CircularList<char> Letters = new CircularList<char>("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
-      private static readonly CircularList<char> Digits = new CircularList<char>("5647382910".ToCharArray());
-      private static readonly CircularList<Type> Types = new CircularList<Type>(
-        typeof(Type1),
+      private static readonly CircularList<char> Letters = CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
+      private static readonly CircularList<char> Digits = CircularList.CreateStartingFromRandom("5647382910".ToCharArray());
+      private static readonly CircularList<Type> Types = CircularList.CreateStartingFromRandom(typeof(Type1),
         typeof(Type2),
         typeof(Type3),
         typeof(Type4),
@@ -31,22 +30,31 @@ namespace TddEbook.TddToolkit
         typeof(Type12),
         typeof(Type13));
 
-      private static readonly CircularList<MethodInfo> MethodList = new CircularList<MethodInfo>(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
+      private static readonly CircularList<MethodInfo> MethodList = CircularList.CreateStartingFromRandom(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
       private static readonly NestingLimit NestingLimit = NestingLimit.Of(5);
       private static readonly int[] PossibleOctetValues = System.Linq.Enumerable.Range(0, 255).ToArray();
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name)
       {
-        return typeof(Any).GetMethods().Where(m => m.Name == name)
-          .First(m => !m.GetParameters().Any() && m.IsGenericMethodDefinition).
-          MakeGenericMethod(new[] { type }).Invoke(null, null);
+        return typeof(Any).GetMethods().Where(NameIs(name))
+          .First(ParameterlessGenericVersion()).MakeGenericMethod(type).Invoke(null, null);
+      }
+
+      private static Func<MethodInfo, bool> ParameterlessGenericVersion()
+      {
+        return m => !m.GetParameters().Any() && m.IsGenericMethodDefinition;
+      }
+
+      private static Func<MethodInfo, bool> NameIs(string name)
+      {
+        return m => m.Name == name;
       }
 
       private static object ResultOfGenericVersionOfMethod(Type type, string name, object[] args)
       {
         var method = FindEmptyGenericsMethod(name);
 
-        var genericMethod = method.MakeGenericMethod(new[] { type });
+        var genericMethod = method.MakeGenericMethod(type);
         
         return genericMethod.Invoke(null, args);
       }
@@ -55,7 +63,7 @@ namespace TddEbook.TddToolkit
       {
         var method = FindEmptyGenericsMethod(name);
 
-        var genericMethod = method.MakeGenericMethod(new[] { type1, type2 });
+        var genericMethod = method.MakeGenericMethod(type1, type2);
         
         return genericMethod.Invoke(null, null);
       }

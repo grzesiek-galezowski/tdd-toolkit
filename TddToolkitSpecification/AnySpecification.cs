@@ -672,6 +672,29 @@ namespace TddEbook.TddToolkitSpecification
       Assert.Greater(value1, 12);
     }
 
+    [Test]
+    public void ShouldAllowGeneratingDividableIntegers()
+    {
+      var value1 = Any.IntegerDividableBy(5);
+      var value2 = Any.IntegerDividableBy(5);
+
+      XAssert.NotEqual(value1, value2);
+      XAssert.Equal(0, value1 % 5);
+      XAssert.Equal(0, value2 % 5);
+    }
+
+    [Test]
+    public void ShouldAllowGeneratingNotDividableIntegers()
+    {
+      var value1 = Any.IntegerNotDividableBy(5);
+      var value2 = Any.IntegerNotDividableBy(5);
+
+      XAssert.NotEqual(value1, value2);
+      XAssert.NotEqual(0, value1 % 5);
+      XAssert.NotEqual(0, value2 % 5);
+    }
+
+
     public interface RecursiveInterface
     {
       List<RecursiveInterface> GetNestedWithArguments(int a, int b);
