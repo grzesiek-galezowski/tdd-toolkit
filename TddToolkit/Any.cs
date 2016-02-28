@@ -5,6 +5,7 @@ using NSubstitute;
 using Ploeh.AutoFixture;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using Castle.DynamicProxy;
 using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
@@ -118,6 +119,11 @@ namespace TddEbook.TddToolkit
     public static T Instance<T>()
     {
       return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit, _proxyGenerator).Resolve();
+    }
+
+    public static T Dummy<T>()
+    {
+      return (T)FormatterServices.GetUninitializedObject(typeof (T));
     }
 
     // ReSharper disable once UnusedMember.Local

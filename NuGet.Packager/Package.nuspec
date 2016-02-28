@@ -12,6 +12,7 @@
         <releaseNotes>
           - Updated dependencies&#10;
           - Made circular list randomly pick first element&#10;
+          - Added dummy object generation via Any.Dummy() method&#10;
           - Added IntegerDividableBy() and IntegerNotDividableBy()
         </releaseNotes>
         <language>en-US</language>

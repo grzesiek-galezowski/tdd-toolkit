@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
@@ -692,6 +694,21 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.NotEqual(value1, value2);
       XAssert.NotEqual(0, value1 % 5);
       XAssert.NotEqual(0, value2 % 5);
+    }
+
+    [Test]
+    public void ShouldAllowGeneratingDummyObjectsBypassingConstructors()
+    {
+      Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
+      Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
+    }
+
+    public class ThrowingInConstructor
+    {
+      public ThrowingInConstructor()
+      {
+        throw new Exception();
+      }
     }
 
 
