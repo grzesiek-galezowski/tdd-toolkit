@@ -114,15 +114,15 @@ namespace TddEbook.TddToolkit
       return Any.Byte();
     }
 
-    public static int IntegerDividableBy(int quotient)
+    public static int IntegerDivisibleBy(int quotient)
     {
       return _numbersToMultiply.Next() * quotient;
     }
 
-    public static int IntegerNotDividableBy(int quotient)
+    public static int IntegerNotDivisibleBy(int quotient)
     {
       AssertQuotientMakesSense(quotient);
-      return IntegerDividableBy(quotient) + 1;
+      return IntegerDivisibleBy(quotient) + 1;
     }
 
     private static void AssertQuotientMakesSense(int quotient)

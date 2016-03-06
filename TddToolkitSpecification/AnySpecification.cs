@@ -675,10 +675,10 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldAllowGeneratingDividableIntegers()
+    public void ShouldAllowGeneratingDivisibleIntegers()
     {
-      var value1 = Any.IntegerDividableBy(5);
-      var value2 = Any.IntegerDividableBy(5);
+      var value1 = Any.IntegerDivisibleBy(5);
+      var value2 = Any.IntegerDivisibleBy(5);
 
       XAssert.NotEqual(value1, value2);
       XAssert.Equal(0, value1 % 5);
@@ -686,10 +686,10 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldAllowGeneratingNotDividableIntegers()
+    public void ShouldAllowGeneratingNotDivisibleIntegers()
     {
-      var value1 = Any.IntegerNotDividableBy(5);
-      var value2 = Any.IntegerNotDividableBy(5);
+      var value1 = Any.IntegerNotDivisibleBy(5);
+      var value2 = Any.IntegerNotDivisibleBy(5);
 
       XAssert.NotEqual(value1, value2);
       XAssert.NotEqual(0, value1 % 5);
