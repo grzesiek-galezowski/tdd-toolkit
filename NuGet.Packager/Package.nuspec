@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.38</version>
+        <version>1.0.39</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -10,10 +10,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
         <releaseNotes>
-          - Updated dependencies&#10;
-          - Made circular list randomly pick first element&#10;
-          - Added dummy object generation via Any.Dummy() method&#10;
-          - Added IntegerDividableBy() and IntegerNotDividableBy()
+          - a&#10;b
         </releaseNotes>
         <language>en-US</language>
     </metadata>
