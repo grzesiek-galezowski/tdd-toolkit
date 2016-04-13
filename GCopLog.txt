@@ -2463,3 +2463,359 @@ The remote name could not be resolved: 'gcop.watch.masoud.g.e'
 WebException @06.03.2016 18:53:40
 The remote name could not be resolved: 'gcop.watch.masoud.g.e'
 *******************************************************
+WebException @06.03.2016 18:54:40
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 18:55:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:00:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:05:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:10:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:15:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:20:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:25:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:30:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:35:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:40:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 19:45:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:19:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:20:22
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:21:22
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:24:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:29:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:34:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:39:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:44:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:49:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:54:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 20:59:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:04:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:09:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:14:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:19:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:22:32
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:24:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:29:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:34:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 21:39:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 23:51:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @06.03.2016 23:56:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:01:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:06:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:11:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:16:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:21:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:26:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:31:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:36:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @07.03.2016 00:41:55
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 00:46:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 00:47:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 00:48:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 00:49:14
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:15:00
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:15:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:15:27
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :public Maybe<U> To<U>() where U : class
+    {
+      if (!HasValue)
+      {
+        return Maybe<U>.Not;
+      }
+      else
+      {
+        return Maybe.Wrap(Value as U);
+      }
+    }
+
+*******************************************************
+WebException @27.03.2016 01:16:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:17:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:18:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:19:30
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @27.03.2016 01:20:00
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:40:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:41:05
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :public static bool Is<T>()
+    {
+      var type = typeof (T);
+      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+    }
+
+*******************************************************
+WebException @28.03.2016 21:41:18
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:42:18
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:43:18
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:45:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:50:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 21:55:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:00:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:05:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:10:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:15:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:20:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:25:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:30:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:35:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:40:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:45:53
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:51:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:51:58
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :public static bool Is<T>()
+    {
+      var type = typeof (T);
+      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+    }
+
+*******************************************************
+WebException @28.03.2016 22:52:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:53:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @28.03.2016 22:56:47
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:42:51
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:43:26
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:44:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:44:27
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :public static bool Is<T>()
+    {
+      var type = typeof (T);
+      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+    }
+
+*******************************************************
+WebException @29.03.2016 22:45:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:46:20
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:47:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:52:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 22:57:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 23:02:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 23:07:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @29.03.2016 23:12:50
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:35:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:35:33
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:36:10
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :private void Do(ConcreteDataStructure data)
+    {
+      data.Span = TimeSpan.FromDays(12334);
+    }
+
+*******************************************************
+WebException @13.04.2016 20:36:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:37:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:38:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:39:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:40:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:40:29
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:45:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:50:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @13.04.2016 20:55:03
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************

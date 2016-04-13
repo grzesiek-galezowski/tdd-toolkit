@@ -118,7 +118,7 @@ namespace TddEbook.TddToolkit
 
     public static T Instance<T>()
     {
-      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit, _proxyGenerator).Resolve();
+      return InstanceOf<T>();
     }
 
     public static T Dummy<T>()
