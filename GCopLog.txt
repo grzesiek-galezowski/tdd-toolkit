@@ -2819,3 +2819,138 @@ The remote name could not be resolved: 'gcop.watch.masoud.g.e'
 WebException @13.04.2016 20:55:03
 The remote name could not be resolved: 'gcop.watch.masoud.g.e'
 *******************************************************
+WebException @4/28/2016 3:07:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:07:25 PM
+The remote server returned an error: (404) Not Found.
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :public static bool Is<T>()
+    {
+      var type = typeof (T);
+      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+    }
+
+*******************************************************
+WebException @4/28/2016 3:08:02 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:09:04 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:10:04 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:11:04 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:12:04 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:12:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:13:05 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:14:09 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:15:30 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:16:33 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:17:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:17:44 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:18:50 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:21:20 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:22:15 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:22:20 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:27:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:29:19 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:30:18 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:31:32 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:32:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:32:32 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:37:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:39:08 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:42:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:47:15 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:52:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 3:57:15 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:02:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:07:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:12:14 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:17:15 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:19:41 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:20:09 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:20:46 PM
+The remote server returned an error: (404) Not Found.
+Actual error is :
+Index and length must refer to a location within the string.
+Parameter name: length
+Node :public static bool Is<T>()
+    {
+      var type = typeof (T);
+      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+    }
+
+*******************************************************
+WebException @4/28/2016 4:21:08 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************
+WebException @4/28/2016 4:22:08 PM
+The remote server returned an error: (404) Not Found.
+*******************************************************

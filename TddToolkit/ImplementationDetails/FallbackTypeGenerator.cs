@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using FluentAssertions;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
@@ -25,7 +22,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     public T GenerateInstance()
     {
-      return (T)_fallbackTypeGenerator.GenerateInstance();
+      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance();
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance);
+      return generateInstance;
     }
 
     public List<object> GenerateConstructorParameters()
