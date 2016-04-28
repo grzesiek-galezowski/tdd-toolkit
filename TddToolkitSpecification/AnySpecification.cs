@@ -703,6 +703,16 @@ namespace TddEbook.TddToolkitSpecification
       Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
     }
 
+    [Test]
+    public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
+    {
+      var entity = Any.Instance<AreaEntity>();
+      XAssert.All(assert =>
+      {
+        assert.NotNull(entity.Feature);
+      });
+    }
+
     public class ThrowingInConstructor
     {
       public ThrowingInConstructor()
@@ -890,4 +900,19 @@ namespace TddEbook.TddToolkitSpecification
 }
 
 
+public class AreaEntity
+{
+  public Feature Feature { get; set; }
+}
 
+
+public class Feature
+{
+  public IGeometry Geometry { get; set; }
+}
+
+
+public interface IGeometry
+{
+
+}
