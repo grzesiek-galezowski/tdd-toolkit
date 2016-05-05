@@ -1,5 +1,8 @@
 using System;
+using System.Reflection;
+using FluentAssertions;
 using NSubstitute;
+using NSubstitute.Exceptions;
 
 namespace TddEbook.TddToolkit
 {
@@ -8,14 +11,63 @@ namespace TddEbook.TddToolkit
     public static void Synchronizes<T>(T wrappingObject, Action<T> callToCheck, LockAssertions lockAssertions,
                                              T wrappedObjectMock) where T : class
     {
+      NSubstituteIsInCorrectVersion(wrappedObjectMock);
       LockShouldBeReleasedAfterACall(wrappingObject, wrappedObjectMock, callToCheck, lockAssertions);
       LockShouldBeReleasedWhenCallThrowsException(lockAssertions, wrappingObject, wrappedObjectMock, callToCheck);
     }
 
     public static void Synchronizes<T, TReturn>(T wrappingObject, Func<T, TReturn> callToCheck, LockAssertions lockAssertions, T wrappedObjectMock) where T : class
     {
+      NSubstituteIsInCorrectVersion(wrappedObjectMock);
       LockShouldBeReleasedAfterACall(wrappingObject, wrappedObjectMock, callToCheck, lockAssertions);
       LockShouldBeReleasedWhenCallThrowsException(lockAssertions, wrappingObject, wrappedObjectMock, t => callToCheck(t));
+    }
+
+    private static void NSubstituteIsInCorrectVersion<T>(T wrappedObjectMock) where T : class
+    {
+      try
+      {
+        wrappedObjectMock.ClearReceivedCalls();
+      }
+      catch (NotASubstituteException e)
+      {
+        AssertReferencedAndLoadedVersionsOfNSubstituteAreTheSame();
+        throw e;
+      }
+    }
+
+    private static void AssertReferencedAndLoadedVersionsOfNSubstituteAreTheSame()
+    {
+      var checkedAssemblyName = "NSubstitute";
+      ReferencedAndLoadedAssemblyVersionsAreTheSame(checkedAssemblyName);
+    }
+
+    public static void ReferencedAndLoadedAssemblyVersionsAreTheSame(string checkedAssemblyName)
+    {
+      foreach (var assemblyName in Assembly.GetExecutingAssembly().GetReferencedAssemblies())
+      {
+        if (assemblyName.Name.StartsWith(checkedAssemblyName))
+        {
+          var referencedAssemblyInfo = Assembly.Load(assemblyName).GetName();
+          var referencedAssemblyShortName = referencedAssemblyInfo.Name;
+
+          if (referencedAssemblyShortName.Equals(checkedAssemblyName))
+          {
+            foreach (var loadedAssembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+              var loadedAssemblyInfo = loadedAssembly.GetName();
+              if (referencedAssemblyShortName.Equals(loadedAssemblyInfo.Name))
+              {
+                loadedAssemblyInfo.Version.Should().Be(referencedAssemblyInfo.Version,
+                  "this is the version number of "+ checkedAssemblyName +" assembly referenced internally by Tdd-Toolkit " +
+                  "and it should match the version of assembly loaded at runtime (currently, this is not the case, " +
+                  "which means your tests are using an external "+ checkedAssemblyName + " dll with version different than the one needed by Tdd-Toolkit" +
+                  " - please update your "+ checkedAssemblyName + " assembly to version "+ referencedAssemblyInfo.Version + ")");
+              }
+            }
+          }
+        }
+      }
     }
 
     private static void LockShouldBeReleasedWhenCallThrowsException<T>(LockAssertions lockAssertions,

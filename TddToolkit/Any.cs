@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using Castle.DynamicProxy;
-using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
@@ -134,7 +133,7 @@ namespace TddEbook.TddToolkit
 
     public static T SubstituteOf<T>() where T : class
     {
-      var type = typeof(T);
+      var type = typeof (T);
       var sub = Substitute.For<T>();
 
       var methods = TypeWrapper.For(type).GetAllPublicInstanceMethodsWithReturnValue();
