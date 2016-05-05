@@ -52,10 +52,6 @@
       <HintPath>..\packages\CompareNETObjects.3.05.0.0\lib\net40\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LibZ.Bootstrap, Version=1.2.0.0, Culture=neutral, PublicKeyToken=62360e53307d6ba2, processorArchitecture=MSIL">
-      <HintPath>..\packages\LibZ.Bootstrap.1.2.0.0\lib\net4-client\LibZ.Bootstrap.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NClone">
       <HintPath>..\packages\NClone.1.1.1\lib\net40\NClone.dll</HintPath>
     </Reference>
@@ -107,7 +103,6 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
     <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\IntegerSequence.cs" />
-    <Compile Include="LibZResolver.cs" />
     <Compile Include="LockAssertions.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />
