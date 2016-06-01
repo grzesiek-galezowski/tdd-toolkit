@@ -20,5 +20,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
     {
       return _cache[cacheKey];
     }
+
+    public void Overwrite(PerMethodCacheKey key, T cachedObject)
+    {
+      _cache[key] = cachedObject;
+    }
   }
 }

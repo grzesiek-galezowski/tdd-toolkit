@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TypeReflection;
+// ReSharper disable PublicConstructorInAbstractClass
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -713,6 +715,67 @@ namespace TddEbook.TddToolkitSpecification
       });
     }
 
+    [Test]
+    public void ShouldAllowAccessToValuesSetOnPropertiesOnInterfaceInstancesWhenBothGetAndSetArePublic()
+    {
+      //GIVEN
+      var someValue = Any.Integer();
+      var obj = Any.Instance<IGetSettable<int>>();
+      
+      //WHEN
+      obj.Value = 123;
+      obj.Value = someValue;
+
+      //THEN
+      XAssert.Equal(someValue, obj.Value);
+    }
+
+    [Test]
+    public void ShouldAllowSettingPropertiesOnInterfaceInstancesWhenOnlySetIsPublic()
+    {
+      //GIVEN
+      var someValue = Any.Integer();
+      var obj = Any.Instance<ISettable<int>>();
+
+      //WHEN - THEN
+      Assert.DoesNotThrow(() =>
+      {
+        obj.Value = someValue;
+      });
+      
+    }
+
+    [Test]
+    public void ShouldAllowAccessToValueSetOnPropertiesOnAbstractClassesWhenBothGetAndSetArePublic()
+    {
+      //GIVEN
+      var someValue = Any.Integer();
+      var obj = Any.Instance<GetSettable<int>>();
+
+      //WHEN
+      obj.Value = 123;
+      obj.Value = someValue;
+
+      //THEN
+      XAssert.Equal(someValue, obj.Value);
+      XAssert.Equal(someValue, obj.Value);
+    }
+
+    [Test]
+    public void ShouldAllowSettingPropertiesOnAbstractClassesInstancesWhenOnlySetIsPublic()
+    {
+      //GIVEN
+      var someValue = Any.Integer();
+      var obj = Any.Instance<Settable<int>>();
+
+      //WHEN - THEN
+      Assert.DoesNotThrow(() =>
+      {
+        obj.Value = someValue;
+      });
+
+    }
+
     public class ThrowingInConstructor
     {
       public ThrowingInConstructor()
@@ -731,6 +794,32 @@ namespace TddEbook.TddToolkitSpecification
       RecursiveInterface Nested { get; }
       int Number { get; }
       int GetNumber();
+    }
+
+    public interface IGetSettable<T>
+    {
+      T Value { get; set; }
+    }
+
+    public abstract class Settable<T>
+    {
+      private T _value;
+
+      public T Value
+      {
+        set { _value = value; }
+        private get { return _value; }
+      }
+    }
+
+    public abstract class GetSettable<T>
+    {
+      public T Value { get; set; }
+    }
+
+    public interface ISettable<T>
+    {
+      T Value { set; }
     }
 
     public interface ISimple
@@ -771,6 +860,7 @@ namespace TddEbook.TddToolkitSpecification
       private readonly string _b;
       public readonly ObjectWithInterfaceInConstructor _constructorNestedArgument;
 
+#pragma warning disable CC0060 // Abastract class should not have public constructors.
       public AbstractObjectWithInterfaceInConstructor(
         int a,
         ISimple constructorArgument,
@@ -782,6 +872,7 @@ namespace TddEbook.TddToolkitSpecification
         _b = b;
         _constructorNestedArgument = constructorNestedArgument;
       }
+#pragma warning restore CC0060 // Abastract class should not have public constructors.
 
       public abstract int AbstractInt { get; }
 

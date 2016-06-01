@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35a388f9-1da4-4911-a1c4-4528ee4b8475" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DePascalizationSpecification/DePascalizationSpecification.csproj" afterPath="$PROJECT_DIR$/DePascalizationSpecification/DePascalizationSpecification.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DePascalizationSpecification/packages.config" afterPath="$PROJECT_DIR$/DePascalizationSpecification/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Depascalization/Depascalization.csproj" afterPath="$PROJECT_DIR$/Depascalization/Depascalization.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Depascalization/packages.config" afterPath="$PROJECT_DIR$/Depascalization/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DepascalizationApp/DepascalizationApp.csproj" afterPath="$PROJECT_DIR$/DepascalizationApp/DepascalizationApp.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DepascalizationApp/packages.config" afterPath="$PROJECT_DIR$/DepascalizationApp/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NuGet.Packager/NuGet.Packager.csproj" afterPath="$PROJECT_DIR$/NuGet.Packager/NuGet.Packager.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NuGet.Packager/packages.config" afterPath="$PROJECT_DIR$/NuGet.Packager/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit.NUnitSpecification/TddToolkit.NUnitSpecification.csproj" afterPath="$PROJECT_DIR$/TddToolkit.NUnitSpecification/TddToolkit.NUnitSpecification.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit.NUnitSpecification/packages.config" afterPath="$PROJECT_DIR$/TddToolkit.NUnitSpecification/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit.Nunit/TddToolkit.NUnit.csproj" afterPath="$PROJECT_DIR$/TddToolkit.Nunit/TddToolkit.NUnit.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit.Nunit/packages.config" afterPath="$PROJECT_DIR$/TddToolkit.Nunit/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit/Any.cs" afterPath="$PROJECT_DIR$/TddToolkit/Any.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit/TddToolkit.csproj" afterPath="$PROJECT_DIR$/TddToolkit/TddToolkit.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkit/packages.config" afterPath="$PROJECT_DIR$/TddToolkit/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkitSpecification/TddToolkitSpecification.csproj" afterPath="$PROJECT_DIR$/TddToolkitSpecification/TddToolkitSpecification.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TddToolkitSpecification/packages.config" afterPath="$PROJECT_DIR$/TddToolkitSpecification/packages.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TypeReflection/TypeReflection.csproj" afterPath="$PROJECT_DIR$/TypeReflection/TypeReflection.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TypeReflection/packages.config" afterPath="$PROJECT_DIR$/TypeReflection/packages.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tdd-toolkit.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +13,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -41,12 +22,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ConstructorRetrievalFactory.cs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConstructorRetrievalFactory.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TypeReflection/ConstructorRetrievalFactory.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="752">
+              <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+              <folding>
+                <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+                <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+                <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PublicNonRecursiveConstructorRetrieval.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TypeReflection/ImplementationDetails/ConstructorRetrievals/PublicNonRecursiveConstructorRetrieval.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+              <folding>
+                <marker date="1431796983625" expanded="true" signature="6:94" ph="..." />
+                <marker date="1431796983625" expanded="true" signature="173:791" ph="{...}" />
+                <marker date="1431796983625" expanded="true" signature="252:789" ph="{...}" />
+                <marker date="1431796983625" expanded="true" signature="383:415" ph="{...}" />
+                <marker date="1431796983625" expanded="true" signature="507:785" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,6 +71,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy" />
+        <option value="$PROJECT_DIR$/TypeReflection/ImplementationDetails/ConstructorRetrievals/PublicNonRecursiveConstructorRetrieval.cs" />
       </list>
     </option>
   </component>
@@ -103,43 +115,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TddToolkit" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TypeReflection" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tdd-toolkit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TddToolkit" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TypeReflection" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Exceptions" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NoSuchOperatorInTypeException.cs" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tdd-toolkit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TddToolkit" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.nodes.RiderProjectViewNode" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -177,6 +153,7 @@
       <changelist id="35a388f9-1da4-4911-a1c4-4528ee4b8475" name="Default" comment="" />
       <created>1457820483004</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1457820483004</updated>
     </task>
     <servers />
@@ -223,9 +200,37 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/TypeReflection/ConstructorRetrievalFactory.cs">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+          <folding>
+            <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+            <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TypeReflection/ImplementationDetails/ConstructorRetrievals/PublicNonRecursiveConstructorRetrieval.cs">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1431796983625" expanded="true" signature="6:94" ph="..." />
+            <marker date="1431796983625" expanded="true" signature="173:791" ph="{...}" />
+            <marker date="1431796983625" expanded="true" signature="252:789" ph="{...}" />
+            <marker date="1431796983625" expanded="true" signature="383:415" ph="{...}" />
+            <marker date="1431796983625" expanded="true" signature="507:785" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -233,22 +238,124 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+            <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TypeReflection/ConstructorRetrievalFactory.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+            <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TypeReflection/ConstructorRetrievalFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+            <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TypeReflection/ConstructorRetrievalFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+            <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy" />
+    <entry file="file://$PROJECT_DIR$/TypeReflection/ConstructorRetrievalFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+          <folding>
+            <marker date="1431803215814" expanded="true" signature="6:203" ph="..." />
+            <marker date="1431803215814" expanded="true" signature="283:2060" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="390:793" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="850:912" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="954:998" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1094:1167" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1265:1339" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1438:1513" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1613:1689" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1794:1875" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="1977:2056" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2122:2298" ph="{...}" />
+            <marker date="1431803215814" expanded="true" signature="2217:2294" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TypeReflection/ImplementationDetails/ConstructorRetrievals/PublicNonRecursiveConstructorRetrieval.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          <folding>
+            <marker date="1431796983625" expanded="true" signature="6:94" ph="..." />
+            <marker date="1431796983625" expanded="true" signature="173:791" ph="{...}" />
+            <marker date="1431796983625" expanded="true" signature="252:789" ph="{...}" />
+            <marker date="1431796983625" expanded="true" signature="383:415" ph="{...}" />
+            <marker date="1431796983625" expanded="true" signature="507:785" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
