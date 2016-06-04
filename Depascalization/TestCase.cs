@@ -6,10 +6,12 @@ namespace Depascalization
   public class TestCase
   {
     private readonly XElement _xElement;
+    private readonly Transformation _transformation;
 
     public TestCase(XElement xElement)
     {
       _xElement = xElement;
+      _transformation = new Transformation();
     }
 
     public void HumanizeName()
@@ -23,7 +25,7 @@ namespace Depascalization
         nameTextParts[i] = nameTextParts[i].Replace("Specification", " Specification");
       }
 
-      nameTextParts[nameTextParts.Length - 1] = new Depascalization().Of(nameTextParts[nameTextParts.Length - 1]);
+      nameTextParts[nameTextParts.Length - 1] = _transformation.Of(nameTextParts[nameTextParts.Length - 1]);
 
       _xElement.SetAttributeValue("name", nameTextParts.Aggregate((str1, str2) => str1 + ". " + str2));
     }

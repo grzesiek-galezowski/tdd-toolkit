@@ -3,36 +3,28 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Linq;
+using Humanizer;
 
 namespace Depascalization
 {
-  public class Depascalization
+  public class Transformation
   {
     public string Of(string input)
     {
-      const string space = " ";
-      var currentString = input;
-      if (currentString.Length == 0) return currentString;
+      var parts = input.Split('(');
+      return FirstPart(parts) + SecondPart(parts);
+    }
 
-      var parts = currentString.Split('(');
-      currentString = parts[0];
+    private static string SecondPart(string[] parts)
+    {
+      return (parts.Length > 1 ? " (" + parts[1] : string.Empty);
+    }
 
-      currentString = Char.ToLower(currentString[0]) + currentString.Substring(1);
-      currentString = Regex.Replace(currentString, 
-        "[^A-Z][A-Z]", m => m._0() + space + m._1());
-      currentString = Regex.Replace(currentString, 
-        "[a-z][0-9]", m => m._0() + space + m._1());
-      currentString = Regex.Replace(currentString, 
-        "[IA][A-Z][^A-Z]", m => m._0() + space + m._1() + m._2());
-      currentString = Regex.Replace(currentString, 
-        "[ ][A-Z][^B-Z ]", m => m._0() + m._1().ToLower() + m._2());
-      currentString = Regex.Replace(currentString, 
-        "[ ]A[ ]", m => m._0() + m._1().ToLower() + m._2());
-      currentString = Regex.Replace(currentString, 
-        "[A-Z][A-Z][a-z]", m => m._0() + space + m._1().ToLower() + m._2());
-      currentString = Regex.Replace(currentString, 
-        "[A-Z][0-9]", m => m._0() + space + m._1().ToLower());
-      return currentString + (parts.Length > 1 ? " (" + parts[1] : string.Empty);
+    private static string FirstPart(string[] parts)
+    {
+      var humanizedVersion = parts[0].Humanize();
+      if (humanizedVersion == string.Empty) return humanizedVersion;
+      return Char.ToLowerInvariant(humanizedVersion[0]) + humanizedVersion.Substring(1);
     }
 
     public string OfNUnitReport(string nunitReport)

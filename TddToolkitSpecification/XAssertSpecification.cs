@@ -305,8 +305,14 @@ namespace TddEbook.TddToolkitSpecification
   {
     public GuardedObject(int a, string b, int c, string dede)
     {
-      Guard.ArgumentNotNull(b, "x");
-      Guard.ArgumentNotNull(dede, "y");
+      ArgumentNotNull(b, "x");
+      ArgumentNotNull(dede, "y");
+    }
+
+    public static void ArgumentNotNull(object value, string name)
+    {
+      if (value == null)
+        throw new ArgumentNullException("Argument " + name + " must not be null", name);
     }
   }
 

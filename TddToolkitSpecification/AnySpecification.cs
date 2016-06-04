@@ -638,7 +638,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateFiniteInstancesOfNonGenericEnumerators()
     {
       //GIVEN
-      var enumerator = Any.Instance<IEnumerator>();
+      var enumerator = Any<IEnumerator>.Instance();
 
       //WHEN
       enumerator.MoveNext();
@@ -655,7 +655,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
     {
       //GIVEN
-      var instance = Any.Instance<IObservableConcurrentDictionary<string, string>>();
+      var instance = Any<IObservableConcurrentDictionary<string, string>>.Instance();
 
       //WHEN
       var element1 = instance.GetEnumerator().Current;

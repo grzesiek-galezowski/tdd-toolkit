@@ -21,7 +21,7 @@ namespace DePascalizationSpecification
       public void ShouldDepascalizeString(string input, string expected, string comment)
       {
         //GIVEN
-        var depascalization = new Depascalization.Depascalization();
+        var depascalization = new Depascalization.Transformation();
 
         //WHEN
         var depascalizedString = depascalization.Of(input);
@@ -37,7 +37,7 @@ namespace DePascalizationSpecification
         const string input = ExampleNUnitReport.Text;
         const string expectedReport = ExampleNUnitReport.DepascalizedText;
         var splitExpected = expectedReport.Split(new[] { '>' }, StringSplitOptions.None);
-        var depascalization = new Depascalization.Depascalization();
+        var depascalization = new Depascalization.Transformation();
 
         //WHEN
         var depascalizedVersion = depascalization.OfNUnitReport(input);

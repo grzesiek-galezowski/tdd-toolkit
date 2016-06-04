@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using CommandLine;
+using Depascalization;
 
 namespace DepascalizationApp
 {
@@ -15,7 +16,7 @@ namespace DepascalizationApp
       result.WithParsed(options => 
       {
         var fileContent = File.ReadAllText(options.InputFile);
-        var outputXml = new Depascalization.Depascalization().OfNUnitReport(fileContent);
+        var outputXml = new Transformation().OfNUnitReport(fileContent);
         File.WriteAllText(options.OutputFile, outputXml);
       });
 
