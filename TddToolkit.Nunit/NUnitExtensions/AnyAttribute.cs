@@ -1,22 +1,32 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections;
-using System.Reflection;
+using NSubstitute;
+using NUnit.Framework.Interfaces;
 
 namespace TddEbook.TddToolkit.Nunit.NUnitExtensions
 {
-  /*
-  [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
-  public class AnyAttribute  : ParameterDataAttribute
+
+  [AttributeUsage(AttributeTargets.Parameter)]
+  public class AnyAttribute : DataAttribute, IParameterDataSource
   {
-     public override IEnumerable GetData(ParameterInfo parameter)
-     {
-       return new[] { Any.Instance(parameter.ParameterType)};
-     }
+    public IEnumerable GetData(IParameterInfo parameter)
+    {
+      return new[] { Any.Instance(parameter.ParameterType) };
+    }
   }
 
-  [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
-  public class AnyOtherThanAttribute : ParameterDataAttribute
+  [AttributeUsage(AttributeTargets.Parameter)]
+  public class SubstituteAttribute : DataAttribute, IParameterDataSource
+  {
+    public IEnumerable GetData(IParameterInfo parameter)
+    {
+      return new[] { Substitute.For(new[] { parameter.ParameterType}, new object[] {}) };
+    }
+  }
+
+  [AttributeUsage(AttributeTargets.Parameter)]
+  public class AnyOtherThanAttribute : DataAttribute, IParameterDataSource
   {
     private readonly object[] _omittedValues;
 
@@ -25,11 +35,9 @@ namespace TddEbook.TddToolkit.Nunit.NUnitExtensions
       _omittedValues = omittedValues;
     }
 
-    public override IEnumerable GetData(ParameterInfo parameter)
+    public IEnumerable GetData(IParameterInfo parameter)
     {
       return new[] { Any.InstanceOtherThanObjects(parameter.ParameterType, new object[] { _omittedValues }) };
     }
   }
-
-*/
 }

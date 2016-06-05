@@ -2,16 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Security;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 using TddEbook.TypeReflection;
 // ReSharper disable PublicConstructorInAbstractClass
 
@@ -521,6 +519,38 @@ namespace TddEbook.TddToolkitSpecification
       });
     }
 
+    [Test]
+    public void ShouldSupportGeneratingCollectionsUsingGenericInstanceMethodUsingAttributes(
+    [Any] List<RecursiveInterface> list,
+    [Any] RecursiveInterface[] array,
+    [Any] HashSet<RecursiveInterface> set,
+    [Any] Dictionary<RecursiveInterface, ISimple> dictionary,
+    [Any] SortedList<string, ISimple> sortedList,
+    [Any] SortedDictionary<string, ISimple> sortedDictionary,
+    [Any] IEnumerable<RecursiveInterface> enumerable,
+    [Any] ConcurrentDictionary<string, ISimple> concurrentDictionary,
+    [Any] ConcurrentStack<string> concurrentStack,
+    [Any] ConcurrentBag<string> concurrentBag,
+    [Any] ConcurrentQueue<string> concurrentQueue
+      )
+    {
+      const int anyCount = 3;
+
+      XAssert.All(assert =>
+      {
+        assert.Equal(anyCount, list.Count);
+        assert.Equal(anyCount, enumerable.Count());
+        assert.Equal(anyCount, array.Length);
+        assert.Equal(anyCount, set.Count);
+        assert.Equal(anyCount, dictionary.Count);
+        assert.Equal(anyCount, sortedList.Count);
+        assert.Equal(anyCount, sortedDictionary.Count);
+        assert.Equal(anyCount, concurrentDictionary.Count);
+        assert.Equal(anyCount, concurrentStack.Count);
+        assert.Equal(anyCount, concurrentBag.Count);
+        assert.Equal(anyCount, concurrentQueue.Count);
+      });
+    }
 
     [Test]
     public void ShouldAllowCreatingCustomCollectionInstances()
@@ -577,8 +607,6 @@ namespace TddEbook.TddToolkitSpecification
       CollectionAssert.Contains(array, 3);
       Assert.GreaterOrEqual(array.Length, 3);
     }
-
-
 
     [Test]
     public void ShouldSupportCreationOfKeyValuePairs()
@@ -742,7 +770,6 @@ namespace TddEbook.TddToolkitSpecification
       {
         obj.Value = someValue;
       });
-      
     }
 
     [Test]
@@ -1007,3 +1034,4 @@ public interface IGeometry
 {
 
 }
+

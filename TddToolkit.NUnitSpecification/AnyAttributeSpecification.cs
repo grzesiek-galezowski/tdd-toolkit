@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using TddEbook.TddToolkit.Nunit.NUnitExtensions;
+
 //using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 
 namespace TddEbook.TddToolkit.NUnitSpecification
 {
   public class AnyAttributeSpecification
   {
-    /*
-    [Test, Category("DoesNotRunWithCustomRunners"), Ignore("not yet supported by most tools")]
+    [Test]
     public void ShouldAllowPassingDifferentObjectsAndPrimitivesThroughParameters
     (
       [Any] int anInt,
@@ -19,8 +20,8 @@ namespace TddEbook.TddToolkit.NUnitSpecification
       [Any] IEnumerable<int> anEnumerable, 
       [Any] List<string> concreteList,
       [Any] IEnumerable<ISimple> interfaceImplementationList,
-      [Any] ProperValueType value,
-      [AnyOtherThan(3,4)] int nonThree
+      [Any] ProperValueType value //,
+      //[AnyOtherThan(3,4)] int nonThree
     )
     {
       XAssert.NotEqual(default(int), anInt);
@@ -38,9 +39,8 @@ namespace TddEbook.TddToolkit.NUnitSpecification
 
       Assert.NotNull(value);
 
-      XAssert.NotEqual(3, nonThree);
+      //XAssert.NotEqual(3, nonThree);
     }
-    */
   }
 
   public interface ISimple

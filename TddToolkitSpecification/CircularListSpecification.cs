@@ -1,21 +1,23 @@
 ﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
+using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 
 namespace TddEbook.TddToolkitSpecification
 {
   public class CircularListSpecification
   {
     [Test]
-    public void ShouldReturnAllElementsInOrderTheyWereAdded()
+    public void ShouldReturnAllElementsInOrderTheyWereAdded(
+      [Any] int element1,
+      [Any] int element2,
+      [Any] int element3
+      )
     {
       //GIVEN
-      var element1 = Any.Integer();
-      var element2 = Any.Integer();
-      var element3 = Any.Integer();
       var list = CircularList.CreateStartingFrom0(element1, element2, element3);
-      //WHEN
 
+      //WHEN
       var returnedElement1 = list.Next();
       var returnedElement2 = list.Next();
       var returnedElement3 = list.Next();
@@ -27,11 +29,12 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldStartOverReturningElementsWhenItRunsOutOfElements()
+    public void ShouldStartOverReturningElementsWhenItRunsOutOfElements(
+      [Any] int element1,
+      [Any] int element2
+    )
     {
       //GIVEN
-      var element1 = Any.Integer();
-      var element2 = Any.Integer();
       var list = CircularList.CreateStartingFrom0(element1, element2);
       //WHEN
 

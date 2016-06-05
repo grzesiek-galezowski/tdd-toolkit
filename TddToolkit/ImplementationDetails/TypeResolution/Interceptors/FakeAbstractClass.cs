@@ -6,7 +6,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
   internal class FakeAbstractClass<T> : IResolution<T>
   {
     private readonly CachedReturnValueGeneration _generation;
-    private ProxyGenerator _proxyGenerator;
+    private readonly ProxyGenerator _proxyGenerator;
 
     public FakeAbstractClass(CachedReturnValueGeneration generation, ProxyGenerator proxyGenerator)
     {

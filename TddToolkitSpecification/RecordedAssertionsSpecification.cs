@@ -4,37 +4,34 @@ using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
+using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 
 namespace TddEbook.TddToolkitSpecification
 {
   class RecordedAssertionsSpecification
   {
     [Test]
-    public void ShouldAddErrorMessageWhenTruthAssertionFails()
+    public void ShouldAddErrorMessageWhenTruthAssertionFails(
+      [Substitute] IConstraintsViolations violations,
+      [Any] string message)
     {
-      //GIVEN
-      var violations = Substitute.For<IConstraintsViolations>();
-      var anyMessage = Any.String();
-
       //WHEN
-      RecordedAssertions.True(false, anyMessage, violations);
+      RecordedAssertions.True(false, message, violations);
 
       //THEN
-      violations.Received(1).Add(anyMessage);
+      violations.Received(1).Add(message);
     }
 
     [Test]
-    public void ShouldNotAddErrorMessageWhenTruthAssertionPasses()
+    public void ShouldNotAddErrorMessageWhenTruthAssertionPasses(
+      [Substitute] IConstraintsViolations violations,
+      [Any] string message)
     {
-      //GIVEN
-      var violations = Substitute.For<IConstraintsViolations>();
-      var anyMessage = Any.String();
-
       //WHEN
-      RecordedAssertions.True(true, anyMessage, violations);
+      RecordedAssertions.True(true, message, violations);
 
       //THEN
-      violations.DidNotReceive().Add(anyMessage);
+      violations.DidNotReceive().Add(message);
     }
 
 

@@ -3,23 +3,23 @@ using NSubstitute;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 using TddEbook.TddToolkit.NSubstitute;
+using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 
 namespace TddEbook.TddToolkitSpecification
 {
   public class ReceivedNothingSpecification
   {
     [Test]
-    public void ShouldPassWhenNoCallsWereMade()
+    public void ShouldPassWhenNoCallsWereMade(
+      [Substitute] IEnumerable sub)
     {
-      var sub = Substitute.For<IEnumerable>();
       Assert.DoesNotThrow(() => sub.ReceivedNothing());
     }
 
     [Test]
-    public void ShouldThrowWhenAnyCallsWereMade()
+    public void ShouldThrowWhenAnyCallsWereMade(
+      [Substitute] IList sub)
     {
-      var sub = Substitute.For<IList>();
-
       sub.GetEnumerator();
 
       Assert.Throws<CallSequenceNotFoundException>(() => sub.ReceivedNothing());
