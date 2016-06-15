@@ -10,18 +10,18 @@ namespace TddEbook.TddToolkit
   {
     public static string String()
     {
-      return Generator.Create<string>();
+      return _generator.Create<string>();
     }
     public static string String(string seed)
     {
-      return Generator.Create(seed);
+      return _generator.Create(seed);
     }
 
     public static string StringMatching(string pattern)
     {
       var request = new RegularExpressionRequest(pattern);
 
-      var result = RegexGenerator.Create(request, new DummyContext());
+      var result = _regexGenerator.Create(request, new DummyContext());
       return result.ToString();
     }
 
@@ -97,12 +97,12 @@ namespace TddEbook.TddToolkit
 
     public static char AlphaChar()
     {
-      return Letters.Next();
+      return _letters.Next();
     }
 
     public static char DigitChar()
     {
-      return Digits.Next();
+      return _digitChars.Next();
     }
 
     public static char Char()

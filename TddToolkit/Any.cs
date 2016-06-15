@@ -21,16 +21,16 @@ namespace TddEbook.TddToolkit
 
     static Any()
     {
-      Generator.Register(() => Types.Next());
-      Generator.Register(() => MethodList.Next());
-      Generator.Register(() => new Exception(String(), new Exception(String())));
-      Generator.Register(() => new IPAddress(new byte[] { Any.Octet(), Any.Octet(), Any.Octet(), Any.Octet() }));
-      Generator.Customize(new MultipleCustomization());
+      _generator.Register(() => _types.Next());
+      _generator.Register(() => MethodList.Next());
+      _generator.Register(() => new Exception(String(), new Exception(String())));
+      _generator.Register(() => new IPAddress(new byte[] { Any.Octet(), Any.Octet(), Any.Octet(), Any.Octet() }));
+      _generator.Customize(new MultipleCustomization());
     }
 
     public static IPAddress IpAddress()
     {
-      return Generator.Create<IPAddress>();
+      return _generator.Create<IPAddress>();
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
@@ -70,7 +70,7 @@ namespace TddEbook.TddToolkit
     public static T ValueOf<T>()
     {
       //bug: add support for creating generic structs with interfaces
-      return Generator.Create<T>();
+      return _generator.Create<T>();
     }
 
     public static string LegalXmlTagName()
@@ -112,7 +112,7 @@ namespace TddEbook.TddToolkit
 
     public static T InstanceOf<T>()
     {
-      return FakeChain<T>.NewInstance(CachedGeneration, NestingLimit, _proxyGenerator).Resolve();
+      return FakeChain<T>.NewInstance(_cachedGeneration, NestingLimit, _proxyGenerator).Resolve();
     }
 
     public static T Instance<T>()
@@ -178,15 +178,15 @@ namespace TddEbook.TddToolkit
 
     public static int Port()
     {
-      return RandomGenerator.Next(65535);
+      return _randomGenerator.Next(65535);
     }
 
     public static string Ip()
     {
-      return RandomGenerator.Next(256) + "."
-            + RandomGenerator.Next(256) + "."
-            + RandomGenerator.Next(256) + "."
-            + RandomGenerator.Next(256);
+      return _randomGenerator.Next(256) + "."
+            + _randomGenerator.Next(256) + "."
+            + _randomGenerator.Next(256) + "."
+            + _randomGenerator.Next(256);
     }
 
     public static object InstanceOf(Type type)

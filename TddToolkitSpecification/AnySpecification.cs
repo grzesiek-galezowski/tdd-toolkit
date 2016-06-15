@@ -28,6 +28,37 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.NotEqual(int1, int2);
     }
 
+    [Test, Repeat(10)]
+    public void ShouldGenerateDifferentDigitEachTime()
+    {
+      //GIVEN
+      var digit1 = Any.Digit();
+      var digit2 = Any.Digit();
+
+      //THEN
+      Assert.That(digit1, Is.GreaterThanOrEqualTo(0));
+      Assert.That(digit1, Is.LessThanOrEqualTo(9));
+      Assert.That(digit2, Is.GreaterThanOrEqualTo(0));
+      Assert.That(digit2, Is.LessThanOrEqualTo(9));
+      XAssert.NotEqual(digit1, digit2);
+    }
+
+    [Test, Repeat(10)]
+    public void ShouldGenerateDifferentPositiveDigitEachTime()
+    {
+      //GIVEN
+      var digit1 = Any.PositiveDigit();
+      var digit2 = Any.PositiveDigit();
+
+      //THEN
+      Assert.That(digit1, Is.GreaterThanOrEqualTo(1));
+      Assert.That(digit1, Is.LessThanOrEqualTo(9));
+      Assert.That(digit2, Is.GreaterThanOrEqualTo(1));
+      Assert.That(digit2, Is.LessThanOrEqualTo(9));
+      XAssert.NotEqual(digit1, digit2);
+    }
+
+
     [Test]
     public void ShouldGenerateDifferentIpAddressEachTime()
     {
@@ -801,6 +832,155 @@ namespace TddEbook.TddToolkitSpecification
         obj.Value = someValue;
       });
 
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctIntegersWithMaxNumberOfDigits()
+    {
+      var maxLength = MaxLengthOfInt();
+      var value1 = Any.IntegerWithExactDigitsCount(maxLength);
+      var value2 = Any.IntegerWithExactDigitsCount(maxLength);
+
+      XAssert.Equal(maxLength, 
+        value1.ToString().Length, 
+        value1.ToString());
+      XAssert.Equal(maxLength, 
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+                
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctUnsignedIntegersWithMaxNumberOfDigits()
+    {
+      var maxLength = MaxLengthOfUInt();
+      var value1 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
+      var value2 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
+
+      XAssert.Equal(maxLength,
+        value1.ToString().Length,
+        value1.ToString());
+      XAssert.Equal(maxLength,
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctLongWithMaxNumberOfDigits()
+    {
+      var maxLength = MaxLengthOfLong();
+      var value1 = Any.LongIntegerWithExactDigitsCount(maxLength);
+      var value2 = Any.LongIntegerWithExactDigitsCount(maxLength);
+
+      XAssert.Equal(maxLength,
+        value1.ToString().Length,
+        value1.ToString());
+      XAssert.Equal(maxLength,
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctUnsignedLongWithMaxNumberOfDigits()
+    {
+      var maxLength = MaxLengthOfULong();
+      var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
+      var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
+
+      XAssert.Equal(maxLength,
+        value1.ToString().Length,
+        value1.ToString());
+      XAssert.Equal(maxLength,
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctIntegersWithExactNumberOfDigits()
+    {
+      var length = MaxLengthOfInt() - 1;
+      var value1 = Any.IntegerWithExactDigitsCount(length);
+      var value2 = Any.IntegerWithExactDigitsCount(length);
+
+      XAssert.Equal(length, value1.ToString().Length, value1.ToString());
+      XAssert.Equal(length, value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctUnsignedIntegersWithExactNumberOfDigits()
+    {
+      var length = MaxLengthOfUInt() - 1;
+      var value1 = Any.UnsignedIntegerWithExactDigitsCount(length);
+      var value2 = Any.UnsignedIntegerWithExactDigitsCount(length);
+
+      XAssert.Equal(length,
+        value1.ToString().Length,
+        value1.ToString());
+      XAssert.Equal(length,
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctLongWithExactNumberOfDigits()
+    {
+      var length = MaxLengthOfLong() - 1;
+      var value1 = Any.LongIntegerWithExactDigitsCount(length);
+      var value2 = Any.LongIntegerWithExactDigitsCount(length);
+
+      XAssert.Equal(length,
+        value1.ToString().Length,
+        value1.ToString());
+      XAssert.Equal(length,
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingDistinctUnsignedLongWithExactNumberOfDigits()
+    {
+      var length = MaxLengthOfULong() - 1;
+      var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
+      var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
+
+      XAssert.Equal(length,
+        value1.ToString().Length,
+        value1.ToString());
+      XAssert.Equal(length,
+        value2.ToString().Length, value2.ToString());
+      XAssert.NotEqual(value1, value2);
+
+    }
+    [Test]
+    public void ShouldThrowArgumentOutOfRangeExceptionWhenGeneratingIntegersWithExactNumberOfDigitsOverflows()
+    {
+      Assert.Throws<ArgumentOutOfRangeException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
+    }
+
+
+
+    private static int MaxLengthOfInt()
+    {
+      return int.MaxValue.ToString().Length;
+    }
+    private static int MaxLengthOfUInt()
+    {
+      return uint.MaxValue.ToString().Length;
+    }
+    private static int MaxLengthOfLong()
+    {
+      return long.MaxValue.ToString().Length;
+    }
+    private static int MaxLengthOfULong()
+    {
+      return ulong.MaxValue.ToString().Length;
     }
 
     public class ThrowingInConstructor

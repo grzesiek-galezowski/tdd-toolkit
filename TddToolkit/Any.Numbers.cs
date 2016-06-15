@@ -133,7 +133,49 @@ namespace TddEbook.TddToolkit
       }
     }
 
-    private static CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
+    private static readonly CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
       System.Linq.Enumerable.Range(1, 100).ToArray());
+
+    private static readonly NumericTraits<int> _intTraits = NumericTraits.Integer();
+    private static readonly NumericTraits<long> _longTraits = NumericTraits.Long();
+    private static readonly NumericTraits<uint> _uintTraits = NumericTraits.UnsignedInteger();
+    private static readonly NumericTraits<ulong> _ulongTraits = NumericTraits.UnsignedLong();
+
+
+    public static int IntegerWithExactDigitsCount(int digitsCount)
+    {
+      return _intTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+    }
+
+    public static long LongIntegerWithExactDigitsCount(int digitsCount)
+    {
+      return _longTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+    }
+
+    public static uint UnsignedIntegerWithExactDigitsCount(int digitsCount)
+    {
+      return _uintTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+    }
+
+    public static ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount)
+    {
+      return _ulongTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+    }
+
+
+    public static byte Digit()
+    {
+      return _digits.Next();
+    }
+
+    public static byte PositiveDigit()
+    {
+      byte digit = Any.Digit();
+      while (digit == 0)
+      {
+        digit = Any.Digit();
+      }
+      return digit;
+    }
   }
 }

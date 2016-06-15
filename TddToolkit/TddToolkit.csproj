@@ -52,6 +52,10 @@
       <HintPath>..\packages\CompareNETObjects.3.05.0.0\lib\net40\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
+      <HintPath>..\packages\JonSkeet.MiscUtil.0.1\lib\net35-Client\MiscUtil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NClone">
       <HintPath>..\packages\NClone.1.1.1\lib\net40\NClone.dll</HintPath>
     </Reference>
@@ -67,11 +71,20 @@
       <HintPath>..\packages\AutoFixture.3.47.4\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PommaLabs.Thrower, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2f204b7110a52060, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thrower.2.2.2\lib\net40\PommaLabs.Thrower.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Troschuetz.Random, Version=4.0.3.0, Culture=neutral, PublicKeyToken=2f204b7110a52060, processorArchitecture=MSIL">
+      <HintPath>..\packages\Troschuetz.Random.4.0.4\lib\net40\Troschuetz.Random.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Any.GenericClass.cs" />
@@ -111,6 +124,7 @@
     <Compile Include="NSubstitute\Extensions.cs" />
     <Compile Include="NSubstitute\XArg.cs" />
     <Compile Include="NSubstitute\XReceived.cs" />
+    <Compile Include="NumericTraits.cs" />
     <Compile Include="SyncAssert.cs" />
     <Compile Include="ValueObjectWhiteList.cs" />
     <Compile Include="ValueTypeTraits.cs" />
