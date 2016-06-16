@@ -958,12 +958,24 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.NotEqual(value1, value2);
 
     }
+
     [Test]
     public void ShouldThrowArgumentOutOfRangeExceptionWhenGeneratingIntegersWithExactNumberOfDigitsOverflows()
     {
       Assert.Throws<ArgumentOutOfRangeException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => Any.LongIntegerWithExactDigitsCount(MaxLengthOfLong() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedIntegerWithExactDigitsCount(MaxLengthOfUInt() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
     }
 
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingNumericStringOfArbitraryLength()
+    {
+      var value1 = Any.NumericString(30);
+
+      XAssert.Equal(30, value1.Length);
+      
+    }
 
 
     private static int MaxLengthOfInt()

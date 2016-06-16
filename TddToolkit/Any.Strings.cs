@@ -110,5 +110,9 @@ namespace TddEbook.TddToolkit
       return Instance<char>();
     }
 
+    public static string NumericString(int digitsCount)
+    {
+      return "";
+    }
   }
 }
