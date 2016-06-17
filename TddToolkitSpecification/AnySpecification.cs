@@ -968,13 +968,32 @@ namespace TddEbook.TddToolkitSpecification
       Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
     }
 
-    [Test, Repeat(100)]
-    public void ShouldAllowGeneratingNumericStringOfArbitraryLength()
+    [TestCase(10)]
+    [TestCase(1)]
+    [Repeat(100)]
+    public void ShouldAllowGeneratingNumericStringOfArbitraryLength(int length)
     {
-      var value1 = Any.NumericString(30);
+      var value1 = Any.NumericString(length);
 
-      XAssert.Equal(30, value1.Length);
-      
+      AssertStringIsNumeric(value1, length);
+    }
+
+    [Test, Repeat(100)]
+    public void ShouldAllowGeneratingNumericStringOfLength1()
+    {
+      var value1 = Any.NumericString(1);
+
+      AssertStringIsNumeric(value1, 1);
+    }
+
+    private static void AssertStringIsNumeric(string theString, int expectedLength)
+    {
+      XAssert.Equal(expectedLength, theString.Length);
+      foreach (var character in theString)
+      {
+        Assert.True(char.IsDigit(character), $"Expected digit, got {character}");
+      }
+      Assert.AreNotEqual('0', theString[0]);
     }
 
 

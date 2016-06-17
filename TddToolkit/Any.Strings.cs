@@ -112,7 +112,7 @@ namespace TddEbook.TddToolkit
 
     public static string NumericString(int digitsCount)
     {
-      return "";
+      return Any.StringMatching("[1-9][0-9]{" + (digitsCount-1) +"}");
     }
   }
 }
