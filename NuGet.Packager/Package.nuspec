@@ -13,6 +13,7 @@
           - Setting properties on anonymous interface and abstract class instances makes get operation return the set values
           - Added Any%lt;T&gt;.Instance() syntax
           - Added generating numbers with exact number of digits
+          - Added generating numeric strings with exact number of digits
         </releaseNotes>
         <language>en-US</language>
     </metadata>

@@ -8,14 +8,8 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    public static string String()
-    {
-      return _generator.Create<string>();
-    }
-    public static string String(string seed)
-    {
-      return _generator.Create(seed);
-    }
+    public static string String() => _generator.Create<string>();
+    public static string String(string seed) => _generator.Create(seed);
 
     public static string StringMatching(string pattern)
     {
@@ -27,7 +21,7 @@ namespace TddEbook.TddToolkit
 
     public static string StringOfLength(int charactersCount)
     {
-      var result = System.String.Empty;
+      var result = string.Empty;
       while (result.Count() < charactersCount)
       {
         result += String();
@@ -35,15 +29,10 @@ namespace TddEbook.TddToolkit
       return result.Substring(0, charactersCount);
     }
 
-    public static string StringOtherThan(params string[] alreadyUsedStrings)
-    {
-      return ValueOtherThan(alreadyUsedStrings);
-    }
-
-    public static string StringNotContaining<T>(params T[] excludedObjects)
-    {
-      return StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
-    }
+    public static string StringOtherThan(params string[] alreadyUsedStrings) => 
+      ValueOtherThan(alreadyUsedStrings);
+    public static string StringNotContaining<T>(params T[] excludedObjects) => 
+      StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
 
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
@@ -59,20 +48,12 @@ namespace TddEbook.TddToolkit
       return result;
     }
 
-    public static string StringContaining<T>(T obj)
-    {
-      return StringContaining(obj.ToString());
-    }
-
-    public static string StringContaining(string str)
-    {
-      return String() + str + String();
-    }
-
-    public static string AlphaString()
-    {
-      return AlphaString(String().Length);
-    }
+    public static string StringContaining<T>(T obj) => 
+      StringContaining(obj.ToString());
+    public static string StringContaining(string str) => 
+      String() + str + String();
+    public static string AlphaString() => 
+      AlphaString(String().Length);
 
     public static string AlphaString(int maxLength)
     {
@@ -95,24 +76,13 @@ namespace TddEbook.TddToolkit
       return result;
     }
 
-    public static char AlphaChar()
-    {
-      return _letters.Next();
-    }
-
-    public static char DigitChar()
-    {
-      return _digitChars.Next();
-    }
-
-    public static char Char()
-    {
-      return Instance<char>();
-    }
-
-    public static string NumericString(int digitsCount)
-    {
-      return Any.StringMatching("[1-9][0-9]{" + (digitsCount-1) +"}");
-    }
+    public static char AlphaChar() => 
+      _letters.Next();
+    public static char DigitChar() => 
+      _digitChars.Next();
+    public static char Char() => 
+      Instance<char>();
+    public static string NumericString(int digitsCount = Many) => 
+      Any.StringMatching("[1-9][0-9]{" + (digitsCount - 1) + "}");
   }
 }

@@ -7,10 +7,10 @@ using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 using TddEbook.TypeReflection;
+
 // ReSharper disable PublicConstructorInAbstractClass
 
 namespace TddEbook.TddToolkitSpecification
@@ -211,7 +211,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       //WHEN
       var instance = Any.Instance<ConcreteDataStructure>();
-      
+
       //THEN
       Assert.NotNull(instance.Data);
       Assert.NotNull(instance._field);
@@ -264,7 +264,6 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       XAssert.NotAlike(x, y);
-
     }
 
     [Test]
@@ -552,17 +551,17 @@ namespace TddEbook.TddToolkitSpecification
 
     [Test]
     public void ShouldSupportGeneratingCollectionsUsingGenericInstanceMethodUsingAttributes(
-    [Any] List<RecursiveInterface> list,
-    [Any] RecursiveInterface[] array,
-    [Any] HashSet<RecursiveInterface> set,
-    [Any] Dictionary<RecursiveInterface, ISimple> dictionary,
-    [Any] SortedList<string, ISimple> sortedList,
-    [Any] SortedDictionary<string, ISimple> sortedDictionary,
-    [Any] IEnumerable<RecursiveInterface> enumerable,
-    [Any] ConcurrentDictionary<string, ISimple> concurrentDictionary,
-    [Any] ConcurrentStack<string> concurrentStack,
-    [Any] ConcurrentBag<string> concurrentBag,
-    [Any] ConcurrentQueue<string> concurrentQueue
+      [Any] List<RecursiveInterface> list,
+      [Any] RecursiveInterface[] array,
+      [Any] HashSet<RecursiveInterface> set,
+      [Any] Dictionary<RecursiveInterface, ISimple> dictionary,
+      [Any] SortedList<string, ISimple> sortedList,
+      [Any] SortedDictionary<string, ISimple> sortedDictionary,
+      [Any] IEnumerable<RecursiveInterface> enumerable,
+      [Any] ConcurrentDictionary<string, ISimple> concurrentDictionary,
+      [Any] ConcurrentStack<string> concurrentStack,
+      [Any] ConcurrentBag<string> concurrentBag,
+      [Any] ConcurrentQueue<string> concurrentQueue
       )
     {
       const int anyCount = 3;
@@ -631,7 +630,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportCreatingArraysWithSpecificEnumerableOfElements()
     {
-      var array = Any.ArrayWith<int>(new List<int> { 1, 2, 3 });
+      var array = Any.ArrayWith<int>(new List<int> {1, 2, 3});
 
       CollectionAssert.Contains(array, 1);
       CollectionAssert.Contains(array, 2);
@@ -742,8 +741,8 @@ namespace TddEbook.TddToolkitSpecification
       var value2 = Any.IntegerDivisibleBy(5);
 
       XAssert.NotEqual(value1, value2);
-      XAssert.Equal(0, value1 % 5);
-      XAssert.Equal(0, value2 % 5);
+      XAssert.Equal(0, value1%5);
+      XAssert.Equal(0, value2%5);
     }
 
     [Test]
@@ -753,8 +752,8 @@ namespace TddEbook.TddToolkitSpecification
       var value2 = Any.IntegerNotDivisibleBy(5);
 
       XAssert.NotEqual(value1, value2);
-      XAssert.NotEqual(0, value1 % 5);
-      XAssert.NotEqual(0, value2 % 5);
+      XAssert.NotEqual(0, value1%5);
+      XAssert.NotEqual(0, value2%5);
     }
 
     [Test]
@@ -768,10 +767,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
     {
       var entity = Any.Instance<AreaEntity>();
-      XAssert.All(assert =>
-      {
-        assert.NotNull(entity.Feature);
-      });
+      XAssert.All(assert => { assert.NotNull(entity.Feature); });
     }
 
     [Test]
@@ -780,7 +776,7 @@ namespace TddEbook.TddToolkitSpecification
       //GIVEN
       var someValue = Any.Integer();
       var obj = Any.Instance<IGetSettable<int>>();
-      
+
       //WHEN
       obj.Value = 123;
       obj.Value = someValue;
@@ -797,10 +793,7 @@ namespace TddEbook.TddToolkitSpecification
       var obj = Any.Instance<ISettable<int>>();
 
       //WHEN - THEN
-      Assert.DoesNotThrow(() =>
-      {
-        obj.Value = someValue;
-      });
+      Assert.DoesNotThrow(() => { obj.Value = someValue; });
     }
 
     [Test]
@@ -827,11 +820,7 @@ namespace TddEbook.TddToolkitSpecification
       var obj = Any.Instance<Settable<int>>();
 
       //WHEN - THEN
-      Assert.DoesNotThrow(() =>
-      {
-        obj.Value = someValue;
-      });
-
+      Assert.DoesNotThrow(() => { obj.Value = someValue; });
     }
 
     [Test, Repeat(100)]
@@ -841,13 +830,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.IntegerWithExactDigitsCount(maxLength);
       var value2 = Any.IntegerWithExactDigitsCount(maxLength);
 
-      XAssert.Equal(maxLength, 
-        value1.ToString().Length, 
+      XAssert.Equal(maxLength,
+        value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(maxLength, 
+      XAssert.Equal(maxLength,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-                
     }
 
     [Test, Repeat(100)]
@@ -863,7 +851,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(maxLength,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test, Repeat(100)]
@@ -879,7 +866,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(maxLength,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test, Repeat(100)]
@@ -895,7 +881,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(maxLength,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test, Repeat(100)]
@@ -908,7 +893,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(length, value1.ToString().Length, value1.ToString());
       XAssert.Equal(length, value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test, Repeat(100)]
@@ -924,7 +908,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(length,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test, Repeat(100)]
@@ -940,7 +923,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(length,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test, Repeat(100)]
@@ -956,7 +938,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(length,
         value2.ToString().Length, value2.ToString());
       XAssert.NotEqual(value1, value2);
-
     }
 
     [Test]
@@ -965,7 +946,8 @@ namespace TddEbook.TddToolkitSpecification
       Assert.Throws<ArgumentOutOfRangeException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
       Assert.Throws<ArgumentOutOfRangeException>(() => Any.LongIntegerWithExactDigitsCount(MaxLengthOfLong() + 1));
       Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedIntegerWithExactDigitsCount(MaxLengthOfUInt() + 1));
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(
+        () => Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
     }
 
     [TestCase(10)]
@@ -1001,14 +983,17 @@ namespace TddEbook.TddToolkitSpecification
     {
       return int.MaxValue.ToString().Length;
     }
+
     private static int MaxLengthOfUInt()
     {
       return uint.MaxValue.ToString().Length;
     }
+
     private static int MaxLengthOfLong()
     {
       return long.MaxValue.ToString().Length;
     }
+
     private static int MaxLengthOfULong()
     {
       return ulong.MaxValue.ToString().Length;
@@ -1134,8 +1119,6 @@ namespace TddEbook.TddToolkitSpecification
         throw new Exception("Let's suppose dummy data cause this method to throw exception");
       }
     }
-
-
   }
 
   public interface IObservableConcurrentDictionary<TKey, TValue>
@@ -1228,7 +1211,6 @@ namespace TddEbook.TddToolkitSpecification
   }
 }
 
-
 public class AreaEntity
 {
   public Feature Feature { get; set; }
@@ -1243,6 +1225,4 @@ public class Feature
 
 public interface IGeometry
 {
-
 }
-

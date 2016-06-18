@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using NSubstitute;
 using Ploeh.AutoFixture;
@@ -125,11 +126,17 @@ namespace TddEbook.TddToolkit
       return (T)FormatterServices.GetUninitializedObject(typeof (T));
     }
 
-    // ReSharper disable once UnusedMember.Local
+
+
+#pragma warning disable CC0068 // Unused Method
+#pragma warning disable S1144 // Unused private types or members should be removed
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
       return OtherThan(omittedValues.Cast<T>().ToArray());
     }
+#pragma warning restore S1144 // Unused private types or members should be removed
+#pragma warning restore CC0068 // Unused Method
 
     public static T SubstituteOf<T>() where T : class
     {
