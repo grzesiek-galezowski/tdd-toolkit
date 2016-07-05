@@ -968,6 +968,13 @@ namespace TddEbook.TddToolkitSpecification
       AssertStringIsNumeric(value1, 1);
     }
 
+    [Test]
+    public void ShouldHandleCopyConstructorsSomehow()
+    {
+      var o = Any.Instance<ObjectWithCopyConstructor>();
+      Assert.Null(o._field);
+    }
+
     private static void AssertStringIsNumeric(string theString, int expectedLength)
     {
       XAssert.Equal(expectedLength, theString.Length);
@@ -1115,8 +1122,18 @@ namespace TddEbook.TddToolkitSpecification
 
       public virtual string GetSomethingButThrowExceptionWhileGettingIt()
       {
-        throw new Exception("Let's suppose dummy data cause this method to throw exception");
+        throw new Exception("Let'_field suppose dummy data cause this method to throw exception");
       }
+    }
+  }
+
+  public class ObjectWithCopyConstructor
+  {
+    internal string _field;
+
+    public ObjectWithCopyConstructor(ObjectWithCopyConstructor o)
+    {
+      this._field = o._field;
     }
   }
 

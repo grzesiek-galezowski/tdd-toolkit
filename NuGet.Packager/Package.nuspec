@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.44</version>
+        <version>1.0.45</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -10,10 +10,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
         <releaseNotes>
-          - Setting properties on anonymous interface and abstract class instances makes get operation return the set values
-          - Added Any%lt;T&gt;.Instance() syntax
-          - Added generating numbers with exact number of digits
-          - Added generating numeric strings with exact number of digits
+          - a little better handling of recursive constructors (returning uninitialized object instead of null where possible)
         </releaseNotes>
         <language>en-US</language>
     </metadata>
