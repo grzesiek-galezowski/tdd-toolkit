@@ -17,8 +17,7 @@ namespace TddEbook.TypeReflection
                   PublicRecursiveConstructors(
                     InternalRecursiveConstructors(
                       PrimitiveConstructor()
-                    )
-                ))))));
+                    )))))));
     }
 
     private ConstructorRetrieval PublicStaticNonRecursiveFactoryMethod(ConstructorRetrieval next)
