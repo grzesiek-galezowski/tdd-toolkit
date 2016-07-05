@@ -80,5 +80,15 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     {
       return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type))};
     }
+
+    public bool IsNotRecursive()
+    {
+      return true;
+    }
+
+    public bool IsRecursive()
+    {
+      return false;
+    }
   }
 }

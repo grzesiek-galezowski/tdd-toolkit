@@ -16,5 +16,7 @@ namespace TddEbook.TypeReflection.Interfaces
     object InvokeWith(IEnumerable<object> constructorParameters);
     bool HasAnyArgumentOfType(Type type);
     bool IsInternal();
+    bool IsNotRecursive();
+    bool IsRecursive();
   }
 }

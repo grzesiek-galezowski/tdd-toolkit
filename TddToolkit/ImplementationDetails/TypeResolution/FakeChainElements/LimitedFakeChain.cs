@@ -28,7 +28,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         {
           try
           {
-            return (T) FormatterServices.GetUninitializedObject(typeof(T));
+            try
+            {
+              return (T) FormatterServices.GetUninitializedObject(typeof(T));
+            }
+            catch (Exception e)
+            {
+              Console.WriteLine(e);
+              return default(T);
+            }
           }
           catch (TargetInvocationException e)
           {

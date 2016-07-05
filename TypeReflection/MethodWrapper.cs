@@ -28,5 +28,6 @@ namespace TddEbook.TypeReflection
     {
       return valueFactory.Invoke(_methodInfo.ReturnType);
     }
+
   }
 }

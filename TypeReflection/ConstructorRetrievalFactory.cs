@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using TddEbook.TypeReflection.ImplementationDetails;
 using TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals;
-using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
 {
@@ -14,13 +11,19 @@ namespace TddEbook.TypeReflection
       _constructorQuery = 
         PublicNonRecursiveConstructors(
           PublicParameterlessConstructors(
-            InternalConstructorsWithoutRecursion(
+            InternalNonRecursiveConstructors(
               InternalParameterlessConstructors(
-                PublicRecursiveConstructors(
-                  InternalRecursiveConstructors(
-                    PrimitiveConstructor()
+                PublicStaticNonRecursiveFactoryMethod(
+                  PublicRecursiveConstructors(
+                    InternalRecursiveConstructors(
+                      PrimitiveConstructor()
                     )
-                )))));
+                ))))));
+    }
+
+    private ConstructorRetrieval PublicStaticNonRecursiveFactoryMethod(ConstructorRetrieval next)
+    {
+      return new PublicStaticFactoryMethodRetrieval(next);
     }
 
     private ConstructorRetrieval PrimitiveConstructor()
@@ -53,7 +56,7 @@ namespace TddEbook.TypeReflection
       return new PublicParameterlessConstructorRetrieval(next);
     }
 
-    private static ConstructorRetrieval InternalConstructorsWithoutRecursion(ConstructorRetrieval next)
+    private static ConstructorRetrieval InternalNonRecursiveConstructors(ConstructorRetrieval next)
     {
       return new InternalConstructorWithoutRecursionRetrieval(next);
     }
@@ -61,14 +64,6 @@ namespace TddEbook.TypeReflection
     private static ConstructorRetrieval InternalParameterlessConstructors(ConstructorRetrieval next)
     {
       return new NonPublicParameterlessConstructorRetrieval(next);
-    }
-  }
-
-  class PrimitiveConstructorRetrieval : ConstructorRetrieval
-  {
-    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
-    {
-      return constructors.TryToObtainPrimitiveTypeConstructor();
     }
   }
 }

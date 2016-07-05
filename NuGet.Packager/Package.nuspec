@@ -11,6 +11,7 @@
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
         <releaseNotes>
           - a little better handling of recursive constructors (returning uninitialized object instead of null where possible)
+          - prefer public non-recursive factory methods over recursive constructors
         </releaseNotes>
         <language>en-US</language>
     </metadata>

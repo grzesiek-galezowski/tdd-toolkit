@@ -8,16 +8,35 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 {
   public class ConstructorWrapper : IConstructorWrapper
   {
-    private readonly ConstructorInfo _constructor;
-    private readonly ParameterInfo[] _parameters;
-    private readonly bool _hasAbstractOrInterfaceArguments;
+    public static ConstructorWrapper FromConstructorInfo(ConstructorInfo constructor)
+    {
+      return new ConstructorWrapper(constructor, constructor.Invoke, constructor.GetParameters(), constructor.DeclaringType);
+    }
 
-    public ConstructorWrapper(ConstructorInfo constructor)
+    public static ConstructorWrapper FromStaticMethodInfo(MethodInfo m)
+    {
+      return new ConstructorWrapper(m, args => m.Invoke(null, args), m.GetParameters(), m.ReturnType);
+    }
+
+
+    private readonly MethodBase _constructor;
+    private readonly ParameterInfo[] _parameters;
+    private readonly Type _returnType;
+    private readonly bool _hasAbstractOrInterfaceArguments;
+    private readonly Func<object[], object> _invocation;
+
+    public ConstructorWrapper(
+      MethodBase constructor, 
+      Func<object[], object> invocation, 
+      ParameterInfo[] parameters, 
+      Type returnType)
     {
       _constructor = constructor;
-      _parameters = _constructor.GetParameters();
+      _parameters = parameters;
+      _returnType = returnType;
       _hasAbstractOrInterfaceArguments =
         _parameters.Any(argument => argument.ParameterType.IsAbstract || argument.ParameterType.IsInterface);
+      _invocation = invocation;
     }
 
     public bool HasNonPointerArgumentsOnly()
@@ -72,17 +91,17 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public string GetDescriptionForParameter(int i)
     {
-      return GetDescriptionFor(_constructor.GetParameters()[i]);
+      return GetDescriptionFor(_parameters[i]);
     }
 
     public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
     {
-      return _constructor.Invoke(this.GenerateAnyParameterValues(instanceGenerator).ToArray());
+      return _invocation(this.GenerateAnyParameterValues(instanceGenerator).ToArray());
     }
 
     public object InvokeWith(IEnumerable<object> constructorParameters)
     {
-      return _constructor.Invoke(constructorParameters.ToArray());
+      return _invocation(constructorParameters.ToArray());
     }
 
     public override string ToString()
@@ -121,9 +140,24 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       return IsInternal(_constructor);
     }
 
-    public static bool IsInternal(ConstructorInfo c)
+    public static bool IsInternal(MethodBase c)
     {
       return c.IsAssembly && !c.IsPublic && !c.IsStatic;
+    }
+
+    public bool IsFactoryMethod()
+    {
+      return _constructor.DeclaringType == _returnType;
+    }
+
+    public bool IsNotRecursive()
+    {
+      return !HasAnyArgumentOfType(_returnType);
+    }
+
+    public bool IsRecursive()
+    {
+      return !IsNotRecursive();
     }
   }
 }

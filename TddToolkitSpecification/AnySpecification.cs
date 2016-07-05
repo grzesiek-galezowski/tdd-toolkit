@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -975,6 +976,15 @@ namespace TddEbook.TddToolkitSpecification
       Assert.Null(o._field);
     }
 
+    [Test]
+    public void ShouldTryToUsePublicStaticNonRecursiveFactoryMethodsOverPublicRecursiveConstructors()
+    {
+      var o2 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+
+      XAssert.NotNull(o2.ToString());
+      Assert.IsNotEmpty(o2.ToString());
+    }
+
     private static void AssertStringIsNumeric(string theString, int expectedLength)
     {
       XAssert.Equal(expectedLength, theString.Length);
@@ -1137,6 +1147,7 @@ namespace TddEbook.TddToolkitSpecification
     }
   }
 
+  [SuppressMessage("ReSharper", "UnusedMember.Global")]
   public interface IObservableConcurrentDictionary<TKey, TValue>
     : IObservable<Tuple<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
   {
@@ -1210,29 +1221,13 @@ namespace TddEbook.TddToolkitSpecification
     public string Text { get; set; }
   }
 
-  public abstract class AbstractDataStructure
-  {
-    public int Lol11 { get; set; }
-    public TimeSpan Span { get; set; }
-    public int Lol12 { get; set; }
-    public int Lol13 { get; set; }
-    public int Lol14 { get; set; }
-    public int Lol15 { get; set; }
-    public int Lol16 { get; set; }
-    public int Lol17 { get; set; }
-    public int Lol18 { get; set; }
-    public int Lol19 { get; set; }
-    public int Lol110 { get; set; }
-    public int Lol111 { get; set; }
-  }
-}
-
 public class AreaEntity
 {
   public Feature Feature { get; set; }
 }
 
 
+[SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class Feature
 {
   public IGeometry Geometry { get; set; }
@@ -1241,4 +1236,61 @@ public class Feature
 
 public interface IGeometry
 {
+}
+
+  [SuppressMessage("ReSharper", "UnusedMember.Global")]
+  public class ComplexObjectWithFactoryMethodAndRecursiveConstructor
+  {
+    private readonly string _initialValue;
+
+    private ComplexObjectWithFactoryMethodAndRecursiveConstructor(string parameterName)
+    {
+      if (string.IsNullOrEmpty(parameterName))
+      {
+        if (parameterName != null)
+        {
+          IsEmpty = true;
+        }
+        else
+        {
+          throw new ArgumentNullException("parameterName");
+        }
+      }
+
+      _initialValue = parameterName;
+    }
+
+    public ComplexObjectWithFactoryMethodAndRecursiveConstructor(
+      ComplexObjectWithFactoryMethodAndRecursiveConstructor obj) : this(obj._initialValue)
+    {
+    }
+
+    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Create(string parameterName)
+    {
+      ComplexObjectWithFactoryMethodAndRecursiveConstructor createdWrapper =
+        new ComplexObjectWithFactoryMethodAndRecursiveConstructor(parameterName);
+      return createdWrapper;
+    }
+
+    public static int GetInt()
+    {
+      return 123;
+    }
+
+    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Empty
+      => new ComplexObjectWithFactoryMethodAndRecursiveConstructor(string.Empty);
+
+    private bool IsEmpty { get; set; }
+
+    public override string ToString()
+    {
+      return _initialValue;
+    }
+
+    public override int GetHashCode()
+    {
+      return _initialValue.GetHashCode();
+    }
+
+  }
 }

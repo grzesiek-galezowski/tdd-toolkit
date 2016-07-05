@@ -46,6 +46,7 @@ namespace TddEbook.TypeReflection
     IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithRecursiveArguments();
     IEnumerable<IConstructorWrapper> TryToObtainInternalConstructorsWithRecursiveArguments();
     IEnumerable<IConstructorWrapper> TryToObtainPrimitiveTypeConstructor();
+    IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion();
   }
 
   public class TypeWrapper : ITypeWrapper, IConstructorQueries
@@ -277,7 +278,7 @@ namespace TddEbook.TypeReflection
 
     public List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursiveArguments()
     {
-      return TryToObtainInternalConstructors().Where(c => !c.HasAnyArgumentOfType(_type)).ToList();
+      return TryToObtainInternalConstructors().Where(c => c.IsNotRecursive()).ToList();
     }
 
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
@@ -285,34 +286,42 @@ namespace TddEbook.TypeReflection
       var constructorInfos = _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
       var enumerable = constructorInfos.Where(ConstructorWrapper.IsInternal);
 
-      var wrappers = enumerable.Select(c => (IConstructorWrapper) (new ConstructorWrapper(c))).ToList();
+      var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
       return wrappers;
     }
 
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
       return _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-        .Select(c => new ConstructorWrapper(c)).ToList();
+        .Select(c => ConstructorWrapper.FromConstructorInfo(c)).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithoutRecursiveArguments()
     {
-      return TryToObtainPublicConstructors().Where(c => !c.HasAnyArgumentOfType(_type));
+      return TryToObtainPublicConstructors().Where(c => c.IsNotRecursive());
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithRecursiveArguments()
     {
-      return TryToObtainPublicConstructors().Where(c => c.HasAnyArgumentOfType(_type));
+      return TryToObtainPublicConstructors().Where(c => c.IsRecursive());
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainInternalConstructorsWithRecursiveArguments()
     {
-      return TryToObtainInternalConstructors().Where(c => c.HasAnyArgumentOfType(_type)).ToList();
+      return TryToObtainInternalConstructors().Where(c => c.IsRecursive()).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPrimitiveTypeConstructor()
     {
       return DefaultParameterlessConstructor.ForValue(_type);
+    }
+
+    public IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion()
+    {
+      return _type.GetMethods(BindingFlags.Static | BindingFlags.Public)
+        .Where(m => !m.IsSpecialName)
+        .Select(ConstructorWrapper.FromStaticMethodInfo)
+        .Where(c => c.IsFactoryMethod());
     }
 
     public IEnumerable<IFieldWrapper> GetAllPublicInstanceFields()
@@ -322,7 +331,9 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties()
     {
-      return _type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite).Select(p => new PropertyWrapper(p));
+      return _type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+        .Where(p => p.CanWrite)
+        .Select(p => new PropertyWrapper(p));
     }
 
     public IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue()
@@ -348,4 +359,5 @@ namespace TddEbook.TypeReflection
       return _type; //todo at the very end, this should be removed
     }
   }
+
 }
