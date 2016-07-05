@@ -1,3 +1,7 @@
+using System;
+using System.Reflection;
+using System.Runtime.Serialization;
+
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   class LimitedFakeChain<T> : IFakeChain<T>
@@ -20,10 +24,26 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         {
           return _fakeChain.Resolve();
         }
-        else
+        else 
         {
-          return default(T);
+          try
+          {
+            return (T) FormatterServices.GetUninitializedObject(typeof(T));
+          }
+          catch (TargetInvocationException e)
+          {
+            return default(T);
+          }
+          catch (MemberAccessException e)
+          {
+            return default(T);
+          }
+          catch (ArgumentException e)
+          {
+            return default(T);
+          }
         }
+        
       }
       finally
       {

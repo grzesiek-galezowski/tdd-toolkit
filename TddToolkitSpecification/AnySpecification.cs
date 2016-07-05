@@ -978,7 +978,6 @@ namespace TddEbook.TddToolkitSpecification
       Assert.AreNotEqual('0', theString[0]);
     }
 
-
     private static int MaxLengthOfInt()
     {
       return int.MaxValue.ToString().Length;
