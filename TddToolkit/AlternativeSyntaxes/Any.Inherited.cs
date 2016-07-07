@@ -1,4 +1,4 @@
-﻿namespace TddEbook.TddToolkit
+﻿namespace TddEbook.TddToolkit.AlternativeSyntaxes
 {
     public class AnyData
     {

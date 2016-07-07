@@ -5,7 +5,6 @@ using System.Reflection;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
-using Troschuetz.Random;
 
 namespace TddEbook.TddToolkit
 {
@@ -13,7 +12,6 @@ namespace TddEbook.TddToolkit
   {
     private static readonly Fixture _generator = new Fixture();
     private static readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
-    private static readonly TRandom _randomGenerator2 = new TRandom(System.Guid.NewGuid().GetHashCode());
     private static readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
 
     private static readonly CachedReturnValueGeneration _cachedGeneration =

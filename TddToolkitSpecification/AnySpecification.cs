@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.AlternativeSyntaxes;
 using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 using TddEbook.TypeReflection;
 
@@ -987,19 +988,6 @@ namespace TddEbook.TddToolkitSpecification
       Assert.IsNotEmpty(o2.ToString());
     }
 
-    [Test]
-    public void Lol()
-    {
-      var x = Any.Instance<TaSchemeEntity>();
-      using (MemoryStream stream = new MemoryStream())
-      {
-        BinaryFormatter formatter = new BinaryFormatter();
-        formatter.Serialize(stream, x);
-        stream.Position = 0;
-        var y = formatter.Deserialize(stream);
-      }
-    }
-
     private static void AssertStringIsNumeric(string theString, int expectedLength)
     {
       XAssert.Equal(expectedLength, theString.Length);
@@ -1309,48 +1297,5 @@ public interface IGeometry
 
   }
 
-  [Serializable]
-  public class TaSchemeEntity
-  {
-    public string Id { get; set; }
-
-    public string DisplayName { get; set; }
-
-    public string Description { get; set; }
-
-    public string EntryActionRef { get; set; }
-
-    public string ExitActionRef { get; set; }
-
-    public List<Uri> Targets { get; set; }
-
-    public Uri ResourceUrl { get; set; }
-
-    public DateTime Created { get; set; }
-
-    public DateTime LastModified { get; set; }
-
-    public override bool Equals(object obj)
-    {
-      if (obj == null || GetType() != obj.GetType()) return false;
-      if (ReferenceEquals(obj, this)) return true;
-
-      var toCompare = obj as TaSchemeEntity;
-      return Id.Equals(toCompare.Id) && DisplayName.Equals(toCompare.DisplayName) && Description.Equals(toCompare.Description) &&
-        EntryActionRef.Equals(toCompare.EntryActionRef) && DisplayName.Equals(toCompare.DisplayName);
-    }
-
-    public override int GetHashCode()
-    {
-      return Id.GetHashCode();
-    }
-
-    public override string ToString()
-    {
-      return string.Format("GeofenceEntity with " +
-                           "Id:{0}, " +
-                           "DisplayName: {1}", Id, DisplayName);
-    }
-  }
 
 }

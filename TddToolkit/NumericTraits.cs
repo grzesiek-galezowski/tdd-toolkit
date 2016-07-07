@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using Castle.DynamicProxy.Generators;
 using MiscUtil;
-using Troschuetz.Random;
 
 namespace TddEbook.TddToolkit
 {
@@ -43,7 +43,7 @@ namespace TddEbook.TddToolkit
     private int MaxPossibleDigitsCount { get; }
     private string MaxValueString { get; }
 
-    public T GenerateWithExactNumberOfDigits(int digitsCount, IGenerator randomGenerator)
+    public T GenerateWithExactNumberOfDigits(int digitsCount, Random randomGenerator)
     {
       if (digitsCount > MaxPossibleDigitsCount)
       {
@@ -56,7 +56,7 @@ namespace TddEbook.TddToolkit
       return convertedNumber;
     }
 
-    private static string GetRandomDigits(int digitsCount, IGenerator randomGenerator)
+    private static string GetRandomDigits(int digitsCount, Random randomGenerator)
     {
       var str = "";
       str += randomGenerator.Next(1, 9);

@@ -73,16 +73,16 @@ namespace TddEbook.TddToolkit
 
 
     public static int IntegerWithExactDigitsCount(int digitsCount) => 
-      _intTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+      _intTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
 
     public static long LongIntegerWithExactDigitsCount(int digitsCount) => 
-      _longTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+      _longTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
 
     public static uint UnsignedIntegerWithExactDigitsCount(int digitsCount) => 
-      _uintTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+      _uintTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
 
     public static ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount) => 
-      _ulongTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator2);
+      _ulongTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
 
 
     public static byte PositiveDigit()
