@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using NSubstitute;
-using NUnit.Framework;
 using TddEbook.TddToolkit.Helpers.Constraints;
 using TddEbook.TddToolkit.Helpers.Constraints.EqualityOperator;
 using TddEbook.TddToolkit.Helpers.Constraints.InequalityOperator;

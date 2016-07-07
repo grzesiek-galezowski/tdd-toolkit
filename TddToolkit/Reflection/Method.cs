@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Reflection
 {
   public class Method
   {

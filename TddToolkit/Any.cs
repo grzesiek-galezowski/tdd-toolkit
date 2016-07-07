@@ -173,6 +173,11 @@ namespace TddEbook.TddToolkit
       return ValueOf<Uri>();
     }
 
+    public static Guid Guid()
+    {
+      return ValueOf<Guid>();
+    }
+
     public static string UrlString()
     {
       return Uri().ToString();

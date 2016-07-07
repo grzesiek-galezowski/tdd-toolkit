@@ -140,6 +140,17 @@ namespace TddEbook.TddToolkit
       return dict;
     }
 
+    public static Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    {
+      var dict = Dictionary<T, U>(0);
+      foreach (var key in keys)
+      {
+        dict.Add(key, InstanceOf<U>());
+      }
+
+      return dict;
+    }
+
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
       return Dictionary<TKey, TValue>(Many);

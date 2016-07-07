@@ -12,8 +12,8 @@ namespace TddEbook.TddToolkit
   public partial class Any
   {
     private static readonly Fixture _generator = new Fixture();
-    private static readonly Random _randomGenerator = new Random(Guid.NewGuid().GetHashCode());
-    private static readonly TRandom _randomGenerator2 = new TRandom(Guid.NewGuid().GetHashCode());
+    private static readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
+    private static readonly TRandom _randomGenerator2 = new TRandom(System.Guid.NewGuid().GetHashCode());
     private static readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
 
     private static readonly CachedReturnValueGeneration _cachedGeneration =

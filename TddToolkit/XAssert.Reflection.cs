@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using FluentAssertions;
+using TddEbook.TddToolkit.Reflection;
 using TddEbook.TypeReflection;
 using TddEbook.TypeReflection.Interfaces;
 
