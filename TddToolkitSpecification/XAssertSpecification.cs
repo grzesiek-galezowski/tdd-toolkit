@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using FluentAssertions;
+using NUnit.Framework.Internal;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection;
 
@@ -149,6 +151,13 @@ namespace TddEbook.TddToolkitSpecification
           o => o.DecoratedMethod(0, 0)
           )
         );
+    }
+
+    [Test]
+    public void ShouldWriteFirstArgumentAsExpectedInEqualityAssertionErrorMessage()
+    {
+      var exception = Assert.Catch<Exception>(() => XAssert.Equal(1, 2));
+      StringAssert.Contains("Expected value to be 1, but found 2", exception.ToString());
     }
   }
 

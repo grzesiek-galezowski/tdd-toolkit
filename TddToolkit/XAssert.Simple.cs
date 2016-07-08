@@ -13,8 +13,36 @@ namespace TddEbook.TddToolkit
     {
       actual.Should().Be(expected);
     }
+    public static void Equal(string expected, string actual)
+    {
+      actual.Should().Be(expected);
+    }
+    public static void Equal(int expected, int actual)
+    {
+      actual.Should().Be(expected);
+    }
+    public static void Equal(float expected, float actual)
+    {
+      actual.Should().Be(expected);
+    }
+    public static void Equal(double expected, double actual)
+    {
+      actual.Should().Be(expected);
+    }
+    public static void Equal(short expected, short actual)
+    {
+      actual.Should().Be(expected);
+    }
+    public static void Equal(decimal expected, decimal actual)
+    {
+      actual.Should().Be(expected);
+    }
 
     public static void NotEqual<T>(T expected, T actual)
+    {
+      actual.Should().NotBe(expected);
+    }
+    public static void NotEqual(string expected, string actual)
     {
       actual.Should().NotBe(expected);
     }
@@ -23,8 +51,16 @@ namespace TddEbook.TddToolkit
     {
       actual.Should().BeSameAs(expected);
     }
+    public static void Same(string expected, string actual)
+    {
+      actual.Should().BeSameAs(expected);
+    }
 
     public static void NotSame<T>(T expected, T actual)
+    {
+      actual.Should().NotBeSameAs(expected);
+    }
+    public static void NotSame(string expected, string actual)
     {
       actual.Should().NotBeSameAs(expected);
     }
@@ -56,7 +92,6 @@ namespace TddEbook.TddToolkit
       actual.Should().BeEquivalentTo(expected);
     }
 
-
     public static void NotEqual<T>(T expected, T actual, string message)
     {
       actual.Should().NotBe(expected, "{0}", message);
@@ -68,6 +103,20 @@ namespace TddEbook.TddToolkit
     }
 
     public static void NotSame<T>(T expected, T actual, string message)
+    {
+      actual.Should().NotBeSameAs(expected, "{0}", message);
+    }
+    public static void NotEqual(string expected, string actual, string message)
+    {
+      actual.Should().NotBe(expected, "{0}", message);
+    }
+
+    public static void Same(string expected, string actual, string message)
+    {
+      actual.Should().BeSameAs(expected, "{0}", message);
+    }
+
+    public static void NotSame(string expected, string actual, string message)
     {
       actual.Should().NotBeSameAs(expected, "{0}", message);
     }
