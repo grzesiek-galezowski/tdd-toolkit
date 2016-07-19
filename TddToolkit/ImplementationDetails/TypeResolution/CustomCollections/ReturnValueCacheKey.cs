@@ -4,6 +4,7 @@ using Castle.DynamicProxy;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
+  [Serializable]
   public class PerMethodCacheKey : IEquatable<PerMethodCacheKey>
   {
     private readonly MethodInfo _method;

@@ -3,6 +3,7 @@ using Castle.DynamicProxy;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
+  [Serializable]
   internal class AbstractClassInterceptor : IInterceptor
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;

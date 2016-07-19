@@ -7,6 +7,7 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
+  [Serializable]
   public class CachedReturnValueGeneration
   {
     private readonly PerMethodCache<object> _cache;

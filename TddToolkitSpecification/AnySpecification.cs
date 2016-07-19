@@ -238,6 +238,8 @@ namespace TddEbook.TddToolkitSpecification
       });
     }
 
+
+
     [Test]
     public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
     {
@@ -988,6 +990,25 @@ namespace TddEbook.TddToolkitSpecification
       Assert.IsNotEmpty(o2.ToString());
     }
 
+    [Test, Repeat(10)]
+    public void ShouldCreateSerializableInstances()
+    {
+      SerializeAnyInstanceOf<AbstractObjectWithInterfaceInConstructor>();
+      SerializeAnyInstanceOf<AbstractObjectWithVirtualMethods>();
+      SerializeAnyInstanceOf<ObjectWithCopyConstructor>();
+      SerializeAnyInstanceOf<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+      SerializeAnyInstanceOf<RecursiveInterface>();
+    }
+
+    private static void SerializeAnyInstanceOf<T>()
+    {
+      using (MemoryStream stream = new MemoryStream())
+      {
+        BinaryFormatter formatter = new BinaryFormatter();
+        formatter.Serialize(stream, Any.Instance<T>());
+      }
+    }
+
     private static void AssertStringIsNumeric(string theString, int expectedLength)
     {
       XAssert.Equal(expectedLength, theString.Length);
@@ -997,6 +1018,8 @@ namespace TddEbook.TddToolkitSpecification
       }
       Assert.AreNotEqual('0', theString[0]);
     }
+
+
 
     private static int MaxLengthOfInt()
     {
@@ -1075,6 +1098,7 @@ namespace TddEbook.TddToolkitSpecification
       IEnumerable<ISimple> Simples { get; }
     }
 
+    [Serializable]
     public class ObjectWithInterfaceInConstructor
     {
       private readonly int _a;
@@ -1095,6 +1119,7 @@ namespace TddEbook.TddToolkitSpecification
       }
     }
 
+    [Serializable]
     public abstract class AbstractObjectWithInterfaceInConstructor
     {
       private readonly int _a;
@@ -1121,6 +1146,7 @@ namespace TddEbook.TddToolkitSpecification
       public int SettableInt { get; set; }
     }
 
+    [Serializable]
     public abstract class AbstractObjectWithVirtualMethods
     {
       public virtual string GetSomething()
@@ -1140,6 +1166,7 @@ namespace TddEbook.TddToolkitSpecification
     }
   }
 
+  [Serializable]
   public class ObjectWithCopyConstructor
   {
     internal string _field;
@@ -1242,6 +1269,7 @@ public interface IGeometry
 }
 
   [SuppressMessage("ReSharper", "UnusedMember.Global")]
+  [Serializable]
   public class ComplexObjectWithFactoryMethodAndRecursiveConstructor
   {
     private readonly string _initialValue;

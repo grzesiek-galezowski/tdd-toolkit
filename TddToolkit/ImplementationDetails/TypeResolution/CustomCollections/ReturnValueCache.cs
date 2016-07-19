@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
+  [Serializable]
   public class PerMethodCache<T>
   {
     private readonly Dictionary<PerMethodCacheKey, T> _cache = new Dictionary<PerMethodCacheKey, T>();
