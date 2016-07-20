@@ -998,14 +998,37 @@ namespace TddEbook.TddToolkitSpecification
       SerializeAnyInstanceOf<ObjectWithCopyConstructor>();
       SerializeAnyInstanceOf<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
       SerializeAnyInstanceOf<RecursiveInterface>();
+
+      var x1 = Any.InstanceOf<AbstractObjectWithInterfaceInConstructor>();
+      var x2 = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
+      var x3 = Any.InstanceOf<RecursiveInterface>();
+      var x4 = Any.InstanceOf<ObjectWithCopyConstructor>();
+      var x5 = Any.InstanceOf<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+      CallSomeMethodsOn(x1, x2, x3);
+      Serialize(x1);
+      Serialize(x2);
+      Serialize(x3);
+      Serialize(x4);
+      Serialize(x5);
+    }
+
+    private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
+      RecursiveInterface x3)
+    {
+      var arr = new object[] {x1.AbstractInt, x2.GetSomething(), x3.NestedAsDictionary, x2.GetSomething2(), x3.Nested};
     }
 
     private static void SerializeAnyInstanceOf<T>()
     {
+      Serialize<T>(Any.Instance<T>());
+    }
+
+    private static void Serialize<T>(T instance)
+    {
       using (MemoryStream stream = new MemoryStream())
       {
         BinaryFormatter formatter = new BinaryFormatter();
-        formatter.Serialize(stream, Any.Instance<T>());
+        formatter.Serialize(stream, instance);
       }
     }
 
