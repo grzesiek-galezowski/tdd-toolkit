@@ -5,6 +5,7 @@ using System.IO;
 using FluentAssertions;
 using NUnit.Framework.Internal;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkitSpecification
@@ -159,8 +160,34 @@ namespace TddEbook.TddToolkitSpecification
       var exception = Assert.Catch<Exception>(() => XAssert.Equal(1, 2));
       StringAssert.Contains("Expected value to be 1, but found 2", exception.ToString());
     }
+
+    [Test]
+    public void Notepad()
+    {
+      var tp1 = new TwoProp()
+      {
+        X1 = 123,
+        X2 = 345,
+        X3 = 999,
+        x4 = 123
+      };
+      var tp2 = Clone.Of(tp1);
+      tp2.X2 = 346;
+      tp2.X3 = 346;
+      tp2.x4 = 346;
+
+      XAssert.Alike(tp2, tp1, tp => tp.X2, tp => tp.X3, tp => tp.x4);
+    }
   }
 
+
+  public class TwoProp
+  {
+    public int X1 { get; set; }
+    public int X2 { get; set; }
+    public int X3 { get; set; }
+    public int x4;
+  }
 
   public class ProperValueTypeWithOneArgumentIdentity : IEquatable<ProperValueTypeWithOneArgumentIdentity>
   {

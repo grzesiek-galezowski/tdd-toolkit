@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Reflection
 {
@@ -20,6 +21,22 @@ namespace TddEbook.TddToolkit.Reflection
       }
       throw new Exception("The expression is not a property body");
     }
+
+    public static Maybe<Property> FromUnaryExpression<T>(Expression<Func<T, object>> expression)
+    {
+      var unaryExpression = expression.Body as UnaryExpression;
+      var propertyUsageExppression = unaryExpression.Operand as MemberExpression;
+      if (propertyUsageExppression != null)
+      {
+        var propertyInfo = propertyUsageExppression.Member as PropertyInfo;
+        if (propertyInfo != null)
+        {
+          return new Property(propertyInfo);
+        }
+      }
+      return null;
+    }
+
 
     public static Property ValueOf<T, U>(Expression<Func<T, U>> expression) where U : struct
     {
@@ -68,5 +85,36 @@ namespace TddEbook.TddToolkit.Reflection
     }
 
     private readonly PropertyInfo _propertyInfo;
+  }
+
+  public class Field
+  {
+    private readonly FieldInfo _fieldInfo;
+
+    public Field(FieldInfo fieldInfo)
+    {
+      _fieldInfo = fieldInfo;
+    }
+
+    public string Name
+    {
+      get { return _fieldInfo.Name; }
+    }
+
+    public static Maybe<Field> FromUnaryExpression<T>(Expression<Func<T, object>> expression)
+    {
+      var unaryExpression = expression.Body as UnaryExpression;
+      var propertyUsageExppression = unaryExpression.Operand as MemberExpression;
+      if (propertyUsageExppression != null)
+      {
+        var fieldInfo = propertyUsageExppression.Member as FieldInfo;
+        if (fieldInfo != null)
+        {
+          return new Field(fieldInfo);
+        }
+      }
+      return null;
+    }
+
   }
 }
