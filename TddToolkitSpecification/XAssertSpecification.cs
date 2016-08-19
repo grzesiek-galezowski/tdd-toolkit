@@ -176,7 +176,13 @@ namespace TddEbook.TddToolkitSpecification
       tp2.X3 = 346;
       tp2.x4 = 346;
 
+      XAssert.Alike(tp2, tp1, "X2", "<X2>k__BackingField", "X3", "<X3>k__BackingField", "x4");
       XAssert.Alike(tp2, tp1, tp => tp.X2, tp => tp.X3, tp => tp.x4);
+
+      tp1.X1 = 0;
+
+      XAssert.NotAlike(tp2, tp1, "X2", "<X2>k__BackingField", "X3", "<X3>k__BackingField", "x4");
+      XAssert.NotAlike(tp2, tp1, tp => tp.X2, tp => tp.X3, tp => tp.x4);
     }
   }
 

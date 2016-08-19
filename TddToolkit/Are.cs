@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TypeReflection;
 
@@ -8,8 +9,34 @@ namespace TddEbook.TddToolkit
   {
     public static bool Alike<T>(T expected, T actual)
     {
-      var comparison = ObjectGraph.Comparison();
-      return !(comparison.Compare(expected, actual).ExceededDifferences);
+      return ConvertExceptionToBoolean(() => XAssert.Alike(expected, actual));
+    }
+    public static bool NotAlike<T>(T expected, T actual)
+    {
+      return ConvertExceptionToBoolean(() => XAssert.NotAlike(expected, actual));
+    }
+
+    public static bool Alike<T>(T expected, T actual, params Expression<Func<T, object>>[] skippedPropertiesOrFields)
+    {
+      return ConvertExceptionToBoolean(() => XAssert.Alike(expected, actual, skippedPropertiesOrFields));
+    }
+    public static bool NotAlike<T>(T expected, T actual, params Expression<Func<T, object>>[] skippedPropertiesOrFields)
+    {
+      return ConvertExceptionToBoolean(() => XAssert.NotAlike(expected, actual, skippedPropertiesOrFields));
+    }
+
+
+    private static bool ConvertExceptionToBoolean(Action action)
+    {
+      try
+      {
+        action();
+        return true;
+      }
+      catch (Exception e)
+      {
+        return false;
+      }
     }
 
     public static bool EqualInTermsOfEqualityOperator<T>(T instance1, T instance2) where T : class
