@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.48</version>
+        <version>1.0.49</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -11,6 +11,7 @@
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
         <releaseNotes>
           - Allowing to skip selected fields and auto-properties in XAssert.Alike()
+          - XAssert.Alike() now does not compare static fields and properties
         </releaseNotes>
         <language>en-US</language>
     </metadata>

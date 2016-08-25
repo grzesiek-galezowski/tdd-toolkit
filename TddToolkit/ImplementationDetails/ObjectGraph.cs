@@ -16,6 +16,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails
           ComparePrivateProperties = true,
           CompareProperties = true,
           CompareReadOnly = true,
+          CompareStaticFields = false,
+          CompareStaticProperties = false,
           MaxDifferences = 1
         }
       };
