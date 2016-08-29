@@ -123,6 +123,10 @@ namespace TddEbook.TddToolkit
 
     public static T Dummy<T>()
     {
+      if (typeof(T) == typeof(string))
+      {
+        return Any.Instance<T>();
+      }
       return (T)FormatterServices.GetUninitializedObject(typeof (T));
     }
 

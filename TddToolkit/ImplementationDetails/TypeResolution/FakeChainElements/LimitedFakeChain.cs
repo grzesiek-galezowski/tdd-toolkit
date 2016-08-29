@@ -30,7 +30,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
           {
             try
             {
-              return (T) FormatterServices.GetUninitializedObject(typeof(T));
+              return Any.Dummy<T>();
             }
             catch (Exception e)
             {

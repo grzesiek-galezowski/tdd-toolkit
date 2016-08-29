@@ -767,6 +767,9 @@ namespace TddEbook.TddToolkitSpecification
     {
       Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
       Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
+      Assert.NotNull(Any.Dummy<string>());
+      Assert.NotNull(Any.Dummy<int>());
+      Assert.NotNull(Any.Dummy<List<string>>());
     }
 
     [Test]
