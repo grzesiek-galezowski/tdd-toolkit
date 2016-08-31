@@ -11,7 +11,7 @@
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
         <releaseNotes>
           - Allowing to skip selected fields and auto-properties in XAssert.Alike()
-          - XAssert.Alike() now does not compare static fields and properties
+          - XAssert.Alike() does not compare static fields and properties anymore
         </releaseNotes>
         <language>en-US</language>
     </metadata>
