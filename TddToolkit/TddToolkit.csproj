@@ -155,7 +155,7 @@
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\InvalidChainElement.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ReturnValueCache.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ReturnValueCacheKey.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\NestingLimit.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\PerTypeNestingLimit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\Boooooom.cs" />

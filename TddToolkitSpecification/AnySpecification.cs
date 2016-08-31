@@ -1015,6 +1015,21 @@ namespace TddEbook.TddToolkitSpecification
       Serialize(x5);
     }
 
+    [Test]
+    public void ShouldHaveRecursionLimitSetPerType()
+    {
+      //GIVEN
+      var instance = Any.Instance<RecursiveClass>();
+      
+      Assert.NotNull(instance.Same.Same.Same.Same.Same);
+      Assert.Null(instance.Same.Same.Same.Same.Same.Same);
+      Assert.Null(   instance.Same.Same.Same.Same.Same.Same);
+      Assert.NotNull(instance.Same.Same.Same.Same.Whatever);
+
+      Assert.NotNull(instance.Other.Other2.Other.Other2.Other.Other2.Other.Other2.Other.Other2);
+      Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other.Other2.Other.Other2.Other);
+    }
+
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
       RecursiveInterface x3)
     {
@@ -1086,6 +1101,19 @@ namespace TddEbook.TddToolkitSpecification
       int Number { get; }
       int GetNumber();
     }
+
+    public class RecursiveClass
+    {
+      public RecursiveClass Same { get; set; }
+      public string Whatever { get; set; }
+      public RecursiveClass2 Other { get; set; }
+    }
+
+    public class RecursiveClass2
+    {
+      public RecursiveClass Other2 { get; set; }
+    }
+
 
     public interface IGetSettable<T>
     {

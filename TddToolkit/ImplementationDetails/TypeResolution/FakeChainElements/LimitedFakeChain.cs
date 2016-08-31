@@ -6,12 +6,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   class LimitedFakeChain<T> : IFakeChain<T>
   {
-    private readonly NestingLimit _nestingLimit;
+    private readonly PerTypeNestingLimit _perTypeNestingLimit;
     private readonly IFakeChain<T> _fakeChain;
 
-    public LimitedFakeChain(NestingLimit nestingLimit, IFakeChain<T> fakeChain)
+    public LimitedFakeChain(PerTypeNestingLimit perTypeNestingLimit, IFakeChain<T> fakeChain)
     {
-      _nestingLimit = nestingLimit;
+      _perTypeNestingLimit = perTypeNestingLimit;
       _fakeChain = fakeChain;
     }
 
@@ -19,8 +19,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       try
       {
-        _nestingLimit.AddNesting();
-        if (!_nestingLimit.IsReached())
+        _perTypeNestingLimit.AddNestingFor<T>();
+        if (!_perTypeNestingLimit.IsReachedFor<T>())
         {
           return _fakeChain.Resolve();
         }
@@ -55,7 +55,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       }
       finally
       {
-        _nestingLimit.RemoveNesting();
+        _perTypeNestingLimit.RemoveNestingFor<T>();
       }
 
     }
