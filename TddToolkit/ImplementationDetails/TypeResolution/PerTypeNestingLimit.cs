@@ -26,7 +26,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
         _nestingCounters[type] = 0;
       }
       _nestingCounters[type]++;
-      _nesting++;
     }
 
     public bool IsReachedFor<T>()

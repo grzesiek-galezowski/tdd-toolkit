@@ -12,6 +12,7 @@
         <releaseNotes>
           - Allowing to skip selected fields and auto-properties in XAssert.Alike()
           - XAssert.Alike() does not compare static fields and properties anymore
+          - Recursion guard is now counted for specific type occurences in resolution sequence
         </releaseNotes>
         <language>en-US</language>
     </metadata>
