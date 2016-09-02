@@ -95,7 +95,7 @@ namespace TddEbook.TddToolkit
     {
       if (!typeof(T).IsEnum)
       {
-        throw new ArgumentException("T must be an enumerated type");
+        throw new ArgumentException("T must be an enum type. For other types, use Any.OtherThan()");
       }
     }
   }

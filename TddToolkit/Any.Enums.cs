@@ -11,10 +11,17 @@ namespace TddEbook.TddToolkit
       return ValueOf<T>();
     }
 
-    public static T Besides<T>(params T[] excludedValues) where T : struct, IConvertible
+    /// <typeparam name="T">MUST BE AN ENUM. FOR NORMAL VALUES, USE Any.OtherThan()</typeparam>
+    /// <param name="excludedValues"></param>
+    /// <returns></returns>
+    public static T Besides<[MustBeAnEnum] T>([MustBeAnEnum] params T[] excludedValues) where T : struct, IConvertible
     {
       AssertDynamicEnumConstraintFor<T>();
       return ValueOtherThan(excludedValues);
     }
+  }
+
+  public class MustBeAnEnumAttribute : Attribute
+  {
   }
 }
