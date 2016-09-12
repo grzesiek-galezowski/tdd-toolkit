@@ -2,17 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.49</version>
+        <version>1.0.50</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
-        <releaseNotes>
-          - Allowing to skip selected fields and auto-properties in XAssert.Alike()
-          - XAssert.Alike() does not compare static fields and properties anymore
-          - Recursion guard is now counted for specific type occurences in resolution sequence
+        <releaseNotes>- Added XAssert.HasUniqueConstants() for constant classes,
+        - Added XAssert.EnumHasUniqueValues() for enums
         </releaseNotes>
         <language>en-US</language>
     </metadata>
