@@ -16,6 +16,7 @@ namespace TddEbook.TypeReflection
     bool IsConcrete();
     IEnumerable<IFieldWrapper> GetAllInstanceFields();
     IEnumerable<IFieldWrapper> GetAllStaticFields();
+    IEnumerable<IFieldWrapper> GetAllConstants();
     IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties();
     Maybe<IConstructorWrapper> PickConstructorWithLeastNonPointersParameters();
     IBinaryOperator Equality();
@@ -29,6 +30,7 @@ namespace TddEbook.TypeReflection
     bool HasConstructorWithParameters();
     bool CanBeAssignedNullValue();
     Type ToClrType();
+    
   }
 
   public interface IMethodWrapper
@@ -115,12 +117,19 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IFieldWrapper> GetAllStaticFields()
     {
+      //bug first convert to field wrappers and then ask questions, not the other way round.
+      //bug GetAllFields() should return field wrappers
       return GetAllFields(_type).Where(fieldInfo =>
                                        fieldInfo.IsStatic &&
-                                       !IsConst(fieldInfo) &&
+                                       !new FieldWrapper(fieldInfo).IsConstant() &&
                                        !IsCompilerGenerated(fieldInfo) &&
                                        !IsDelegate(fieldInfo.FieldType))
                                 .Select(f => new FieldWrapper(f));
+    }
+
+    public IEnumerable<IFieldWrapper> GetAllConstants()
+    {
+      return GetAllFields(_type).Select(f => new FieldWrapper(f)).Where(f => f.IsConstant());
     }
 
     public IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties()
@@ -217,14 +226,9 @@ namespace TddEbook.TypeReflection
       return _type.IsInterface;
     }
 
-    private static bool IsCompilerGenerated(FieldInfo fieldInfo)
+    private static bool IsCompilerGenerated(FieldInfo fieldInfo) //?? should it be defined on a type?
     {
       return fieldInfo.FieldType.IsDefined(typeof(CompilerGeneratedAttribute), false);
-    }
-
-    private static bool IsConst(FieldInfo fieldInfo)
-    {
-      return fieldInfo.IsLiteral && !fieldInfo.IsInitOnly;
     }
 
     private static IEnumerable<FieldInfo> GetAllFields(Type type)
