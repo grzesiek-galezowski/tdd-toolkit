@@ -111,5 +111,23 @@ namespace TddEbook.TddToolkit
         var result = limits.Select(l => l.Item1 + " contains " + l.Item2 + " constructors");
         return String.Join(Environment.NewLine, result);
       }
+
+      public static void EnumHasUniqueValues<T>()
+      {
+        Enum.GetValues(typeof(T)).Should().OnlyHaveUniqueItems();
+      }
+
+      public static void HasUniqueConstants<T>()
+      {
+        string errors = "";
+        var constants = TypeWrapper.For(typeof(T)).GetAllConstants();
+        foreach (var constant in constants)
+        {
+          foreach (var otherConstant in constants)
+          {
+            constant.AssertNotDuplicateOf(otherConstant);
+          }
+        }
+      }
     }
 }

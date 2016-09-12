@@ -1,6 +1,7 @@
 using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkitSpecification.XAssertSpecifications;
 
 namespace TddEbook.TddToolkitSpecification
 {
