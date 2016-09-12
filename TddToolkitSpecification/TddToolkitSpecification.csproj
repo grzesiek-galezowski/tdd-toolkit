@@ -82,19 +82,7 @@
     <Compile Include="Fixtures\SynchronizedMyService.cs" />
     <Compile Include="TypeOfTypeSpecification.cs" />
     <Compile Include="XArgSpecification.cs" />
-    <Compile Include="XAssertSpecifications\DirectoryPath.cs" />
-    <Compile Include="XAssertSpecifications\FileExtension.cs" />
-    <Compile Include="XAssertSpecifications\FileExtensionAssert.cs" />
-    <Compile Include="XAssertSpecifications\FileName.cs" />
-    <Compile Include="XAssertSpecifications\FileNameWithoutExtension.cs" />
-    <Compile Include="XAssertSpecifications\GenericValueType.cs" />
-    <Compile Include="XAssertSpecifications\GuardedObject.cs" />
-    <Compile Include="XAssertSpecifications\NotGuardedObject.cs" />
-    <Compile Include="XAssertSpecifications\ProperValueType.cs" />
-    <Compile Include="XAssertSpecifications\ProperValueTypeWithOneArgumentIdentity.cs" />
-    <Compile Include="XAssertSpecifications\ProperValueTypeWithoutEqualityOperator.cs" />
-    <Compile Include="XAssertSpecifications\TwoProp.cs" />
-    <Compile Include="XAssertSpecifications\XAssertSpecification.cs" />
+    <Compile Include="XAssertSpecification.cs" />
     <Compile Include="XReceivedSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
