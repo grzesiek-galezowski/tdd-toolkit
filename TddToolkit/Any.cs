@@ -123,9 +123,13 @@ namespace TddEbook.TddToolkit
 
     public static T Dummy<T>()
     {
+      if (typeof(T).IsPrimitive)
+      {
+        return FakeChain<T>.UnconstrainedInstance(_cachedGeneration, _proxyGenerator).Resolve();
+      }
       if (typeof(T) == typeof(string))
       {
-        return Any.Instance<T>();
+        return FakeChain<T>.UnconstrainedInstance(_cachedGeneration, _proxyGenerator).Resolve();
       }
       if (typeof(T).IsAbstract)
       {

@@ -37,7 +37,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     public bool IsReachedFor<T>()
     {
-      return _nestingCounters[typeof(T)] > _limit;
+      var nesting = _nestingCounters[typeof(T)];
+      if (nesting == _limit + 1)
+      {
+        return true;
+      }
+      if (nesting > _limit + 1)
+      {
+        throw new InvalidOperationException("nesting limit bug. Actual: " + nesting + ", limit: " + _limit);
+      }
+      return false;
     }
 
     public void RemoveNestingFor<T>()
@@ -68,7 +77,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 
     public bool IsReachedFor<T>()
     {
-      return _nesting > _limit;
+      if (_nesting == _limit + 1)
+      {
+        return true;
+      }
+      if (_nesting > _limit + 1)
+      {
+        throw new InvalidOperationException("nesting limit bug. Actual: " + _nesting + ", limit: " + _limit);
+      }
+      return false;
+
     }
 
     public void RemoveNestingFor<T>()

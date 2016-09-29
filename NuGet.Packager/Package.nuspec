@@ -2,15 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Tdd-Toolkit</id>
-        <version>1.0.50</version>
+        <version>1.0.51</version>
         <title>Tdd-Toolkit</title>
         <authors>Grzegorz Gałęzowski</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
-        <releaseNotes>- Added XAssert.HasUniqueConstants() for constant classes,
-        - Added XAssert.EnumHasUniqueValues() for enums
+        <releaseNotes>- Resolved recursion bug, restored global nesting limit (is much faster)
         </releaseNotes>
         <language>en-US</language>
     </metadata>

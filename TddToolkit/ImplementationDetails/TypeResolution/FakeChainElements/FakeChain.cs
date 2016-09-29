@@ -21,32 +21,36 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       ProxyGenerator generationIsDoneUsingProxies)
     {
       return LimitedTo(nestingLimit,
-        OrderedChainOfGenerationsWithTheFollowingLogic(
-          TryTo(ResolveTheMostSpecificCases(),
-          ElseTryTo(ResolveAsArray(),
-          ElseTryTo(ResolveAsSimpleEnumerableAndList(),
-          ElseTryTo(ResolveAsSimpleSet(),
-          ElseTryTo(ResolveAsSimpleDictionary(),
-          ElseTryTo(ResolveAsSortedList(),
-          ElseTryTo(ResolveAsSortedSet(),
-          ElseTryTo(ResolveAsSortedDictionary(),
-          ElseTryTo(ResolveAsConcurrentDictionary(),
-          ElseTryTo(ResolveAsConcurrentBag(),
-          ElseTryTo(ResolveAsConcurrentQueue(),
-          ElseTryTo(ResolveAsConcurrentStack(),
-          ElseTryTo(ResolveAsKeyValuePair(),
-          ElseTryTo(ResolveAsGenericEnumerator(),
-          ElseTryTo(ResolveAsObjectEnumerator(),
-          ElseTryTo(ResolveAsCollectionWithHeuristics(),
-          ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-          ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-          ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-          ElseTryTo(ResolveAsConcreteClass(),
-          ElseReportUnsupportedType()
-      ))))))))))))))))))))));
+        UnconstrainedInstance(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies));
     }
 
-    
+    public static FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, ProxyGenerator generationIsDoneUsingProxies)
+    {
+      return OrderedChainOfGenerationsWithTheFollowingLogic(
+        TryTo(ResolveTheMostSpecificCases(),
+          ElseTryTo(ResolveAsArray(),
+            ElseTryTo(ResolveAsSimpleEnumerableAndList(),
+              ElseTryTo(ResolveAsSimpleSet(),
+                ElseTryTo(ResolveAsSimpleDictionary(),
+                  ElseTryTo(ResolveAsSortedList(),
+                    ElseTryTo(ResolveAsSortedSet(),
+                      ElseTryTo(ResolveAsSortedDictionary(),
+                        ElseTryTo(ResolveAsConcurrentDictionary(),
+                          ElseTryTo(ResolveAsConcurrentBag(),
+                            ElseTryTo(ResolveAsConcurrentQueue(),
+                              ElseTryTo(ResolveAsConcurrentStack(),
+                                ElseTryTo(ResolveAsKeyValuePair(),
+                                  ElseTryTo(ResolveAsGenericEnumerator(),
+                                    ElseTryTo(ResolveAsObjectEnumerator(),
+                                      ElseTryTo(ResolveAsCollectionWithHeuristics(),
+                                        ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                          ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                            ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+                                              ElseTryTo(ResolveAsConcreteClass(),
+                                                ElseReportUnsupportedType()
+                                              )))))))))))))))))))));
+    }
+
 
     private static FakeChain<T> OrderedChainOfGenerationsWithTheFollowingLogic(IChainElement<T> first)
     {

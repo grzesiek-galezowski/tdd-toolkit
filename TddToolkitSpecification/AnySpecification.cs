@@ -238,8 +238,6 @@ namespace TddEbook.TddToolkitSpecification
       });
     }
 
-
-
     [Test]
     public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
     {

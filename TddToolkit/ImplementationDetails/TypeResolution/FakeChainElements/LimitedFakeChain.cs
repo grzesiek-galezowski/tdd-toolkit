@@ -28,7 +28,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         {
           try
           {
-              return Any.Dummy<T>();
+            //return default(T);
+            return Any.Dummy<T>();
           }
           catch (TargetInvocationException e)
           {
