@@ -113,7 +113,7 @@ namespace TddEbook.TddToolkit
 
     public static T InstanceOf<T>()
     {
-      return FakeChain<T>.NewInstance(_cachedGeneration, _perTypeNestingLimit, _proxyGenerator).Resolve();
+      return FakeChain<T>.NewInstance(_cachedGeneration, _nestingLimit, _proxyGenerator).Resolve();
     }
 
     public static T Instance<T>()
@@ -126,6 +126,14 @@ namespace TddEbook.TddToolkit
       if (typeof(T) == typeof(string))
       {
         return Any.Instance<T>();
+      }
+      if (typeof(T).IsAbstract)
+      {
+        return default(T);
+      }
+      if (typeof(T).IsInterface)
+      {
+        return default(T);
       }
       return (T)FormatterServices.GetUninitializedObject(typeof (T));
     }

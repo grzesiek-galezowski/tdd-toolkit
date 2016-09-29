@@ -17,10 +17,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public static IFakeChain<T> NewInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, 
-      PerTypeNestingLimit perTypeNestingLimit,
+      NestingLimit nestingLimit,
       ProxyGenerator generationIsDoneUsingProxies)
     {
-      return LimitedTo(perTypeNestingLimit,
+      return LimitedTo(nestingLimit,
         OrderedChainOfGenerationsWithTheFollowingLogic(
           TryTo(ResolveTheMostSpecificCases(),
           ElseTryTo(ResolveAsArray(),
@@ -53,9 +53,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new FakeChain<T>(first);
     }
 
-    private static IFakeChain<T> LimitedTo(PerTypeNestingLimit perTypeNestingLimit, FakeChain<T> fakeChain)
+    private static IFakeChain<T> LimitedTo(NestingLimit limit, FakeChain<T> fakeChain)
     {
-      return new LimitedFakeChain<T>(perTypeNestingLimit, fakeChain);
+      return new LimitedFakeChain<T>(limit, fakeChain);
     }
 
     private static FakeConcreteClass<T> ResolveAsConcreteClass()

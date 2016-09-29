@@ -43,7 +43,7 @@ namespace TddEbook.TddToolkit
     private static readonly CircularList<MethodInfo> MethodList =
       CircularList.CreateStartingFromRandom(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
 
-    private static readonly PerTypeNestingLimit _perTypeNestingLimit = PerTypeNestingLimit.Of(5);
+    private static readonly NestingLimit _nestingLimit = PerTypeNestingLimit.Of(3);
 
 
     private static object ResultOfGenericVersionOfMethod(Type type, string name)

@@ -1021,13 +1021,13 @@ namespace TddEbook.TddToolkitSpecification
       //GIVEN
       var instance = Any.Instance<RecursiveClass>();
       
-      Assert.NotNull(instance.Same.Same.Same.Same.Same);
-      Assert.Null(instance.Same.Same.Same.Same.Same.Same);
-      Assert.Null(   instance.Same.Same.Same.Same.Same.Same);
-      Assert.NotNull(instance.Same.Same.Same.Same.Whatever);
+      Assert.NotNull(instance.Same.Same.Same);
+      Assert.Null(instance.Same.Same.Same.Same);
+      Assert.Null(instance.Same.Same.Same.Same);
+      Assert.NotNull(instance.Same.Same.Whatever);
 
-      Assert.NotNull(instance.Other.Other2.Other.Other2.Other.Other2.Other.Other2.Other.Other2);
-      Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other.Other2.Other.Other2.Other);
+      Assert.NotNull(instance.Other.Other2.Other.Other2.Other.Other2);
+      Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other);
     }
 
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
