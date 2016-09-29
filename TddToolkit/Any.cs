@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using Castle.DynamicProxy;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
@@ -17,11 +18,17 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private static readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
-    private static readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
+    private static readonly ArrayElementPicking _arrayElementPicking;
+    private static readonly ProxyGenerator _proxyGenerator;
+    private static readonly FakeChainFactory FakeChainFactory;
+    private static readonly CachedReturnValueGeneration _cachedGeneration;
 
     static Any()
     {
+      _arrayElementPicking = new ArrayElementPicking();
+      _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
+      _proxyGenerator = new ProxyGenerator();
+      FakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
       _generator.Register(() => _types.Next());
       _generator.Register(() => MethodList.Next());
       _generator.Register(() => new Exception(String(), new Exception(String())));
@@ -113,7 +120,7 @@ namespace TddEbook.TddToolkit
 
     public static T InstanceOf<T>()
     {
-      return FakeChain<T>.NewInstance(_cachedGeneration, _nestingLimit, _proxyGenerator).Resolve();
+      return FakeChainFactory.GetInstance<T>().Resolve();
     }
 
     public static T Instance<T>()
@@ -125,11 +132,11 @@ namespace TddEbook.TddToolkit
     {
       if (typeof(T).IsPrimitive)
       {
-        return FakeChain<T>.UnconstrainedInstance(_cachedGeneration, _proxyGenerator).Resolve();
+        return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
       }
       if (typeof(T) == typeof(string))
       {
-        return FakeChain<T>.UnconstrainedInstance(_cachedGeneration, _proxyGenerator).Resolve();
+        return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
       }
       if (typeof(T).IsAbstract)
       {

@@ -1,14 +1,66 @@
+using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Net;
+using System.Runtime.Caching;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  interface IFakeChain<out T>
+  public interface IFakeChain<out T>
   {
     T Resolve();
+  }
+
+  public class FakeChainFactory
+  {
+    private readonly CachedReturnValueGeneration _eachMethodReturnsTheSameValueOnEveryCall;
+    private readonly NestingLimit _nestingLimit;
+    private readonly ProxyGenerator _generationIsDoneUsingProxies;
+    private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
+    private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
+
+    public FakeChainFactory(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+      NestingLimit nestingLimit,
+      ProxyGenerator generationIsDoneUsingProxies)
+    {
+      _eachMethodReturnsTheSameValueOnEveryCall = eachMethodReturnsTheSameValueOnEveryCall;
+      _nestingLimit = nestingLimit;
+      _generationIsDoneUsingProxies = generationIsDoneUsingProxies;
+    }
+
+    public IFakeChain<T> GetInstance<T>()
+    {
+      return GetInstanceWithMemoization(() =>FakeChain<T>.NewInstance(
+        _eachMethodReturnsTheSameValueOnEveryCall,
+        _nestingLimit,
+        _generationIsDoneUsingProxies
+      ), _constrainedFactoryCache);
+    }
+
+    private IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
+    {
+      var key = typeof(T);//.FullName;
+      object outVal;
+      if(!cache.TryGetValue(key, out outVal))
+      {
+        var newInstance = func.Invoke();
+        cache[key] = newInstance;
+        return newInstance;
+      }
+
+      return (IFakeChain<T>) outVal;
+    }
+
+    public IFakeChain<T> GetUnconstrainedInstance<T>()
+    {
+      return GetInstanceWithMemoization(() => FakeChain<T>.UnconstrainedInstance(
+        _eachMethodReturnsTheSameValueOnEveryCall,
+        _generationIsDoneUsingProxies
+        ), _unconstrainedFactoryCache);
+    }
   }
 
   internal class FakeChain<T> : IFakeChain<T>

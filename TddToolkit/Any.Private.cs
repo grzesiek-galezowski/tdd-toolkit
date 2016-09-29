@@ -14,9 +14,6 @@ namespace TddEbook.TddToolkit
     private static readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private static readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
 
-    private static readonly CachedReturnValueGeneration _cachedGeneration =
-      new CachedReturnValueGeneration(new PerMethodCache<object>());
-
     private static readonly CircularList<char> _letters =
       CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
 
