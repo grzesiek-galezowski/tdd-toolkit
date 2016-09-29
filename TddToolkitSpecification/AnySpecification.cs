@@ -1013,7 +1013,7 @@ namespace TddEbook.TddToolkitSpecification
       Serialize(x5);
     }
 
-    [Test]
+    [Test, Ignore("Currently per type nesting guard is disabled - it proved very slow in practical applications")]
     public void ShouldHaveRecursionLimitSetPerType()
     {
       //GIVEN
