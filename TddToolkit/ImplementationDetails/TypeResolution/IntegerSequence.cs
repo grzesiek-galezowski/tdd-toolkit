@@ -63,13 +63,27 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       try
       {
         _currentValue += _step;
+        if (OverflowHappened())
+        {
+          Reset();
+        }
       }
       catch (Exception)
       {
-        _currentValue = _startingValue;
+        Reset();
       }
 
       return result;
+    }
+
+    private int Reset()
+    {
+      return _currentValue = _startingValue;
+    }
+
+    private bool OverflowHappened()
+    {
+      return _currentValue < _startingValue;
     }
   }
 }

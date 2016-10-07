@@ -36,7 +36,8 @@ namespace TddEbook.TddToolkit
       var sequence = new IntegerSequence(startingValue, step);
       var finalSequence = Maybe.Wrap(_sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
       _sequences.Add(finalSequence);
-      return finalSequence.Next();
+      var integerFromSequence = finalSequence.Next();
+      return integerFromSequence;
     }
 
     public static byte Octet()
