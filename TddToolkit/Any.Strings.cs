@@ -11,6 +11,12 @@ namespace TddEbook.TddToolkit
     public static string String() => _generator.Create<string>();
     public static string String(string seed) => _generator.Create(seed);
 
+    public static string LowerCaseString() => String().ToLower();
+    public static string UpperCaseString() => String().ToUpper();
+    public static string LowerCaseAlphaString() => AlphaString().ToLower();
+    public static string UpperCaseAlphaString() => AlphaString().ToUpper();
+
+
     public static string StringMatching(string pattern)
     {
       var request = new RegularExpressionRequest(pattern);
@@ -84,5 +90,9 @@ namespace TddEbook.TddToolkit
       Instance<char>();
     public static string NumericString(int digitsCount = Many) => 
       Any.StringMatching("[1-9][0-9]{" + (digitsCount - 1) + "}");
+
+    public static char LowerCaseAlphaChar() => char.ToLower(AlphaChar());
+    public static char UpperCaseAlphaChar() => char.ToUpper(AlphaChar());
+
   }
 }

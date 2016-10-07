@@ -109,6 +109,38 @@ namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
     }
 
     [Test]
+    public void ShouldFailUpperCaseAssertionOnLowerCaseStringAndPassOnUpperCaseString()
+    {
+      var s = Any.String();
+      Assert.Throws<AssertionException>(() => XAssert.IsUpperCase(s.ToLower()) );
+      Assert.DoesNotThrow(() => XAssert.IsUpperCase(s.ToUpper()));
+    }
+
+    [Test]
+    public void ShouldFailLowerCaseAssertionOnUpperCaseStringAndPassOnLowerCaseString()
+    {
+      var s = Any.String();
+      Assert.Throws<AssertionException>(() => XAssert.IsLowerCase(s.ToUpper()));
+      Assert.DoesNotThrow(() => XAssert.IsLowerCase(s.ToLower()));
+    }
+
+    [Test]
+    public void ShouldFailUpperCaseAssertionOnLowerCaseCharAndPassOnUpperCaseChar()
+    {
+      var c = Any.AlphaChar();
+      Assert.Throws<AssertionException>(() => XAssert.IsUpperCase(char.ToLower(c)));
+      Assert.DoesNotThrow(() => XAssert.IsUpperCase(char.ToUpper(c)));
+    }
+
+    [Test]
+    public void ShouldFailLowerCaseAssertionOnUpperCaseCharAndPassOnLowerCaseChar()
+    {
+      var c = Any.AlphaChar();
+      Assert.Throws<AssertionException>(() => XAssert.IsLowerCase(char.ToUpper(c)));
+      Assert.DoesNotThrow(() => XAssert.IsLowerCase(char.ToLower(c)));
+    }
+
+    [Test]
     public void ShouldAggregateMultipleAssertionsWhenAssertionAll()
     {
       var exception = Assert.Throws<AssertionException>(() =>
@@ -185,6 +217,7 @@ namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
       XAssert.NotAlike(tp2, tp1, "X2", "<X2>k__BackingField", "X3", "<X3>k__BackingField", "x4");
       XAssert.NotAlike(tp2, tp1, tp => tp.X2, tp => tp.X3, tp => tp.x4);
     }
+
 
     [Test]
     public void AllowAssertingWhetherEnumHasUniqueValues()
