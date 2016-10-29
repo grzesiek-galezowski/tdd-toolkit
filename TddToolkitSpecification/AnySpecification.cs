@@ -222,14 +222,6 @@ namespace TddEbook.TddToolkitSpecification
       Assert.NotNull(instance.Data.Text);
     }
 
-    [Test, Repeat(100000)]
-    public void Bla()
-    {
-      Any.Instance<string>();
-      Any.Instance<int>();
-      Any.Instance<List<string>>();
-    }
-
     [Test]
     public void ShouldBeAbleToGenerateInstancesOfAbstractClasses()
     {
