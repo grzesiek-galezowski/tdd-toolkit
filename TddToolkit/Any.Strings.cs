@@ -9,7 +9,7 @@ namespace TddEbook.TddToolkit
   public partial class Any
   {
     public static string String() => _generator.Create<string>();
-    public static string String(string seed) => _generator.Create(seed);
+    public static string String(string seed) => _generator.Create(seed+"_");
 
     public static string LowerCaseString() => String().ToLower();
     public static string UpperCaseString() => String().ToUpper();
