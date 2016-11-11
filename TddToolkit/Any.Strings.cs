@@ -46,11 +46,24 @@ namespace TddEbook.TddToolkit
         where !string.IsNullOrEmpty(str)
         select str;
 
-      string result;
-      do
+      string result = String();
+      bool found = false;
+      for(int i = 0 ; i < 100 ; ++i)
       {
         result = String();
-      } while (preprocessedStrings.Any(result.Contains));
+        if (preprocessedStrings.Any(result.Contains))
+        {
+          found = true;
+          break;
+        }
+      }
+      if (!found)
+      {
+        foreach (var excludedSubstring in excludedSubstrings.Where(s => s != string.Empty))
+        {
+          result = result.Replace(excludedSubstring, "");
+        }
+      }
       return result;
     }
 

@@ -11,7 +11,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.AlternativeSyntaxes;
 using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 using TddEbook.TypeReflection;
 
@@ -699,7 +698,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateFiniteInstancesOfNonGenericEnumerators()
     {
       //GIVEN
-      var enumerator = Any<IEnumerator>.Instance();
+      var enumerator = Any.Instance<IEnumerator>();
 
       //WHEN
       enumerator.MoveNext();
@@ -716,7 +715,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
     {
       //GIVEN
-      var instance = Any<IObservableConcurrentDictionary<string, string>>.Instance();
+      var instance = Any.Instance<IObservableConcurrentDictionary<string, string>>();
 
       //WHEN
       var element1 = instance.GetEnumerator().Current;
