@@ -30,7 +30,7 @@ namespace TddEbook.TypeReflection
     bool HasConstructorWithParameters();
     bool CanBeAssignedNullValue();
     Type ToClrType();
-    bool IsAnException();
+    bool IsException();
     bool HasPublicConstructorCountOfAtMost(int i);
   }
 
@@ -364,14 +364,15 @@ namespace TddEbook.TypeReflection
       return _type; //todo at the very end, this should be removed
     }
 
-    public bool IsAnException()
+    public bool IsException()
     {
-      throw new NotImplementedException();
+      return _type == typeof(Exception) ||
+        _type.IsSubclassOf(typeof(Exception));
     }
 
     public bool HasPublicConstructorCountOfAtMost(int i)
     {
-      throw new NotImplementedException();
+      return GetAllPublicConstructors().Count() <= i;
     }
   }
 

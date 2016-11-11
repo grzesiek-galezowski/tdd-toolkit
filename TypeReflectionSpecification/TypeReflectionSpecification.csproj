@@ -50,6 +50,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
+      <Project>{A52E21F4-2301-4F4E-9361-BE954FB490A0}</Project>
+      <Name>TddToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
+      <Project>{9B839C4B-BEFD-467F-80A7-B51C6352A985}</Project>
+      <Name>TypeReflection</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

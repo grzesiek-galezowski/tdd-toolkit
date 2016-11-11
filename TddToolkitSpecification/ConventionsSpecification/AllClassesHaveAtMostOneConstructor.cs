@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     {
       result.Is("Each type must have at most one constructor",
         data.TypesToVerify.Select(TypeReflection.SmartType.For)
-        .Where(t => !t.IsAnException())
+        .Where(t => !t.IsException())
         .Where(t => t.HasPublicConstructorCountOfAtMost(1)));
     }
 
