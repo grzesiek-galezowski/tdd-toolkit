@@ -4,11 +4,11 @@ using System.Reflection;
 
 namespace TddEbook.TypeReflection
 {
-  public class MethodWrapper : IMethodWrapper
+  public class SmartMethod : IMethod
   {
     private readonly MethodInfo _methodInfo;
 
-    public MethodWrapper(MethodInfo methodInfo)
+    public SmartMethod(MethodInfo methodInfo)
     {
       _methodInfo = methodInfo;
     }

@@ -13,6 +13,7 @@ using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 using TddEbook.TypeReflection;
+using Type = System.Type;
 
 // ReSharper disable PublicConstructorInAbstractClass
 

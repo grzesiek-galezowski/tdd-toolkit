@@ -17,7 +17,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 
     public void CheckAndRecord(ConstraintsViolations violations)
     {
-      var properties = TypeWrapper.For(_type).GetAllPublicInstanceProperties();
+      var properties = SmartType.For(_type).GetAllPublicInstanceProperties();
 
       foreach (var item in properties.Where(item => item.HasPublicSetter()))
       {

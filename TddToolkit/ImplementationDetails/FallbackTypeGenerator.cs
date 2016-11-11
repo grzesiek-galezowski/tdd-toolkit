@@ -46,24 +46,24 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
   public class FallbackTypeGenerator
   {
-    private readonly ITypeWrapper _typeWrapper;
+    private readonly IType _smartType;
     private readonly Type _type;
 
     public FallbackTypeGenerator(Type type)
     {
-      _typeWrapper = TypeWrapper.For(type);
+      _smartType = SmartType.For(type);
       _type = type;
     }
 
     public int GetConstructorParametersCount()
     {
-      var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+      var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
       return constructor.Value.GetParametersCount(); //bug backward compatibility (for now)
     }
 
     public object GenerateInstance()
     {
-      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters()
+      var instance = _smartType.PickConstructorWithLeastNonPointersParameters()
         .Value.InvokeWithParametersCreatedBy(Any.Instance);  //bug backward compatibility (for now)
       XAssert.Equal(_type, instance.GetType());
       return instance;
@@ -71,7 +71,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     public object GenerateInstance(IEnumerable<object> constructorParameters)
     {
-      var instance = _typeWrapper.PickConstructorWithLeastNonPointersParameters().Value  //bug backward compatibility (for now)
+      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value  //bug backward compatibility (for now)
         .InvokeWith(constructorParameters);
       XAssert.Equal(_type, instance.GetType());
       return instance;
@@ -79,7 +79,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     public List<object> GenerateConstructorParameters()
     {
-      var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+      var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
       var constructorParameters = constructor.Value  //bug backward compatibility (for now)
         .GenerateAnyParameterValues(Any.Instance);
       return constructorParameters;
@@ -87,7 +87,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
     {
-      var constructor = _typeWrapper.PickConstructorWithLeastNonPointersParameters();
+      var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
       return constructor.Value //bug backward compatibility (for now)
         .HasAbstractOrInterfaceArguments()
       || constructor.Value.IsInternal();
@@ -102,7 +102,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private void FillFieldValues(object result)
     {
-      var fields = _typeWrapper.GetAllPublicInstanceFields();
+      var fields = _smartType.GetAllPublicInstanceFields();
       foreach (var field in fields)
       {
         try
@@ -118,7 +118,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private void FillPropertyValues(object result)
     {
-      var properties = _typeWrapper.GetPublicInstanceWritableProperties();
+      var properties = _smartType.GetPublicInstanceWritableProperties();
 
       foreach (var property in properties)
       {

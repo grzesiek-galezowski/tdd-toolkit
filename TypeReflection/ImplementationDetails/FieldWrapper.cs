@@ -34,7 +34,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public string GenerateExistenceMessage()
     {
-      return "Type: " + _fieldInfo.DeclaringType +
+      return "SmartType: " + _fieldInfo.DeclaringType +
              " contains static field " + _fieldInfo.Name +
              " of type " + _fieldInfo.FieldType;
 

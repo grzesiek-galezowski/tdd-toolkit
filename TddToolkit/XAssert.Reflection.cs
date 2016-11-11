@@ -27,10 +27,10 @@ namespace TddEbook.TddToolkit
 
       public static void NoStaticFields(Type type)
       {
-        var staticFields = new List<IFieldWrapper>(TypeWrapper.For(type).GetAllStaticFields());
+        var staticFields = new List<IFieldWrapper>(SmartType.For(type).GetAllStaticFields());
 
         staticFields.Should()
-                    .BeEmpty("Type " + type + " should not contain static fields, but: " + Environment.NewLine +
+                    .BeEmpty("SmartType " + type + " should not contain static fields, but: " + Environment.NewLine +
                              StringFrom(staticFields));
       }
 
@@ -40,7 +40,7 @@ namespace TddEbook.TddToolkit
         var staticFields = new List<IFieldWrapper>();
         foreach (var type in assembly.GetTypes())
         {
-          staticFields.AddRange(TypeWrapper.For(type).GetAllStaticFields());
+          staticFields.AddRange(SmartType.For(type).GetAllStaticFields());
         }
 
         staticFields.Should()
@@ -65,7 +65,7 @@ namespace TddEbook.TddToolkit
         
         foreach (var type in assembly.GetTypes())
         {
-          nonPublicEvents.AddRange(TypeWrapper.For(type).GetAllNonPublicEventsWithoutExplicitlyImplemented());
+          nonPublicEvents.AddRange(SmartType.For(type).GetAllNonPublicEventsWithoutExplicitlyImplemented());
         }
 
         nonPublicEvents.Should()
@@ -79,7 +79,7 @@ namespace TddEbook.TddToolkit
         
         foreach (var type in assembly.GetTypes())
         {
-          var constructorCount = TypeWrapper.For(type).GetAllPublicConstructors().Count();
+          var constructorCount = SmartType.For(type).GetAllPublicConstructors().Count();
           if (constructorCount > 1)
           {
             constructorLimitsExceeded.Add(Tuple.Create(type, constructorCount)); 
@@ -120,7 +120,7 @@ namespace TddEbook.TddToolkit
       public static void HasUniqueConstants<T>()
       {
         string errors = "";
-        var constants = TypeWrapper.For(typeof(T)).GetAllConstants();
+        var constants = SmartType.For(typeof(T)).GetAllConstants();
         foreach (var constant in constants)
         {
           foreach (var otherConstant in constants)

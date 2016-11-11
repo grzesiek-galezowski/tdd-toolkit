@@ -80,7 +80,7 @@
     <Compile Include="ImplementationDetails\ConstructorRetrievals\PublicStaticFactoryMethodRetrieval.cs" />
     <Compile Include="TypeOf.cs" />
     <Compile Include="TypeOfType.cs" />
-    <Compile Include="TypeWrapper.cs" />
+    <Compile Include="SmartType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

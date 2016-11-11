@@ -13,6 +13,7 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
+using Type = System.Type;
 
 namespace TddEbook.TddToolkit
 {
@@ -166,7 +167,7 @@ namespace TddEbook.TddToolkit
       var type = typeof (T);
       var sub = Substitute.For<T>();
 
-      var methods = TypeWrapper.For(type).GetAllPublicInstanceMethodsWithReturnValue();
+      var methods = TypeReflection.SmartType.For(type).GetAllPublicInstanceMethodsWithReturnValue();
 
       foreach (var method in methods)
       {

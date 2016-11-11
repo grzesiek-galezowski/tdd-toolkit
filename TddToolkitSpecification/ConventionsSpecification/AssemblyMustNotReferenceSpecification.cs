@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using ConventionsFixture;
+﻿using ConventionsFixture;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TestStack.ConventionTests;
-using TestStack.ConventionTests.ConventionData;
 
 namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
 {
@@ -19,30 +12,20 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     {
       var sourceAssembly = typeof(AssemblyIdType).Assembly;
       var forbiddenReference = typeof(string).Assembly;
-      var reason = Any.StringNotContaining("-");
+      var reason = Any.String();
+      var expectedMessageStart = ExpectedAssemblyRefConventionMessage.Start(forbiddenReference, sourceAssembly, reason);
+      var expectedMessageEnd = ExpectedAssemblyRefConventionMessage.End(sourceAssembly);
       var forbiddenAssemblyReference = new AssemblyDoesNotContainForbiddenReferences(
         forbiddenReference, reason);
 
+      //WHEN-THEN
       var exception = Assert.Throws<ConventionFailedException>(() =>
       {
         Convention.Is(forbiddenAssemblyReference,
           new Assemblies(sourceAssembly));
       });
-      var expectedMessageStart = ExpectedMessageStart(forbiddenReference, sourceAssembly, reason);
-      var expectedMessageEnd = ExpectedMessageEnd(sourceAssembly);
-
       StringAssert.StartsWith(expectedMessageStart, exception.Message);
       StringAssert.EndsWith(expectedMessageEnd, exception.Message);
-    }
-
-    private static string ExpectedMessageStart(Assembly forbiddenReference, Assembly sourceAssembly, string reason)
-    {
-      return $@"'Forbidden reference to {forbiddenReference} because {reason}' for 'Assemblies in {sourceAssembly}'".Replace("\t", " ");
-    }
-
-    private static string ExpectedMessageEnd(Assembly sourceAssembly)
-    {
-      return $@"{sourceAssembly}{"\r\n"}";
     }
 
     [Test]

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TypeReflection;
+using Type = System.Type;
 
 namespace TddEbook.TddToolkitSpecification
 {

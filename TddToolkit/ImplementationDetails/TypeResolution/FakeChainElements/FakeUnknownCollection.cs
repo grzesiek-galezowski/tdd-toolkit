@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TddEbook.TypeReflection;
+using Type = System.Type;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {

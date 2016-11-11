@@ -6,37 +6,37 @@ namespace TddEbook.TypeReflection
 {
   public static class TypeOf<T>
   {
-    private static readonly ITypeWrapper _typeWrapper;
+    private static readonly IType Type;
 
     static TypeOf()
     {
-      _typeWrapper = TypeWrapper.For(typeof (T));
+      Type = SmartType.For(typeof (T));
     }
 
     public static bool HasParameterlessConstructor()
     {
-      return _typeWrapper.HasPublicParameterlessConstructor();
+      return Type.HasPublicParameterlessConstructor();
     }
 
     public static bool IsImplementationOfOpenGeneric(Type openGenericType)
     {
-      return _typeWrapper.IsImplementationOfOpenGeneric(openGenericType);
+      return Type.IsImplementationOfOpenGeneric(openGenericType);
     }
 
     public static bool IsConcrete()
     {
-      return _typeWrapper.IsConcrete();
+      return Type.IsConcrete();
     }
 
     public static IBinaryOperator<T, bool> Equality()
     {
 
-      return BinaryOperator<T, bool>.Wrap(_typeWrapper.Equality());
+      return BinaryOperator<T, bool>.Wrap(Type.Equality());
     }
 
     public static IBinaryOperator<T, bool> Inequality()
     {
-      return BinaryOperator<T, bool>.Wrap(_typeWrapper.Inequality());
+      return BinaryOperator<T, bool>.Wrap(Type.Inequality());
     }
 
     public static bool Is<T1>()

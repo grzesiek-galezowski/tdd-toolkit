@@ -14,7 +14,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public string GenerateNonPublicExistenceMessage()
     {
-      return "Type: " + _eventInfo.DeclaringType +
+      return "SmartType: " + _eventInfo.DeclaringType +
              " contains non public event " + _eventInfo.Name +
              " of type " + _eventInfo.EventHandlerType;
 

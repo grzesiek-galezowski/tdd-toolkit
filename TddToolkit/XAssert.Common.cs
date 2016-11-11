@@ -37,7 +37,7 @@ namespace TddEbook.TddToolkit
 
     public static void HasNullProtectedConstructors<T>()
     {
-      var type = TypeWrapper.For(typeof(T));
+      var type = SmartType.For(typeof(T));
       
       if (!type.HasConstructorWithParameters())
       {
@@ -55,7 +55,6 @@ namespace TddEbook.TddToolkit
         XAssert.TypeAdheresTo(constraints);
       }
     }
-
 
     private static IEnumerable<IConstraint> CreateConstraintsBasedOn(
       Type type, ValueTypeTraits traits, ValueObjectActivator activator)
@@ -150,12 +149,12 @@ namespace TddEbook.TddToolkit
 
     public static void IsEqualityOperatorDefinedFor(Type type)
     {
-      ExecutionOf(() => TypeWrapper.For(type).Equality()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => SmartType.For(type).Equality()).ShouldNotThrow<Exception>();
     }
 
     public static void IsInequalityOperatorDefinedFor(Type type)
     {
-      ExecutionOf(() => TypeWrapper.For(type).Inequality()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => SmartType.For(type).Inequality()).ShouldNotThrow<Exception>();
     }
   }
 
@@ -172,12 +171,12 @@ namespace TddEbook.TddToolkit
     {
       if (_type.IsAbstract)
       {
-        violations.Add("Type " + _type + " is abstract but abstract classes cannot be value objects");
+        violations.Add("SmartType " + _type + " is abstract but abstract classes cannot be value objects");
       }
 
       if (_type.IsInterface)
       {
-        violations.Add("Type " + _type + " is an interface but interfaces cannot be value objects");
+        violations.Add("SmartType " + _type + " is an interface but interfaces cannot be value objects");
       }
     }
   }
@@ -193,7 +192,7 @@ namespace TddEbook.TddToolkit
 
     public void CheckAndRecord(ConstraintsViolations violations)
     {
-      var constructors = TypeWrapper.For(_type).GetAllPublicConstructors();
+      var constructors = SmartType.For(_type).GetAllPublicConstructors();
       var fallbackTypeGenerator = new FallbackTypeGenerator(_type);
 
       foreach (var constructor in constructors)
@@ -209,7 +208,7 @@ namespace TddEbook.TddToolkit
       for (int i = 0; i < constructor.GetParametersCount(); ++i)
       {
         var parameters = constructor.GenerateAnyParameterValues(Any.Instance);
-        if (TypeWrapper.ForTypeOf(parameters[i]).CanBeAssignedNullValue())
+        if (SmartType.ForTypeOf(parameters[i]).CanBeAssignedNullValue())
         {
           parameters[i] = null;
 

@@ -9,7 +9,7 @@ using TddEbook.TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
 {
-  public interface ITypeWrapper
+  public interface IType
   {
     bool HasPublicParameterlessConstructor();
     bool IsImplementationOfOpenGeneric(Type openGenericType);
@@ -26,14 +26,15 @@ namespace TddEbook.TypeReflection
     IEnumerable<IConstructorWrapper> GetAllPublicConstructors();
     IEnumerable<IFieldWrapper> GetAllPublicInstanceFields();
     IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties();
-    IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue();
+    IEnumerable<IMethod> GetAllPublicInstanceMethodsWithReturnValue();
     bool HasConstructorWithParameters();
     bool CanBeAssignedNullValue();
     Type ToClrType();
-    
+    bool IsAnException();
+    bool HasPublicConstructorCountOfAtMost(int i);
   }
 
-  public interface IMethodWrapper
+  public interface IMethod
   {
     object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory);
     object GenerateAnyReturnValue(Func<Type, object> valueFactory);
@@ -51,12 +52,12 @@ namespace TddEbook.TypeReflection
     IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion();
   }
 
-  public class TypeWrapper : ITypeWrapper, IConstructorQueries
+  public class SmartType : IType, IConstructorQueries
   {
     private readonly Type _type;
     private readonly ConstructorRetrieval _constructorRetrieval;
 
-    public TypeWrapper(Type type, ConstructorRetrieval constructorRetrieval)
+    public SmartType(Type type, ConstructorRetrieval constructorRetrieval)
     {
       _type = type;
       _constructorRetrieval = constructorRetrieval;
@@ -201,14 +202,14 @@ namespace TddEbook.TypeReflection
       return BinaryOperator.Wrap(InequalityMethod(), ValueTypeInequalityMethod(), "operator !=");
     }
 
-    public static ITypeWrapper For(Type type)
+    public static IType For(Type type)
     {
-      return new TypeWrapper(type, new ConstructorRetrievalFactory().Create());
+      return new SmartType(type, new ConstructorRetrievalFactory().Create());
     }
 
-    public static ITypeWrapper ForTypeOf(object obj)
+    public static IType ForTypeOf(object obj)
     {
-      return new TypeWrapper(obj.GetType(), new ConstructorRetrievalFactory().Create());
+      return new SmartType(obj.GetType(), new ConstructorRetrievalFactory().Create());
     }
 
     public static bool ValuesEqual(object instance1, object instance2)
@@ -340,11 +341,11 @@ namespace TddEbook.TypeReflection
         .Select(p => new PropertyWrapper(p));
     }
 
-    public IEnumerable<IMethodWrapper> GetAllPublicInstanceMethodsWithReturnValue()
+    public IEnumerable<IMethod> GetAllPublicInstanceMethodsWithReturnValue()
     {
       return _type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
         .Where(p => p.ReturnType != typeof(void)).
-        Select(p => new MethodWrapper(p));
+        Select(p => new SmartMethod(p));
     }
     //TODO even strict mocks can be done this way...
 
@@ -361,6 +362,16 @@ namespace TddEbook.TypeReflection
     public Type ToClrType()
     {
       return _type; //todo at the very end, this should be removed
+    }
+
+    public bool IsAnException()
+    {
+      throw new NotImplementedException();
+    }
+
+    public bool HasPublicConstructorCountOfAtMost(int i)
+    {
+      throw new NotImplementedException();
     }
   }
 

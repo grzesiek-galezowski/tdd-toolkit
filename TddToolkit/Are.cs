@@ -51,12 +51,12 @@ namespace TddEbook.TddToolkit
 
     public static bool EqualInTermsOfEqualityOperator(Type type, object instance1, object instance2)
     {
-      return (bool)TypeWrapper.For(type).Equality().Evaluate(instance1, instance2);
+      return (bool)SmartType.For(type).Equality().Evaluate(instance1, instance2);
     }
 
     public static bool NotEqualInTermsOfInEqualityOperator(Type type, object instance1, object instance2)
     {
-      return (bool)TypeWrapper.For(type).Inequality().Evaluate(instance1, instance2);
+      return (bool)SmartType.For(type).Inequality().Evaluate(instance1, instance2);
     }
 
   }

@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Net;
-using System.Runtime.Caching;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
+using Type = System.Type;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {

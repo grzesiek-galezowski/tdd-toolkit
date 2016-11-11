@@ -23,7 +23,7 @@ namespace TddEbook.TddToolkit.Helpers.Constraints
 
     private void CheckImmutability(ConstraintsViolations violations, Type type)
     {
-      var fields = TypeWrapper.For(type).GetAllInstanceFields().ToList();
+      var fields = SmartType.For(type).GetAllInstanceFields().ToList();
       var fieldWrappers = fields
         .Where(item => item.IsNotDeveloperDefinedReadOnlyField());
 
