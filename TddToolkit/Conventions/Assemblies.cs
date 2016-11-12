@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using TestStack.ConventionTests;
 
-namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
+namespace TddEbook.TddToolkit.Conventions
 {
   public class Assemblies : IConventionData
   {

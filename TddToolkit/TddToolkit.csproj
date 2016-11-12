@@ -90,6 +90,10 @@
     <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
     <Compile Include="Clone.cs" />
+    <Compile Include="Conventions\AllClassesHaveAtMostOneConstructor.cs" />
+    <Compile Include="Conventions\AllExceptionsNamesMustEndWithException.cs" />
+    <Compile Include="Conventions\Assemblies.cs" />
+    <Compile Include="Conventions\AssemblyDoesNotContainForbiddenReferences.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
     <Compile Include="Empty.cs" />
@@ -190,6 +194,7 @@
       <Name>TypeReflection</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

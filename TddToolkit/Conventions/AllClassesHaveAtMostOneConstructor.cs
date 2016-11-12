@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using System.Reflection;
-using NUnit.Framework.Internal;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
-namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
+namespace TddEbook.TddToolkit.Conventions
 {
   public class AllClassesHaveAtMostOneConstructor : IConvention<Types>
   {
@@ -13,7 +11,8 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
       result.Is("Each type must have at most one constructor",
         data.TypesToVerify.Select(TypeReflection.SmartType.For)
         .Where(t => !t.IsException())
-        .Where(t => t.HasPublicConstructorCountOfAtMost(1)));
+        .Where(t => !t.HasPublicConstructorCountOfAtMost(1))
+        .Select(t => t.ToClrType()));
     }
 
     public string ConventionReason { get; } = "Does not apply to exceptions. " +

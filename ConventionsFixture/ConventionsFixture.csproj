@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyIdType.cs" />
+    <Compile Include="ExceptionWithoutExceptionSuffix.cs" />
+    <Compile Include="FixtureObjectWithTwoConstructors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

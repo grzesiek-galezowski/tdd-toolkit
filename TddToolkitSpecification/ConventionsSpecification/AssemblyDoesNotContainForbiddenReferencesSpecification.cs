@@ -1,16 +1,18 @@
 ﻿using ConventionsFixture;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.Conventions;
 using TestStack.ConventionTests;
 
 namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
 {
-  public class AssemblyMustNotReferenceSpecification
+  public class AssemblyDoesNotContainForbiddenReferencesSpecification
   {
     [Test]
     public void ShouldFailWhenPassedAnAssemlyToWhichSourceHasReference()
     {
       var sourceAssembly = typeof(AssemblyIdType).Assembly;
+      var assemblies = new Assemblies(sourceAssembly);
       var forbiddenReference = typeof(string).Assembly;
       var reason = Any.String();
       var expectedMessageStart = ExpectedAssemblyRefConventionMessage.Start(forbiddenReference, sourceAssembly, reason);
@@ -21,8 +23,7 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
       //WHEN-THEN
       var exception = Assert.Throws<ConventionFailedException>(() =>
       {
-        Convention.Is(forbiddenAssemblyReference,
-          new Assemblies(sourceAssembly));
+        Convention.Is(forbiddenAssemblyReference, assemblies);
       });
       StringAssert.StartsWith(expectedMessageStart, exception.Message);
       StringAssert.EndsWith(expectedMessageEnd, exception.Message);
@@ -38,4 +39,6 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     }
 
   }
+
+
 }

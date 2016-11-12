@@ -74,10 +74,9 @@
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="CloneSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
-    <Compile Include="ConventionsSpecification\AllClassesHaveAtMostOneConstructor.cs" />
-    <Compile Include="ConventionsSpecification\Assemblies.cs" />
-    <Compile Include="ConventionsSpecification\AssemblyDoesNotContainForbiddenReferences.cs" />
-    <Compile Include="ConventionsSpecification\AssemblyMustNotReferenceSpecification.cs" />
+    <Compile Include="ConventionsSpecification\AllExceptionsNamesMustEndWithExceptionSpecification.cs" />
+    <Compile Include="ConventionsSpecification\AllClassesHaveAtMostOneConstructorSpecification.cs" />
+    <Compile Include="ConventionsSpecification\AssemblyDoesNotContainForbiddenReferencesSpecification.cs" />
     <Compile Include="ConventionsSpecification\ExpectedAssemblyRefConventionMessage.cs" />
     <Compile Include="Fixtures\IncrementalType.cs" />
     <Compile Include="Fixtures\MyService.cs" />
