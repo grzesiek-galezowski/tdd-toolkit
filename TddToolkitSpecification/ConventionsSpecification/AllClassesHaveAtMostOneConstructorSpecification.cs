@@ -32,10 +32,8 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     [Test]
     public void ShouldPassWhenPassedAnAssemlyToWhichSourceHasNoReference()
     {
-      var types = Types.InAssemblyOf(typeof(AssemblyIdType));
-      var enumerable = types.Where(t => t != typeof(FixtureObjectWithTwoConstructors)).ToArray();
-      types = Types.InCollection(
-        enumerable, types.Description);
+      var types = Types.InAssemblyOf(typeof(AssemblyIdType))
+        .Without(typeof(FixtureObjectWithTwoConstructors));
       var forbiddenAssemblyReference = new AllClassesHaveAtMostOneConstructor();
 
       //WHEN-THEN

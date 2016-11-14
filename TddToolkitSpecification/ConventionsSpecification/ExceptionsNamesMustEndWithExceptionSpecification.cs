@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using ConventionsFixture;
 using NUnit.Framework;
 using TddEbook.TddToolkit.Conventions;
@@ -8,13 +7,13 @@ using TestStack.ConventionTests.ConventionData;
 
 namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
 {
-  public class AllExceptionsNamesMustEndWithExceptionSpecification
+  public class ExceptionsNamesMustEndWithExceptionSpecification
   {
     [Test]
     public void ShouldFailWhenPassedAnAssemlyToWhichSourceHasReference()
     {
-      var types = Types.InAssemblyOf(typeof(AssemblyIdType));
-      var convention = new AllExceptionsNamesMustEndWithException();
+      var types = Types.InAssemblyOf<AssemblyIdType>();
+      var convention = new ExceptionsNamesMustEndWithException();
 
       //WHEN-THEN
       var exception = Assert.Throws<ConventionFailedException>(() =>
@@ -32,11 +31,9 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     [Test]
     public void ShouldPassWhenPassedAnAssemlyToWhichSourceHasNoReference()
     {
-      var types = Types.InAssemblyOf(typeof(AssemblyIdType));
-      var enumerable = types.Where(t => t != typeof(ExceptionWithoutExceptionSuffix)).ToArray();
-      types = Types.InCollection(
-        enumerable, types.Description);
-      var convention = new AllExceptionsNamesMustEndWithException();
+      var types = Types.InAssemblyOf<AssemblyIdType>();
+      types = types.Without(typeof(ExceptionWithoutExceptionSuffix));
+      var convention = new ExceptionsNamesMustEndWithException();
 
       //WHEN-THEN
       Convention.Is(convention, types);
@@ -46,6 +43,5 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     {
       return containingString.Split(new[] { searchedForString }, StringSplitOptions.RemoveEmptyEntries).Length - 2;
     }
-
   }
 }

@@ -1,14 +1,17 @@
 using System.Reflection;
 
-static internal class ExpectedAssemblyRefConventionMessage
+namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
 {
-  public static string Start(Assembly forbiddenReference, Assembly sourceAssembly, string reason)
+  internal static class ExpectedAssemblyRefConventionMessage
   {
-    return $@"'Forbidden reference to {forbiddenReference} because {reason}' for 'Assemblies in {sourceAssembly}'".Replace("\t", " ");
-  }
+    public static string Start(Assembly forbiddenReference, Assembly sourceAssembly, string reason)
+    {
+      return $@"'Forbidden reference to {forbiddenReference} because {reason}' for 'Assemblies in {sourceAssembly}'".Replace("\t", " ");
+    }
 
-  public static string End(Assembly sourceAssembly)
-  {
-    return $@"{sourceAssembly}{"\r\n"}";
+    public static string End(Assembly sourceAssembly)
+    {
+      return $@"{sourceAssembly}{"\r\n"}";
+    }
   }
 }

@@ -5,7 +5,7 @@ using TestStack.ConventionTests.ConventionData;
 
 namespace TddEbook.TddToolkit.Conventions
 {
-  public class AllExceptionsNamesMustEndWithException : IConvention<Types>
+  public class ExceptionsNamesMustEndWithException : IConvention<Types>
   {
     public void Execute(Types data, IConventionResultContext result)
     {

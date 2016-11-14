@@ -74,10 +74,11 @@
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="CloneSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
-    <Compile Include="ConventionsSpecification\AllExceptionsNamesMustEndWithExceptionSpecification.cs" />
+    <Compile Include="ConventionsSpecification\ExceptionsNamesMustEndWithExceptionSpecification.cs" />
     <Compile Include="ConventionsSpecification\AllClassesHaveAtMostOneConstructorSpecification.cs" />
     <Compile Include="ConventionsSpecification\AssemblyDoesNotContainForbiddenReferencesSpecification.cs" />
     <Compile Include="ConventionsSpecification\ExpectedAssemblyRefConventionMessage.cs" />
+    <Compile Include="ConventionsSpecification\TypesExtensions.cs" />
     <Compile Include="Fixtures\IncrementalType.cs" />
     <Compile Include="Fixtures\MyService.cs" />
     <Compile Include="Fixtures\ObjectWithAttributeOnMethod.cs" />
