@@ -3,7 +3,7 @@ using System.Linq;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
-namespace TddEbook.TddToolkit.Conventions
+namespace Conventions
 {
   public class ExceptionsNamesMustEndWithException : IConvention<Types>
   {

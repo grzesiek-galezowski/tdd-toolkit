@@ -82,20 +82,12 @@
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="TestStack.ConventionTests, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TestStack.ConventionTests.3.0.1\lib\net40\TestStack.ConventionTests.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Are.cs" />
     <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
     <Compile Include="Clone.cs" />
-    <Compile Include="Conventions\AllClassesHaveAtMostOneConstructor.cs" />
-    <Compile Include="Conventions\ExceptionsNamesMustEndWithException.cs" />
-    <Compile Include="Conventions\Assemblies.cs" />
-    <Compile Include="Conventions\AssemblyDoesNotContainForbiddenReferences.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
     <Compile Include="Empty.cs" />

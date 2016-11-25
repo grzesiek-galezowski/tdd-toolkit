@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
+namespace ConventionsSpecification
 {
   internal static class ExpectedAssemblyRefConventionMessage
   {

@@ -71,10 +71,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="TestStack.ConventionTests, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TestStack.ConventionTests.3.0.1\lib\net40\TestStack.ConventionTests.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnySubstituteSpecification.cs" />
@@ -82,11 +78,6 @@
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="CloneSpecification.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
-    <Compile Include="ConventionsSpecification\ExceptionsNamesMustEndWithExceptionSpecification.cs" />
-    <Compile Include="ConventionsSpecification\AllClassesHaveAtMostOneConstructorSpecification.cs" />
-    <Compile Include="ConventionsSpecification\AssemblyDoesNotContainForbiddenReferencesSpecification.cs" />
-    <Compile Include="ConventionsSpecification\ExpectedAssemblyRefConventionMessage.cs" />
-    <Compile Include="ConventionsSpecification\TypesExtensions.cs" />
     <Compile Include="Fixtures\IncrementalType.cs" />
     <Compile Include="Fixtures\MyService.cs" />
     <Compile Include="Fixtures\ObjectWithAttributeOnMethod.cs" />
@@ -147,7 +138,5 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\StrongNamer.0.0.2\build\StrongNamer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StrongNamer.0.0.2\build\StrongNamer.targets'))" />
   </Target>
-  <Import Project="..\packages\StrongNamer.0.0.2\build\StrongNamer.targets" Condition="Exists('..\packages\StrongNamer.0.0.2\build\StrongNamer.targets')" />
 </Project>

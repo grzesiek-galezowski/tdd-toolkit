@@ -1,15 +1,16 @@
 ﻿using System.Linq;
+using TddEbook.TypeReflection;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
-namespace TddEbook.TddToolkit.Conventions
+namespace Conventions
 {
   public class AllClassesHaveAtMostOneConstructor : IConvention<Types>
   {
     public void Execute(Types data, IConventionResultContext result)
     {
       result.Is("Each type must have at most one constructor",
-        data.TypesToVerify.Select(TypeReflection.SmartType.For)
+        data.TypesToVerify.Select(SmartType.For)
         .Where(t => !t.IsException())
         .Where(t => !t.HasPublicConstructorCountOfAtMost(1))
         .Select(t => t.ToClrType()));

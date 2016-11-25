@@ -1,10 +1,10 @@
-﻿using ConventionsFixture;
+﻿using Conventions;
+using ConventionsFixture;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Conventions;
 using TestStack.ConventionTests;
 
-namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
+namespace ConventionsSpecification
 {
   public class AssemblyDoesNotContainForbiddenReferencesSpecification
   {

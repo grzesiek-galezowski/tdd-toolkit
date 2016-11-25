@@ -34,6 +34,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConventionsFixture", "Conve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeReflectionSpecification", "TypeReflectionSpecification\TypeReflectionSpecification.csproj", "{89E88234-23DC-4C91-8182-ADB3826D9CF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conventions", "Conventions\Conventions.csproj", "{EAC311C4-BD84-43DC-9207-38B5FAC0BE4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConventionsSpecification", "ConventionsSpecification\ConventionsSpecification.csproj", "{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +86,14 @@ Global
 		{89E88234-23DC-4C91-8182-ADB3826D9CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89E88234-23DC-4C91-8182-ADB3826D9CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89E88234-23DC-4C91-8182-ADB3826D9CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC311C4-BD84-43DC-9207-38B5FAC0BE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC311C4-BD84-43DC-9207-38B5FAC0BE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC311C4-BD84-43DC-9207-38B5FAC0BE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC311C4-BD84-43DC-9207-38B5FAC0BE4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

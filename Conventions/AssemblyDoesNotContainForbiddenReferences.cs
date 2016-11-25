@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using TestStack.ConventionTests;
 
-namespace TddEbook.TddToolkit.Conventions
+namespace Conventions
 {
   public class AssemblyDoesNotContainForbiddenReferences : IConvention<Assemblies>
   {

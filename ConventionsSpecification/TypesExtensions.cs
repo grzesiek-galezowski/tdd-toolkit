@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using TestStack.ConventionTests.ConventionData;
 
-namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
+namespace ConventionsSpecification
 {
   public static class TypesExtensions
   {

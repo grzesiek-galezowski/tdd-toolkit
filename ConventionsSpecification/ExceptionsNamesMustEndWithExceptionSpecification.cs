@@ -1,30 +1,29 @@
-﻿using System;
-using System.Linq;
+using System;
+using Conventions;
 using ConventionsFixture;
 using NUnit.Framework;
-using TddEbook.TddToolkit.Conventions;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
-namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
+namespace ConventionsSpecification
 {
-  public class AllClassesHaveAtMostOneConstructorSpecification
+  public class ExceptionsNamesMustEndWithExceptionSpecification
   {
     [Test]
     public void ShouldFailWhenPassedAnAssemlyToWhichSourceHasReference()
     {
-      var types = Types.InAssemblyOf(typeof(AssemblyIdType));
-      var forbiddenAssemblyReference = new AllClassesHaveAtMostOneConstructor();
+      var types = Types.InAssemblyOf<AssemblyIdType>();
+      var convention = new ExceptionsNamesMustEndWithException();
 
       //WHEN-THEN
       var exception = Assert.Throws<ConventionFailedException>(() =>
       {
-        Convention.Is(forbiddenAssemblyReference, types);
+        Convention.Is(convention, types);
       });
       StringAssert.StartsWith(
-        "'Each type must have at most one constructor' for 'Types in ConventionsFixture'", 
+        "'All types inheriting from exception must end with 'Exception'' for 'Types in ConventionsFixture'",
         exception.Message);
-      StringAssert.EndsWith("ConventionsFixture.FixtureObjectWithTwoConstructors\r\n", 
+      StringAssert.EndsWith("ConventionsFixture.ExceptionWithoutExceptionSuffix\r\n",
         exception.Message);
       Assert.AreEqual(1, OccurencesOfString("ConventionsFixture", exception.Message));
     }
@@ -32,19 +31,17 @@ namespace TddEbook.TddToolkitSpecification.ConventionsSpecification
     [Test]
     public void ShouldPassWhenPassedAnAssemlyToWhichSourceHasNoReference()
     {
-      var types = Types.InAssemblyOf(typeof(AssemblyIdType))
-        .Without(typeof(FixtureObjectWithTwoConstructors));
-      var forbiddenAssemblyReference = new AllClassesHaveAtMostOneConstructor();
+      var types = Types.InAssemblyOf<AssemblyIdType>();
+      types = types.Without(typeof(ExceptionWithoutExceptionSuffix));
+      var convention = new ExceptionsNamesMustEndWithException();
 
       //WHEN-THEN
-      Convention.Is(forbiddenAssemblyReference, types);
+      Convention.Is(convention, types);
     }
-
 
     private static int OccurencesOfString(string searchedForString, string containingString)
     {
       return containingString.Split(new[] { searchedForString }, StringSplitOptions.RemoveEmptyEntries).Length - 2;
     }
-
   }
 }
