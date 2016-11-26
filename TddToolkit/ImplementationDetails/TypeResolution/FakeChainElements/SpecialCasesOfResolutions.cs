@@ -35,7 +35,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public static ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(Any.Dictionary), typeof(IDictionary<,>), typeof(Dictionary<,>));
+        new FactoryForInstancesOfGenericTypesWith2Generics(Any.Dictionary),
+        typeof(IDictionary<,>), 
+        typeof(IReadOnlyDictionary<,>), 
+        typeof(Dictionary<,>));
     }
 
     public static ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleSet()
@@ -77,7 +80,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(Any.List),
-        typeof(IList<>), typeof(IEnumerable<>), typeof(ICollection<>), typeof(List<>));
+        typeof(IList<>), 
+        typeof(IEnumerable<>), 
+        typeof(ICollection<>), 
+        typeof(List<>),
+        typeof(IReadOnlyList<>));
     }
 
     public static IResolution<T> CreateResolutionOfArray()

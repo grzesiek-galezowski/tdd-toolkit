@@ -91,6 +91,36 @@ namespace TddEbook.TddToolkit
       return EnumerableWith(included.ToArray()).ToList();
     }
 
+    public static IReadOnlyList<T> ReadOnlyList<T>()
+    {
+      return ReadOnlyList<T>(Many);
+    }
+
+    public static IReadOnlyList<T> ReadOnlyList<T>(int length)
+    {
+      return Any.List<T>(length);
+    }
+
+    public static IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items)
+    {
+      return Any.ListWith(items);
+    }
+
+    public static IReadOnlyList<T> ReadOnlyListWith<T>(params T[] items)
+    {
+      return Any.ListWith(items);
+    }
+
+    public static IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items)
+    {
+      return Any.ListWithout(items);
+    }
+
+    public static IReadOnlyList<T> ReadOnlyListWithout<T>(params T[] items)
+    {
+      return Any.ListWithout(items);
+    }
+
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {
       return SortedList<TKey, TValue>(Many);
@@ -151,6 +181,21 @@ namespace TddEbook.TddToolkit
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
       return Dictionary<TKey, TValue>(Many);
+    }
+
+    public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
+    {
+      return Dictionary<TKey, TValue>(length);
+    }
+
+    public static IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    {
+      return Any.DictionaryWithKeys<T, U>(keys);
+    }
+
+    public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
+    {
+      return ReadOnlyDictionary<TKey, TValue>(Many);
     }
 
     public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
@@ -302,7 +347,6 @@ namespace TddEbook.TddToolkit
         Instance(keyType), Instance(valueType)
         );
     }
-    
 
     public static object Enumerator(Type type)
     {
@@ -324,7 +368,6 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
-
 
 
   }

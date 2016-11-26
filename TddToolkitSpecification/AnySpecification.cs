@@ -1086,6 +1086,65 @@ namespace TddEbook.TddToolkitSpecification
       Assert.NotNull(task2.Result);
     }
 
+    [Test]
+    public void ShouldAllowGeneratingReadOnlyLists()
+    {
+      //GIVEN
+      var readOnlyList = Any.ReadOnlyList<int>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(readOnlyList);
+      Assert.AreEqual(3, readOnlyList.Count);
+      CollectionAssert.AllItemsAreNotNull(readOnlyList);
+      CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test]
+    public void ShouldAllowGeneratingReadOnlyListsThroughGenericMethod()
+    {
+      //GIVEN
+      var readOnlyList = Any.Instance<IReadOnlyList<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(readOnlyList);
+      Assert.AreEqual(3, readOnlyList.Count);
+      CollectionAssert.AllItemsAreNotNull(readOnlyList);
+      CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test]
+    public void ShouldAllowGeneratingReadOnlyDictionariesThroughGenericMethod()
+    {
+      //GIVEN
+      var readonlyDictionary = Any.Instance<IReadOnlyDictionary<int, int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(readonlyDictionary);
+      Assert.AreEqual(3, readonlyDictionary.Count);
+      CollectionAssert.AllItemsAreNotNull(readonlyDictionary);
+      CollectionAssert.AllItemsAreUnique(readonlyDictionary);
+    }
+
+    [Test]
+    public void ShouldAllowGeneratingReadOnlyListsOfSpecifiedLength()
+    {
+      //GIVEN
+      var length = 5;
+      var readOnlyList = Any.ReadOnlyList<int>(length);
+      //WHEN
+
+      //THEN
+      Assert.NotNull(readOnlyList);
+      Assert.AreEqual(length, readOnlyList.Count);
+      CollectionAssert.AllItemsAreNotNull(readOnlyList);
+      CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+
+
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
       RecursiveInterface x3)
     {
