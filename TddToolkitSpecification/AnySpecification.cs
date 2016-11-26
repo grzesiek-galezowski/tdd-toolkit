@@ -9,6 +9,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Nunit.NUnitExtensions;
@@ -1027,6 +1028,64 @@ namespace TddEbook.TddToolkitSpecification
       Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other);
     }
 
+    [Test]
+    public void ShouldGenerateVoidNotStartedTasks()
+    {
+      //WHEN
+      var voidTask1 = Any.NotStartedTask();
+      var voidTask2 = Any.NotStartedTask();
+      //THEN
+      Assert.NotNull(voidTask1);
+      Assert.NotNull(voidTask2);
+      Assert.AreNotEqual(voidTask1, voidTask2);
+      Assert.DoesNotThrow(() => voidTask1.Start());
+      Assert.DoesNotThrow(() => voidTask2.Start());
+    }
+
+    [Test]
+    public void ShouldGenerateNotStartedTasks()
+    {
+      //WHEN
+      var task1 = Any.NotStartedTask<int>();
+      var task2 = Any.NotStartedTask<int>();
+      //THEN
+      Assert.NotNull(task1);
+      Assert.NotNull(task2);
+      Assert.AreNotEqual(task1, task2);
+      Assert.DoesNotThrow(() => task1.Start());
+      Assert.DoesNotThrow(() => task2.Start());
+    }
+
+    [Test]
+    public void ShouldGenerateVoidStartedTasks()
+    {
+      //WHEN
+      var voidTask1 = Any.StartedTask();
+      var voidTask2 = Any.StartedTask();
+      //THEN
+      Assert.NotNull(voidTask1);
+      Assert.NotNull(voidTask2);
+      Assert.AreNotEqual(voidTask1, voidTask2);
+      Assert.Throws<InvalidOperationException>(() => voidTask1.Start());
+      Assert.Throws<InvalidOperationException>(() => voidTask2.Start());
+    }
+
+    [Test]
+    public void ShouldGenerateStartedTasks()
+    {
+      //WHEN
+      var task1 = Any.StartedTask<string>();
+      var task2 = Any.StartedTask<string>();
+      //THEN
+      Assert.NotNull(task1);
+      Assert.NotNull(task2);
+      Assert.AreNotEqual(task1, task2);
+      Assert.Throws<InvalidOperationException>(() => task1.Start());
+      Assert.Throws<InvalidOperationException>(() => task2.Start());
+      Assert.NotNull(task1.Result);
+      Assert.NotNull(task2.Result);
+    }
+
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
       RecursiveInterface x3)
     {
@@ -1037,7 +1096,6 @@ namespace TddEbook.TddToolkitSpecification
     {
       Serialize<T>(Any.Instance<T>());
     }
-
     private static void Serialize<T>(T instance)
     {
       using (MemoryStream stream = new MemoryStream())

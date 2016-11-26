@@ -7,6 +7,7 @@ using Ploeh.AutoFixture;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
@@ -255,6 +256,27 @@ namespace TddEbook.TddToolkit
 
       return list;
     }
+
+    public static Task NotStartedTask()
+    {
+      return new Task(() => Task.Delay(1).Wait());
+    }
+
+    public static Task<T> NotStartedTask<T>()
+    {
+      return new Task<T>(Instance<T>);
+    }
+
+    public static Task StartedTask()
+    {
+      return Clone.Of(Task.Delay(0));
+    }
+
+    public static Task<T> StartedTask<T>()
+    {
+      return Task.FromResult(Instance<T>());
+    }
+
   }
 
   public class Type1 { }

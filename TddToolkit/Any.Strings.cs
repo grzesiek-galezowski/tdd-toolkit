@@ -6,6 +6,7 @@ using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddEbook.TddToolkit
 {
+
   public partial class Any
   {
     public static string String() => _generator.Create<string>();

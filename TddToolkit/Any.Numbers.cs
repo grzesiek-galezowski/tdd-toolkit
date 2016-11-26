@@ -95,5 +95,6 @@ namespace TddEbook.TddToolkit
       }
       return digit;
     }
+
   }
 }
