@@ -41,7 +41,6 @@ namespace TddEbook.TddToolkit
       return Enumerable<T>(length).ToArray();
     }
 
-
     public static T[] ArrayWithout<T>(params T[] excluded)
     {
       return EnumerableWithout(excluded).ToArray();
@@ -61,7 +60,6 @@ namespace TddEbook.TddToolkit
     {
       return EnumerableWith(included.ToArray()).ToArray();
     }
-
 
     public static List<T> List<T>()
     {
@@ -92,7 +90,6 @@ namespace TddEbook.TddToolkit
     {
       return EnumerableWith(included.ToArray()).ToList();
     }
-
 
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {
