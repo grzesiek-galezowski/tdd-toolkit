@@ -1142,6 +1142,29 @@ namespace TddEbook.TddToolkitSpecification
       CollectionAssert.AllItemsAreUnique(readOnlyList);
     }
 
+    [Test]
+    public void ShouldAllowGeneratingFuncs()
+    {
+      //GIVEN
+      var func = Any.Func<int, int, string>();
+      
+      //WHEN
+      var result1 = func(1, 2);
+      var result2 = func(1, 3);
+
+      //THEN
+      XAssert.Equal(result2, result1);
+    }
+
+    [Test]
+    public void ShouldAllowGeneratingActions()
+    {
+      //GIVEN
+      var func = Any.Action<int, int, string>();
+
+      //WHEN-THEN
+      Assert.DoesNotThrow(() => func(1,2,"2"));
+    }
 
 
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
@@ -1194,15 +1217,6 @@ namespace TddEbook.TddToolkitSpecification
     {
       return ulong.MaxValue.ToString().Length;
     }
-
-    public class ThrowingInConstructor
-    {
-      public ThrowingInConstructor()
-      {
-        throw new Exception();
-      }
-    }
-
 
   }
 }

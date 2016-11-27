@@ -277,6 +277,70 @@ namespace TddEbook.TddToolkit
       return Task.FromResult(Instance<T>());
     }
 
+    public static Func<T> Func<T>()
+    {
+      return Any.Instance<Func<T>>();
+    }
+    public static Func<T1, T2> Func<T1, T2>()
+    {
+      return Any.Instance<Func<T1, T2>>();
+    }
+
+    public static Func<T1, T2, T3> Func<T1, T2, T3>()
+    {
+      return Any.Instance<Func<T1, T2, T3>>();
+    }
+
+    public static Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>()
+    {
+      return Any.Instance<Func<T1, T2, T3, T4>>();
+    }
+
+    public static Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>()
+    {
+      return Any.Instance<Func<T1, T2, T3, T4, T5>>();
+    }
+
+    public static Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>()
+    {
+      return Any.Instance<Func<T1, T2, T3, T4, T5, T6>>();
+    }
+
+    public static Action Action()
+    {
+      return Any.Instance<Action>();
+    }
+
+    public static Action<T> Action<T>()
+    {
+      return Any.Instance<Action<T>>();
+    }
+    public static Action<T1, T2> Action<T1, T2>()
+    {
+      return Any.Instance<Action<T1, T2>>();
+    }
+
+    public static Action<T1, T2, T3> Action<T1, T2, T3>()
+    {
+      return Any.Instance<Action<T1, T2, T3>>();
+    }
+
+    public static Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>()
+    {
+      return Any.Instance<Action<T1, T2, T3, T4>>();
+    }
+
+    public static Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>()
+    {
+      return Any.Instance<Action<T1, T2, T3, T4, T5>>();
+    }
+
+    public static Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>()
+    {
+      return Any.Instance<Action<T1, T2, T3, T4, T5, T6>>();
+    }
+
+
   }
 
   public class Type1 { }
