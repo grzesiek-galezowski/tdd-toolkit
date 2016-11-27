@@ -1,6 +1,7 @@
 using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TddToolkitSpecification.XAssertSpecifications;
 
 namespace TddEbook.TddToolkitSpecification
@@ -11,7 +12,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+      var instance = Any.SubstituteOf<RecursiveInterface>();
 
       //WHEN
       var result = instance.Number;
@@ -24,7 +25,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+      var instance = Any.SubstituteOf<RecursiveInterface>();
       instance.Number.Returns(44543);
 
       //WHEN
@@ -38,7 +39,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+      var instance = Any.SubstituteOf<RecursiveInterface>();
 
       //WHEN
       instance.VoidMethod();
@@ -51,7 +52,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldReturnNonNullImplementationsOfInnerObjects()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
+      var instance = Any.SubstituteOf<RecursiveInterface>();
 
       //WHEN
       var result = instance.Nested;
@@ -63,8 +64,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
     {
-      var instance = Any.SubstituteOf<AnySpecification.RecursiveInterface>();
-      var anotherInstance = Substitute.For<AnySpecification.RecursiveInterface>();
+      var instance = Any.SubstituteOf<RecursiveInterface>();
+      var anotherInstance = Substitute.For<RecursiveInterface>();
       instance.Nested.Returns(anotherInstance);
 
       XAssert.Equal(anotherInstance, instance.Nested);

@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkitSpecification.Fixtures;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -14,7 +15,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldCreateResolutionCapableOfGeneratingArrays()
     {
       //GIVEN
-      var resolution = SpecialCasesOfResolutions<AnySpecification.RecursiveInterface[]>
+      var resolution = SpecialCasesOfResolutions<RecursiveInterface[]>
         .CreateResolutionOfArray();
       
       //WHEN
