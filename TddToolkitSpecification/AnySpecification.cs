@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,6 +12,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Nunit.NUnitExtensions;
+using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;
 using Type = System.Type;
 
@@ -1333,165 +1333,4 @@ namespace TddEbook.TddToolkitSpecification
       }
     }
   }
-
-  [Serializable]
-  public class ObjectWithCopyConstructor
-  {
-    internal string _field;
-
-    public ObjectWithCopyConstructor(ObjectWithCopyConstructor o)
-    {
-      this._field = o._field;
-    }
-  }
-
-  [SuppressMessage("ReSharper", "UnusedMember.Global")]
-  public interface IObservableConcurrentDictionary<TKey, TValue>
-    : IObservable<Tuple<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
-  {
-    void TryAdd(TKey key, TValue value);
-    TValue this[TKey key] { get; set; }
-    void TryRemove(TKey key);
-    bool TryGetValue(TKey key, out TValue value);
-  }
-
-
-  public class MyOwnCollection<T> : ICollection<T>
-  {
-    private List<T> _list = new List<T>();
-
-    public IEnumerator<T> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
-
-    public void Add(T item)
-    {
-      _list.Add(item);
-    }
-
-    public void Clear()
-    {
-      _list.Clear();
-    }
-
-    public bool Contains(T item)
-    {
-      return _list.Contains(item);
-    }
-
-    public void CopyTo(T[] array, int arrayIndex)
-    {
-      _list.CopyTo(array, arrayIndex);
-    }
-
-    public bool Remove(T item)
-    {
-      return _list.Remove(item);
-    }
-
-    public int Count
-    {
-      get { return _list.Count; }
-    }
-
-    public bool IsReadOnly
-    {
-      get { return false; }
-    }
-  }
-
-  public class ConcreteDataStructure
-  {
-    public TimeSpan Span { get; set; }
-    public ConcreteDataStructure2 Data { get; set; }
-
-    public ConcreteDataStructure2 _field;
-  }
-
-  public class ConcreteDataStructure2
-  {
-    public string Text { get; set; }
-  }
-
-public class AreaEntity
-{
-  public Feature Feature { get; set; }
-}
-
-
-[SuppressMessage("ReSharper", "UnusedMember.Global")]
-public class Feature
-{
-  public IGeometry Geometry { get; set; }
-}
-
-
-public interface IGeometry
-{
-}
-
-  [SuppressMessage("ReSharper", "UnusedMember.Global")]
-  [Serializable]
-  public class ComplexObjectWithFactoryMethodAndRecursiveConstructor
-  {
-    private readonly string _initialValue;
-
-    private ComplexObjectWithFactoryMethodAndRecursiveConstructor(string parameterName)
-    {
-      if (string.IsNullOrEmpty(parameterName))
-      {
-        if (parameterName != null)
-        {
-          IsEmpty = true;
-        }
-        else
-        {
-          throw new ArgumentNullException("parameterName");
-        }
-      }
-
-      _initialValue = parameterName;
-    }
-
-    public ComplexObjectWithFactoryMethodAndRecursiveConstructor(
-      ComplexObjectWithFactoryMethodAndRecursiveConstructor obj) : this(obj._initialValue)
-    {
-    }
-
-    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Create(string parameterName)
-    {
-      ComplexObjectWithFactoryMethodAndRecursiveConstructor createdWrapper =
-        new ComplexObjectWithFactoryMethodAndRecursiveConstructor(parameterName);
-      return createdWrapper;
-    }
-
-    public static int GetInt()
-    {
-      return 123;
-    }
-
-    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Empty
-      => new ComplexObjectWithFactoryMethodAndRecursiveConstructor(string.Empty);
-
-    private bool IsEmpty { get; set; }
-
-    public override string ToString()
-    {
-      return _initialValue;
-    }
-
-    public override int GetHashCode()
-    {
-      return _initialValue.GetHashCode();
-    }
-
-  }
-
-
 }

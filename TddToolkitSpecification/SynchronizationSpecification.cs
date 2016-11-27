@@ -3,6 +3,7 @@ using System.Threading;
 using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkitSpecification.Fixtures;
 
 namespace TddEbook.TddToolkitSpecification
 {

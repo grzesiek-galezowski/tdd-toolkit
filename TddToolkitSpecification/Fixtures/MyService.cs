@@ -1,4 +1,4 @@
-﻿namespace TddEbook.TddToolkitSpecification
+﻿namespace TddEbook.TddToolkitSpecification.Fixtures
 {
   public interface MyService
   {

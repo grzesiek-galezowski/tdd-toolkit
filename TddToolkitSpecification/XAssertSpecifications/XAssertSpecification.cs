@@ -6,6 +6,7 @@ using System.Reflection;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Reflection;
+using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;
 using TddEbook.TypeReflection.ImplementationDetails;
 

@@ -74,13 +74,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnySubstituteSpecification.cs" />
+    <Compile Include="Fixtures\AreaEntity.cs" />
     <Compile Include="ChainedAssertionsSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="CloneSpecification.cs" />
+    <Compile Include="Fixtures\ComplexObjectWithFactoryMethodAndRecursiveConstructor.cs" />
+    <Compile Include="Fixtures\ConcreteDataStructure.cs" />
+    <Compile Include="Fixtures\ConcreteDataStructure2.cs" />
     <Compile Include="ConstraintsViolationsSpecification.cs" />
+    <Compile Include="Fixtures\Feature.cs" />
     <Compile Include="Fixtures\IncrementalType.cs" />
     <Compile Include="Fixtures\MyService.cs" />
     <Compile Include="Fixtures\ObjectWithAttributeOnMethod.cs" />
+    <Compile Include="Fixtures\IGeometry.cs" />
+    <Compile Include="Fixtures\IObservableConcurrentDictionary.cs" />
+    <Compile Include="Fixtures\MyOwnCollection.cs" />
+    <Compile Include="Fixtures\ObjectWithCopyConstructor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnySpecification.cs" />
     <Compile Include="ReceivedNothingSpecification.cs" />
