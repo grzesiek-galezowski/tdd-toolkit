@@ -1167,7 +1167,6 @@ namespace TddEbook.TddToolkitSpecification
       Assert.DoesNotThrow(() => func(1,2,"2"));
     }
 
-
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
       RecursiveInterface x3)
     {
@@ -1196,8 +1195,6 @@ namespace TddEbook.TddToolkitSpecification
       }
       Assert.AreNotEqual('0', theString[0]);
     }
-
-
 
     private static int MaxLengthOfInt()
     {

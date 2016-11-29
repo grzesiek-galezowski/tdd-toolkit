@@ -105,6 +105,7 @@
     <Compile Include="Fixtures\RecursiveClass2.cs" />
     <Compile Include="Fixtures\RecursiveInterface.cs" />
     <Compile Include="Fixtures\Settable.cs" />
+    <Compile Include="SequenceEqualsMatcher.cs" />
     <Compile Include="SpecialCasesResolutionsSpecification.cs" />
     <Compile Include="SynchronizationSpecification.cs" />
     <Compile Include="RecordedAssertionsSpecification.cs" />

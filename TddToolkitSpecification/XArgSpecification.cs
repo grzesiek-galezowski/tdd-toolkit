@@ -16,13 +16,11 @@ namespace TddEbook.TddToolkitSpecification
       s.Received(1).Do(XArg.IsLike(new List<int>()));
       s.DidNotReceive().Do(XArg.IsLike(new List<int> { 1 }));
     }
-
   }
-
 
   public interface Ixyz
   {
-    void Do(IEnumerable<int> ints);
+    void Do(IEnumerable<int> ints); 
   }
 
 }

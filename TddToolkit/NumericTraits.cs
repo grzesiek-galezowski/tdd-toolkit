@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using System.Numerics;
 using System.Text;
-using Castle.DynamicProxy.Generators;
 using MiscUtil;
 
 namespace TddEbook.TddToolkit
