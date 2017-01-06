@@ -113,6 +113,12 @@
     <Compile Include="ImplementationDetails\TypeResolution\IntegerSequence.cs" />
     <Compile Include="LockAssertions.cs" />
     <Compile Include="Many.cs" />
+    <Compile Include="NSubstitute\EquivalencyAssertion.cs" />
+    <Compile Include="NSubstitute\FluentAssertionsEquivalencyAssertion.cs" />
+    <Compile Include="NSubstitute\EquivalentArgumentMatcher.cs" />
+    <Compile Include="NSubstitute\CompoundEquivalencyAssertion.cs" />
+    <Compile Include="NSubstitute\MultipleConditionsFailedException.cs" />
+    <Compile Include="NSubstitute\ObjectComparerEquivalencyAssertion.cs" />
     <Compile Include="Reflection\Metadata.cs" />
     <Compile Include="Reflection\Method.cs" />
     <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />

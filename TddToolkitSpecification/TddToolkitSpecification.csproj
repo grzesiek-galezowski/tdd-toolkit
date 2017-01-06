@@ -111,7 +111,7 @@
     <Compile Include="RecordedAssertionsSpecification.cs" />
     <Compile Include="Fixtures\SynchronizedMyService.cs" />
     <Compile Include="TypeOfTypeSpecification.cs" />
-    <Compile Include="XArgSpecification.cs" />
+    <Compile Include="NSubstituteSpecifications\XArgSpecification.cs" />
     <Compile Include="XAssertSpecifications\DirectoryPath.cs" />
     <Compile Include="XAssertSpecifications\FileExtension.cs" />
     <Compile Include="XAssertSpecifications\FileExtensionAssert.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="XAssertSpecifications\ProperValueTypeWithoutEqualityOperator.cs" />
     <Compile Include="XAssertSpecifications\TwoProp.cs" />
     <Compile Include="XAssertSpecifications\XAssertSpecification.cs" />
-    <Compile Include="XReceivedSpecification.cs" />
+    <Compile Include="NSubstituteSpecifications\XReceivedSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

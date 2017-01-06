@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Reflection;
 using FluentAssertions;
 
@@ -28,7 +27,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.Common
 
       foreach (var failedAssertion in failedAssertions)
       {
-        result += string.Format("{0}{1}", failedAssertion, Environment.NewLine);
+        result += $"{failedAssertion}{Environment.NewLine}";
       }
 
       return result;

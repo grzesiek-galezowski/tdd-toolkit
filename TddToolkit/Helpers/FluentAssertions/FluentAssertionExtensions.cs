@@ -1,6 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
+using FluentAssertions.Equivalency;
 using FluentAssertions.Primitives;
 using FluentAssertions.Types;
+using TddEbook.TddToolkit.NSubstitute;
 
 namespace TddEbook.TddToolkit.Helpers.FluentAssertions
 {
