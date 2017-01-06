@@ -2,7 +2,7 @@ using System;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
-namespace TddEbook.TddToolkit.NSubstitute
+namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
 {
   public class EquivalentArgumentMatcher<T> : IArgumentMatcher, IDescribeNonMatches
   {

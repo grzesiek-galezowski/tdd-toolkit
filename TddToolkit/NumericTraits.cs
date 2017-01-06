@@ -67,6 +67,7 @@ namespace TddEbook.TddToolkit
       str = builder.ToString();
       return str;
     }
+
     private static BigInteger MinimumValueWithSpecifiedDigits(int length)
     {
       var result = "1";

@@ -4,6 +4,7 @@ using NSubstitute;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 using TddEbook.TddToolkit.NSubstitute;
+using TddEbook.TddToolkit.NSubstitute.ImplementationDetails;
 
 namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
 {
@@ -12,7 +13,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     [Test]
     public void ShouldCorrectlyReportLikenessWithNSubstitute()
     {
-      var s = Substitute.For<Ixyz>();
+      var s = Substitute.For<IXyz>();
       s.Do(new List<int>());
 
       s.Received(1).Do(XArg.IsLike(new List<int>()));
@@ -22,7 +23,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     [Test]
     public void ShouldCorrectlyReportUnlikenessWithNSubstitute()
     {
-      var s = Substitute.For<Ixyz>();
+      var s = Substitute.For<IXyz>();
       s.Do(new List<int>());
 
       Assert.Throws<ReceivedCallsException>(() =>
@@ -39,7 +40,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     [Test]
     public void ShouldCorrectlyReportCollectionEquivalency()
     {
-      var s = Substitute.For<Ixyz>();
+      var s = Substitute.For<IXyz>();
       s.Do(new List<int>());
       s.Received(1).Do(XArg.IsEquivalentTo(new List<int>()));
     }
@@ -47,7 +48,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     [Test]
     public void ShouldCorrectlyReportCollectionEquivalencyError()
     {
-      var s = Substitute.For<Ixyz>();
+      var s = Substitute.For<IXyz>();
       s.Do(new List<int>());
       Assert.Throws<ReceivedCallsException>(() =>
       {
@@ -58,7 +59,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     [Test]
     public void ShouldCorrectlyReportCollectionEquivalency123()
     {
-      var s = Substitute.For<Ixyz>();
+      var s = Substitute.For<IXyz>();
       s.Do(new List<int>() {1});
       var exception = Assert.Throws<ReceivedCallsException>(() =>
       {
@@ -72,9 +73,58 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
       exception.Message.Should().Contain("=== FAILED CONDITION 2 ===");
       exception.Message.Should().Contain("Expected item[0] to be 8, but found 1");
     }
+
+    [Test]
+    public void ShouldLetArgumentPassWhenItPassesSpecifiedAssertions()
+    {
+      //GIVEN
+      var xyz = Substitute.For<IXyz>();
+
+      //WHEN
+      xyz.Do(new List<int>() { 1,2,3 });
+
+      //THEN
+      xyz.Received(1).Do(XArg.Passing<List<int>>(
+        l => l.Should().BeInAscendingOrder(),
+        l => l.Should().Contain(1),
+        l => l.Should().Contain(2),
+        l => l.Should().Contain(3)));
+    }
+
+    [Test]
+    public void ShouldNotLetArgumentPassWhenItDoesNotPassSpecifiedAssertions()
+    {
+      //GIVEN
+      var xyz = Substitute.For<IXyz>();
+
+      //WHEN
+      xyz.Do(new List<int>() { 1,2,3 });
+
+      //THEN
+      var exception = Assert.Throws<ReceivedCallsException>(() =>
+      {
+        xyz.Received(1).Do(XArg.Passing<List<int>>(
+          l => l.Should().BeInDescendingOrder(),
+          l => l.Should().Contain(4),
+          l => l.Should().Contain(5),
+          l => l.Should().Contain(1),
+          l => l.Should().Contain(6)));
+      });
+
+      exception.Message.Should().Contain("4 condition(s) failed");
+      exception.Message.Should().Contain("=== FAILED CONDITION 1 ===");
+      exception.Message.Should().Contain("=== FAILED CONDITION 2 ===");
+      exception.Message.Should().Contain("=== FAILED CONDITION 3 ===");
+      exception.Message.Should().Contain("=== FAILED CONDITION 5 ===");
+      exception.Message.Should().Contain("Expected collection to contain items in descending order, but found {1, 2, 3} where item at index 0 is in wrong order");
+      exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 4");
+      exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 5");
+      exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 6");
+      exception.Message.Should().NotContain("=== FAILED CONDITION 4 ===");
+    }
   }
 
-  public interface Ixyz
+  public interface IXyz
   {
     void Do(IEnumerable<int> ints); 
   }

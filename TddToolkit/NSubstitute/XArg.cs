@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using NSubstitute;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
+using TddEbook.TddToolkit.NSubstitute.ImplementationDetails;
 
 namespace TddEbook.TddToolkit.NSubstitute
 {
@@ -27,11 +29,24 @@ namespace TddEbook.TddToolkit.NSubstitute
 
     public static T IsEquivalentTo<T>(T obj, params EquivalencyAssertion[] equivalencyAssertions)
     {
-      if(!equivalencyAssertions.Any()) throw new Exception("no conditions specified");
+      equivalencyAssertions
+        .Should().NotBeEmpty("at least one condition should be specified");
+
       var equivalentArgumentMatcher = new EquivalentArgumentMatcher<T>(obj,
         DetermineEquivalencyAssertion<T>(equivalencyAssertions));
       SubstitutionContext.Current.EnqueueArgumentSpecification(new ArgumentSpecification(typeof(T),
         equivalentArgumentMatcher));
+      return default(T);
+    }
+
+    public static T Passing<T>(params Action<T>[] assertionActions)
+    {
+      assertionActions
+        .Should().NotBeEmpty("at least one condition should be specified");
+
+      var lambdaMatcher = new LambdaArgumentMatcher<T>(assertionActions);
+      SubstitutionContext.Current.EnqueueArgumentSpecification(
+        new ArgumentSpecification(typeof(T), lambdaMatcher));
       return default(T);
     }
 
@@ -44,7 +59,7 @@ namespace TddEbook.TddToolkit.NSubstitute
 
     public static T IsEquivalentTo<T>(T obj)
     {
-      return IsEquivalentTo<T>(obj, FluentAssertionsEquivalencyAssertion<T>.Default());
+      return IsEquivalentTo(obj, FluentAssertionsEquivalencyAssertion<T>.Default());
     }
   }
 }

@@ -2,7 +2,7 @@ using System;
 using FluentAssertions;
 using FluentAssertions.Equivalency;
 
-namespace TddEbook.TddToolkit.NSubstitute
+namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
 {
   public class FluentAssertionsEquivalencyAssertion<T> : EquivalencyAssertion
   {
