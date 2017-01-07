@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
@@ -17,12 +18,24 @@ namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
     {
       try
       {
-        MultipleConditionsExecutionLoop.Execute(_assertionActions, (T)argument);
+        ExecuteAssertionsFor(argument);
         return true;
       }
-      catch (Exception e)
+      catch (Exception)
       {
         return false;
+      }
+    }
+
+    private void ExecuteAssertionsFor(object argument)
+    {
+      if (_assertionActions.Length == 1)
+      {
+        _assertionActions.First()((T) argument);
+      }
+      else
+      {
+        MultipleConditionsExecutionLoop.Execute(_assertionActions, (T) argument);
       }
     }
 
@@ -30,7 +43,7 @@ namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
     {
       try
       {
-        MultipleConditionsExecutionLoop.Execute(_assertionActions, (T)argument);
+        ExecuteAssertionsFor(argument);
         return string.Empty;
       }
       catch (Exception e)

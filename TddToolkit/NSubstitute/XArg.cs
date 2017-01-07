@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -9,33 +10,21 @@ using TddEbook.TddToolkit.NSubstitute.ImplementationDetails;
 
 namespace TddEbook.TddToolkit.NSubstitute
 {
-
   public static class XArg
   {
     public static T IsLike<T>(T expected)
     {
-      return IsEquivalentTo(expected, new ObjectComparerEquivalencyAssertion());
+      return Passing<T>(actual => XAssert.Alike(expected, actual));
     }
 
     public static T IsNotLike<T>(T expected)
     {
-      return IsEquivalentTo(expected, new ObjectComparerNonEquivalencyAssertion());
+      return Passing<T>(actual => XAssert.NotAlike(expected, actual));
     }
 
     public static T[] IsNot<T>(IEnumerable<T> unexpected)
     {
       return Arg.Is<T[]>(arg => !arg.SequenceEqual(unexpected));
-    }
-
-    public static T IsEquivalentTo<T>(T obj, params EquivalencyAssertion[] equivalencyAssertions)
-    {
-      equivalencyAssertions
-        .Should().NotBeEmpty("at least one condition should be specified");
-
-      var equivalentArgumentMatcher = new EquivalentArgumentMatcher<T>(obj,
-        DetermineEquivalencyAssertion(equivalencyAssertions));
-      EnqueueMatcher<T>(equivalentArgumentMatcher);
-      return default(T);
     }
 
     public static T Passing<T>(params Action<T>[] assertions)
@@ -48,7 +37,10 @@ namespace TddEbook.TddToolkit.NSubstitute
       return default(T);
     }
 
-
+    public static T EquivalentTo<T>(T expected)
+    {
+      return Passing<T>(actual => actual.ShouldBeEquivalentTo(expected));
+    }
 
     private static void EnqueueMatcher<T>(IArgumentMatcher lambdaMatcher)
     {
@@ -56,16 +48,16 @@ namespace TddEbook.TddToolkit.NSubstitute
         new ArgumentSpecification(typeof(T), 
           lambdaMatcher));
     }
-    public static T IsEquivalentTo<T>(T obj)
+
+    public static T SequenceEqualTo<T>(T expected) where T : IEnumerable
     {
-      return IsEquivalentTo(obj, FluentAssertionsEquivalencyAssertion<T>.Default());
+      return Passing<T>(actual => actual.Should().Equal(expected));
     }
 
-    private static EquivalencyAssertion DetermineEquivalencyAssertion(EquivalencyAssertion[] equivalencyAssertions)
+    public static T NotSequenceEqualTo<T>(T expected) where T : IEnumerable
     {
-      return equivalencyAssertions.Length == 1 ? 
-        equivalencyAssertions.First()
-        : new CompoundEquivalencyAssertion(equivalencyAssertions);
+      return Passing<T>(actual => actual.Should().NotEqual(expected));
     }
+
   }
 }

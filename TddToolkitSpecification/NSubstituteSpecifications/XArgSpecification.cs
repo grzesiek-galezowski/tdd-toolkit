@@ -42,7 +42,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     {
       var s = Substitute.For<IXyz>();
       s.Do(new List<int>());
-      s.Received(1).Do(XArg.IsEquivalentTo(new List<int>()));
+      s.Received(1).Do(XArg.EquivalentTo(new List<int>()));
     }
 
     [Test]
@@ -52,26 +52,27 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
       s.Do(new List<int>());
       Assert.Throws<ReceivedCallsException>(() =>
       {
-        s.Received(1).Do(XArg.IsEquivalentTo(new List<int>() {1, 2, 3}));
+        s.Received(1).Do(XArg.EquivalentTo(new List<int>() {1, 2, 3}));
       });
     }
 
     [Test]
-    public void ShouldCorrectlyReportCompoundCollectionEquivalencyErrors()
+    public void ShouldCorrectlyReportCollectionSequenceEquality()
     {
       var s = Substitute.For<IXyz>();
-      s.Do(new List<int>() {1});
-      var exception = Assert.Throws<ReceivedCallsException>(() =>
-      {
-        s.Received(1).Do(XArg.IsEquivalentTo(new List<int>() {8},
-          new ObjectComparerEquivalencyAssertion(),
-          FluentAssertionsEquivalencyAssertion<List<int>>.Default()));
-      });
-      exception.Message.Should().Contain("arg[0]: 2 assertion(s) failed");
-      exception.Message.Should().Contain("=== FAILED ASSERTION 1 DETAILS ===");
-      exception.Message.Should().Contain("Expected[0] != Actual[0], Values (8,1)");
-      exception.Message.Should().Contain("=== FAILED ASSERTION 2 DETAILS ===");
-      exception.Message.Should().Contain("Expected item[0] to be 8, but found 1");
+      s.Do(new List<int>() {1,2,3});
+      s.Do(new List<string>() {"a", "b", "c"});
+      s.Received(1).Do(XArg.SequenceEqualTo(new List<int>() {1,2,3}));
+      s.Received(1).Do(XArg.SequenceEqualTo(new List<string>() {"a", "b", "c"}));
+    }
+    [Test]
+    public void ShouldCorrectlyReportCollectionSequenceUnequality()
+    {
+      var s = Substitute.For<IXyz>();
+      s.Do(new List<int>() {1,2,3});
+      s.Do(new List<string>() {"a", "b", "c"});
+      s.Received(1).Do(XArg.NotSequenceEqualTo(new List<int>() {1,2,3,4}));
+      s.Received(1).Do(XArg.NotSequenceEqualTo(new List<string>() {"a", "b", "c", "d"}));
     }
 
     [Test]
@@ -134,6 +135,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
   public interface IXyz
   {
     void Do(IEnumerable<int> ints); 
+    void Do(List<string> strings); 
     void Do2(int x, int y); 
   }
 

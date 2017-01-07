@@ -114,14 +114,9 @@
     <Compile Include="LockAssertions.cs" />
     <Compile Include="Many.cs" />
     <Compile Include="NSubstitute\EquivalencyAssertion.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\FluentAssertionsEquivalencyAssertion.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\EquivalentArgumentMatcher.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\CompoundEquivalencyAssertion.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\ObjectComparerNonEquivalencyAssertion.cs" />
     <Compile Include="NSubstitute\ImplementationDetails\LambdaArgumentMatcher.cs" />
     <Compile Include="NSubstitute\ImplementationDetails\MultipleConditionsExecutionLoop.cs" />
     <Compile Include="NSubstitute\MultipleConditionsFailedException.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\ObjectComparerEquivalencyAssertion.cs" />
     <Compile Include="NSubstitute\ImplementationDetails\SequenceExclusiveAssertion.cs" />
     <Compile Include="Reflection\Metadata.cs" />
     <Compile Include="Reflection\Method.cs" />

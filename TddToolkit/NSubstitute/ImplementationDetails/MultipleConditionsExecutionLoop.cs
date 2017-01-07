@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
 {
-  static internal class MultipleConditionsExecutionLoop
+  internal static class MultipleConditionsExecutionLoop
   {
     public static void Execute<T>(IReadOnlyList<Action<T>> assertionActions, T actual)
     {
