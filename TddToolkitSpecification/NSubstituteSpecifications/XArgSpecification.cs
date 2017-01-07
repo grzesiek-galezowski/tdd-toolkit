@@ -26,7 +26,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
       var s = Substitute.For<IXyz>();
       s.Do(new List<int>());
 
-      Assert.Throws<ReceivedCallsException>(() =>
+      var e = Assert.Throws<ReceivedCallsException>(() =>
       {
         s.Received(1).Do(XArg.IsNotLike(new List<int>()));
       });
@@ -82,6 +82,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
 
       //WHEN
       xyz.Do(new List<int>() { 1,2,3 });
+      xyz.Do(new List<int>() { 6,5,4 });
 
       //THEN
       xyz.Received(1).Do(XArg.Passing<List<int>>(
@@ -89,6 +90,12 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
         l => l.Should().Contain(1),
         l => l.Should().Contain(2),
         l => l.Should().Contain(3)));
+
+      xyz.Received(1).Do(XArg.Passing<List<int>>(
+        l => l.Should().BeInDescendingOrder(),
+        l => l.Should().Contain(6),
+        l => l.Should().Contain(5),
+        l => l.Should().Contain(4)));
     }
 
     [Test]
