@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
 {
-  internal static class MultipleConditionsExecutionLoop
+  internal static class AssertionsExecutionLoop
   {
-    public static void Execute<T>(IReadOnlyList<Action<T>> assertionActions, T actual)
+    private static void ExecuteMultiple<T>(IReadOnlyList<Action<T>> assertionActions, T actual)
     {
       var exceptions = new Dictionary<int, Exception>();
       for (var i = 0; i < assertionActions.Count; ++i)
@@ -24,6 +24,23 @@ namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
       {
         throw new MultipleConditionsFailedException(exceptions);
       }
+    }
+
+    public static void Execute<T>(IReadOnlyList<Action<T>> assertions, T actual)
+    {
+      if (assertions.Count == 1)
+      {
+        ExecuteSingle(assertions, actual);
+      }
+      else
+      {
+        ExecuteMultiple(assertions, actual);
+      }
+    }
+
+    private static void ExecuteSingle<T>(IEnumerable<Action<T>> assertions, T actual)
+    {
+      assertions.First()(actual);
     }
   }
 }

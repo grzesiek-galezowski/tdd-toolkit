@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
@@ -14,11 +13,11 @@ namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
       _assertionActions = assertionActions;
     }
 
-    public bool IsSatisfiedBy(object argument)
+    public bool IsSatisfiedBy(object actual)
     {
       try
       {
-        ExecuteAssertionsFor(argument);
+        AssertionsExecutionLoop.Execute(_assertionActions, (T) actual);
         return true;
       }
       catch (Exception)
@@ -27,23 +26,11 @@ namespace TddEbook.TddToolkit.NSubstitute.ImplementationDetails
       }
     }
 
-    private void ExecuteAssertionsFor(object argument)
-    {
-      if (_assertionActions.Length == 1)
-      {
-        _assertionActions.First()((T) argument);
-      }
-      else
-      {
-        MultipleConditionsExecutionLoop.Execute(_assertionActions, (T) argument);
-      }
-    }
-
-    public string DescribeFor(object argument)
+    public string DescribeFor(object actual)
     {
       try
       {
-        ExecuteAssertionsFor(argument);
+        AssertionsExecutionLoop.Execute(_assertionActions, (T) actual);
         return string.Empty;
       }
       catch (Exception e)
