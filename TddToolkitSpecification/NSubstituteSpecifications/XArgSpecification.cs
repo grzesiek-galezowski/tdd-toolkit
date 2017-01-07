@@ -57,7 +57,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
     }
 
     [Test]
-    public void ShouldCorrectlyReportCollectionEquivalency123()
+    public void ShouldCorrectlyReportCompoundCollectionEquivalencyErrors()
     {
       var s = Substitute.For<IXyz>();
       s.Do(new List<int>() {1});
@@ -67,10 +67,10 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
           new ObjectComparerEquivalencyAssertion(),
           FluentAssertionsEquivalencyAssertion<List<int>>.Default()));
       });
-      exception.Message.Should().Contain("arg[0]: 2 condition(s) failed");
-      exception.Message.Should().Contain("=== FAILED CONDITION 1 ===");
+      exception.Message.Should().Contain("arg[0]: 2 assertion(s) failed");
+      exception.Message.Should().Contain("=== FAILED ASSERTION 1 DETAILS ===");
       exception.Message.Should().Contain("Expected[0] != Actual[0], Values (8,1)");
-      exception.Message.Should().Contain("=== FAILED CONDITION 2 ===");
+      exception.Message.Should().Contain("=== FAILED ASSERTION 2 DETAILS ===");
       exception.Message.Should().Contain("Expected item[0] to be 8, but found 1");
     }
 
@@ -111,11 +111,11 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
           l => l.Should().Contain(6)));
       });
 
-      exception.Message.Should().Contain("4 condition(s) failed");
-      exception.Message.Should().Contain("=== FAILED CONDITION 1 ===");
-      exception.Message.Should().Contain("=== FAILED CONDITION 2 ===");
-      exception.Message.Should().Contain("=== FAILED CONDITION 3 ===");
-      exception.Message.Should().Contain("=== FAILED CONDITION 5 ===");
+      exception.Message.Should().Contain("4 assertion(s) failed");
+      exception.Message.Should().Contain("=== FAILED ASSERTION 1 DETAILS ===");
+      exception.Message.Should().Contain("=== FAILED ASSERTION 2 DETAILS ===");
+      exception.Message.Should().Contain("=== FAILED ASSERTION 3 DETAILS ===");
+      exception.Message.Should().Contain("=== FAILED ASSERTION 5 DETAILS ===");
       exception.Message.Should().Contain("Expected collection to contain items in descending order, but found {1, 2, 3} where item at index 0 is in wrong order");
       exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 4");
       exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 5");
@@ -127,6 +127,7 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
   public interface IXyz
   {
     void Do(IEnumerable<int> ints); 
+    void Do2(int x, int y); 
   }
 
 }

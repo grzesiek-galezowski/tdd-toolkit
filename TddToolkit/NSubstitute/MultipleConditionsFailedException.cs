@@ -8,18 +8,30 @@ namespace TddEbook.TddToolkit.NSubstitute
     public Dictionary<int, Exception> Exceptions { get; }
 
     public MultipleConditionsFailedException(Dictionary<int, Exception> exceptions)
-      : base(exceptions.Count + " condition(s) failed:" +
-             Environment.NewLine + FormatExceptions(exceptions))
+      : base(exceptions.Count + " assertion(s) failed:" +
+             Environment.NewLine + ShortExceptionsMessage(exceptions) + 
+          Environment.NewLine + LongExceptionsMessage(exceptions))
     {
       Exceptions = exceptions;
     }
 
-    private static string FormatExceptions(Dictionary<int, Exception> exceptions)
+    private static string ShortExceptionsMessage(Dictionary<int, Exception> exceptions)
     {
       var result = string.Empty;
       foreach (var exceptionEntry in exceptions)
       {
-        result += $"=== FAILED CONDITION {exceptionEntry.Key} ===" + Environment.NewLine;
+        result += $"{exceptionEntry.Key,3}) ";
+        result += exceptionEntry.Value.Message + Environment.NewLine;
+      }
+      return result;
+    }
+
+    private static string LongExceptionsMessage(Dictionary<int, Exception> exceptions)
+    {
+      var result = string.Empty;
+      foreach (var exceptionEntry in exceptions)
+      {
+        result += $"=== FAILED ASSERTION {exceptionEntry.Key} DETAILS ===" + Environment.NewLine;
         result += exceptionEntry.Value + Environment.NewLine;
       }
       return result;
