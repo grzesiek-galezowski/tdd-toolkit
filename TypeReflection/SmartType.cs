@@ -56,16 +56,18 @@ namespace TddEbook.TypeReflection
   {
     private readonly Type _type;
     private readonly ConstructorRetrieval _constructorRetrieval;
+    private readonly TypeInfo _typeInfo;
 
     public SmartType(Type type, ConstructorRetrieval constructorRetrieval)
     {
       _type = type;
       _constructorRetrieval = constructorRetrieval;
+      _typeInfo = _type.GetTypeInfo();
     }
 
     public bool HasPublicParameterlessConstructor()
     {
-      return GetPublicParameterlessConstructor().HasValue || _type.IsPrimitive || _type.IsAbstract;
+      return GetPublicParameterlessConstructor().HasValue || _typeInfo.IsPrimitive || _typeInfo.IsAbstract;
     }
 
     public Maybe<IConstructorWrapper> GetNonPublicParameterlessConstructorInfo()
@@ -98,18 +100,19 @@ namespace TddEbook.TypeReflection
 
     public bool IsImplementationOfOpenGeneric(Type openGenericType)
     {
-      return _type.GetInterfaces().Any(
-        ifaceType => ifaceType.IsGenericType && ifaceType.GetGenericTypeDefinition() == openGenericType);
+      return _typeInfo.GetInterfaces().Any(
+        ifaceType => ifaceType.GetTypeInfo().IsGenericType && 
+        ifaceType.GetGenericTypeDefinition() == openGenericType);
     }
 
     public bool IsConcrete()
     {
-      return !_type.IsAbstract && !_type.IsInterface;
+      return !_typeInfo.IsAbstract && !_typeInfo.IsInterface;
     }
 
     public IEnumerable<IFieldWrapper> GetAllInstanceFields()
     {
-      var fields = _type.GetFields(
+      var fields = _typeInfo.GetFields(
         BindingFlags.Instance 
         | BindingFlags.Public 
         | BindingFlags.NonPublic);
@@ -135,7 +138,7 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties()
     {
-      var properties = _type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+      var properties = _typeInfo.GetProperties(BindingFlags.Instance | BindingFlags.Public);
       return properties.Select(p => new PropertyWrapper(p));
     }
 
@@ -165,30 +168,30 @@ namespace TddEbook.TypeReflection
 
     private Maybe<MethodInfo> EqualityMethod()
     {
-      var equality = _type.GetMethod(OpEquality);
+      var equality = _typeInfo.GetMethod(OpEquality);
 
       return equality == null ? Maybe<MethodInfo>.Not : new Maybe<MethodInfo>(equality);
     }
 
     private Maybe<MethodInfo> InequalityMethod()
     {
-      var inequality = _type.GetMethod(OpInequality);
+      var inequality = _typeInfo.GetMethod(OpInequality);
 
       return inequality == null ? Maybe<MethodInfo>.Not : new Maybe<MethodInfo>(inequality);
     }
 
     private Maybe<MethodInfo> ValueTypeEqualityMethod()
     {
-      return _type.IsValueType ?
-               Maybe.Wrap(GetType().GetMethod("ValuesEqual"))
+      return _typeInfo.IsValueType ?
+               Maybe.Wrap(GetType().GetTypeInfo().GetMethod("ValuesEqual"))
                : Maybe<MethodInfo>.Not;
 
     }
 
     private Maybe<MethodInfo> ValueTypeInequalityMethod()
     {
-      return _type.IsValueType ?
-               Maybe.Wrap(GetType().GetMethod("ValuesNotEqual")) 
+      return _typeInfo.IsValueType ?
+               Maybe.Wrap(GetType().GetTypeInfo().GetMethod("ValuesNotEqual")) 
                : Maybe<MethodInfo>.Not;
     }
 
@@ -224,18 +227,18 @@ namespace TddEbook.TypeReflection
 
     public bool IsInterface()
     {
-      return _type.IsInterface;
+      return _typeInfo.IsInterface;
     }
 
     private static bool IsCompilerGenerated(FieldInfo fieldInfo) //?? should it be defined on a type?
     {
-      return fieldInfo.FieldType.IsDefined(typeof(CompilerGeneratedAttribute), false);
+      return fieldInfo.FieldType.GetTypeInfo().IsDefined(typeof(CompilerGeneratedAttribute), false);
     }
 
     private static IEnumerable<FieldInfo> GetAllFields(Type type)
     {
-      return type.GetNestedTypes().SelectMany(GetAllFields)
-                 .Concat(type.GetFields(
+      return type.GetTypeInfo().GetNestedTypes().SelectMany(GetAllFields)
+                 .Concat(type.GetTypeInfo().GetFields(
                    BindingFlags.Public 
                    | BindingFlags.NonPublic 
                    | BindingFlags.Static
@@ -244,12 +247,13 @@ namespace TddEbook.TypeReflection
 
     private static bool IsDelegate(Type type)
     {
-      return typeof(MulticastDelegate).IsAssignableFrom(type.BaseType);
+      return typeof(MulticastDelegate).GetTypeInfo().IsAssignableFrom(
+        type.GetTypeInfo().BaseType);
     }
 
     public IEnumerable<IEventWrapper> GetAllNonPublicEventsWithoutExplicitlyImplemented()
     {
-      return _type.GetEvents(
+      return _typeInfo.GetEvents(
         BindingFlags.NonPublic 
         | BindingFlags.Instance
         | BindingFlags.DeclaredOnly)
@@ -262,10 +266,11 @@ namespace TddEbook.TypeReflection
       var eventDeclaringType = eventInfo.DeclaringType;
       if (eventDeclaringType != null)
       {
-        var interfaces = eventDeclaringType.GetInterfaces();
+        var interfaces = eventDeclaringType.GetTypeInfo().GetInterfaces();
         foreach (var @interface in interfaces)
         {
-          var methodsImplementedInInterface = eventDeclaringType.GetInterfaceMap(@interface).TargetMethods;
+          var methodsImplementedInInterface = eventDeclaringType
+            .GetInterfaceMap(@interface).TargetMethods;
           var addMethod = eventInfo.GetAddMethod(true);
           if (methodsImplementedInInterface.Where(m => m.IsPrivate).Contains(addMethod))
           {
@@ -288,7 +293,7 @@ namespace TddEbook.TypeReflection
 
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
     {
-      var constructorInfos = _type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
+      var constructorInfos = _typeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
       var enumerable = constructorInfos.Where(ConstructorWrapper.IsInternal);
 
       var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
@@ -297,7 +302,7 @@ namespace TddEbook.TypeReflection
 
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
-      return _type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
+      return _typeInfo.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
         .Select(c => ConstructorWrapper.FromConstructorInfo(c)).ToList();
     }
 
@@ -323,7 +328,7 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion()
     {
-      return _type.GetMethods(BindingFlags.Static | BindingFlags.Public)
+      return _typeInfo.GetMethods(BindingFlags.Static | BindingFlags.Public)
         .Where(m => !m.IsSpecialName)
         .Select(ConstructorWrapper.FromStaticMethodInfo)
         .Where(c => c.IsFactoryMethod());
@@ -331,19 +336,20 @@ namespace TddEbook.TypeReflection
 
     public IEnumerable<IFieldWrapper> GetAllPublicInstanceFields()
     {
-      return _type.GetFields(BindingFlags.Public | BindingFlags.Instance).Select(f => new FieldWrapper(f));
+      return _typeInfo.GetFields(
+        BindingFlags.Public | BindingFlags.Instance).Select(f => new FieldWrapper(f));
     }
 
     public IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties()
     {
-      return _type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+      return _typeInfo.GetProperties(BindingFlags.Public | BindingFlags.Instance)
         .Where(p => p.CanWrite)
         .Select(p => new PropertyWrapper(p));
     }
 
     public IEnumerable<IMethod> GetAllPublicInstanceMethodsWithReturnValue()
     {
-      return _type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+      return _typeInfo.GetMethods(BindingFlags.Public | BindingFlags.Instance)
         .Where(p => p.ReturnType != typeof(void)).
         Select(p => new SmartMethod(p));
     }
@@ -351,12 +357,12 @@ namespace TddEbook.TypeReflection
 
     public bool HasConstructorWithParameters()
     {
-      return _type.IsPrimitive;
+      return _typeInfo.IsPrimitive;
     }
 
     public bool CanBeAssignedNullValue()
     {
-      return !_type.IsValueType && !_type.IsPrimitive;
+      return !_typeInfo.IsValueType && !_typeInfo.IsPrimitive;
     }
 
     public Type ToClrType()
@@ -367,7 +373,7 @@ namespace TddEbook.TypeReflection
     public bool IsException()
     {
       return _type == typeof(Exception) ||
-        _type.IsSubclassOf(typeof(Exception));
+        _typeInfo.IsSubclassOf(typeof(Exception));
     }
 
     public bool HasPublicConstructorCountOfAtMost(int i)

@@ -24,6 +24,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     private readonly Type _returnType;
     private readonly bool _hasAbstractOrInterfaceArguments;
     private readonly Func<object[], object> _invocation;
+    private readonly IEnumerable<TypeInfo> _parameterTypes;
 
     public ConstructorWrapper(
       MethodBase constructor, 
@@ -34,14 +35,15 @@ namespace TddEbook.TypeReflection.ImplementationDetails
       _constructor = constructor;
       _parameters = parameters;
       _returnType = returnType;
+      _parameterTypes = _parameters.Select(p => p.ParameterType.GetTypeInfo());
       _hasAbstractOrInterfaceArguments =
-        _parameters.Any(argument => argument.ParameterType.IsAbstract || argument.ParameterType.IsInterface);
+        _parameterTypes.Any(type => type.IsAbstract || type.IsInterface);
       _invocation = invocation;
     }
 
     public bool HasNonPointerArgumentsOnly()
     {
-      if(!_parameters.Any(p => p.ParameterType.IsPointer))
+      if(!_parameterTypes.Any(type => type.IsPointer))
       {
         return true;
       }
@@ -77,9 +79,9 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     {
       var constructorValues = new List<object>();
 
-      foreach (var constructorParam in _parameters)
+      foreach (var constructorParam in _parameterTypes)
       {
-        constructorValues.Add(instanceGenerator(constructorParam.ParameterType));
+        constructorValues.Add(instanceGenerator(constructorParam));
       }
       return constructorValues;
     }
@@ -107,12 +109,11 @@ namespace TddEbook.TypeReflection.ImplementationDetails
     public override string ToString()
     {
       var description = _constructor.DeclaringType.Name + "(";
-      var parameters = _constructor.GetParameters();
 
       int parametersCount = GetParametersCount();
       for (int i = 0; i < parametersCount; ++i)
       {
-        description += GetDescriptionFor(parameters[i]) + Separator(i, parametersCount);
+        description += GetDescriptionFor(_parameters[i]) + Separator(i, parametersCount);
       }
 
       description += ")";
@@ -132,7 +133,7 @@ namespace TddEbook.TypeReflection.ImplementationDetails
 
     public bool HasAnyArgumentOfType(Type type)
     {
-      return _constructor.GetParameters().Any(p => p.ParameterType == type);
+      return _parameters.Any(p => p.ParameterType == type);
     }
 
     public bool IsInternal()

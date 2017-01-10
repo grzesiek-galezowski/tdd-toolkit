@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace TddEbook.TypeReflection
 {
@@ -12,7 +13,7 @@ namespace TddEbook.TypeReflection
 
     private static bool IsTypeOfTypeWithinBaseHierarchyOf(Type type)
     {
-      var baseType = type.BaseType;
+      var baseType = type.GetTypeInfo().BaseType;
       if (baseType == null)
       {
         return false;

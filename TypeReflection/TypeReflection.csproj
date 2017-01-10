@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstructorRetrievalFactory.cs" />
+    <Compile Include="FactoryForInstancesOfGenericTypesWith1Generic.cs" />
+    <Compile Include="FactoryForInstancesOfGenericTypesWith2Generics.cs" />
     <Compile Include="ImplementationDetails\ConstructorRetrievals\ConstructorRetrieval.cs" />
     <Compile Include="ConstructorNotFoundException.cs" />
     <Compile Include="ImplementationDetails\EventWrapper.cs" />
