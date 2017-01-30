@@ -301,21 +301,25 @@ namespace TddEbook.TddToolkitSpecification
     {
       //WHEN
       var int1 = Any.From(Enumerable.Range(1, 3).ToArray());
-      var int2 = Any.From(Enumerable.Range(1, 3).ToArray()); //should pick next element
-      var int3 = Any.From(Enumerable.Range(1, 3).ToArray()); //should pick next element
-      var int4 = Any.From(Enumerable.Range(1, 3).ToArray()); //should pick next element
-      var int5 = Any.From(Enumerable.Range(1, 2).ToArray()); //should start from beginning
-      var int6 = Any.From(Enumerable.Range(1, 4).ToArray()); //should start from beginning
+      var int2 = Any.From(Enumerable.Range(1, 3).ToArray());
+      var int3 = Any.From(Enumerable.Range(1, 3).ToArray());
+      var int4 = Any.From(Enumerable.Range(1, 3).ToArray());
+      var int5 = Any.From(Enumerable.Range(5, 2).ToArray());
+      var int6 = Any.From(Enumerable.Range(10, 4).ToArray());
 
       //THEN
       XAssert.All(assert =>
       {
-        assert.Equal(1, int1);
-        assert.Equal(2, int2);
-        assert.Equal(3, int3);
-        assert.Equal(1, int4);
-        assert.Equal(1, int5);
-        assert.Equal(1, int6);
+        assert.True(Enumerable.Range(1,3).Contains(int1));
+        assert.True(Enumerable.Range(1,3).Contains(int2));
+        assert.True(Enumerable.Range(1,3).Contains(int3));
+        assert.True(Enumerable.Range(1,3).Contains(int4));
+        assert.NotEqual(int1, int2);
+        assert.NotEqual(int2, int3);
+        assert.NotEqual(int3, int4);
+
+        assert.True(Enumerable.Range(5, 2).Contains(int5));
+        assert.True(Enumerable.Range(10, 4).Contains(int6));
       });
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
@@ -26,6 +27,6 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Equal(3, resolution.Apply().Length);
 
     }
-    
+
   }
 }

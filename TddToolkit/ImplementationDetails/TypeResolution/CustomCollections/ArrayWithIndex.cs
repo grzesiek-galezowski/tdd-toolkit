@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 {
-  class ArrayWithIndex<T>
+  public class ArrayWithIndex<T>
   {
     private readonly T[] _values;
     private int Index { get; set; }
@@ -18,10 +18,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
       return Values.SequenceEqual(array);
     }
 
-    public ArrayWithIndex(T[] values)
+    public ArrayWithIndex(T[] values, int initialIndex)
     {
       _values = values;
-      Index = 0;
+      Index = initialIndex;
     }
 
     public T GetNextElement()

@@ -8,6 +8,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
   {
     private readonly List<ArrayWithIndex<T>> _arrays = new List<ArrayWithIndex<T>>();
     private const int CacheSize = 20;
+    private readonly Random _random = new Random();
 
     public bool Contain(IEnumerable<T> possibleValues)
     {
@@ -20,7 +21,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollect
       {
         _arrays.RemoveAt(0);
       }
-      _arrays.Add(new ArrayWithIndex<T>(possibleValues.ToArray()));
+      _arrays.Add(new ArrayWithIndex<T>(
+        possibleValues.ToArray(), 
+        _random.Next(0, possibleValues.Count())));
     }
 
     public T PickNextElementFrom(T[] possibleValues)
