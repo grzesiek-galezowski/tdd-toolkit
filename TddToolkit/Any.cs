@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -7,13 +8,16 @@ using Ploeh.AutoFixture;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
+using Castle.Components.DictionaryAdapter.Xml;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
+using TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using Type = System.Type;
 
 namespace TddEbook.TddToolkit
@@ -83,6 +87,11 @@ namespace TddEbook.TddToolkit
       return _generator.Create<T>();
     }
 
+    public static List<T> EmptyEnumerableOf<T>()
+    {
+      return _emptyCollectionGenerator.Create<List<T>>();
+    }
+
     public static string LegalXmlTagName()
     {
       return Identifier();
@@ -132,6 +141,8 @@ namespace TddEbook.TddToolkit
 
     public static T Dummy<T>()
     {
+      FakeOrdinaryInterface<T> fakeInterface = new FakeOrdinaryInterface<T>(_cachedGeneration, _proxyGenerator);
+
       if (typeof(T).IsPrimitive)
       {
         return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
@@ -140,13 +151,22 @@ namespace TddEbook.TddToolkit
       {
         return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
       }
+      if (
+        TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
+      {
+        return _emptyCollectionGenerator.Create<T>();
+      }
+      if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
+      {
+        return (T)EmptyEnumerableOf(typeof(T).GetCollectionItemType());
+      }
       if (typeof(T).IsAbstract)
       {
         return default(T);
       }
-      if (typeof(T).IsInterface)
+      if (fakeInterface.Applies())
       {
-        return default(T);
+        return fakeInterface.Apply();
       }
       return (T)FormatterServices.GetUninitializedObject(typeof (T));
     }
@@ -236,10 +256,15 @@ namespace TddEbook.TddToolkit
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
-
     public static object ValueOf(Type type)
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    private static object EmptyEnumerableOf(Type collectionType)
+    {
+      return ResultOfGenericVersionOfMethod(
+        collectionType, MethodBase.GetCurrentMethod().Name);
     }
 
     public static object InstanceOtherThanObjects(Type type, params object[] omittedValues)

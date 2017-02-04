@@ -43,5 +43,10 @@ namespace TddEbook.TypeReflection
     {
       return typeof (T) == typeof (T1);
     }
+
+    public static bool IsOpenGeneric(Type type)
+    {
+      return Type.IsOpenGeneric(type);
+    }
   }
 }

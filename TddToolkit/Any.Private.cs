@@ -11,6 +11,10 @@ namespace TddEbook.TddToolkit
   public partial class Any
   {
     private static readonly Fixture _generator = new Fixture();
+    private static readonly Fixture _emptyCollectionGenerator = new Fixture()
+    {
+      RepeatCount = 0,
+    };
     private static readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private static readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
 

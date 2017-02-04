@@ -767,11 +767,19 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowGeneratingDummyObjectsBypassingConstructors()
     {
-      Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
-      Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
-      Assert.NotNull(Any.Dummy<string>());
-      Assert.NotNull(Any.Dummy<int>());
-      Assert.NotNull(Any.Dummy<List<string>>());
+      XAssert.Alike(new List<string>(), Any.Dummy<IEnumerable<string>>());
+      XAssert.Alike(new List<string>(), Any.Dummy<List<string>>());
+      XAssert.Alike(new List<string>(), Any.Dummy<IList<string>>());
+      XAssert.Alike(new List<string>(), Any.Dummy<ICollection<string>>());
+      XAssert.Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
+      XAssert.Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
+      Assert.Multiple(() =>
+      {
+        Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
+        Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
+        Assert.NotNull(Any.Dummy<string>());
+        Assert.NotNull(Any.Dummy<int>());
+      });
     }
 
     [Test]

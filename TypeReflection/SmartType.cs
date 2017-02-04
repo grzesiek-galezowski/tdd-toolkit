@@ -32,6 +32,7 @@ namespace TddEbook.TypeReflection
     Type ToClrType();
     bool IsException();
     bool HasPublicConstructorCountOfAtMost(int i);
+    bool IsOpenGeneric(Type type);
   }
 
   public interface IMethod
@@ -101,8 +102,18 @@ namespace TddEbook.TypeReflection
     public bool IsImplementationOfOpenGeneric(Type openGenericType)
     {
       return _typeInfo.GetInterfaces().Any(
-        ifaceType => ifaceType.GetTypeInfo().IsGenericType && 
-        ifaceType.GetGenericTypeDefinition() == openGenericType);
+        ifaceType => IsOpenGeneric(ifaceType, openGenericType));
+    }
+
+    public bool IsOpenGeneric(Type openGenericType)
+    {
+      return IsOpenGeneric(_typeInfo, openGenericType);
+    }
+
+    private static bool IsOpenGeneric(Type checkedType, Type openGenericType)
+    {
+      return checkedType.GetTypeInfo().IsGenericType && 
+             checkedType.GetGenericTypeDefinition() == openGenericType;
     }
 
     public bool IsConcrete()
