@@ -68,7 +68,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -133,10 +132,6 @@
     <None Include="TddToolkit.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConventionsFixture\ConventionsFixture.csproj">
-      <Project>{bc5c2f76-0443-413d-aef7-78dcb2420c5e}</Project>
-      <Name>ConventionsFixture</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TddToolkit.Nunit\TddToolkit.NUnit.csproj">
       <Project>{68DCBAC1-1218-4E61-B92C-EA2C8D0E7A3C}</Project>
       <Name>TddToolkit.NUnit</Name>
