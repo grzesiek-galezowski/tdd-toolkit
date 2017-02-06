@@ -5,5 +5,6 @@ namespace TddEbook.TddToolkitSpecification.Fixtures
     public RecursiveClass Same { get; set; }
     public string Whatever { get; set; }
     public RecursiveClass2 Other { get; set; }
+    public RecursiveClass2[] Others { get; set; }
   }
 }

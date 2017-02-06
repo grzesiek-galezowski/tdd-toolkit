@@ -771,6 +771,8 @@ namespace TddEbook.TddToolkitSpecification
       XAssert.Alike(new List<string>(), Any.Dummy<List<string>>());
       XAssert.Alike(new List<string>(), Any.Dummy<IList<string>>());
       XAssert.Alike(new List<string>(), Any.Dummy<ICollection<string>>());
+      XAssert.Alike(new string[] {}, Any.Dummy<string[]>());
+      XAssert.Alike(new RecursiveClass[] {}, Any.Dummy<RecursiveClass[]>());
       XAssert.Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
       XAssert.Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
       Assert.Multiple(() =>
@@ -1038,6 +1040,21 @@ namespace TddEbook.TddToolkitSpecification
 
       Assert.NotNull(instance.Other.Other2.Other.Other2.Other.Other2);
       Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other);
+    }
+
+    [Test]
+    public void ShouldUseEmptyCollectionWhenRunning()
+    {
+      //GIVEN
+      var instance = Any.Instance<RecursiveClass>();
+      
+      Assert.NotNull(instance.Same.Same.Same);
+      Assert.Null(instance.Same.Same.Same.Same.Same.Same);
+      Assert.AreEqual(0, instance.Same.Same.Same.Same.Others.Length);
+      Assert.NotNull(instance.Same.Same.Whatever);
+
+      Assert.NotNull(instance.Other.Other2.Other.Other2.Other);
+      Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2);
     }
 
     [Test]
