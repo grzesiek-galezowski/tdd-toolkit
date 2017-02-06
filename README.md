@@ -4,11 +4,6 @@
 ![](https://reposs.herokuapp.com/?path=grzesiek-galezowski/tdd-toolkit&style=flat)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
-<a href="https://scan.coverity.com/projects/3636">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/3636/badge.svg"/>
-</a>
-
 tdd-toolkit 
 ===========
 
@@ -224,3 +219,5 @@ Port number:
 string containing IP address:
 
     Any.Ip()
+
+[![](https://codescene.io/projects/562/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/562/jobs/latest-successful/results)
