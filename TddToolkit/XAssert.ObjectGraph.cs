@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CommonTypes;
 using FluentAssertions;
 using KellermanSoftware.CompareNetObjects;
 using TddEbook.TddToolkit.ImplementationDetails;

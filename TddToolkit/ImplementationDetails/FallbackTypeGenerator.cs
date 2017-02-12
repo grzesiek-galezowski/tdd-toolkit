@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TddEbook.TypeReflection;
+using TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {

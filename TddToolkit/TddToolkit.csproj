@@ -183,6 +183,14 @@
     <Compile Include="XAssert.Reflection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{7543479C-BB88-4072-B2A2-F76FFA1F7554}</Project>
+      <Name>TypeReflection.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
       <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>
       <Name>TypeReflection</Name>

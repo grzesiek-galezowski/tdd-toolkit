@@ -6,7 +6,7 @@ using System.Reflection;
 using FluentAssertions;
 using TddEbook.TddToolkit.Reflection;
 using TddEbook.TypeReflection;
-using TddEbook.TypeReflection.Interfaces;
+using TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit
 {

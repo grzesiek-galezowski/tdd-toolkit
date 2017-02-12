@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D041EA07-107E-4C80-8B96-51EC1CB078AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TypeReflection.ImplementationDetails</RootNamespace>
+    <AssemblyName>TypeReflection.ImplementationDetails</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>TypeReflection.ImplementationDetails.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BinaryOperator.cs" />
+    <Compile Include="ConstructorRetrievals\ConstructorRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\InternalConstructorWithoutRecursionRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\InternalRecursiveConstructorRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\NonPublicParameterlessConstructorRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\PrimitiveConstructorRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\PublicParameterlessConstructorRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\PublicRecursiveConstructorsRetrieval.cs" />
+    <Compile Include="ConstructorRetrievals\PublicStaticFactoryMethodRetrieval.cs" />
+    <Compile Include="ConstructorWrapper.cs" />
+    <Compile Include="DefaultParameterlessConstructor.cs" />
+    <Compile Include="EventWrapper.cs" />
+    <Compile Include="FieldWrapper.cs" />
+    <Compile Include="PropertyWrapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TypeReflection.ImplementationDetails.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{7543479c-bb88-4072-b2a2-f76ffa1f7554}</Project>
+      <Name>TypeReflection.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

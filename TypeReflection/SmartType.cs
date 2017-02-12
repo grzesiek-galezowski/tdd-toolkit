@@ -3,56 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using TddEbook.TypeReflection.ImplementationDetails;
-using TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals;
-using TddEbook.TypeReflection.Interfaces;
+using CommonTypes;
+using TypeReflection.ImplementationDetails;
+using TypeReflection.ImplementationDetails.ConstructorRetrievals;
+using TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
 {
-  public interface IType
-  {
-    bool HasPublicParameterlessConstructor();
-    bool IsImplementationOfOpenGeneric(Type openGenericType);
-    bool IsConcrete();
-    IEnumerable<IFieldWrapper> GetAllInstanceFields();
-    IEnumerable<IFieldWrapper> GetAllStaticFields();
-    IEnumerable<IFieldWrapper> GetAllConstants();
-    IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties();
-    Maybe<IConstructorWrapper> PickConstructorWithLeastNonPointersParameters();
-    IBinaryOperator Equality();
-    IBinaryOperator Inequality();
-    bool IsInterface();
-    IEnumerable<IEventWrapper> GetAllNonPublicEventsWithoutExplicitlyImplemented();
-    IEnumerable<IConstructorWrapper> GetAllPublicConstructors();
-    IEnumerable<IFieldWrapper> GetAllPublicInstanceFields();
-    IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties();
-    IEnumerable<IMethod> GetAllPublicInstanceMethodsWithReturnValue();
-    bool HasConstructorWithParameters();
-    bool CanBeAssignedNullValue();
-    Type ToClrType();
-    bool IsException();
-    bool HasPublicConstructorCountOfAtMost(int i);
-    bool IsOpenGeneric(Type type);
-  }
-
-  public interface IMethod
-  {
-    object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory);
-    object GenerateAnyReturnValue(Func<Type, object> valueFactory);
-  }
-
-  public interface IConstructorQueries
-  {
-    Maybe<IConstructorWrapper> GetNonPublicParameterlessConstructorInfo();
-    Maybe<IConstructorWrapper> GetPublicParameterlessConstructor();
-    List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursiveArguments();
-    IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithoutRecursiveArguments();
-    IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithRecursiveArguments();
-    IEnumerable<IConstructorWrapper> TryToObtainInternalConstructorsWithRecursiveArguments();
-    IEnumerable<IConstructorWrapper> TryToObtainPrimitiveTypeConstructor();
-    IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion();
-  }
-
   public class SmartType : IType, IConstructorQueries
   {
     private readonly Type _type;

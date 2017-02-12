@@ -1,6 +1,6 @@
 using System;
-using TddEbook.TypeReflection.ImplementationDetails;
-using TddEbook.TypeReflection.Interfaces;
+using TypeReflection.ImplementationDetails;
+using TypeReflection.Interfaces;
 
 namespace TddEbook.TypeReflection
 {

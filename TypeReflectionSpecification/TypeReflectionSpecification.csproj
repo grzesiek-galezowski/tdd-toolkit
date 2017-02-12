@@ -46,6 +46,10 @@
       <Project>{A52E21F4-2301-4F4E-9361-BE954FB490A0}</Project>
       <Name>TddToolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{7543479C-BB88-4072-B2A2-F76FFA1F7554}</Project>
+      <Name>TypeReflection.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
       <Project>{9B839C4B-BEFD-467F-80A7-B51C6352A985}</Project>
       <Name>TypeReflection</Name>

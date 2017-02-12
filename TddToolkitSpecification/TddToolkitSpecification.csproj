@@ -132,6 +132,10 @@
     <None Include="TddToolkit.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TddToolkit.Nunit\TddToolkit.NUnit.csproj">
       <Project>{68DCBAC1-1218-4E61-B92C-EA2C8D0E7A3C}</Project>
       <Name>TddToolkit.NUnit</Name>
@@ -139,6 +143,10 @@
     <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
       <Project>{a52e21f4-2301-4f4e-9361-be954fb490a0}</Project>
       <Name>TddToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj">
+      <Project>{D041EA07-107E-4C80-8B96-51EC1CB078AC}</Project>
+      <Name>TypeReflection.ImplementationDetails</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
       <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>

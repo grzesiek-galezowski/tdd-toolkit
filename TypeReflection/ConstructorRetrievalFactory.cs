@@ -1,4 +1,4 @@
-using TddEbook.TypeReflection.ImplementationDetails.ConstructorRetrievals;
+using TypeReflection.ImplementationDetails.ConstructorRetrievals;
 
 namespace TddEbook.TypeReflection
 {

@@ -12,7 +12,7 @@ using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
 using TddEbook.TypeReflection;
-using TddEbook.TypeReflection.Interfaces;
+using TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit
 {

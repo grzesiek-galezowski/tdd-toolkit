@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommonTypes;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TypeReflection;

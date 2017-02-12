@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
+using CommonTypes;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Reflection;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;
-using TddEbook.TypeReflection.ImplementationDetails;
+using TypeReflection.ImplementationDetails;
 
 namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
 {
