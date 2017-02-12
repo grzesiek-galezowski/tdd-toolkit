@@ -53,7 +53,7 @@
     <Compile Include="FactoryForInstancesOfGenericTypesWith1Generic.cs" />
     <Compile Include="FactoryForInstancesOfGenericTypesWith2Generics.cs" />
     <Compile Include="ImplementationDetails\ConstructorRetrievals\ConstructorRetrieval.cs" />
-    <Compile Include="ConstructorNotFoundException.cs" />
+    <Compile Include="Exceptions\ConstructorNotFoundException.cs" />
     <Compile Include="ImplementationDetails\EventWrapper.cs" />
     <Compile Include="Interfaces\IEventWrapper.cs" />
     <Compile Include="ImplementationDetails\BinaryOperator.cs" />
