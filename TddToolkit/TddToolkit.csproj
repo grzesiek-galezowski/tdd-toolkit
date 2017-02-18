@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="AllGenerator.cs" />
     <Compile Include="Are.cs" />
+    <Compile Include="AutoFixtureFactory.cs" />
     <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
     <Compile Include="Clone.cs" />

@@ -27,29 +27,21 @@ namespace TddEbook.TddToolkit
   {
     public AllGenerator()
     {
-      _arrayElementPicking = new ArrayElementPicking();
-      _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
-      _proxyGenerator = new ProxyGenerator();
-      FakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
-      _generator.Register(() => _types.Next());
-      _generator.Register(() => MethodList.Next());
-      _generator.Register(() => new Exception(new AllGenerator().String(), new Exception(new AllGenerator().String())));
-      _generator.Register(() => new IPAddress(new[] { new AllGenerator().Octet(), new AllGenerator().Octet(), new AllGenerator().Octet(), new AllGenerator().Octet() }));
-      _generator.Customize(new MultipleCustomization());
+      _emptyCollectionGenerator = new Fixture()
+      {
+        RepeatCount = 0,
+      };
+      _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
+      _generator = new AutoFixtureFactory().CreateCustomAutoFixture();
     }
 
-
     public const int Many = 3;
-    private readonly ArrayElementPicking _arrayElementPicking;
-    private readonly ProxyGenerator _proxyGenerator;
-    private readonly FakeChainFactory FakeChainFactory;
-    private readonly CachedReturnValueGeneration _cachedGeneration;
-    private readonly Fixture _generator = new Fixture();
-
-    private readonly Fixture _emptyCollectionGenerator = new Fixture()
-    {
-      RepeatCount = 0,
-    };
+    private readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
+    private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
+    private readonly FakeChainFactory _fakeChainFactory;
+    private readonly CachedReturnValueGeneration _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
+    private readonly Fixture _generator;
+    private readonly Fixture _emptyCollectionGenerator;
 
     private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
@@ -62,23 +54,6 @@ namespace TddEbook.TddToolkit
 
     private readonly CircularList<byte> _digits =
       CircularList.CreateStartingFromRandom(new byte[] {5, 6, 4, 7, 3, 8, 2, 9, 1, 0});
-
-    private readonly CircularList<Type> _types = CircularList.CreateStartingFromRandom(typeof(Type1),
-      typeof(Type2),
-      typeof(Type3),
-      typeof(Type4),
-      typeof(Type5),
-      typeof(Type6),
-      typeof(Type7),
-      typeof(Type8),
-      typeof(Type9),
-      typeof(Type10),
-      typeof(Type11),
-      typeof(Type12),
-      typeof(Type13));
-
-    private readonly CircularList<MethodInfo> MethodList =
-      CircularList.CreateStartingFromRandom(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
 
     private readonly NestingLimit _nestingLimit = GlobalNestingLimit.Of(5);
     private readonly HashSet<IntegerSequence> _sequences = new HashSet<IntegerSequence>();
@@ -180,7 +155,7 @@ namespace TddEbook.TddToolkit
 
     public T InstanceOf<T>()
     {
-      return FakeChainFactory.GetInstance<T>().Resolve();
+      return _fakeChainFactory.GetInstance<T>().Resolve();
     }
 
     public T Instance<T>()
@@ -194,11 +169,11 @@ namespace TddEbook.TddToolkit
 
       if (typeof(T).IsPrimitive)
       {
-        return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
+        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
       }
       if (typeof(T) == typeof(string))
       {
-        return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
+        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
       }
       if (
         TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
