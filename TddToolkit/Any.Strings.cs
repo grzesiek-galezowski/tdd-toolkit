@@ -9,104 +9,92 @@ namespace TddEbook.TddToolkit
 
   public partial class Any
   {
-    public static string String() => _generator.Create<string>();
-    public static string String(string seed) => _generator.Create(seed+"_");
+    public static string String()
+    {
+    }
 
-    public static string LowerCaseString() => String().ToLower();
-    public static string UpperCaseString() => String().ToUpper();
-    public static string LowerCaseAlphaString() => AlphaString().ToLower();
-    public static string UpperCaseAlphaString() => AlphaString().ToUpper();
+    public static string String(string seed)
+    {
+    }
+
+    public static string LowerCaseString()
+    {
+    }
+
+    public static string UpperCaseString()
+    {
+    }
+
+    public static string LowerCaseAlphaString()
+    {
+    }
+
+    public static string UpperCaseAlphaString()
+    {
+    }
 
 
     public static string StringMatching(string pattern)
     {
-      var request = new RegularExpressionRequest(pattern);
-
-      var result = _regexGenerator.Create(request, new DummyContext());
-      return result.ToString();
     }
 
     public static string StringOfLength(int charactersCount)
     {
-      var result = string.Empty;
-      while (result.Count() < charactersCount)
-      {
-        result += String();
-      }
-      return result.Substring(0, charactersCount);
     }
 
-    public static string StringOtherThan(params string[] alreadyUsedStrings) => 
-      ValueOtherThan(alreadyUsedStrings);
-    public static string StringNotContaining<T>(params T[] excludedObjects) => 
-      StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
+    public static string StringOtherThan(params string[] alreadyUsedStrings)
+    {
+    }
+
+    public static string StringNotContaining<T>(params T[] excludedObjects)
+    {
+    }
 
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
-      var preprocessedStrings = from str in excludedSubstrings
-        where !string.IsNullOrEmpty(str)
-        select str;
-
-      string result = String();
-      bool found = false;
-      for(int i = 0 ; i < 100 ; ++i)
-      {
-        result = String();
-        if (preprocessedStrings.Any(result.Contains))
-        {
-          found = true;
-          break;
-        }
-      }
-      if (!found)
-      {
-        foreach (var excludedSubstring in excludedSubstrings.Where(s => s != string.Empty))
-        {
-          result = result.Replace(excludedSubstring, "");
-        }
-      }
-      return result;
     }
 
-    public static string StringContaining<T>(T obj) => 
-      StringContaining(obj.ToString());
-    public static string StringContaining(string str) => 
-      String() + str + String();
-    public static string AlphaString() => 
-      AlphaString(String().Length);
+    public static string StringContaining<T>(T obj)
+    {
+    }
+
+    public static string StringContaining(string str)
+    {
+    }
+
+    public static string AlphaString()
+    {
+    }
 
     public static string AlphaString(int maxLength)
     {
-      var result = System.String.Empty;
-      for (var i = 0; i < maxLength; ++i)
-      {
-        result += AlphaChar();
-      }
-      return result;
     }
 
     public static string Identifier()
     {
-      string result = AlphaChar().ToString(CultureInfo.InvariantCulture);
-      for (var i = 0; i < 5; ++i)
-      {
-        result += DigitChar();
-        result += AlphaChar();
-      }
-      return result;
     }
 
-    public static char AlphaChar() => 
-      _letters.Next();
-    public static char DigitChar() => 
-      _digitChars.Next();
-    public static char Char() => 
-      Instance<char>();
-    public static string NumericString(int digitsCount = Many) => 
-      Any.StringMatching("[1-9][0-9]{" + (digitsCount - 1) + "}");
+    public static char AlphaChar()
+    {
+    }
 
-    public static char LowerCaseAlphaChar() => char.ToLower(AlphaChar());
-    public static char UpperCaseAlphaChar() => char.ToUpper(AlphaChar());
+    public static char DigitChar()
+    {
+    }
 
+    public static char Char()
+    {
+    }
+
+    {
+    }
+
+    public static char LowerCaseAlphaChar()
+    {
+    }
+
+    public static char UpperCaseAlphaChar()
+    {
+    }
   }
 }

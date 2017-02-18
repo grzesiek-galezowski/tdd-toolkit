@@ -1,367 +1,258 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using NSubstitute;
-using Ploeh.AutoFixture;
-using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
-using Castle.Components.DictionaryAdapter.Xml;
-using Castle.DynamicProxy;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
-using TddEbook.TypeReflection;
 using Type = System.Type;
 
 namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private static readonly ArrayElementPicking _arrayElementPicking;
-    private static readonly ProxyGenerator _proxyGenerator;
-    private static readonly FakeChainFactory FakeChainFactory;
-    private static readonly CachedReturnValueGeneration _cachedGeneration;
-
-    static Any()
-    {
-      _arrayElementPicking = new ArrayElementPicking();
-      _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
-      _proxyGenerator = new ProxyGenerator();
-      FakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
-      _generator.Register(() => _types.Next());
-      _generator.Register(() => MethodList.Next());
-      _generator.Register(() => new Exception(String(), new Exception(String())));
-      _generator.Register(() => new IPAddress(new byte[] { Any.Octet(), Any.Octet(), Any.Octet(), Any.Octet() }));
-      _generator.Customize(new MultipleCustomization());
-    }
+    private static readonly AllGenerator _any = new AllGenerator();
 
     public static IPAddress IpAddress()
     {
-      return _generator.Create<IPAddress>();
+      return _any.IpAddress();
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
     {
-      T currentValue;
-      do
-      {
-        currentValue = ValueOf<T>();
-      } while (omittedValues.Contains(currentValue));
-
-      return currentValue;
+      return _any.ValueOtherThan(omittedValues);
     }
 
     public static T From<T>(params T[] possibleValues)
     {
-      var latestArraysWithPossibleValues = _arrayElementPicking.For<T>();
-
-      if (!latestArraysWithPossibleValues.Contain(possibleValues))
-      {
-        latestArraysWithPossibleValues.Add(possibleValues);
-      }
-
-      var result = latestArraysWithPossibleValues.PickNextElementFrom(possibleValues);
-      return result;
+      return _any.From(possibleValues);
     }
 
     public static DateTime DateTime()
     {
-      return ValueOf<DateTime>();
+      return _any.DateTime();
     }
 
     public static TimeSpan TimeSpan()
     {
-      return ValueOf<TimeSpan>();
+      return _any.TimeSpan();
     }
 
     public static T ValueOf<T>()
     {
-      //bug: add support for creating generic structs with interfaces
-      return _generator.Create<T>();
+      return _any.ValueOf<T>();
     }
 
     public static List<T> EmptyEnumerableOf<T>()
     {
-      return _emptyCollectionGenerator.Create<List<T>>();
+      return _any.EmptyEnumerableOf<T>();
     }
 
     public static string LegalXmlTagName()
     {
-      return Identifier();
+      return _any.LegalXmlTagName();
     }
 
     public static bool Boolean()
     {
-      return ValueOf<bool>();
+      return _any.Boolean();
     }
 
     public static object Object()
     {
-      return ValueOf<object>();
+      return _any.Object();
     }
 
     public static T Exploding<T>() where T : class
     {
-      if (typeof(T).IsInterface)
-      {
-        return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
-      }
-      else
-      {
-        throw new Exception("Exploding instances can be created out of interfaces only!");
-      }
+      return _any.Exploding<T>();
     }
 
     public static MethodInfo Method()
     {
-      return ValueOf<MethodInfo>();
+      return _any.Method();
     }
 
     public static Type Type()
     {
-      return ValueOf<Type>();
+      return _any.Type();
     }
 
     public static T InstanceOf<T>()
     {
-      return FakeChainFactory.GetInstance<T>().Resolve();
+      return _any.InstanceOf<T>();
     }
 
     public static T Instance<T>()
     {
-      return InstanceOf<T>();
+      return _any.Instance<T>();
     }
 
     public static T Dummy<T>()
     {
-      FakeOrdinaryInterface<T> fakeInterface = new FakeOrdinaryInterface<T>(_cachedGeneration, _proxyGenerator);
-
-      if (typeof(T).IsPrimitive)
-      {
-        return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
-      }
-      if (typeof(T) == typeof(string))
-      {
-        return FakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
-      }
-      if (
-        TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
-      {
-        return _emptyCollectionGenerator.Create<T>();
-      }
-      if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
-      {
-        return (T)EmptyEnumerableOf(typeof(T).GetCollectionItemType());
-      }
-      if (typeof(T).IsAbstract)
-      {
-        return default(T);
-      }
-      if (fakeInterface.Applies())
-      {
-        return fakeInterface.Apply();
-      }
-      return (T)FormatterServices.GetUninitializedObject(typeof (T));
+      return _any.Dummy<T>();
     }
-
-
 
 #pragma warning disable CC0068 // Unused Method
 #pragma warning disable S1144 // Unused private types or members should be removed
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
-      return OtherThan(omittedValues.Cast<T>().ToArray());
+      return _any.InstanceOtherThanObjects<T>(omittedValues);
     }
 #pragma warning restore S1144 // Unused private types or members should be removed
 #pragma warning restore CC0068 // Unused Method
 
     public static T SubstituteOf<T>() where T : class
     {
-      var type = typeof (T);
-      var sub = Substitute.For<T>();
-
-      var methods = SmartType.For(type).GetAllPublicInstanceMethodsWithReturnValue();
-
-      foreach (var method in methods)
-      {
-        method.InvokeWithAnyArgsOn(sub, Instance).ReturnsForAnyArgs(method.GenerateAnyReturnValue(Instance));
-      }
-      return sub;
+      return _any.SubstituteOf<T>();
     }
 
     public static T OtherThan<T>(params T[] omittedValues)
     {
-      if (omittedValues == null)
-      {
-        return Instance<T>();
-      }
-
-      T currentValue;
-      do
-      {
-        currentValue = Instance<T>();
-      } while (omittedValues.Contains(currentValue));
-
-      return currentValue;
+      return _any.OtherThan(omittedValues);
     }
 
     public static Uri Uri()
     {
-      return ValueOf<Uri>();
+      return _any.Uri();
     }
 
     public static Guid Guid()
     {
-      return ValueOf<Guid>();
+      return _any.Guid();
     }
 
     public static string UrlString()
     {
-      return Uri().ToString();
+      return _any.UrlString();
     }
 
     public static Exception Exception()
     {
-      return ValueOf<Exception>();
+      return _any.Exception();
     }
 
     public static int Port()
     {
-      return _randomGenerator.Next(65535);
+      return _any.Port();
     }
 
     public static string Ip()
     {
-      return _randomGenerator.Next(256) + "."
-            + _randomGenerator.Next(256) + "."
-            + _randomGenerator.Next(256) + "."
-            + _randomGenerator.Next(256);
+      return _any.Ip();
     }
 
     public static object InstanceOf(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.InstanceOf(type);
     }
 
     public static object Instance(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.Instance(type);
     }
 
     public static object ValueOf(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.ValueOf(type);
     }
 
     private static object EmptyEnumerableOf(Type collectionType)
     {
-      return ResultOfGenericVersionOfMethod(
-        collectionType, MethodBase.GetCurrentMethod().Name);
+      return _any.EmptyEnumerableOf(collectionType);
     }
 
     public static object InstanceOtherThanObjects(Type type, params object[] omittedValues)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, omittedValues);
+      return _any.InstanceOtherThanObjects(type, omittedValues);
     }
 
     public static IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
-      var list = new List<T>();
-      list.Add(Instance<T>());
-      list.AddRange(included);
-      list.Add(Instance<T>());
-
-      return list;
+      return _any.EnumerableWith(included);
     }
 
     public static Task NotStartedTask()
     {
-      return new Task(() => Task.Delay(1).Wait());
+      return _any.NotStartedTask();
     }
 
     public static Task<T> NotStartedTask<T>()
     {
-      return new Task<T>(Instance<T>);
+      return _any.NotStartedTask<T>();
     }
 
     public static Task StartedTask()
     {
-      return Clone.Of(Task.Delay(0));
+      return _any.StartedTask();
     }
 
     public static Task<T> StartedTask<T>()
     {
-      return Task.FromResult(Instance<T>());
+      return _any.StartedTask<T>();
     }
 
     public static Func<T> Func<T>()
     {
-      return Any.Instance<Func<T>>();
+      return _any.Func<T>();
     }
     public static Func<T1, T2> Func<T1, T2>()
     {
-      return Any.Instance<Func<T1, T2>>();
+      return _any.Func<T1, T2>();
     }
 
     public static Func<T1, T2, T3> Func<T1, T2, T3>()
     {
-      return Any.Instance<Func<T1, T2, T3>>();
+      return _any.Func<T1, T2, T3>();
     }
 
     public static Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>()
     {
-      return Any.Instance<Func<T1, T2, T3, T4>>();
+      return _any.Func<T1, T2, T3, T4>();
     }
 
     public static Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>()
     {
-      return Any.Instance<Func<T1, T2, T3, T4, T5>>();
+      return _any.Func<T1, T2, T3, T4, T5>();
     }
 
     public static Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>()
     {
-      return Any.Instance<Func<T1, T2, T3, T4, T5, T6>>();
+      return _any.Func<T1, T2, T3, T4, T5, T6>();
     }
 
     public static Action Action()
     {
-      return Any.Instance<Action>();
+      return _any.Action();
     }
 
     public static Action<T> Action<T>()
     {
-      return Any.Instance<Action<T>>();
+      return _any.Action<T>();
     }
     public static Action<T1, T2> Action<T1, T2>()
     {
-      return Any.Instance<Action<T1, T2>>();
+      return _any.Action<T1, T2>();
     }
 
     public static Action<T1, T2, T3> Action<T1, T2, T3>()
     {
-      return Any.Instance<Action<T1, T2, T3>>();
+      return _any.Action<T1, T2, T3>();
     }
 
     public static Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>()
     {
-      return Any.Instance<Action<T1, T2, T3, T4>>();
+      return _any.Action<T1, T2, T3, T4>();
     }
 
     public static Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>()
     {
-      return Any.Instance<Action<T1, T2, T3, T4, T5>>();
+      return _any.Action<T1, T2, T3, T4, T5>();
     }
 
     public static Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>()
     {
-      return Any.Instance<Action<T1, T2, T3, T4, T5, T6>>();
+      return _any.Action<T1, T2, T3, T4, T5, T6>();
     }
   }
 

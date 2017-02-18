@@ -8,365 +8,307 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private const int Many = 3;
 
     public static IEnumerable<T> Enumerable<T>()
     {
-      return Enumerable<T>(length: Many);
+      return _any.Enumerable<T>();
     }
 
     public static IEnumerable<T> Enumerable<T>(int length)
     {
-      return AddManyTo(new List<T>(), length);
+      return _any.Enumerable<T>(length);
     }
 
     public static IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
     {
-      var result = new List<T>
-      {
-        OtherThan(excluded), 
-        OtherThan(excluded), 
-        OtherThan(excluded)
-      };
-      return result;
+      return _any.EnumerableWithout(excluded);
     }
 
     public static T[] Array<T>()
     {
-      return Array<T>(Many);
+      return _any.Array<T>();
     }
 
     public static T[] Array<T>(int length)
     {
-      return Enumerable<T>(length).ToArray();
+      return _any.Array<T>(length);
     }
 
     public static T[] ArrayWithout<T>(params T[] excluded)
     {
-      return EnumerableWithout(excluded).ToArray();
+      return _any.ArrayWithout(excluded);
     }
 
     public static T[] ArrayWith<T>(params T[] included)
     {
-      return EnumerableWith(included).ToArray();
+      return _any.ArrayWith(included);
     }
 
     public static T[] ArrayWithout<T>(IEnumerable<T> excluded)
     {
-      return EnumerableWithout(excluded.ToArray()).ToArray();
+      return _any.ArrayWithout(excluded);
     }
 
     public static T[] ArrayWith<T>(IEnumerable<T> included)
     {
-      return EnumerableWith(included.ToArray()).ToArray();
+      return _any.ArrayWith(included);
     }
 
     public static List<T> List<T>()
     {
-      return List<T>(Many);
+      return _any.List<T>();
     }
 
     public static List<T> List<T>(int length)
     {
-      return Enumerable<T>(length).ToList();
+      return _any.List<T>(length);
     }
 
     public static List<T> ListWithout<T>(params T[] excluded)
     {
-      return EnumerableWithout(excluded).ToList();
+      return _any.ListWithout(excluded);
     }
 
     public static List<T> ListWith<T>(params T[] included)
     {
-      return EnumerableWith(included).ToList();
+      return _any.ListWith(included);
     }
 
     public static List<T> ListWithout<T>(IEnumerable<T> excluded)
     {
-      return EnumerableWithout(excluded.ToArray()).ToList();
+      return _any.ListWithout(excluded);
     }
 
     public static List<T> ListWith<T>(IEnumerable<T> included)
     {
-      return EnumerableWith(included.ToArray()).ToList();
+      return _any.ListWith(included);
     }
 
     public static IReadOnlyList<T> ReadOnlyList<T>()
     {
-      return ReadOnlyList<T>(Many);
+      return _any.ReadOnlyList<T>();
     }
 
     public static IReadOnlyList<T> ReadOnlyList<T>(int length)
     {
-      return Any.List<T>(length);
+      return _any.ReadOnlyList<T>(length);
     }
 
     public static IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items)
     {
-      return Any.ListWith(items);
+      return _any.ReadOnlyListWith(items);
     }
 
     public static IReadOnlyList<T> ReadOnlyListWith<T>(params T[] items)
     {
-      return Any.ListWith(items);
+      return _any.ReadOnlyListWith(items);
     }
 
     public static IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items)
     {
-      return Any.ListWithout(items);
+      return _any.ReadOnlyListWithout(items);
     }
 
     public static IReadOnlyList<T> ReadOnlyListWithout<T>(params T[] items)
     {
-      return Any.ListWithout(items);
+      return _any.ReadOnlyListWithout(items);
     }
 
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {
-      return SortedList<TKey, TValue>(Many);
+      return _any.SortedList<TKey, TValue>();
     }
 
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>(int length)
     {
-      var list = new SortedList<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        list.Add(Instance<TKey>(), Instance<TValue>());
-      }
-      return list;
+      return _any.SortedList<TKey, TValue>(length);
     }
 
 
     public static ISet<T> Set<T>(int length)
     {
-      return new HashSet<T>(Enumerable<T>(length));
+      return _any.Set<T>(length);
     }
 
     public static ISet<T> Set<T>()
     {
-      return Set<T>(Many);
+      return _any.Set<T>();
     }
 
     public static ISet<T> SortedSet<T>(int length)
     {
-      return new SortedSet<T>(Enumerable<T>(length));
+      return _any.SortedSet<T>(length);
     }
 
     public static ISet<T> SortedSet<T>()
     {
-      return SortedSet<T>(Many);
+      return _any.SortedSet<T>();
     }
 
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
     {
-      var dict = new Dictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(Instance<TKey>(), Instance<TValue>());
-      }
-      return dict;
+      return _any.Dictionary<TKey, TValue>(length);
     }
 
     public static Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
     {
-      var dict = Dictionary<T, U>(0);
-      foreach (var key in keys)
-      {
-        dict.Add(key, InstanceOf<U>());
-      }
-
-      return dict;
+      return _any.DictionaryWithKeys<T, U>(keys);
     }
 
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
-      return Dictionary<TKey, TValue>(Many);
+      return _any.Dictionary<TKey, TValue>();
     }
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
     {
-      return Dictionary<TKey, TValue>(length);
+      return _any.ReadOnlyDictionary<TKey, TValue>(length);
     }
 
-    public static IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
-      return Any.DictionaryWithKeys<T, U>(keys);
+      return _any.ReadOnlyDictionaryWithKeys<TKey, TValue>(keys);
     }
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
     {
-      return ReadOnlyDictionary<TKey, TValue>(Many);
+      return _any.ReadOnlyDictionary<TKey, TValue>();
     }
 
     public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
     {
-      var dict = new SortedDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(Instance<TKey>(), Instance<TValue>());
-      }
-      return dict;
+      return _any.SortedDictionary<TKey, TValue>(length);
     }
 
     public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>()
     {
-      return SortedDictionary<TKey, TValue>(Many);
+      return _any.SortedDictionary<TKey, TValue>();
     }
     public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length)
     {
-      var dict = new ConcurrentDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.TryAdd(Instance<TKey>(), Instance<TValue>());
-      }
-      return dict;
-
+      return _any.ConcurrentDictionary<TKey, TValue>(length);
     }
 
     public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
     {
-      return ConcurrentDictionary<TKey, TValue>(Many);
+      return _any.ConcurrentDictionary<TKey, TValue>();
     }
 
     public static ConcurrentStack<T> ConcurrentStack<T>()
     {
-      return ConcurrentStack<T>(Many);
+      return _any.ConcurrentStack<T>();
     }
 
     public static ConcurrentStack<T> ConcurrentStack<T>(int length)
     {
-      var coll = new ConcurrentStack<T>();
-      for (int i = 0; i < length; ++i)
-      {
-        coll.Push(Instance<T>());
-      }
-      return coll;
+      return _any.ConcurrentStack<T>(length);
     }
 
     public static ConcurrentQueue<T> ConcurrentQueue<T>()
     {
-      return ConcurrentQueue<T>(Many);
+      return _any.ConcurrentQueue<T>();
     }
 
     public static ConcurrentQueue<T> ConcurrentQueue<T>(int length)
     {
-      var coll = new ConcurrentQueue<T>();
-      for (int i = 0; i < length; ++i)
-      {
-        coll.Enqueue(Instance<T>());
-      }
-      return coll;
-
+      return _any.ConcurrentQueue<T>(length);
     }
 
     public static ConcurrentBag<T> ConcurrentBag<T>()
     {
-      return ConcurrentBag<T>(Many);
+      return _any.ConcurrentBag<T>();
     }
 
     public static ConcurrentBag<T> ConcurrentBag<T>(int length)
     {
-      var coll = new ConcurrentBag<T>();
-      for (int i = 0; i < length; ++i)
-      {
-        coll.Add(Instance<T>());
-      }
-      return coll;
-
+      return _any.ConcurrentBag<T>(length);
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>(int length)
     {
-      return SortedSet<T>(length).ToList();
+      return _any.EnumerableSortedDescending<T>(length);
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>()
     {
-      return EnumerableSortedDescending<T>(Many);
+      return _any.EnumerableSortedDescending<T>();
     }
 
     public static IEnumerator<T> Enumerator<T>()
     {
-      return List<T>().GetEnumerator();
+      return _any.Enumerator<T>();
     }
 
     public static object List(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.List(type);
     }
 
     public static object Set(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.Set(type);
     }
 
     public static object Dictionary(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _any.Dictionary(keyType, valueType);
     }
 
 
     public static object SortedList(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _any.SortedList(keyType, valueType);
     }
 
     public static object SortedSet(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _any.SortedSet(type);
     }
 
     public static object SortedDictionary(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _any.SortedDictionary(keyType, valueType);
     }
 
     public static object ConcurrentDictionary(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _any.ConcurrentDictionary(keyType, valueType);
     }
 
     public static object Array(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _any.Array(type);
     }
 
     private static ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
     {
-      for (int i = 0; i < many; ++i)
-      {
-        collection.Add(Instance<T>());
-      }
-      return collection;
+      return _any.AddManyTo(collection, many);
     }
 
     public static object KeyValuePair(Type keyType, Type valueType)
     {
-      return Activator.CreateInstance(
-        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), 
-        Instance(keyType), Instance(valueType)
-        );
+      return _any.KeyValuePair(keyType, valueType);
     }
 
     public static object Enumerator(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _any.Enumerator(type);
     }
 
 
     public static object ConcurrentStack(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.ConcurrentStack(type);
     }
 
     public static object ConcurrentQueue(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.ConcurrentQueue(type);
     }
 
     public static object ConcurrentBag(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _any.ConcurrentBag(type);
     }
 
 

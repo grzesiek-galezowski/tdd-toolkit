@@ -4,11 +4,10 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
+
     public static T Of<T>() where T : struct, IConvertible
     {
-      AssertDynamicEnumConstraintFor<T>();
-
-      return ValueOf<T>();
+      return _any.Of<T>();
     }
 
     /// <typeparam name="T">MUST BE AN ENUM. FOR NORMAL VALUES, USE Any.OtherThan()</typeparam>
@@ -16,8 +15,7 @@ namespace TddEbook.TddToolkit
     /// <returns></returns>
     public static T Besides<[MustBeAnEnum] T>([MustBeAnEnum] params T[] excludedValues) where T : struct, IConvertible
     {
-      AssertDynamicEnumConstraintFor<T>();
-      return ValueOtherThan(excludedValues);
+      return _any.Besides(excludedValues);
     }
   }
 
