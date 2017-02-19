@@ -1,25 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using Castle.Components.DictionaryAdapter.Xml;
-using Castle.DynamicProxy;
 using CommonTypes;
-using NSubstitute;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
-using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
 {
@@ -31,17 +24,13 @@ namespace TddEbook.TddToolkit
       {
         RepeatCount = 0,
       };
-      _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
+      _proxyBasedGenerator = new ProxyBasedGenerator(_emptyCollectionGenerator, this);
       _generator = new AutoFixtureFactory().CreateCustomAutoFixture();
     }
 
     public const int Many = 3;
     private readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
-    private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
-    private readonly FakeChainFactory _fakeChainFactory;
-    private readonly CachedReturnValueGeneration _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
     private readonly Fixture _generator;
-    private readonly Fixture _emptyCollectionGenerator;
 
     private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
@@ -55,7 +44,7 @@ namespace TddEbook.TddToolkit
     private readonly CircularList<byte> _digits =
       CircularList.CreateStartingFromRandom(new byte[] {5, 6, 4, 7, 3, 8, 2, 9, 1, 0});
 
-    private readonly NestingLimit _nestingLimit = GlobalNestingLimit.Of(5);
+
     private readonly HashSet<IntegerSequence> _sequences = new HashSet<IntegerSequence>();
 
     private readonly CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
@@ -65,6 +54,13 @@ namespace TddEbook.TddToolkit
     private readonly NumericTraits<long> _longTraits = NumericTraits.Long();
     private readonly NumericTraits<uint> _uintTraits = NumericTraits.UnsignedInteger();
     private readonly NumericTraits<ulong> _ulongTraits = NumericTraits.UnsignedLong();
+    private readonly ProxyBasedGenerator _proxyBasedGenerator;
+    private readonly Fixture _emptyCollectionGenerator;
+
+    public ProxyBasedGenerator ProxyBasedGenerator
+    {
+      get { return _proxyBasedGenerator; }
+    }
 
     public IPAddress IpAddress()
     {
@@ -131,18 +127,6 @@ namespace TddEbook.TddToolkit
       return ValueOf<object>();
     }
 
-    public T Exploding<T>() where T : class
-    {
-      if (typeof(T).IsInterface)
-      {
-        return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
-      }
-      else
-      {
-        throw new Exception("Exploding instances can be created out of interfaces only!");
-      }
-    }
-
     public MethodInfo Method()
     {
       return ValueOf<MethodInfo>();
@@ -155,80 +139,27 @@ namespace TddEbook.TddToolkit
 
     public T InstanceOf<T>()
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve();
+      return _proxyBasedGenerator.InstanceOf<T>();
     }
 
     public T Instance<T>()
     {
-      return InstanceOf<T>();
+      return _proxyBasedGenerator.Instance<T>();
     }
 
     public T Dummy<T>()
     {
-      FakeOrdinaryInterface<T> fakeInterface = new FakeOrdinaryInterface<T>(_cachedGeneration, _proxyGenerator);
-
-      if (typeof(T).IsPrimitive)
-      {
-        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
-      }
-      if (typeof(T) == typeof(string))
-      {
-        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
-      }
-      if (
-        TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
-      {
-        return _emptyCollectionGenerator.Create<T>();
-      }
-      if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
-      {
-        return (T)EmptyEnumerableOf(typeof(T).GetCollectionItemType());
-      }
-      if (typeof(T).IsAbstract)
-      {
-        return default(T);
-      }
-      if (fakeInterface.Applies())
-      {
-        return fakeInterface.Apply();
-      }
-      return (T)FormatterServices.GetUninitializedObject(typeof (T));
-    }
-
-    [SuppressMessage("ReSharper", "UnusedMember.Local")]
-    public T InstanceOtherThanObjects<T>(params object[] omittedValues)
-    {
-      return OtherThan(omittedValues.Cast<T>().ToArray());
+      return _proxyBasedGenerator.Dummy<T>();
     }
 
     public T SubstituteOf<T>() where T : class
     {
-      var type = typeof (T);
-      var sub = Substitute.For<T>();
-
-      var methods = SmartType.For(type).GetAllPublicInstanceMethodsWithReturnValue();
-
-      foreach (var method in methods)
-      {
-        method.InvokeWithAnyArgsOn(sub, type1 => Instance(type1)).ReturnsForAnyArgs(method.GenerateAnyReturnValue(type1 => Instance(type1)));
-      }
-      return sub;
+      return _proxyBasedGenerator.SubstituteOf<T>();
     }
 
     public T OtherThan<T>(params T[] omittedValues)
     {
-      if (omittedValues == null)
-      {
-        return Instance<T>();
-      }
-
-      T currentValue;
-      do
-      {
-        currentValue = Instance<T>();
-      } while (omittedValues.Contains(currentValue));
-
-      return currentValue;
+      return _proxyBasedGenerator.OtherThan(omittedValues);
     }
 
     public Uri Uri()
@@ -262,16 +193,6 @@ namespace TddEbook.TddToolkit
              + _randomGenerator.Next(256) + "."
              + _randomGenerator.Next(256) + "."
              + _randomGenerator.Next(256);
-    }
-
-    public object InstanceOf(Type type)
-    {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public object Instance(Type type)
-    {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ValueOf(Type type)
@@ -732,8 +653,7 @@ namespace TddEbook.TddToolkit
     public object KeyValuePair(Type keyType, Type valueType)
     {
       return Activator.CreateInstance(
-        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), 
-        Instance(keyType), Instance(valueType)
+        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), ProxyBasedGenerator.Instance(keyType), ProxyBasedGenerator.Instance(valueType)
       );
     }
 
@@ -936,19 +856,17 @@ namespace TddEbook.TddToolkit
 
     private static object ResultOfGenericVersionOfMethod(Type type, string name)
     {
-      //bug change any to any2
-      return typeof(Any).GetMethods().Where(NameIs(name))
-        .First(ParameterlessGenericVersion()).MakeGenericMethod(type).Invoke(null, null);
+      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod(type, name);
     }
 
     private static Func<MethodInfo, bool> ParameterlessGenericVersion()
     {
-      return m => !m.GetParameters().Any() && m.IsGenericMethodDefinition;
+      return ProxyBasedGenerator.ParameterlessGenericVersion();
     }
 
     private static Func<MethodInfo, bool> NameIs(string name)
     {
-      return m => m.Name == name;
+      return ProxyBasedGenerator.NameIs(name);
     }
 
     private static object ResultOfGenericVersionOfMethod(Type type, string name, object[] args)

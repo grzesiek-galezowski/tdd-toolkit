@@ -119,6 +119,7 @@
     <Compile Include="NSubstitute\ImplementationDetails\AssertionsExecutionLoop.cs" />
     <Compile Include="NSubstitute\MultipleConditionsFailedException.cs" />
     <Compile Include="NSubstitute\ImplementationDetails\SequenceExclusiveAssertion.cs" />
+    <Compile Include="ProxyBasedGenerator.cs" />
     <Compile Include="Reflection\Metadata.cs" />
     <Compile Include="Reflection\Method.cs" />
     <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />

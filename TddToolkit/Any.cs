@@ -64,7 +64,7 @@ namespace TddEbook.TddToolkit
 
     public static T Exploding<T>() where T : class
     {
-      return _any.Exploding<T>();
+      return _any.ProxyBasedGenerator.Exploding<T>();
     }
 
     public static MethodInfo Method()
@@ -97,7 +97,7 @@ namespace TddEbook.TddToolkit
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
-      return _any.InstanceOtherThanObjects<T>(omittedValues);
+      return _any.ProxyBasedGenerator.InstanceOtherThanObjects<T>(omittedValues);
     }
 #pragma warning restore S1144 // Unused private types or members should be removed
 #pragma warning restore CC0068 // Unused Method
@@ -144,12 +144,12 @@ namespace TddEbook.TddToolkit
 
     public static object InstanceOf(Type type)
     {
-      return _any.InstanceOf(type);
+      return _any.ProxyBasedGenerator.InstanceOf(type);
     }
 
     public static object Instance(Type type)
     {
-      return _any.Instance(type);
+      return _any.ProxyBasedGenerator.Instance(type);
     }
 
     public static object ValueOf(Type type)
