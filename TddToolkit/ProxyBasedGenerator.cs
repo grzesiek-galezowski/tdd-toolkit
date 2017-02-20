@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit
 {
   public class ProxyBasedGenerator
   {
-    private AllGenerator _allGenerator;
+    private readonly AllGenerator _allGenerator;
     private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
     private readonly FakeChainFactory _fakeChainFactory;
     private readonly CachedReturnValueGeneration _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
@@ -44,7 +44,8 @@ namespace TddEbook.TddToolkit
 
     public T Dummy<T>()
     {
-      FakeOrdinaryInterface<T> fakeInterface = new FakeOrdinaryInterface<T>(_cachedGeneration, _proxyGenerator);
+      var fakeInterface = 
+        new FakeOrdinaryInterface<T>(_cachedGeneration, _proxyGenerator);
 
       if (typeof(T).IsPrimitive)
       {
@@ -104,10 +105,9 @@ namespace TddEbook.TddToolkit
       return currentValue;
     }
 
-    public static object ResultOfGenericVersionOfMethod(Type type, string name)
+    public static object ResultOfGenericVersionOfMethod<T>(Type type, string name)
     {
-      //bug change any to any2
-      return typeof(Any).GetMethods().Where(NameIs(name))
+      return typeof(T).GetMethods().Where(NameIs(name))
         .First(ParameterlessGenericVersion()).MakeGenericMethod(type).Invoke(null, null);
     }
 
@@ -141,12 +141,12 @@ namespace TddEbook.TddToolkit
 
     public object InstanceOf(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Instance(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
     }
   }
 }

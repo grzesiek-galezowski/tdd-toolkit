@@ -125,12 +125,6 @@ namespace TddEbook.TddToolkit
       return _any.IntegerNotDivisibleBy(quotient);
     }
 
-    private static void AssertQuotientMakesSense(int quotient)
-    {
-      _any.AssertQuotientMakesSense(quotient);
-    }
-
-
     public static int IntegerWithExactDigitsCount(int digitsCount)
     {
       return _any.IntegerWithExactDigitsCount(digitsCount);
@@ -150,7 +144,6 @@ namespace TddEbook.TddToolkit
     {
       return _any.UnsignedLongIntegerWithExactDigitsCount(digitsCount);
     }
-
 
     public static byte PositiveDigit()
     {

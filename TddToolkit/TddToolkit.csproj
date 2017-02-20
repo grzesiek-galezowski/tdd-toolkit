@@ -119,6 +119,7 @@
     <Compile Include="NSubstitute\ImplementationDetails\AssertionsExecutionLoop.cs" />
     <Compile Include="NSubstitute\MultipleConditionsFailedException.cs" />
     <Compile Include="NSubstitute\ImplementationDetails\SequenceExclusiveAssertion.cs" />
+    <Compile Include="NumericGenerator.cs" />
     <Compile Include="ProxyBasedGenerator.cs" />
     <Compile Include="Reflection\Metadata.cs" />
     <Compile Include="Reflection\Method.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="NSubstitute\XReceived.cs" />
     <Compile Include="NumericTraits.cs" />
     <Compile Include="Reflection\Property.cs" />
+    <Compile Include="StringGenerator.cs" />
     <Compile Include="SyncAssert.cs" />
     <Compile Include="ImplementationDetails\ValueObjectWhiteList.cs" />
     <Compile Include="ValueTypeTraits.cs" />

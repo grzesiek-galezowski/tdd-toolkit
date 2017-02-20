@@ -2,38 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using CommonTypes;
 using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Kernel;
-using TddEbook.TddToolkit.ImplementationDetails;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
 namespace TddEbook.TddToolkit
 {
   public class AllGenerator
   {
-    public AllGenerator()
+    public static AllGenerator CreateAllGenerator()
     {
-      _emptyCollectionGenerator = new Fixture()
+      return new AllGenerator(new AutoFixtureFactory().CreateCustomAutoFixture(), new Fixture()
       {
         RepeatCount = 0,
-      };
-      _proxyBasedGenerator = new ProxyBasedGenerator(_emptyCollectionGenerator, this);
-      _generator = new AutoFixtureFactory().CreateCustomAutoFixture();
+      });
+    }
+
+    private AllGenerator(Fixture generator, Fixture emptyCollectionGenerator)
+    {
+      _generator = generator;
+      _stringGenerator = new StringGenerator(_generator, this);
+      _emptyCollectionGenerator = emptyCollectionGenerator;
+      ProxyBasedGenerator = new ProxyBasedGenerator(_emptyCollectionGenerator, this); //bug move this to argument
+      NumericGenerator = new NumericGenerator(this);
     }
 
     public const int Many = 3;
     private readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
-    private readonly Fixture _generator;
-
-    private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
-    private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
 
     private readonly CircularList<char> _letters =
       CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
@@ -41,26 +40,14 @@ namespace TddEbook.TddToolkit
     private readonly CircularList<char> _digitChars =
       CircularList.CreateStartingFromRandom("5647382910".ToCharArray());
 
-    private readonly CircularList<byte> _digits =
-      CircularList.CreateStartingFromRandom(new byte[] {5, 6, 4, 7, 3, 8, 2, 9, 1, 0});
-
-
-    private readonly HashSet<IntegerSequence> _sequences = new HashSet<IntegerSequence>();
-
-    private readonly CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
-      System.Linq.Enumerable.Range(1, 100).ToArray());
-
-    private readonly NumericTraits<int> _intTraits = NumericTraits.Integer();
-    private readonly NumericTraits<long> _longTraits = NumericTraits.Long();
-    private readonly NumericTraits<uint> _uintTraits = NumericTraits.UnsignedInteger();
-    private readonly NumericTraits<ulong> _ulongTraits = NumericTraits.UnsignedLong();
-    private readonly ProxyBasedGenerator _proxyBasedGenerator;
+    private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private readonly Fixture _emptyCollectionGenerator;
+    private readonly StringGenerator _stringGenerator;
+    private readonly Fixture _generator;
 
-    public ProxyBasedGenerator ProxyBasedGenerator
-    {
-      get { return _proxyBasedGenerator; }
-    }
+    private ProxyBasedGenerator ProxyBasedGenerator { get; }
+
+    private NumericGenerator NumericGenerator { get; }
 
     public IPAddress IpAddress()
     {
@@ -112,9 +99,14 @@ namespace TddEbook.TddToolkit
       return _emptyCollectionGenerator.Create<List<T>>();
     }
 
+    internal object Instance(Type type)
+    {
+      return ProxyBasedGenerator.Instance(type);
+    }
+
     public string LegalXmlTagName()
     {
-      return Identifier();
+      return _stringGenerator.LegalXmlTagName();
     }
 
     public bool Boolean()
@@ -139,27 +131,27 @@ namespace TddEbook.TddToolkit
 
     public T InstanceOf<T>()
     {
-      return _proxyBasedGenerator.InstanceOf<T>();
+      return ProxyBasedGenerator.InstanceOf<T>();
     }
 
     public T Instance<T>()
     {
-      return _proxyBasedGenerator.Instance<T>();
+      return ProxyBasedGenerator.Instance<T>();
     }
 
     public T Dummy<T>()
     {
-      return _proxyBasedGenerator.Dummy<T>();
+      return ProxyBasedGenerator.Dummy<T>();
     }
 
     public T SubstituteOf<T>() where T : class
     {
-      return _proxyBasedGenerator.SubstituteOf<T>();
+      return ProxyBasedGenerator.SubstituteOf<T>();
     }
 
     public T OtherThan<T>(params T[] omittedValues)
     {
-      return _proxyBasedGenerator.OtherThan(omittedValues);
+      return ProxyBasedGenerator.OtherThan(omittedValues);
     }
 
     public Uri Uri()
@@ -174,7 +166,7 @@ namespace TddEbook.TddToolkit
 
     public string UrlString()
     {
-      return Uri().ToString();
+      return _stringGenerator.UrlString();
     }
 
     public Exception Exception()
@@ -189,10 +181,7 @@ namespace TddEbook.TddToolkit
 
     public string Ip()
     {
-      return _randomGenerator.Next(256) + "."
-             + _randomGenerator.Next(256) + "."
-             + _randomGenerator.Next(256) + "."
-             + _randomGenerator.Next(256);
+      return _stringGenerator.Ip();
     }
 
     public object ValueOf(Type type)
@@ -210,6 +199,13 @@ namespace TddEbook.TddToolkit
     {
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, omittedValues);
     }
+
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
+    public T InstanceOtherThanObjects<T>(params object[] omittedValues)
+    {
+      return ProxyBasedGenerator.InstanceOtherThanObjects<T>(omittedValues);
+    }
+
 
     public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
@@ -677,92 +673,84 @@ namespace TddEbook.TddToolkit
       return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
     }
 
-    public string String() => _generator.Create<string>();
-    public string String(string seed) => _generator.Create(seed+"_");
-    public string LowerCaseString() => String().ToLower();
-    public string UpperCaseString() => String().ToUpper();
-    public string LowerCaseAlphaString() => AlphaString().ToLower();
-    public string UpperCaseAlphaString() => AlphaString().ToUpper();
+    public string String()
+    {
+      return _stringGenerator.String();
+    }
+
+    public string String(string seed)
+    {
+      return _stringGenerator.String(seed);
+    }
+
+    public string LowerCaseString()
+    {
+      return _stringGenerator.LowerCaseString();
+    }
+
+    public string UpperCaseString()
+    {
+      return _stringGenerator.UpperCaseString();
+    }
+
+    public string LowerCaseAlphaString()
+    {
+      return _stringGenerator.LowerCaseAlphaString();
+    }
+
+    public string UpperCaseAlphaString()
+    {
+      return _stringGenerator.UpperCaseAlphaString();
+    }
 
     public string StringMatching(string pattern)
     {
-      var request = new RegularExpressionRequest(pattern);
-
-      var result = _regexGenerator.Create(request, new DummyContext());
-      return result.ToString();
+      return _stringGenerator.StringMatching(pattern);
     }
 
     public string StringOfLength(int charactersCount)
     {
-      var result = string.Empty;
-      while (result.Count() < charactersCount)
-      {
-        result += String();
-      }
-      return result.Substring(0, charactersCount);
+      return _stringGenerator.StringOfLength(charactersCount);
     }
 
-    public string StringOtherThan(params string[] alreadyUsedStrings) => 
-      ValueOtherThan(alreadyUsedStrings);
+    public string StringOtherThan(params string[] alreadyUsedStrings)
+    {
+      return _stringGenerator.StringOtherThan(alreadyUsedStrings);
+    }
 
-    public string StringNotContaining<T>(params T[] excludedObjects) => 
-      StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
+    public string StringNotContaining<T>(params T[] excludedObjects)
+    {
+      return _stringGenerator.StringNotContaining(excludedObjects);
+    }
 
     public string StringNotContaining(params string[] excludedSubstrings)
     {
-      var preprocessedStrings = from str in excludedSubstrings
-        where !string.IsNullOrEmpty(str)
-        select str;
-
-      string result = String();
-      bool found = false;
-      for(int i = 0 ; i < 100 ; ++i)
-      {
-        result = String();
-        if (preprocessedStrings.Any(result.Contains))
-        {
-          found = true;
-          break;
-        }
-      }
-      if (!found)
-      {
-        foreach (var excludedSubstring in excludedSubstrings.Where(s => s != string.Empty))
-        {
-          result = result.Replace(excludedSubstring, "");
-        }
-      }
-      return result;
+      return _stringGenerator.StringNotContaining(excludedSubstrings);
     }
 
-    public string StringContaining<T>(T obj) => 
-      StringContaining(obj.ToString());
+    public string StringContaining<T>(T obj)
+    {
+      return _stringGenerator.StringContaining(obj);
+    }
 
-    public string StringContaining(string str) => 
-      String() + str + String();
+    public string StringContaining(string str)
+    {
+      return _stringGenerator.StringContaining(str);
+    }
 
-    public string AlphaString() => 
-      AlphaString(String().Length);
+    public string AlphaString()
+    {
+      return _stringGenerator.AlphaString();
+    }
 
     public string AlphaString(int maxLength)
     {
-      var result = System.String.Empty;
-      for (var i = 0; i < maxLength; ++i)
-      {
-        result += AlphaChar();
-      }
-      return result;
+      return _stringGenerator.AlphaString(maxLength);
     }
 
     public string Identifier()
     {
-      string result = AlphaChar().ToString(CultureInfo.InvariantCulture);
-      for (var i = 0; i < 5; ++i)
-      {
-        result += DigitChar();
-        result += AlphaChar();
-      }
-      return result;
+      return _stringGenerator.Identifier();
     }
 
     public char AlphaChar() => 
@@ -774,99 +762,66 @@ namespace TddEbook.TddToolkit
     public char Char() => 
       Instance<char>();
 
-    public string NumericString(int digitsCount = Many) => 
-      StringMatching("[1-9][0-9]{" + (digitsCount - 1) + "}");
+    public string NumericString(int digitsCount = AllGenerator.Many)
+    {
+      return _stringGenerator.NumericString(digitsCount);
+    }
 
     public char LowerCaseAlphaChar() => char.ToLower(AlphaChar());
     public char UpperCaseAlphaChar() => char.ToUpper(AlphaChar());
-    public int Integer() => ValueOf<int>();
-    public double Double() => ValueOf<double>();
-    public double DoubleOtherThan(params double[] others) => ValueOtherThan(others);
-    public long LongInteger() => ValueOf<long>();
-    public long LongIntegerOtherThan(params long[] others) => ValueOtherThan(others);
-    public ulong UnsignedLongInteger() => ValueOf<ulong>();
-    public ulong UnsignedLongIntegerOtherThan(params ulong[] others) => ValueOtherThan(others);
-    public int IntegerOtherThan(params int[] others) => ValueOtherThan(others);
-    public byte Byte() => ValueOf<byte>();
-    public byte ByteOtherThan(params byte[] others) => ValueOtherThan(others);
-    public decimal Decimal() => ValueOf<decimal>();
-    public decimal DecimalOtherThan(params decimal[] others) => ValueOtherThan(others);
-    public uint UnsignedInt() => ValueOf<uint>();
-    public uint UnsignedIntOtherThan(params uint[] others) => ValueOtherThan(others);
-    public ushort UnsignedShort() => ValueOf<ushort>();
-    public ushort UnsignedShortOtherThan(params ushort[] others) => ValueOtherThan(others);
-    public short ShortInteger() => ValueOf<short>();
-    public short ShortIntegerOtherThan(params short[] others) => ValueOtherThan(others);
-    public byte Digit() => _digits.Next();
+    public byte Digit()
+    {
+      return NumericGenerator.Digit();
+    }
 
     public int IntegerFromSequence(int startingValue = 0, int step = 1)
     {
-      var sequence = new IntegerSequence(startingValue, step);
-      var finalSequence = Maybe.Wrap(_sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
-      _sequences.Add(finalSequence);
-      var integerFromSequence = finalSequence.Next();
-      return integerFromSequence;
+      return NumericGenerator.IntegerFromSequence(startingValue, step);
     }
 
     public byte Octet()
     {
-      return Byte();
+      return NumericGenerator.Octet();
     }
 
     public int IntegerDivisibleBy(int quotient)
     {
-      return _numbersToMultiply.Next() * quotient;
+      return NumericGenerator.IntegerDivisibleBy(quotient);
     }
 
     public int IntegerNotDivisibleBy(int quotient)
     {
-      AssertQuotientMakesSense(quotient);
-      return IntegerDivisibleBy(quotient) + 1;
+      return NumericGenerator.IntegerNotDivisibleBy(quotient);
     }
 
-    public void AssertQuotientMakesSense(int quotient)
+    public int IntegerWithExactDigitsCount(int digitsCount)
     {
-      if (quotient == 1 || quotient == -1 || quotient == 0)
-      {
-        throw new ArgumentException($"generating an integer not dividable by {quotient} is not supported");
-      }
+      return NumericGenerator.IntegerWithExactDigitsCount(digitsCount);
     }
 
-    public int IntegerWithExactDigitsCount(int digitsCount) => 
-      _intTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
+    public long LongIntegerWithExactDigitsCount(int digitsCount)
+    {
+      return NumericGenerator.LongIntegerWithExactDigitsCount(digitsCount);
+    }
 
-    public long LongIntegerWithExactDigitsCount(int digitsCount) => 
-      _longTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
+    public uint UnsignedIntegerWithExactDigitsCount(int digitsCount)
+    {
+      return NumericGenerator.UnsignedIntegerWithExactDigitsCount(digitsCount);
+    }
 
-    public uint UnsignedIntegerWithExactDigitsCount(int digitsCount) => 
-      _uintTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
-
-    public ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount) => 
-      _ulongTraits.GenerateWithExactNumberOfDigits(digitsCount, _randomGenerator);
+    public ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount)
+    {
+      return NumericGenerator.UnsignedLongIntegerWithExactDigitsCount(digitsCount);
+    }
 
     public byte PositiveDigit()
     {
-      byte digit = Digit();
-      while (digit == 0)
-      {
-        digit = Digit();
-      }
-      return digit;
+      return NumericGenerator.PositiveDigit();
     }
 
     private static object ResultOfGenericVersionOfMethod(Type type, string name)
     {
-      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod(type, name);
-    }
-
-    private static Func<MethodInfo, bool> ParameterlessGenericVersion()
-    {
-      return ProxyBasedGenerator.ParameterlessGenericVersion();
-    }
-
-    private static Func<MethodInfo, bool> NameIs(string name)
-    {
-      return ProxyBasedGenerator.NameIs(name);
+      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
     }
 
     private static object ResultOfGenericVersionOfMethod(Type type, string name, object[] args)
@@ -903,6 +858,101 @@ namespace TddEbook.TddToolkit
       {
         throw new ArgumentException("T must be an enum type. For other types, use AllGenerator.OtherThan()");
       }
+    }
+
+    public T Exploding<T>() where T : class
+    {
+      return ProxyBasedGenerator.Exploding<T>();
+    }
+
+    public int Integer()
+    {
+      return NumericGenerator.Integer();
+    }
+
+    public double Double()
+    {
+      return NumericGenerator.Double();
+    }
+
+    public double DoubleOtherThan(double[] others)
+    {
+      return NumericGenerator.DoubleOtherThan(others);
+    }
+
+    public long LongInteger()
+    {
+      return NumericGenerator.LongInteger();
+    }
+
+    public long LongIntegerOtherThan(long[] others)
+    {
+      return NumericGenerator.LongIntegerOtherThan(others);
+    }
+
+    public ulong UnsignedLongInteger()
+    {
+      return NumericGenerator.UnsignedLongInteger();
+    }
+
+    public ulong UnsignedLongIntegerOtherThan(ulong[] others)
+    {
+      return NumericGenerator.UnsignedLongIntegerOtherThan(others);
+    }
+
+    public int IntegerOtherThan(int[] others)
+    {
+      return NumericGenerator.IntegerOtherThan(others);
+    }
+
+    public byte Byte()
+    {
+      return NumericGenerator.Byte();
+    }
+
+    public byte ByteOtherThan(byte[] others)
+    {
+      return NumericGenerator.ByteOtherThan(others);
+    }
+
+    public decimal Decimal()
+    {
+      return NumericGenerator.Decimal();
+    }
+
+    public decimal DecimalOtherThan(decimal[] others)
+    {
+      return NumericGenerator.DecimalOtherThan(others);
+    }
+
+    public uint UnsignedInt()
+    {
+      return NumericGenerator.UnsignedInt();
+    }
+
+    public uint UnsignedIntOtherThan(uint[] others)
+    {
+      return NumericGenerator.UnsignedIntOtherThan(others);
+    }
+
+    public ushort UnsignedShort()
+    {
+      return NumericGenerator.UnsignedShort();
+    }
+
+    public ushort UnsignedShortOtherThan(ushort[] others)
+    {
+      return NumericGenerator.UnsignedShortOtherThan(others);
+    }
+
+    public short ShortInteger()
+    {
+      return NumericGenerator.ShortInteger();
+    }
+
+    public short ShortIntegerOtherThan(short[] others)
+    {
+      return NumericGenerator.ShortIntegerOtherThan(others);
     }
   }
 }
