@@ -14,9 +14,18 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class ProxyBasedGenerator
+  public interface IProxyBasedGenerator
+  {
+    T InstanceOf<T>();
+    T Instance<T>();
+    T OtherThan<T>(params T[] omittedValues);
+    object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name);
+    object ResultOfGenericVersionOfMethod(Type type, string name);
+  }
+
+  public class ProxyBasedGenerator : IProxyBasedGenerator
   {
     private readonly AllGenerator _allGenerator;
     private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
@@ -24,12 +33,14 @@ namespace TddEbook.TddToolkit
     private readonly CachedReturnValueGeneration _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
     private readonly Fixture _emptyCollectionGenerator;
     private readonly NestingLimit _nestingLimit = GlobalNestingLimit.Of(5);
+    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 
-    public ProxyBasedGenerator(Fixture emptyCollectionGenerator, AllGenerator allGenerator)
+    public ProxyBasedGenerator(Fixture emptyCollectionGenerator, AllGenerator allGenerator, GenericMethodProxyCalls genericMethodProxyCalls)
     {
       _emptyCollectionGenerator = emptyCollectionGenerator;
       _allGenerator = allGenerator;
       _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
+      _genericMethodProxyCalls = genericMethodProxyCalls;
     }
 
     public T InstanceOf<T>()
@@ -55,8 +66,7 @@ namespace TddEbook.TddToolkit
       {
         return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
       }
-      if (
-        TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
+      if (TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
       {
         return _emptyCollectionGenerator.Create<T>();
       }
@@ -105,20 +115,9 @@ namespace TddEbook.TddToolkit
       return currentValue;
     }
 
-    public static object ResultOfGenericVersionOfMethod<T>(Type type, string name)
+    public object ResultOfGenericVersionOfMethod<T>(Type type, string name)
     {
-      return typeof(T).GetMethods().Where(NameIs(name))
-        .First(ParameterlessGenericVersion()).MakeGenericMethod(type).Invoke(null, null);
-    }
-
-    public static Func<MethodInfo, bool> ParameterlessGenericVersion()
-    {
-      return m => !m.GetParameters().Any() && m.IsGenericMethodDefinition;
-    }
-
-    public static Func<MethodInfo, bool> NameIs(string name)
-    {
-      return m => m.Name == name;
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<T>(type, name);
     }
 
     public T Exploding<T>() where T : class
@@ -147,6 +146,22 @@ namespace TddEbook.TddToolkit
     public object Instance(Type type)
     {
       return ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    //bug remove
+    public object ResultOfGenericVersionOfMethod<T>(Type type, string name, object[] args)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<T>(type, name, args);
+    }
+
+    public object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(type1, type2, name);
+    }
+
+    object IProxyBasedGenerator.ResultOfGenericVersionOfMethod(Type type, string name)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(type, name);
     }
   }
 }

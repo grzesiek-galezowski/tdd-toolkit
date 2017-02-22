@@ -4,6 +4,7 @@ using System.Net;
 using System.Reflection;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
+using TddEbook.TddToolkit.Subgenerators;
 
 namespace TddEbook.TddToolkit
 {
@@ -27,16 +28,16 @@ namespace TddEbook.TddToolkit
     private readonly CircularList<MethodInfo> MethodList =
       CircularList.CreateStartingFromRandom(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
 
-    public Fixture CreateCustomAutoFixture()
+    public Fixture CreateCustomAutoFixture(AllGenerator allGenerator)
     {
       var generator = new Fixture();
-      generator.Register<Type>(() => _types.Next());
-      generator.Register<MethodInfo>(() => MethodList.Next());
-      generator.Register(() => new Exception(AllGenerator.CreateAllGenerator().String(), new Exception(AllGenerator.CreateAllGenerator().String())));
+      generator.Register(() => _types.Next());
+      generator.Register(() => MethodList.Next());
+      generator.Register(() => new Exception(allGenerator.String(), new Exception(allGenerator.String())));
       generator.Register(
         () =>
           new IPAddress(new[]
-            {AllGenerator.CreateAllGenerator().Octet(), AllGenerator.CreateAllGenerator().Octet(), AllGenerator.CreateAllGenerator().Octet(), AllGenerator.CreateAllGenerator().Octet()}));
+            {allGenerator.Octet(), allGenerator.Octet(), allGenerator.Octet(), allGenerator.Octet()}));
       generator.Customize(new MultipleCustomization());
       return generator;
     }

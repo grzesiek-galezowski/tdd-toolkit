@@ -5,11 +5,11 @@ using CommonTypes;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Subgenerators
 {
   public class NumericGenerator
   {
-    private readonly AllGenerator _allGenerator;
+    private readonly ValueGenerator _valueGenerator;
 
     private readonly CircularList<byte> _digits =
       CircularList.CreateStartingFromRandom(new byte[] {5, 6, 4, 7, 3, 8, 2, 9, 1, 0});
@@ -18,16 +18,16 @@ namespace TddEbook.TddToolkit
     private readonly HashSet<IntegerSequence> _sequences = new HashSet<IntegerSequence>();
 
     private readonly CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
-      System.Linq.Enumerable.Range(1, 100).ToArray());
+      Enumerable.Range(1, 100).ToArray());
 
     private readonly NumericTraits<int> _intTraits = NumericTraits.Integer();
     private readonly NumericTraits<long> _longTraits = NumericTraits.Long();
     private readonly NumericTraits<uint> _uintTraits = NumericTraits.UnsignedInteger();
     private readonly NumericTraits<ulong> _ulongTraits = NumericTraits.UnsignedLong();
 
-    public NumericGenerator(AllGenerator allGenerator)
+    public NumericGenerator(ValueGenerator valueGenerator)
     {
-      _allGenerator = allGenerator;
+      _valueGenerator = valueGenerator;
     }
 
     public byte Digit() => _digits.Next();
@@ -79,24 +79,24 @@ namespace TddEbook.TddToolkit
       return digit;
     }
 
-    public int Integer() => _allGenerator.ValueOf<int>();
-    public double Double() => _allGenerator.ValueOf<double>();
-    public double DoubleOtherThan(params double[] others) => _allGenerator.ValueOtherThan(others);
-    public long LongInteger() => _allGenerator.ValueOf<long>();
-    public long LongIntegerOtherThan(params long[] others) => _allGenerator.ValueOtherThan(others);
-    public ulong UnsignedLongInteger() => _allGenerator.ValueOf<ulong>();
-    public ulong UnsignedLongIntegerOtherThan(params ulong[] others) => _allGenerator.ValueOtherThan(others);
-    public int IntegerOtherThan(params int[] others) => _allGenerator.ValueOtherThan(others);
-    public byte Byte() => _allGenerator.ValueOf<byte>();
-    public byte ByteOtherThan(params byte[] others) => _allGenerator.ValueOtherThan(others);
-    public decimal Decimal() => _allGenerator.ValueOf<decimal>();
-    public decimal DecimalOtherThan(params decimal[] others) => _allGenerator.ValueOtherThan(others);
-    public uint UnsignedInt() => _allGenerator.ValueOf<uint>();
-    public uint UnsignedIntOtherThan(params uint[] others) => _allGenerator.ValueOtherThan(others);
-    public ushort UnsignedShort() => _allGenerator.ValueOf<ushort>();
-    public ushort UnsignedShortOtherThan(params ushort[] others) => _allGenerator.ValueOtherThan(others);
-    public short ShortInteger() => _allGenerator.ValueOf<short>();
-    public short ShortIntegerOtherThan(params short[] others) => _allGenerator.ValueOtherThan(others);
+    public int Integer() => _valueGenerator.ValueOf<int>();
+    public double Double() => _valueGenerator.ValueOf<double>();
+    public double DoubleOtherThan(params double[] others) => _valueGenerator.ValueOtherThan(others);
+    public long LongInteger() => _valueGenerator.ValueOf<long>();
+    public long LongIntegerOtherThan(params long[] others) => _valueGenerator.ValueOtherThan(others);
+    public ulong UnsignedLongInteger() => _valueGenerator.ValueOf<ulong>();
+    public ulong UnsignedLongIntegerOtherThan(params ulong[] others) => _valueGenerator.ValueOtherThan(others);
+    public int IntegerOtherThan(params int[] others) => _valueGenerator.ValueOtherThan(others);
+    public byte Byte() => _valueGenerator.ValueOf<byte>();
+    public byte ByteOtherThan(params byte[] others) => _valueGenerator.ValueOtherThan(others);
+    public decimal Decimal() => _valueGenerator.ValueOf<decimal>();
+    public decimal DecimalOtherThan(params decimal[] others) => _valueGenerator.ValueOtherThan(others);
+    public uint UnsignedInt() => _valueGenerator.ValueOf<uint>();
+    public uint UnsignedIntOtherThan(params uint[] others) => _valueGenerator.ValueOtherThan(others);
+    public ushort UnsignedShort() => _valueGenerator.ValueOf<ushort>();
+    public ushort UnsignedShortOtherThan(params ushort[] others) => _valueGenerator.ValueOtherThan(others);
+    public short ShortInteger() => _valueGenerator.ValueOf<short>();
+    public short ShortIntegerOtherThan(params short[] others) => _valueGenerator.ValueOtherThan(others);
 
     private void AssertQuotientMakesSense(int quotient)
     {

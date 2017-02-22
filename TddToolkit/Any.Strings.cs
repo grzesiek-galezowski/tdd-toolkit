@@ -3,6 +3,7 @@ using System.Linq;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails;
+using TddEbook.TddToolkit.Subgenerators;
 
 namespace TddEbook.TddToolkit
 {

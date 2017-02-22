@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,25 +9,52 @@ using System.Threading.Tasks;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class AllGenerator
+  public class EmptyCollectionGenerator
+  {
+    public readonly Fixture _emptyCollectionGenerator;
+    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
+
+    public EmptyCollectionGenerator(Fixture emptyCollectionGenerator, GenericMethodProxyCalls genericMethodProxyCalls)
+    {
+      _emptyCollectionGenerator = emptyCollectionGenerator;
+      _genericMethodProxyCalls = genericMethodProxyCalls;
+    }
+
+    public List<T> EmptyEnumerableOf<T>()
+    {
+      return _emptyCollectionGenerator.Create<List<T>>();
+    }
+
+    public object EmptyEnumerableOf(Type collectionType)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(
+        collectionType, MethodBase.GetCurrentMethod().Name);
+    }
+  }
+
+  public class AllGenerator : IProxyBasedGenerator
   {
     public static AllGenerator CreateAllGenerator()
     {
-      return new AllGenerator(new AutoFixtureFactory().CreateCustomAutoFixture(), new Fixture()
+      return new AllGenerator(
+        new AutoFixtureFactory(), new Fixture()
       {
         RepeatCount = 0,
       });
     }
 
-    private AllGenerator(Fixture generator, Fixture emptyCollectionGenerator)
+    private AllGenerator(AutoFixtureFactory fixtureFactory, Fixture emptyCollectionGenerator)
     {
-      _generator = generator;
-      _stringGenerator = new StringGenerator(_generator, this);
-      _emptyCollectionGenerator = emptyCollectionGenerator;
-      ProxyBasedGenerator = new ProxyBasedGenerator(_emptyCollectionGenerator, this); //bug move this to argument
-      NumericGenerator = new NumericGenerator(this);
+      var genericMethodProxyCalls = new GenericMethodProxyCalls();
+      var customAutoFixture = fixtureFactory.CreateCustomAutoFixture(this);
+      _emptyCollectionGenerator = new EmptyCollectionGenerator(emptyCollectionGenerator, genericMethodProxyCalls);
+      ProxyBasedGenerator = new ProxyBasedGenerator(emptyCollectionGenerator, this, genericMethodProxyCalls); //bug move this to argument
+      _valueGenerator = new ValueGenerator(customAutoFixture, ProxyBasedGenerator);
+      _stringGenerator = new StringGenerator(customAutoFixture, this);
+      NumericGenerator = new NumericGenerator(_valueGenerator);
+      _collectionGenerator = new CollectionGenerator(ProxyBasedGenerator);
     }
 
     public const int Many = 3;
@@ -41,9 +67,10 @@ namespace TddEbook.TddToolkit
       CircularList.CreateStartingFromRandom("5647382910".ToCharArray());
 
     private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
-    private readonly Fixture _emptyCollectionGenerator;
     private readonly StringGenerator _stringGenerator;
-    private readonly Fixture _generator;
+    private readonly CollectionGenerator _collectionGenerator;
+    private readonly ValueGenerator _valueGenerator;
+    private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
 
     private ProxyBasedGenerator ProxyBasedGenerator { get; }
 
@@ -51,18 +78,12 @@ namespace TddEbook.TddToolkit
 
     public IPAddress IpAddress()
     {
-      return _generator.Create<IPAddress>();
+      return _valueGenerator.ValueOf<IPAddress>();
     }
 
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
-      T currentValue;
-      do
-      {
-        currentValue = ValueOf<T>();
-      } while (omittedValues.Contains(currentValue));
-
-      return currentValue;
+      return _valueGenerator.ValueOtherThan(omittedValues);
     }
 
     public T From<T>(params T[] possibleValues)
@@ -90,13 +111,12 @@ namespace TddEbook.TddToolkit
 
     public T ValueOf<T>()
     {
-      //bug: add support for creating generic structs with interfaces
-      return _generator.Create<T>();
+      return _valueGenerator.ValueOf<T>();
     }
 
     public List<T> EmptyEnumerableOf<T>()
     {
-      return _emptyCollectionGenerator.Create<List<T>>();
+      return _emptyCollectionGenerator.EmptyEnumerableOf<T>();
     }
 
     internal object Instance(Type type)
@@ -186,18 +206,17 @@ namespace TddEbook.TddToolkit
 
     public object ValueOf(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _valueGenerator.ValueOf(type);
     }
 
     public object EmptyEnumerableOf(Type collectionType)
     {
-      return ResultOfGenericVersionOfMethod(
-        collectionType, MethodBase.GetCurrentMethod().Name);
+      return _emptyCollectionGenerator.EmptyEnumerableOf(collectionType);
     }
 
     public object InstanceOtherThanObjects(Type type, params object[] omittedValues)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name, omittedValues);
+      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name, omittedValues);
     }
 
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
@@ -209,12 +228,7 @@ namespace TddEbook.TddToolkit
 
     public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
-      var list = new List<T>();
-      list.Add(Instance<T>());
-      list.AddRange(included);
-      list.Add(Instance<T>());
-
-      return list;
+      return _collectionGenerator.EnumerableWith(included);
     }
 
     public Task NotStartedTask()
@@ -319,331 +333,277 @@ namespace TddEbook.TddToolkit
 
     public IEnumerable<T> Enumerable<T>()
     {
-      return Enumerable<T>(length: Many);
+      return _collectionGenerator.Enumerable<T>();
     }
 
     public IEnumerable<T> Enumerable<T>(int length)
     {
-      return AddManyTo(new List<T>(), length);
+      return _collectionGenerator.Enumerable<T>(length);
     }
 
     public IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
     {
-      var result = new List<T>
-      {
-        OtherThan(excluded), 
-        OtherThan(excluded), 
-        OtherThan(excluded)
-      };
-      return result;
+      return _collectionGenerator.EnumerableWithout(excluded);
     }
 
     public T[] Array<T>()
     {
-      return Array<T>(Many);
+      return _collectionGenerator.Array<T>();
     }
 
     public T[] Array<T>(int length)
     {
-      return Enumerable<T>(length).ToArray();
+      return _collectionGenerator.Array<T>(length);
     }
 
     public T[] ArrayWithout<T>(params T[] excluded)
     {
-      return EnumerableWithout(excluded).ToArray();
+      return _collectionGenerator.ArrayWithout(excluded);
     }
 
     public T[] ArrayWith<T>(params T[] included)
     {
-      return EnumerableWith(included).ToArray();
+      return _collectionGenerator.ArrayWith(included);
     }
 
     public T[] ArrayWithout<T>(IEnumerable<T> excluded)
     {
-      return EnumerableWithout(excluded.ToArray()).ToArray();
+      return _collectionGenerator.ArrayWithout(excluded);
     }
 
     public T[] ArrayWith<T>(IEnumerable<T> included)
     {
-      return EnumerableWith(included.ToArray()).ToArray();
+      return _collectionGenerator.ArrayWith(included);
     }
 
     public List<T> List<T>()
     {
-      return List<T>(Many);
+      return _collectionGenerator.List<T>();
     }
 
     public List<T> List<T>(int length)
     {
-      return Enumerable<T>(length).ToList();
+      return _collectionGenerator.List<T>(length);
     }
 
     public List<T> ListWithout<T>(params T[] excluded)
     {
-      return EnumerableWithout(excluded).ToList();
+      return _collectionGenerator.ListWithout(excluded);
     }
 
     public List<T> ListWith<T>(params T[] included)
     {
-      return EnumerableWith(included).ToList();
+      return _collectionGenerator.ListWith(included);
     }
 
     public List<T> ListWithout<T>(IEnumerable<T> excluded)
     {
-      return EnumerableWithout(excluded.ToArray()).ToList();
+      return _collectionGenerator.ListWithout(excluded);
     }
 
     public List<T> ListWith<T>(IEnumerable<T> included)
     {
-      return EnumerableWith(included.ToArray()).ToList();
+      return _collectionGenerator.ListWith(included);
     }
 
     public IReadOnlyList<T> ReadOnlyList<T>()
     {
-      return ReadOnlyList<T>(Many);
+      return _collectionGenerator.ReadOnlyList<T>();
     }
 
     public IReadOnlyList<T> ReadOnlyList<T>(int length)
     {
-      return List<T>(length);
+      return _collectionGenerator.ReadOnlyList<T>(length);
     }
 
     public IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items)
     {
-      return ListWith(items);
+      return _collectionGenerator.ReadOnlyListWith(items);
     }
 
     public IReadOnlyList<T> ReadOnlyListWith<T>(params T[] items)
     {
-      return ListWith(items);
+      return _collectionGenerator.ReadOnlyListWith(items);
     }
 
     public IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items)
     {
-      return ListWithout(items);
+      return _collectionGenerator.ReadOnlyListWithout(items);
     }
 
     public IReadOnlyList<T> ReadOnlyListWithout<T>(params T[] items)
     {
-      return ListWithout(items);
+      return _collectionGenerator.ReadOnlyListWithout(items);
     }
 
     public SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {
-      return SortedList<TKey, TValue>(Many);
+      return _collectionGenerator.SortedList<TKey, TValue>();
     }
 
     public SortedList<TKey, TValue> SortedList<TKey, TValue>(int length)
     {
-      var list = new SortedList<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        list.Add(Instance<TKey>(), Instance<TValue>());
-      }
-      return list;
+      return _collectionGenerator.SortedList<TKey, TValue>(length);
     }
 
     public ISet<T> Set<T>(int length)
     {
-      return new HashSet<T>(Enumerable<T>(length));
+      return _collectionGenerator.Set<T>(length);
     }
 
     public ISet<T> Set<T>()
     {
-      return Set<T>(Many);
+      return _collectionGenerator.Set<T>();
     }
 
     public ISet<T> SortedSet<T>(int length)
     {
-      return new SortedSet<T>(Enumerable<T>(length));
+      return _collectionGenerator.SortedSet<T>(length);
     }
 
     public ISet<T> SortedSet<T>()
     {
-      return SortedSet<T>(Many);
+      return _collectionGenerator.SortedSet<T>();
     }
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
     {
-      var dict = new Dictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(Instance<TKey>(), Instance<TValue>());
-      }
-      return dict;
+      return _collectionGenerator.Dictionary<TKey, TValue>(length);
     }
 
     public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
     {
-      var dict = Dictionary<T, U>(0);
-      foreach (var key in keys)
-      {
-        dict.Add(key, InstanceOf<U>());
-      }
-
-      return dict;
+      return _collectionGenerator.DictionaryWithKeys<T, U>(keys);
     }
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
-      return Dictionary<TKey, TValue>(Many);
+      return _collectionGenerator.Dictionary<TKey, TValue>();
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
     {
-      return Dictionary<TKey, TValue>(length);
+      return _collectionGenerator.ReadOnlyDictionary<TKey, TValue>(length);
     }
 
     public IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys)
     {
-      return DictionaryWithKeys<T, U>(keys);
+      return _collectionGenerator.ReadOnlyDictionaryWithKeys<T, U>(keys);
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
     {
-      return ReadOnlyDictionary<TKey, TValue>(Many);
+      return _collectionGenerator.ReadOnlyDictionary<TKey, TValue>();
     }
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
     {
-      var dict = new SortedDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(Instance<TKey>(), Instance<TValue>());
-      }
-      return dict;
+      return _collectionGenerator.SortedDictionary<TKey, TValue>(length);
     }
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>()
     {
-      return SortedDictionary<TKey, TValue>(Many);
+      return _collectionGenerator.SortedDictionary<TKey, TValue>();
     }
 
     public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length)
     {
-      var dict = new ConcurrentDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.TryAdd(Instance<TKey>(), Instance<TValue>());
-      }
-      return dict;
-
+      return _collectionGenerator.ConcurrentDictionary<TKey, TValue>(length);
     }
 
     public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
     {
-      return ConcurrentDictionary<TKey, TValue>(Many);
+      return _collectionGenerator.ConcurrentDictionary<TKey, TValue>();
     }
 
     public ConcurrentStack<T> ConcurrentStack<T>()
     {
-      return ConcurrentStack<T>(Many);
+      return _collectionGenerator.ConcurrentStack<T>();
     }
 
     public ConcurrentStack<T> ConcurrentStack<T>(int length)
     {
-      var coll = new ConcurrentStack<T>();
-      for (int i = 0; i < length; ++i)
-      {
-        coll.Push(Instance<T>());
-      }
-      return coll;
+      return _collectionGenerator.ConcurrentStack<T>(length);
     }
 
     public ConcurrentQueue<T> ConcurrentQueue<T>()
     {
-      return ConcurrentQueue<T>(Many);
+      return _collectionGenerator.ConcurrentQueue<T>();
     }
 
     public ConcurrentQueue<T> ConcurrentQueue<T>(int length)
     {
-      var coll = new ConcurrentQueue<T>();
-      for (int i = 0; i < length; ++i)
-      {
-        coll.Enqueue(Instance<T>());
-      }
-      return coll;
-
+      return _collectionGenerator.ConcurrentQueue<T>(length);
     }
 
     public ConcurrentBag<T> ConcurrentBag<T>()
     {
-      return ConcurrentBag<T>(Many);
+      return _collectionGenerator.ConcurrentBag<T>();
     }
 
     public ConcurrentBag<T> ConcurrentBag<T>(int length)
     {
-      var coll = new ConcurrentBag<T>();
-      for (int i = 0; i < length; ++i)
-      {
-        coll.Add(Instance<T>());
-      }
-      return coll;
-
+      return _collectionGenerator.ConcurrentBag<T>(length);
     }
 
     public IEnumerable<T> EnumerableSortedDescending<T>(int length)
     {
-      return SortedSet<T>(length).ToList();
+      return _collectionGenerator.EnumerableSortedDescending<T>(length);
     }
 
     public IEnumerable<T> EnumerableSortedDescending<T>()
     {
-      return EnumerableSortedDescending<T>(Many);
+      return _collectionGenerator.EnumerableSortedDescending<T>();
     }
 
     public IEnumerator<T> Enumerator<T>()
     {
-      return List<T>().GetEnumerator();
+      return _collectionGenerator.Enumerator<T>();
     }
 
     public object List(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.List(type);
     }
 
     public object Set(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.Set(type);
     }
 
     public object Dictionary(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.Dictionary(keyType, valueType);
     }
 
     public object SortedList(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.SortedList(keyType, valueType);
     }
 
     public object SortedSet(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _collectionGenerator.SortedSet(type);
     }
 
     public object SortedDictionary(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.SortedDictionary(keyType, valueType);
     }
 
     public object ConcurrentDictionary(Type keyType, Type valueType)
     {
-      return ResultOfGenericVersionOfMethod(keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.ConcurrentDictionary(keyType, valueType);
     }
 
     public object Array(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _collectionGenerator.Array(type);
     }
 
     public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
     {
-      for (int i = 0; i < many; ++i)
-      {
-        collection.Add(Instance<T>());
-      }
-      return collection;
+      return _collectionGenerator.AddManyTo(collection, many);
     }
 
     public object KeyValuePair(Type keyType, Type valueType)
@@ -655,22 +615,22 @@ namespace TddEbook.TddToolkit
 
     public object Enumerator(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _collectionGenerator.Enumerator(type);
     }
 
     public object ConcurrentStack(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.ConcurrentStack(type);
     }
 
     public object ConcurrentQueue(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.ConcurrentQueue(type);
     }
 
     public object ConcurrentBag(Type type)
     {
-      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _collectionGenerator.ConcurrentBag(type);
     }
 
     public string String()
@@ -819,39 +779,6 @@ namespace TddEbook.TddToolkit
       return NumericGenerator.PositiveDigit();
     }
 
-    private static object ResultOfGenericVersionOfMethod(Type type, string name)
-    {
-      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
-    }
-
-    private static object ResultOfGenericVersionOfMethod(Type type, string name, object[] args)
-    {
-      var method = FindEmptyGenericsMethod(name);
-
-      var genericMethod = method.MakeGenericMethod(type);
-
-      return genericMethod.Invoke(null, args);
-    }
-
-    private static object ResultOfGenericVersionOfMethod(Type type1, Type type2, string name)
-    {
-      var method = FindEmptyGenericsMethod(name);
-
-      var genericMethod = method.MakeGenericMethod(type1, type2);
-
-      return genericMethod.Invoke(null, null);
-    }
-
-    private static MethodInfo FindEmptyGenericsMethod(string name)
-    {
-      var methods = typeof(Any).GetMethods(
-          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-        .Where(m => m.IsGenericMethodDefinition)
-        .Where(m => !m.GetParameters().Any());
-      var method = methods.First(m => m.Name == name);
-      return method;
-    }
-
     private static void AssertDynamicEnumConstraintFor<T>()
     {
       if (!typeof(T).IsEnum)
@@ -953,6 +880,30 @@ namespace TddEbook.TddToolkit
     public short ShortIntegerOtherThan(short[] others)
     {
       return NumericGenerator.ShortIntegerOtherThan(others);
+    }
+
+    public MethodInfo FindEmptyGenericsMethod<T>(string name)
+    {
+      var methods = typeof(T).GetMethods(
+          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+        .Where(m => m.IsGenericMethodDefinition)
+        .Where(m => !m.GetParameters().Any());
+      var method = methods.First(m => m.Name == name);
+      return method;
+    }
+
+    public object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name)
+    {
+      var method = FindEmptyGenericsMethod<T>(name);
+
+      var genericMethod = method.MakeGenericMethod(type1, type2);
+
+      return genericMethod.Invoke(null, null);
+    }
+
+    public object ResultOfGenericVersionOfMethod(Type type, string name)
+    {
+      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
     }
   }
 }

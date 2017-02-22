@@ -3,7 +3,7 @@ using System.Numerics;
 using System.Text;
 using MiscUtil;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Subgenerators
 {
   public static class NumericTraits
   {

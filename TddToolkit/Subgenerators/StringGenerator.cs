@@ -5,7 +5,7 @@ using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails;
 
-namespace TddEbook.TddToolkit
+namespace TddEbook.TddToolkit.Subgenerators
 {
   public class StringGenerator
   {
@@ -38,7 +38,7 @@ namespace TddEbook.TddToolkit
              + _randomGenerator.Next(256);
     }
 
-    public string String() => _generator.Create<string>();
+    public string String() => _allGenerator.ValueOf<string>();
     public string String(string seed) => _generator.Create(seed+"_");
     public string LowerCaseString() => String().ToLower();
     public string UpperCaseString() => String().ToUpper();
