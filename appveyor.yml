@@ -15,8 +15,7 @@ build:
   project: TddToolkit.sln
 
 test:
-  assemblies:
-    - **\*Specification.dll
+  assemblies: **\*Specification.dll
 
 notifications:
 - provider: Email
