@@ -1,8 +1,0 @@
-/home/astral/Projects/TddToolkit/TddToolkit/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
-/home/astral/Projects/TddToolkit/TddToolkit/bin/Debug/NSubstitute.dll
-/home/astral/Projects/TddToolkit/TddToolkit/bin/Debug/Castle.Core.dll
-/home/astral/Projects/TddToolkit/TddToolkit/bin/Debug/Ploeh.AutoFixture.dll
-/home/astral/Projects/TddToolkit/TddToolkit/bin/Debug/TddToolkit.dll.mdb
-/home/astral/Projects/TddToolkit/TddToolkit/bin/Debug/TddToolkit.dll
-/home/astral/Projects/TddToolkit/TddToolkit/obj/Debug/TddToolkit.dll
-/home/astral/Projects/TddToolkit/TddToolkit/obj/Debug/TddToolkit.dll.mdb
