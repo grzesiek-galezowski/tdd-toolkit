@@ -16,7 +16,7 @@ build:
 
 test:
   assemblies:
-    **\*Specification.dll
+    - **\*Specification.dll
 
 notifications:
 - provider: Email
