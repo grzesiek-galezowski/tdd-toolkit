@@ -14,6 +14,8 @@ before_build:
 build:
   project: TddToolkit.sln
 
+test: off
+
 notifications:
 - provider: Email
   on_build_success: false
