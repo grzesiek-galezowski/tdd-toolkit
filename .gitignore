@@ -75,3 +75,4 @@ Documentation-*/
 *.ncrunchsolution.user
 *.ncrunchproject
 _NCrunch_*/
+TestResult.xml

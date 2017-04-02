@@ -14,7 +14,9 @@ before_build:
 build:
   project: TddToolkit.sln
 
-test: off
+test:
+  assemblies:
+    **\*Specification.dll
 
 notifications:
 - provider: Email
