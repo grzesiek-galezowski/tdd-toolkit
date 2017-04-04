@@ -25,9 +25,7 @@
 *.opensdf
 *.unsuccessfulbuild
 *.cache
-DesignTimeResolveAssemblyReferencesInput.cache
-DesignTimeResolveAssemblyReferencesInput.*
-ipch/
+/ipch/
 obj/
 obj/Debug/*.*
 obj/Release/*.*
@@ -35,6 +33,9 @@ obj/Release/*.*
 [Dd]ebug*/
 [Rr]elease*/
 Ankh.NoLoad
+*.old
+*.iml
+/GCopLog.txt
 
 #MonoDevelop files
 *.userprefs
@@ -55,7 +56,9 @@ _ReSharper*/
 ~$*
 
 #NuGet
-packages/
+/packages/
+*.nupkg
+!packages/repositories.config
 
 #build artifacts
 deploy/
@@ -72,21 +75,4 @@ Documentation-*/
 *.ncrunchsolution.user
 *.ncrunchproject
 _NCrunch_*/
-
-#nuget
-
-*.nupkg
-NuGet.Packager/NuGet.exe.old
-TddToolkit/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-*.suo
-*.suo
-TddToolkit.v11.suo
-packages/FluentAssertions.2.2.0.0/lib/sl4-windowsphone71/FluentAssertions.WindowsPhone.dll
-packages/FluentAssertions.2.2.0.0/lib/sl4-windowsphone71/FluentAssertions.WindowsPhone.pdb
-packages/FluentAssertions.2.2.0.0/lib/sl4-windowsphone71/FluentAssertions.WindowsPhone.xml
-packages/FluentAssertions.2.2.0.0/lib/sl4/FluentAssertions.Silverlight.dll
-packages/FluentAssertions.2.2.0.0/lib/sl4/FluentAssertions.Silverlight.pdb
-packages/FluentAssertions.2.2.0.0/lib/sl4/FluentAssertions.Silverlight.xml
-packages/FluentAssertions.2.2.0.0/lib/sl4/Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.dll
-packages/FluentAssertions.2.2.0.0/lib/sl4/Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.pdb
-packages/FluentAssertions.2.2.0.0/lib/sl4/Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.xml
+TestResult.xml
