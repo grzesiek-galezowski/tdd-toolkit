@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit
