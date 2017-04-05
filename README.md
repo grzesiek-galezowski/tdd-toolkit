@@ -1,5 +1,5 @@
 
-[![Build status](https://ci.appveyor.com/api/projects/status/h0w7s7cvrv1jbggp?svg=true)](https://ci.appveyor.com/project/grzesiek-galezowski/tdd-toolkit)
+[![Build status](https://ci.appveyor.com/api/projects/status/cuik88kcuy9qbr2n?svg=true)](https://ci.appveyor.com/project/grzesiek-galezowski/tdd-toolkit)
 [![NuGet version](https://badge.fury.io/nu/tdd-toolkit.svg)](http://badge.fury.io/nu/tdd-toolkit)
 ![](https://reposs.herokuapp.com/?path=grzesiek-galezowski/tdd-toolkit&style=flat)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
