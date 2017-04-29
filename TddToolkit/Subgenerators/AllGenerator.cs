@@ -34,6 +34,32 @@ namespace TddEbook.TddToolkit.Subgenerators
     }
   }
 
+  public class CharGenerator
+  {
+    private readonly CircularList<char> _letters =
+      CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
+
+    private readonly CircularList<char> _digitChars =
+      CircularList.CreateStartingFromRandom("5647382910".ToCharArray());
+
+    private readonly ValueGenerator _valueGenerator;
+
+    public CharGenerator(ValueGenerator valueGenerator)
+    {
+      _valueGenerator = valueGenerator;
+    }
+
+    public char AlphaChar() => 
+      _letters.Next();
+
+    public char DigitChar() => 
+      _digitChars.Next();
+
+    public char Char() => _valueGenerator.ValueOf<char>();
+    public char LowerCaseAlphaChar() => char.ToLower(AlphaChar());
+    public char UpperCaseAlphaChar() => char.ToUpper(AlphaChar());
+  }
+
   public class AllGenerator : IProxyBasedGenerator
   {
     public static AllGenerator CreateAllGenerator()
@@ -52,7 +78,8 @@ namespace TddEbook.TddToolkit.Subgenerators
       _emptyCollectionGenerator = new EmptyCollectionGenerator(emptyCollectionGenerator, genericMethodProxyCalls);
       ProxyBasedGenerator = new ProxyBasedGenerator(emptyCollectionGenerator, this, genericMethodProxyCalls); //bug move this to argument
       _valueGenerator = new ValueGenerator(customAutoFixture, ProxyBasedGenerator);
-      _stringGenerator = new StringGenerator(customAutoFixture, this);
+      _charGenerator = new CharGenerator(_valueGenerator);
+      _stringGenerator = new StringGenerator(customAutoFixture, this, this._charGenerator);
       NumericGenerator = new NumericGenerator(_valueGenerator);
       _collectionGenerator = new CollectionGenerator(ProxyBasedGenerator);
     }
@@ -60,17 +87,12 @@ namespace TddEbook.TddToolkit.Subgenerators
     public const int Many = 3;
     private readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
 
-    private readonly CircularList<char> _letters =
-      CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
-
-    private readonly CircularList<char> _digitChars =
-      CircularList.CreateStartingFromRandom("5647382910".ToCharArray());
-
     private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private readonly StringGenerator _stringGenerator;
     private readonly CollectionGenerator _collectionGenerator;
     private readonly ValueGenerator _valueGenerator;
     private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
+    private readonly CharGenerator _charGenerator;
 
     private ProxyBasedGenerator ProxyBasedGenerator { get; }
 
@@ -713,22 +735,12 @@ namespace TddEbook.TddToolkit.Subgenerators
       return _stringGenerator.Identifier();
     }
 
-    public char AlphaChar() => 
-      _letters.Next();
-
-    public char DigitChar() => 
-      _digitChars.Next();
-
-    public char Char() => 
-      Instance<char>();
 
     public string NumericString(int digitsCount = AllGenerator.Many)
     {
       return _stringGenerator.NumericString(digitsCount);
     }
 
-    public char LowerCaseAlphaChar() => char.ToLower(AlphaChar());
-    public char UpperCaseAlphaChar() => char.ToUpper(AlphaChar());
     public byte Digit()
     {
       return NumericGenerator.Digit();
@@ -904,6 +916,31 @@ namespace TddEbook.TddToolkit.Subgenerators
     public object ResultOfGenericVersionOfMethod(Type type, string name)
     {
       return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
+    }
+
+    public char AlphaChar()
+    {
+      return _charGenerator.AlphaChar();
+    }
+
+    public char DigitChar()
+    {
+      return _charGenerator.DigitChar();
+    }
+
+    public char Char()
+    {
+      return _charGenerator.Char();
+    }
+
+    public char LowerCaseAlphaChar()
+    {
+      return _charGenerator.LowerCaseAlphaChar();
+    }
+
+    public char UpperCaseAlphaChar()
+    {
+      return _charGenerator.UpperCaseAlphaChar();
     }
   }
 }

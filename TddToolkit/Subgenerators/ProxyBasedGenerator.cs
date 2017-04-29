@@ -39,7 +39,7 @@ namespace TddEbook.TddToolkit.Subgenerators
     {
       _emptyCollectionGenerator = emptyCollectionGenerator;
       _allGenerator = allGenerator;
-      _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator);
+      _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator, _allGenerator);
       _genericMethodProxyCalls = genericMethodProxyCalls;
     }
 

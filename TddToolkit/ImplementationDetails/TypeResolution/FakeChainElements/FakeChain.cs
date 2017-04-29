@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 using Type = System.Type;
 
@@ -18,16 +19,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly CachedReturnValueGeneration _eachMethodReturnsTheSameValueOnEveryCall;
     private readonly NestingLimit _nestingLimit;
     private readonly ProxyGenerator _generationIsDoneUsingProxies;
+    private readonly AllGenerator _allGenerator;
     private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
 
-    public FakeChainFactory(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
-      NestingLimit nestingLimit,
-      ProxyGenerator generationIsDoneUsingProxies)
+    public FakeChainFactory(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, NestingLimit nestingLimit, ProxyGenerator generationIsDoneUsingProxies, AllGenerator allGenerator)
     {
       _eachMethodReturnsTheSameValueOnEveryCall = eachMethodReturnsTheSameValueOnEveryCall;
       _nestingLimit = nestingLimit;
       _generationIsDoneUsingProxies = generationIsDoneUsingProxies;
+      _allGenerator = allGenerator;
     }
 
     public IFakeChain<T> GetInstance<T>()
@@ -35,7 +36,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return GetInstanceWithMemoization(() =>FakeChain<T>.NewInstance(
         _eachMethodReturnsTheSameValueOnEveryCall,
         _nestingLimit,
-        _generationIsDoneUsingProxies
+        _generationIsDoneUsingProxies,
+        _allGenerator
       ), _constrainedFactoryCache);
     }
 
@@ -66,10 +68,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   {
     private readonly IChainElement<T> _chainHead;
 
-    public static IFakeChain<T> NewInstance(
-      CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, 
-      NestingLimit nestingLimit,
-      ProxyGenerator generationIsDoneUsingProxies)
+    public static IFakeChain<T> NewInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, NestingLimit nestingLimit, ProxyGenerator generationIsDoneUsingProxies, AllGenerator allGenerator)
     {
       return LimitedTo(nestingLimit,
         UnconstrainedInstance(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies));

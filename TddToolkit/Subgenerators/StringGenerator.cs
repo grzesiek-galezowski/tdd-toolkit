@@ -13,11 +13,13 @@ namespace TddEbook.TddToolkit.Subgenerators
     private readonly Fixture _generator;
     private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
+    private readonly CharGenerator _charGenerator;
 
-    public StringGenerator(Fixture generator, AllGenerator allGenerator)
+    public StringGenerator(Fixture generator, AllGenerator allGenerator, CharGenerator charGenerator)
     {
       _generator = generator;
       _allGenerator = allGenerator;
+      _charGenerator = charGenerator;
     }
 
     public string LegalXmlTagName()
@@ -109,18 +111,18 @@ namespace TddEbook.TddToolkit.Subgenerators
       var result = System.String.Empty;
       for (var i = 0; i < maxLength; ++i)
       {
-        result += _allGenerator.AlphaChar();
+        result += _charGenerator.AlphaChar();
       }
       return result;
     }
 
     public string Identifier()
     {
-      string result = _allGenerator.AlphaChar().ToString(CultureInfo.InvariantCulture);
+      string result = _charGenerator.AlphaChar().ToString(CultureInfo.InvariantCulture);
       for (var i = 0; i < 5; ++i)
       {
-        result += _allGenerator.DigitChar();
-        result += _allGenerator.AlphaChar();
+        result += _charGenerator.DigitChar();
+        result += _charGenerator.AlphaChar();
       }
       return result;
     }
