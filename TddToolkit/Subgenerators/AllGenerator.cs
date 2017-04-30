@@ -9,7 +9,7 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class AllGenerator : IProxyBasedGenerator
+  public class AllGenerator
   {
     public AllGenerator(
       ValueGenerator valueGenerator, 

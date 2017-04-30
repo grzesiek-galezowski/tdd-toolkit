@@ -7,113 +7,113 @@ namespace TddEbook.TddToolkit
   {
     public static string String()
     {
-      return _any.String();
+      return Generate.String();
     }
 
     public static string String(string seed)
     {
-      return _any.String(seed);
+      return Generate.String(seed);
     }
 
     public static string LowerCaseString()
     {
-      return _any.LowerCaseString();
+      return Generate.LowerCaseString();
     }
 
     public static string UpperCaseString()
     {
-      return _any.UpperCaseString();
+      return Generate.UpperCaseString();
     }
 
     public static string LowerCaseAlphaString()
     {
-      return _any.LowerCaseAlphaString();
+      return Generate.LowerCaseAlphaString();
     }
 
     public static string UpperCaseAlphaString()
     {
-      return _any.UpperCaseAlphaString();
+      return Generate.UpperCaseAlphaString();
     }
 
 
     public static string StringMatching(string pattern)
     {
-      return _any.StringMatching(pattern);
+      return Generate.StringMatching(pattern);
     }
 
     public static string StringOfLength(int charactersCount)
     {
-      return _any.StringOfLength(charactersCount);
+      return Generate.StringOfLength(charactersCount);
     }
 
     public static string StringOtherThan(params string[] alreadyUsedStrings)
     {
-      return _any.StringOtherThan(alreadyUsedStrings);
+      return Generate.StringOtherThan(alreadyUsedStrings);
     }
 
     public static string StringNotContaining<T>(params T[] excludedObjects)
     {
-      return _any.StringNotContaining(excludedObjects);
+      return Generate.StringNotContaining(excludedObjects);
     }
 
     public static string StringNotContaining(params string[] excludedSubstrings)
     {
-      return _any.StringNotContaining(excludedSubstrings);
+      return Generate.StringNotContaining(excludedSubstrings);
     }
 
     public static string StringContaining<T>(T obj)
     {
-      return _any.StringContaining(obj);
+      return Generate.StringContaining(obj);
     }
 
     public static string StringContaining(string str)
     {
-      return _any.StringContaining(str);
+      return Generate.StringContaining(str);
     }
 
     public static string AlphaString()
     {
-      return _any.AlphaString();
+      return Generate.AlphaString();
     }
 
     public static string AlphaString(int maxLength)
     {
-      return _any.AlphaString(maxLength);
+      return Generate.AlphaString(maxLength);
     }
 
     public static string Identifier()
     {
-      return _any.Identifier();
+      return Generate.Identifier();
     }
 
     public static char AlphaChar()
     {
-      return _any.AlphaChar();
+      return Generate.AlphaChar();
     }
 
     public static char DigitChar()
     {
-      return _any.DigitChar();
+      return Generate.DigitChar();
     }
 
     public static char Char()
     {
-      return _any.Char();
+      return Generate.Char();
     }
 
     public static string NumericString(int digitsCount = AllGenerator.Many)
     {
-      return _any.NumericString(digitsCount);
+      return Generate.NumericString(digitsCount);
     }
 
     public static char LowerCaseAlphaChar()
     {
-      return _any.LowerCaseAlphaChar();
+      return Generate.LowerCaseAlphaChar();
     }
 
     public static char UpperCaseAlphaChar()
     {
-      return _any.UpperCaseAlphaChar();
+      return Generate.UpperCaseAlphaChar();
     }
   }
 }

@@ -26,11 +26,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       }
       catch (Ploeh.AutoFixture.ObjectCreationException)
       {
-        return _fallbackTypeGenerator.GenerateInstance();
+        return _fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
       }
       catch (TargetInvocationException)
       {
-        return _fallbackTypeGenerator.GenerateInstance();
+        return _fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
       }
     }
   }

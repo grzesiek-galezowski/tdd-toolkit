@@ -7,7 +7,7 @@ namespace TddEbook.TddToolkit
 
     public static T Of<T>() where T : struct, IConvertible
     {
-      return _any.Of<T>();
+      return Generate.Of<T>();
     }
 
     /// <typeparam name="T">MUST BE AN ENUM. FOR NORMAL VALUES, USE Any.OtherThan()</typeparam>
@@ -15,7 +15,7 @@ namespace TddEbook.TddToolkit
     /// <returns></returns>
     public static T Besides<[MustBeAnEnum] T>([MustBeAnEnum] params T[] excludedValues) where T : struct, IConvertible
     {
-      return _any.Besides(excludedValues);
+      return Generate.Besides(excludedValues);
     }
   }
 

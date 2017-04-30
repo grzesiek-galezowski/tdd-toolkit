@@ -8,11 +8,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
   {
     private readonly CachedReturnValueGeneration _generation;
     private readonly ProxyGenerator _proxyGenerator;
+    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
 
-    public FakeAbstractClass(CachedReturnValueGeneration generation, ProxyGenerator proxyGenerator)
+    public FakeAbstractClass(
+      CachedReturnValueGeneration generation, 
+      ProxyGenerator proxyGenerator)
     {
       _generation = generation;
       _proxyGenerator = proxyGenerator;
+      _fallbackTypeGenerator = new FallbackTypeGenerator<T>(); //bug extract?
     }
 
     public bool Applies()
@@ -22,12 +26,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 
     public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
-      var fallbackTypeGenerator = new FallbackTypeGenerator<T>();
       var result = (T)(_proxyGenerator.CreateClassProxy(
         typeof(T),
-        fallbackTypeGenerator.GenerateConstructorParameters().ToArray(), 
+        _fallbackTypeGenerator.GenerateConstructorParameters(proxyBasedGenerator).ToArray(), 
         new AbstractClassInterceptor(_generation)));
-      fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
       return result;
     }
   }

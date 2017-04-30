@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 using TypeReflection.Interfaces;
 
@@ -7,13 +8,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 {
   public class FallbackTypeGenerator<T>
   {
-    private readonly Type _type;
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
 
     public FallbackTypeGenerator()
     {
-      _type = typeof (T);
-      _fallbackTypeGenerator = new FallbackTypeGenerator(_type);
+      var type = typeof (T);
+      _fallbackTypeGenerator = new FallbackTypeGenerator(type);
     }
 
     public int GetConstructorParametersCount()
@@ -21,16 +21,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return _fallbackTypeGenerator.GetConstructorParametersCount();
     }
 
-    public T GenerateInstance()
+    public T GenerateInstance(IProxyBasedGenerator proxyBasedGenerator)
     {
-      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance();
+      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
       _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance);
       return generateInstance;
     }
 
-    public List<object> GenerateConstructorParameters()
+    public List<object> GenerateConstructorParameters(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _fallbackTypeGenerator.GenerateConstructorParameters();
+      return _fallbackTypeGenerator.GenerateConstructorParameters(proxyBasedGenerator.Instance);
     }
 
     public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
@@ -62,10 +62,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return constructor.Value.GetParametersCount(); //bug backward compatibility (for now)
     }
 
-    public object GenerateInstance()
+    public object GenerateInstance(IProxyBasedGenerator proxyBasedGenerator)
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters()
-        .Value.InvokeWithParametersCreatedBy(Any.Instance);  //bug backward compatibility (for now)
+        .Value.InvokeWithParametersCreatedBy(proxyBasedGenerator.Instance);
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }
@@ -78,11 +78,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return instance;
     }
 
-    public List<object> GenerateConstructorParameters()
+    public List<object> GenerateConstructorParameters(Func<Type, object> parameterFactory)
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
       var constructorParameters = constructor.Value  //bug backward compatibility (for now)
-        .GenerateAnyParameterValues(Any.Instance);
+        .GenerateAnyParameterValues(parameterFactory);
       return constructorParameters;
     }
 

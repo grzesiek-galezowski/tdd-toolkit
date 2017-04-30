@@ -13,7 +13,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _fallbackTypeGenerator.GenerateInstance();
+      return _fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
     }
   }
 }

@@ -8,8 +8,6 @@ using Castle.Components.DictionaryAdapter.Xml;
 using Castle.DynamicProxy;
 using NSubstitute;
 using Ploeh.AutoFixture;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
@@ -23,6 +21,7 @@ namespace TddEbook.TddToolkit.Subgenerators
     T OtherThan<T>(params T[] omittedValues);
     object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name);
     object ResultOfGenericVersionOfMethod(Type type, string name);
+    object Instance(Type type);
   }
 
   public class ProxyBasedGenerator : IProxyBasedGenerator

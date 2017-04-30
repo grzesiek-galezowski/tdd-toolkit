@@ -19,7 +19,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
     private object CreateInstanceWithNewConstructorArguments()
     {
-      _constructorArguments = _fallbackTypeGenerator.GenerateConstructorParameters();
+      _constructorArguments = _fallbackTypeGenerator.GenerateConstructorParameters(Any.Instance); //bug for now
       return CreateInstanceWithCurrentConstructorArguments();
     }
 
