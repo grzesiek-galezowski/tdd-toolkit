@@ -78,12 +78,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeChainFactory.cs" />
     <Compile Include="Subgenerators\AllGenerator.cs" />
     <Compile Include="Are.cs" />
-    <Compile Include="AutoFixtureFactory.cs" />
+    <Compile Include="AutoFixtureConfiguration.cs" />
     <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
     <Compile Include="Clone.cs" />
+    <Compile Include="Subgenerators\AllGeneratorFactory.cs" />
     <Compile Include="Subgenerators\CharGenerator.cs" />
     <Compile Include="Subgenerators\CollectionGenerator.cs" />
     <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />

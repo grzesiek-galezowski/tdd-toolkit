@@ -27,28 +27,29 @@ namespace TddEbook.TddToolkit.Subgenerators
 
   public class ProxyBasedGenerator : IProxyBasedGenerator
   {
-    private readonly AllGenerator _allGenerator;
-    private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
+    private readonly ProxyGenerator _proxyGenerator;
     private readonly FakeChainFactory _fakeChainFactory;
-    private readonly CachedReturnValueGeneration _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
     private readonly Fixture _emptyCollectionFixture;
-    private readonly NestingLimit _nestingLimit = GlobalNestingLimit.Of(5);
     private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
+    private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
 
     public ProxyBasedGenerator(
       Fixture emptyCollectionFixture, 
-      AllGenerator allGenerator, 
-      GenericMethodProxyCalls genericMethodProxyCalls)
+      GenericMethodProxyCalls genericMethodProxyCalls, 
+      EmptyCollectionGenerator emptyCollectionGenerator, 
+      ProxyGenerator proxyGenerator, 
+      FakeChainFactory fakeChainFactory)
     {
       _emptyCollectionFixture = emptyCollectionFixture;
-      _allGenerator = allGenerator;
-      _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator, _allGenerator);
+      _proxyGenerator = proxyGenerator;
+      _fakeChainFactory = fakeChainFactory;
       _genericMethodProxyCalls = genericMethodProxyCalls;
+      _emptyCollectionGenerator = emptyCollectionGenerator;
     }
 
     public T InstanceOf<T>()
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve();
+      return _fakeChainFactory.GetInstance<T>().Resolve(this);
     }
 
     public T Instance<T>()
@@ -58,16 +59,15 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public T Dummy<T>()
     {
-      var fakeInterface = 
-        new FakeOrdinaryInterface<T>(_cachedGeneration, _proxyGenerator);
+      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator<T>();
 
       if (typeof(T).IsPrimitive)
       {
-        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
+        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve(this);
       }
       if (typeof(T) == typeof(string))
       {
-        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve();
+        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve(this);
       }
       if (TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
       {
@@ -75,7 +75,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       }
       if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
       {
-        return (T) _allGenerator.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
+        return (T) _emptyCollectionGenerator.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
       }
       if (typeof(T).IsAbstract)
       {
@@ -83,7 +83,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       }
       if (fakeInterface.Applies())
       {
-        return fakeInterface.Apply();
+        return fakeInterface.Apply(this);
       }
       return (T)FormatterServices.GetUninitializedObject(typeof (T));
     }

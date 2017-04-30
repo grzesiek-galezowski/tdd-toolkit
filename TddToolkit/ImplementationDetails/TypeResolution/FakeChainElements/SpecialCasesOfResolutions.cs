@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
@@ -110,7 +111,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return typeof (T).IsArray;
     }
 
-    public T Apply()
+    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       return (T)Any.Array(typeof (T).GetElementType());
     }

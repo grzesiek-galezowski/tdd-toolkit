@@ -9,7 +9,7 @@ using StringGenerator = TddEbook.TddToolkit.Subgenerators.StringGenerator;
 
 namespace TddEbook.TddToolkit
 {
-  public class AutoFixtureFactory
+  public class AutoFixtureConfiguration
   {
     private readonly CircularList<Type> _types = CircularList.CreateStartingFromRandom(
       typeof(Type1),
@@ -35,7 +35,7 @@ namespace TddEbook.TddToolkit
       return generator;
     }
 
-    public void ConfigureCustomFixture(StringGenerator stringGenerator, Fixture generator, NumericGenerator numericGenerator)
+    public void ApplyTo(Fixture generator, StringGenerator stringGenerator, NumericGenerator numericGenerator)
     {
       generator.Register(() => _types.Next());
       generator.Register(() => _methodList.Next());

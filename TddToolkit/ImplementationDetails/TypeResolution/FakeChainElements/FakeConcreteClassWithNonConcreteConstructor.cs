@@ -1,3 +1,5 @@
+using TddEbook.TddToolkit.Subgenerators;
+
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
@@ -9,7 +11,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
-    public T Apply()
+    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       return _fallbackTypeGenerator.GenerateInstance();
     }

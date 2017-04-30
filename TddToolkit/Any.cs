@@ -11,7 +11,7 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private static readonly AllGenerator _any = AllGenerator.Create();
+    private static readonly AllGenerator _any = AllGeneratorFactory.Create();
 
     public static IPAddress IpAddress()
     {

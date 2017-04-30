@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
+using TddEbook.TddToolkit.Subgenerators;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
@@ -15,14 +16,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       _fakeChain = fakeChain;
     }
 
-    public T Resolve()
+    public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
     {
       try
       {
         _perTypeNestingLimit.AddNestingFor<T>();
         if (!_perTypeNestingLimit.IsReachedFor<T>())
         {
-          return _fakeChain.Resolve();
+          return _fakeChain.Resolve(proxyBasedGenerator);
         }
         else 
         {

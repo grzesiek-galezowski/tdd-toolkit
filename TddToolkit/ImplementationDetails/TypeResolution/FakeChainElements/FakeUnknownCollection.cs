@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 using Type = System.Type;
 
@@ -21,7 +22,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     }
 
 
-    public T Apply()
+    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       var collectionType = typeof (T);
       var collectionInstance = Activator.CreateInstance(collectionType);

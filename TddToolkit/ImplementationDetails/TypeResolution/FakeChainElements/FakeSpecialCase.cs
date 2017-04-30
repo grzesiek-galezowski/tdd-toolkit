@@ -1,4 +1,5 @@
 using System.Reflection;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
@@ -12,7 +13,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         typeof(T) == typeof(MethodInfo);
     }
 
-    public T Apply()
+    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       return Any.ValueOf<T>();
     }

@@ -1,74 +1,21 @@
-using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
-using Type = System.Type;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   public interface IFakeChain<out T>
   {
-    T Resolve();
-  }
-
-  public class FakeChainFactory
-  {
-    private readonly CachedReturnValueGeneration _eachMethodReturnsTheSameValueOnEveryCall;
-    private readonly NestingLimit _nestingLimit;
-    private readonly ProxyGenerator _generationIsDoneUsingProxies;
-    private readonly AllGenerator _allGenerator;
-    private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
-    private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
-
-    public FakeChainFactory(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, NestingLimit nestingLimit, ProxyGenerator generationIsDoneUsingProxies, AllGenerator allGenerator)
-    {
-      _eachMethodReturnsTheSameValueOnEveryCall = eachMethodReturnsTheSameValueOnEveryCall;
-      _nestingLimit = nestingLimit;
-      _generationIsDoneUsingProxies = generationIsDoneUsingProxies;
-      _allGenerator = allGenerator;
-    }
-
-    public IFakeChain<T> GetInstance<T>()
-    {
-      return GetInstanceWithMemoization(() =>FakeChain<T>.NewInstance(
-        _eachMethodReturnsTheSameValueOnEveryCall,
-        _nestingLimit,
-        _generationIsDoneUsingProxies,
-        _allGenerator
-      ), _constrainedFactoryCache);
-    }
-
-    private IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
-    {
-      var key = typeof(T);//.FullName;
-      object outVal;
-      if(!cache.TryGetValue(key, out outVal))
-      {
-        var newInstance = func.Invoke();
-        cache[key] = newInstance;
-        return newInstance;
-      }
-
-      return (IFakeChain<T>) outVal;
-    }
-
-    public IFakeChain<T> GetUnconstrainedInstance<T>()
-    {
-      return GetInstanceWithMemoization(() => FakeChain<T>.UnconstrainedInstance(
-        _eachMethodReturnsTheSameValueOnEveryCall,
-        _generationIsDoneUsingProxies
-        ), _unconstrainedFactoryCache);
-    }
+    T Resolve(IProxyBasedGenerator proxyBasedGenerator);
   }
 
   internal class FakeChain<T> : IFakeChain<T>
   {
     private readonly IChainElement<T> _chainHead;
 
-    public static IFakeChain<T> NewInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, NestingLimit nestingLimit, ProxyGenerator generationIsDoneUsingProxies, AllGenerator allGenerator)
+    public static IFakeChain<T> NewInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, NestingLimit nestingLimit, ProxyGenerator generationIsDoneUsingProxies)
     {
       return LimitedTo(nestingLimit,
         UnconstrainedInstance(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies));
@@ -107,14 +54,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new FakeChain<T>(first);
     }
 
-    private static IFakeChain<T> LimitedTo(NestingLimit limit, FakeChain<T> fakeChain)
+    private static IFakeChain<T> LimitedTo(NestingLimit limit, IFakeChain<T> fakeChain)
     {
       return new LimitedFakeChain<T>(limit, fakeChain);
     }
 
     private static FakeConcreteClass<T> ResolveAsConcreteClass()
     {
-      return new FakeConcreteClass<T>();
+      return new FakeConcreteClass<T>(new FallbackTypeGenerator<T>());
     }
 
     private static FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
@@ -234,9 +181,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       _chainHead = chainHead;
     }
 
-    public T Resolve()
+    public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _chainHead.Resolve();
+      return _chainHead.Resolve(proxyBasedGenerator);
     }
   }
 
@@ -247,7 +194,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return TypeOf<T>.Is<IEnumerator>();
     }
 
-    public T Apply()
+    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       return (T)(Any.Array<object>().GetEnumerator());
     }

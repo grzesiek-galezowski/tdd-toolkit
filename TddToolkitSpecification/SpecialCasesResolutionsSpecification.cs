@@ -6,6 +6,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TddToolkitSpecification.Fixtures;
 
 namespace TddEbook.TddToolkitSpecification
@@ -23,8 +24,8 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       Assert.True(resolution.Applies());
-      XAssert.NotNull(resolution.Apply());
-      XAssert.Equal(3, resolution.Apply().Length);
+      XAssert.NotNull(resolution.Apply(Any.Instance<IProxyBasedGenerator>()));
+      XAssert.Equal(3, resolution.Apply(Any.Instance<IProxyBasedGenerator>()).Length);
 
     }
 

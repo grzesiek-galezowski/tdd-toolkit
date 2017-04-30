@@ -1,5 +1,6 @@
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkit.Subgenerators;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
@@ -19,7 +20,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
       return typeof (T).IsAbstract;
     }
 
-    public T Apply()
+    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       var fallbackTypeGenerator = new FallbackTypeGenerator<T>();
       var result = (T)(_proxyGenerator.CreateClassProxy(
