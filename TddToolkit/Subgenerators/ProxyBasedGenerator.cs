@@ -31,13 +31,16 @@ namespace TddEbook.TddToolkit.Subgenerators
     private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
     private readonly FakeChainFactory _fakeChainFactory;
     private readonly CachedReturnValueGeneration _cachedGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
-    private readonly Fixture _emptyCollectionGenerator;
+    private readonly Fixture _emptyCollectionFixture;
     private readonly NestingLimit _nestingLimit = GlobalNestingLimit.Of(5);
     private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 
-    public ProxyBasedGenerator(Fixture emptyCollectionGenerator, AllGenerator allGenerator, GenericMethodProxyCalls genericMethodProxyCalls)
+    public ProxyBasedGenerator(
+      Fixture emptyCollectionFixture, 
+      AllGenerator allGenerator, 
+      GenericMethodProxyCalls genericMethodProxyCalls)
     {
-      _emptyCollectionGenerator = emptyCollectionGenerator;
+      _emptyCollectionFixture = emptyCollectionFixture;
       _allGenerator = allGenerator;
       _fakeChainFactory = new FakeChainFactory(_cachedGeneration, _nestingLimit, _proxyGenerator, _allGenerator);
       _genericMethodProxyCalls = genericMethodProxyCalls;
@@ -68,7 +71,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       }
       if (TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IEnumerable<>)))
       {
-        return _emptyCollectionGenerator.Create<T>();
+        return _emptyCollectionFixture.Create<T>();
       }
       if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
       {

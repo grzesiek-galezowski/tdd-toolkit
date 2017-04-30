@@ -11,77 +11,62 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class EmptyCollectionGenerator
-  {
-    public readonly Fixture _emptyCollectionGenerator;
-    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
-
-    public EmptyCollectionGenerator(Fixture emptyCollectionGenerator, GenericMethodProxyCalls genericMethodProxyCalls)
-    {
-      _emptyCollectionGenerator = emptyCollectionGenerator;
-      _genericMethodProxyCalls = genericMethodProxyCalls;
-    }
-
-    public List<T> EmptyEnumerableOf<T>()
-    {
-      return _emptyCollectionGenerator.Create<List<T>>();
-    }
-
-    public object EmptyEnumerableOf(Type collectionType)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(
-        collectionType, MethodBase.GetCurrentMethod().Name);
-    }
-  }
-
-  public class CharGenerator
-  {
-    private readonly CircularList<char> _letters =
-      CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
-
-    private readonly CircularList<char> _digitChars =
-      CircularList.CreateStartingFromRandom("5647382910".ToCharArray());
-
-    private readonly ValueGenerator _valueGenerator;
-
-    public CharGenerator(ValueGenerator valueGenerator)
-    {
-      _valueGenerator = valueGenerator;
-    }
-
-    public char AlphaChar() => 
-      _letters.Next();
-
-    public char DigitChar() => 
-      _digitChars.Next();
-
-    public char Char() => _valueGenerator.ValueOf<char>();
-    public char LowerCaseAlphaChar() => char.ToLower(AlphaChar());
-    public char UpperCaseAlphaChar() => char.ToUpper(AlphaChar());
-  }
-
   public class AllGenerator : IProxyBasedGenerator
   {
-    public static AllGenerator CreateAllGenerator()
+    public static AllGenerator Create()
     {
-      return new AllGenerator(
-        new AutoFixtureFactory(), new Fixture()
+      var fixtureFactory = new AutoFixtureFactory();
+      var methodProxyCalls = new GenericMethodProxyCalls();
+      var fixture = fixtureFactory.CreateUnconfiguredInstance();
+      var valueGenerator = new ValueGenerator(fixture, methodProxyCalls);
+      var charGenerator = new CharGenerator(valueGenerator);
+      var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
+      var emptyCollectionFixture = new Fixture
       {
         RepeatCount = 0,
-      });
+      };
+      return new AllGenerator(
+        fixtureFactory, 
+        emptyCollectionFixture, 
+        methodProxyCalls, 
+        fixture, 
+        valueGenerator, 
+        charGenerator, 
+        specificTypeObjectGenerator, 
+        new StringGenerator(
+          charGenerator, 
+          valueGenerator, 
+          specificTypeObjectGenerator), 
+        new EmptyCollectionGenerator(
+          emptyCollectionFixture, 
+          methodProxyCalls), 
+        new NumericGenerator(
+          valueGenerator));
     }
 
-    private AllGenerator(AutoFixtureFactory fixtureFactory, Fixture emptyCollectionGenerator)
+    private AllGenerator(
+      AutoFixtureFactory fixtureFactory, 
+      Fixture emptyCollectionFixture, 
+      GenericMethodProxyCalls methodProxyCalls, 
+      Fixture fixture, 
+      ValueGenerator valueGenerator, 
+      CharGenerator charGenerator, 
+      SpecificTypeObjectGenerator specificTypeObjectGenerator, 
+      StringGenerator stringGenerator, 
+      EmptyCollectionGenerator emptyCollectionGenerator, 
+      NumericGenerator numericGenerator)
     {
-      var genericMethodProxyCalls = new GenericMethodProxyCalls();
-      var customAutoFixture = fixtureFactory.CreateCustomAutoFixture(this);
-      _emptyCollectionGenerator = new EmptyCollectionGenerator(emptyCollectionGenerator, genericMethodProxyCalls);
-      ProxyBasedGenerator = new ProxyBasedGenerator(emptyCollectionGenerator, this, genericMethodProxyCalls); //bug move this to argument
-      _valueGenerator = new ValueGenerator(customAutoFixture, ProxyBasedGenerator);
-      _charGenerator = new CharGenerator(_valueGenerator);
-      _stringGenerator = new StringGenerator(customAutoFixture, this, this._charGenerator);
-      NumericGenerator = new NumericGenerator(_valueGenerator);
-      _collectionGenerator = new CollectionGenerator(ProxyBasedGenerator);
+      _valueGenerator = valueGenerator;
+      _charGenerator = charGenerator;
+      _specificTypeObjectGenerator = specificTypeObjectGenerator;
+      _stringGenerator = stringGenerator;
+      _emptyCollectionGenerator = emptyCollectionGenerator;
+      _numericGenerator = numericGenerator;
+      _proxyBasedGenerator = new ProxyBasedGenerator(emptyCollectionFixture, this, methodProxyCalls); //bug move this to argument
+      _collectionGenerator = new CollectionGenerator(_proxyBasedGenerator);
+
+      //bug think about it. Has to be done here as before we have no set references
+      fixtureFactory.ConfigureCustomFixture(_stringGenerator, fixture, _numericGenerator);
     }
 
     public const int Many = 3;
@@ -93,10 +78,9 @@ namespace TddEbook.TddToolkit.Subgenerators
     private readonly ValueGenerator _valueGenerator;
     private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
     private readonly CharGenerator _charGenerator;
-
-    private ProxyBasedGenerator ProxyBasedGenerator { get; }
-
-    private NumericGenerator NumericGenerator { get; }
+    private readonly SpecificTypeObjectGenerator _specificTypeObjectGenerator;
+    private readonly ProxyBasedGenerator _proxyBasedGenerator;
+    private readonly NumericGenerator _numericGenerator;
 
     public IPAddress IpAddress()
     {
@@ -136,14 +120,14 @@ namespace TddEbook.TddToolkit.Subgenerators
       return _valueGenerator.ValueOf<T>();
     }
 
-    public List<T> EmptyEnumerableOf<T>()
+    public IEnumerable<T> EmptyEnumerableOf<T>()
     {
       return _emptyCollectionGenerator.EmptyEnumerableOf<T>();
     }
 
     internal object Instance(Type type)
     {
-      return ProxyBasedGenerator.Instance(type);
+      return _proxyBasedGenerator.Instance(type);
     }
 
     public string LegalXmlTagName()
@@ -173,37 +157,37 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public T InstanceOf<T>()
     {
-      return ProxyBasedGenerator.InstanceOf<T>();
+      return _proxyBasedGenerator.InstanceOf<T>();
     }
 
     public T Instance<T>()
     {
-      return ProxyBasedGenerator.Instance<T>();
+      return _proxyBasedGenerator.Instance<T>();
     }
 
     public T Dummy<T>()
     {
-      return ProxyBasedGenerator.Dummy<T>();
+      return _proxyBasedGenerator.Dummy<T>();
     }
 
     public T SubstituteOf<T>() where T : class
     {
-      return ProxyBasedGenerator.SubstituteOf<T>();
+      return _proxyBasedGenerator.SubstituteOf<T>();
     }
 
     public T OtherThan<T>(params T[] omittedValues)
     {
-      return ProxyBasedGenerator.OtherThan(omittedValues);
+      return _proxyBasedGenerator.OtherThan(omittedValues);
     }
 
     public Uri Uri()
     {
-      return ValueOf<Uri>();
+      return _specificTypeObjectGenerator.Uri();
     }
 
     public Guid Guid()
     {
-      return ValueOf<Guid>();
+      return _specificTypeObjectGenerator.Guid();
     }
 
     public string UrlString()
@@ -238,21 +222,20 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object InstanceOtherThanObjects(Type type, params object[] omittedValues)
     {
-      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name, omittedValues);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name, omittedValues);
     }
 
-    [SuppressMessage("ReSharper", "UnusedMember.Local")]
     public T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
-      return ProxyBasedGenerator.InstanceOtherThanObjects<T>(omittedValues);
+      return _proxyBasedGenerator.InstanceOtherThanObjects<T>(omittedValues);
     }
-
 
     public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
       return _collectionGenerator.EnumerableWith(included);
     }
 
+    //bug create generator for tasks
     public Task NotStartedTask()
     {
       return new Task(() => Task.Delay(1).Wait());
@@ -631,7 +614,7 @@ namespace TddEbook.TddToolkit.Subgenerators
     public object KeyValuePair(Type keyType, Type valueType)
     {
       return Activator.CreateInstance(
-        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), ProxyBasedGenerator.Instance(keyType), ProxyBasedGenerator.Instance(valueType)
+        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), _proxyBasedGenerator.Instance(keyType), _proxyBasedGenerator.Instance(valueType)
       );
     }
 
@@ -743,52 +726,52 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public byte Digit()
     {
-      return NumericGenerator.Digit();
+      return _numericGenerator.Digit();
     }
 
     public int IntegerFromSequence(int startingValue = 0, int step = 1)
     {
-      return NumericGenerator.IntegerFromSequence(startingValue, step);
+      return _numericGenerator.IntegerFromSequence(startingValue, step);
     }
 
     public byte Octet()
     {
-      return NumericGenerator.Octet();
+      return _numericGenerator.Octet();
     }
 
     public int IntegerDivisibleBy(int quotient)
     {
-      return NumericGenerator.IntegerDivisibleBy(quotient);
+      return _numericGenerator.IntegerDivisibleBy(quotient);
     }
 
     public int IntegerNotDivisibleBy(int quotient)
     {
-      return NumericGenerator.IntegerNotDivisibleBy(quotient);
+      return _numericGenerator.IntegerNotDivisibleBy(quotient);
     }
 
     public int IntegerWithExactDigitsCount(int digitsCount)
     {
-      return NumericGenerator.IntegerWithExactDigitsCount(digitsCount);
+      return _numericGenerator.IntegerWithExactDigitsCount(digitsCount);
     }
 
     public long LongIntegerWithExactDigitsCount(int digitsCount)
     {
-      return NumericGenerator.LongIntegerWithExactDigitsCount(digitsCount);
+      return _numericGenerator.LongIntegerWithExactDigitsCount(digitsCount);
     }
 
     public uint UnsignedIntegerWithExactDigitsCount(int digitsCount)
     {
-      return NumericGenerator.UnsignedIntegerWithExactDigitsCount(digitsCount);
+      return _numericGenerator.UnsignedIntegerWithExactDigitsCount(digitsCount);
     }
 
     public ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount)
     {
-      return NumericGenerator.UnsignedLongIntegerWithExactDigitsCount(digitsCount);
+      return _numericGenerator.UnsignedLongIntegerWithExactDigitsCount(digitsCount);
     }
 
     public byte PositiveDigit()
     {
-      return NumericGenerator.PositiveDigit();
+      return _numericGenerator.PositiveDigit();
     }
 
     private static void AssertDynamicEnumConstraintFor<T>()
@@ -801,97 +784,97 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public T Exploding<T>() where T : class
     {
-      return ProxyBasedGenerator.Exploding<T>();
+      return _proxyBasedGenerator.Exploding<T>();
     }
 
     public int Integer()
     {
-      return NumericGenerator.Integer();
+      return _numericGenerator.Integer();
     }
 
     public double Double()
     {
-      return NumericGenerator.Double();
+      return _numericGenerator.Double();
     }
 
     public double DoubleOtherThan(double[] others)
     {
-      return NumericGenerator.DoubleOtherThan(others);
+      return _numericGenerator.DoubleOtherThan(others);
     }
 
     public long LongInteger()
     {
-      return NumericGenerator.LongInteger();
+      return _numericGenerator.LongInteger();
     }
 
     public long LongIntegerOtherThan(long[] others)
     {
-      return NumericGenerator.LongIntegerOtherThan(others);
+      return _numericGenerator.LongIntegerOtherThan(others);
     }
 
     public ulong UnsignedLongInteger()
     {
-      return NumericGenerator.UnsignedLongInteger();
+      return _numericGenerator.UnsignedLongInteger();
     }
 
     public ulong UnsignedLongIntegerOtherThan(ulong[] others)
     {
-      return NumericGenerator.UnsignedLongIntegerOtherThan(others);
+      return _numericGenerator.UnsignedLongIntegerOtherThan(others);
     }
 
     public int IntegerOtherThan(int[] others)
     {
-      return NumericGenerator.IntegerOtherThan(others);
+      return _numericGenerator.IntegerOtherThan(others);
     }
 
     public byte Byte()
     {
-      return NumericGenerator.Byte();
+      return _numericGenerator.Byte();
     }
 
     public byte ByteOtherThan(byte[] others)
     {
-      return NumericGenerator.ByteOtherThan(others);
+      return _numericGenerator.ByteOtherThan(others);
     }
 
     public decimal Decimal()
     {
-      return NumericGenerator.Decimal();
+      return _numericGenerator.Decimal();
     }
 
     public decimal DecimalOtherThan(decimal[] others)
     {
-      return NumericGenerator.DecimalOtherThan(others);
+      return _numericGenerator.DecimalOtherThan(others);
     }
 
     public uint UnsignedInt()
     {
-      return NumericGenerator.UnsignedInt();
+      return _numericGenerator.UnsignedInt();
     }
 
     public uint UnsignedIntOtherThan(uint[] others)
     {
-      return NumericGenerator.UnsignedIntOtherThan(others);
+      return _numericGenerator.UnsignedIntOtherThan(others);
     }
 
     public ushort UnsignedShort()
     {
-      return NumericGenerator.UnsignedShort();
+      return _numericGenerator.UnsignedShort();
     }
 
     public ushort UnsignedShortOtherThan(ushort[] others)
     {
-      return NumericGenerator.UnsignedShortOtherThan(others);
+      return _numericGenerator.UnsignedShortOtherThan(others);
     }
 
     public short ShortInteger()
     {
-      return NumericGenerator.ShortInteger();
+      return _numericGenerator.ShortInteger();
     }
 
     public short ShortIntegerOtherThan(short[] others)
     {
-      return NumericGenerator.ShortIntegerOtherThan(others);
+      return _numericGenerator.ShortIntegerOtherThan(others);
     }
 
     public MethodInfo FindEmptyGenericsMethod<T>(string name)
@@ -915,7 +898,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object ResultOfGenericVersionOfMethod(Type type, string name)
     {
-      return ProxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
     }
 
     public char AlphaChar()

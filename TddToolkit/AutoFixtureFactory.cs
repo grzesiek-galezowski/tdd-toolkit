@@ -5,6 +5,7 @@ using System.Reflection;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.Subgenerators;
+using StringGenerator = TddEbook.TddToolkit.Subgenerators.StringGenerator;
 
 namespace TddEbook.TddToolkit
 {
@@ -25,21 +26,39 @@ namespace TddEbook.TddToolkit
       typeof(Type12),
       typeof(Type13));
 
-    private readonly CircularList<MethodInfo> MethodList =
+    private readonly CircularList<MethodInfo> _methodList =
       CircularList.CreateStartingFromRandom(typeof(List<int>).GetMethods(BindingFlags.Public | BindingFlags.Instance));
 
-    public Fixture CreateCustomAutoFixture(AllGenerator allGenerator)
+    public Fixture CreateUnconfiguredInstance()
     {
       var generator = new Fixture();
+      return generator;
+    }
+
+    public void ConfigureCustomFixture(StringGenerator stringGenerator, Fixture generator, NumericGenerator numericGenerator)
+    {
       generator.Register(() => _types.Next());
-      generator.Register(() => MethodList.Next());
-      generator.Register(() => new Exception(allGenerator.String(), new Exception(allGenerator.String())));
+      generator.Register(() => _methodList.Next());
+      generator.Register(() => new Exception(stringGenerator.String(), new Exception(stringGenerator.String())));
       generator.Register(
         () =>
           new IPAddress(new[]
-            {allGenerator.Octet(), allGenerator.Octet(), allGenerator.Octet(), allGenerator.Octet()}));
+            {numericGenerator.Octet(), numericGenerator.Octet(), numericGenerator.Octet(), numericGenerator.Octet()}));
       generator.Customize(new MultipleCustomization());
-      return generator;
     }
   }
+
+  public class Type1 { }
+  public class Type2 { }
+  public class Type3 { }
+  public class Type4 { }
+  public class Type5 { }
+  public class Type6 { }
+  public class Type7 { }
+  public class Type8 { }
+  public class Type9 { }
+  public class Type10 { }
+  public class Type11 { }
+  public class Type12 { }
+  public class Type13 { }
 }

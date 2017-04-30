@@ -11,7 +11,7 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private static readonly AllGenerator _any = AllGenerator.CreateAllGenerator();
+    private static readonly AllGenerator _any = AllGenerator.Create();
 
     public static IPAddress IpAddress()
     {
@@ -43,7 +43,7 @@ namespace TddEbook.TddToolkit
       return _any.ValueOf<T>();
     }
 
-    public static List<T> EmptyEnumerableOf<T>()
+    public static IEnumerable<T> EmptyEnumerableOf<T>()
     {
       return _any.EmptyEnumerableOf<T>();
     }
@@ -242,19 +242,6 @@ namespace TddEbook.TddToolkit
     }
   }
 
-  public class Type1 { }
-  public class Type2 { }
-  public class Type3 { }
-  public class Type4 { }
-  public class Type5 { }
-  public class Type6 { }
-  public class Type7 { }
-  public class Type8 { }
-  public class Type9 { }
-  public class Type10 { }
-  public class Type11 { }
-  public class Type12 { }
-  public class Type13 { }
 
 }
 

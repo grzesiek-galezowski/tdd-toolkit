@@ -8,12 +8,12 @@ namespace TddEbook.TddToolkit.Subgenerators
   public class ValueGenerator
   {
     private readonly Fixture _generator;
-    private readonly ProxyBasedGenerator _proxyBasedGenerator;
+    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 
-    public ValueGenerator(Fixture generator, ProxyBasedGenerator proxyBasedGenerator)
+    public ValueGenerator(Fixture generator, GenericMethodProxyCalls genericMethodProxyCalls)
     {
       _generator = generator;
-      _proxyBasedGenerator = proxyBasedGenerator;
+      _genericMethodProxyCalls = genericMethodProxyCalls;
     }
 
     public T ValueOtherThan<T>(params T[] omittedValues)
@@ -35,8 +35,13 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object ValueOf(Type type)
     {
-      //bug
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
+      //bug put under test and change Any to current
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    public T ValueOf<T>(T seed)
+    {
+      return _generator.Create(seed);
     }
   }
 }

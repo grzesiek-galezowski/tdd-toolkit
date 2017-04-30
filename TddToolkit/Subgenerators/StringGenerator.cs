@@ -9,17 +9,20 @@ namespace TddEbook.TddToolkit.Subgenerators
 {
   public class StringGenerator
   {
-    private readonly AllGenerator _allGenerator;
-    private readonly Fixture _generator;
-    private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
+    private readonly Random _randomGenerator = new Random(Guid.NewGuid().GetHashCode());
     private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
     private readonly CharGenerator _charGenerator;
+    private readonly ValueGenerator _valueGenerator;
+    private readonly SpecificTypeObjectGenerator _specificGenerator;
 
-    public StringGenerator(Fixture generator, AllGenerator allGenerator, CharGenerator charGenerator)
+    public StringGenerator(
+      CharGenerator charGenerator, 
+      ValueGenerator valueGenerator, 
+      SpecificTypeObjectGenerator specificGenerator)
     {
-      _generator = generator;
-      _allGenerator = allGenerator;
       _charGenerator = charGenerator;
+      _valueGenerator = valueGenerator;
+      _specificGenerator = specificGenerator;
     }
 
     public string LegalXmlTagName()
@@ -29,7 +32,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public string UrlString()
     {
-      return _allGenerator.Uri().ToString();
+      return _specificGenerator.Uri().ToString();
     }
 
     public string Ip()
@@ -40,8 +43,9 @@ namespace TddEbook.TddToolkit.Subgenerators
              + _randomGenerator.Next(256);
     }
 
-    public string String() => _allGenerator.ValueOf<string>();
-    public string String(string seed) => _generator.Create(seed+"_");
+    public string String() => _valueGenerator.ValueOf<string>();
+    public string String(string seed) => _valueGenerator.ValueOf(seed + "_");
+
     public string LowerCaseString() => String().ToLower();
     public string UpperCaseString() => String().ToUpper();
     public string LowerCaseAlphaString() => AlphaString().ToLower();
@@ -58,14 +62,15 @@ namespace TddEbook.TddToolkit.Subgenerators
     public string StringOfLength(int charactersCount)
     {
       var result = string.Empty;
-      while (result.Count() < charactersCount)
+      while (result.Length < charactersCount)
       {
         result += String();
       }
       return result.Substring(0, charactersCount);
     }
 
-    public string StringOtherThan(params string[] alreadyUsedStrings) => _allGenerator.ValueOtherThan(alreadyUsedStrings);
+    public string StringOtherThan(params string[] alreadyUsedStrings) 
+      => _valueGenerator.ValueOtherThan(alreadyUsedStrings);
 
     public string StringNotContaining<T>(params T[] excludedObjects) => 
       StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
@@ -76,8 +81,8 @@ namespace TddEbook.TddToolkit.Subgenerators
         where !string.IsNullOrEmpty(str)
         select str;
 
-      string result = String();
-      bool found = false;
+      var result = String();
+      var found = false;
       for(int i = 0 ; i < 100 ; ++i)
       {
         result = String();
@@ -108,7 +113,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public string AlphaString(int maxLength)
     {
-      var result = System.String.Empty;
+      var result = string.Empty;
       for (var i = 0; i < maxLength; ++i)
       {
         result += _charGenerator.AlphaChar();
