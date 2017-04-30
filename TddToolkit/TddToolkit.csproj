@@ -122,6 +122,7 @@
     <Compile Include="NSubstitute\ImplementationDetails\SequenceExclusiveAssertion.cs" />
     <Compile Include="Subgenerators\EmptyCollectionGenerator.cs" />
     <Compile Include="Subgenerators\GenericMethodProxyCalls.cs" />
+    <Compile Include="Subgenerators\InvokableGenerator.cs" />
     <Compile Include="Subgenerators\NumericGenerator.cs" />
     <Compile Include="Subgenerators\ProxyBasedGenerator.cs" />
     <Compile Include="Reflection\Metadata.cs" />
