@@ -1,16 +1,21 @@
 using System;
 using System.Reflection;
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   internal class FakeConcreteClass<T> : IResolution<T>
   {
     private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
+    private readonly ValueGenerator _valueGenerator;
 
-    public FakeConcreteClass(FallbackTypeGenerator<T> fallbackTypeGenerator)
+    public FakeConcreteClass(
+      FallbackTypeGenerator<T> fallbackTypeGenerator, 
+      ValueGenerator valueGenerator)
     {
       _fallbackTypeGenerator = fallbackTypeGenerator;
+      _valueGenerator = valueGenerator;
     }
 
     public bool Applies()
@@ -22,7 +27,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       try
       {
-        return Any.ValueOf<T>(); //bug
+        return _valueGenerator.ValueOf<T>();
       }
       catch (Ploeh.AutoFixture.ObjectCreationException)
       {

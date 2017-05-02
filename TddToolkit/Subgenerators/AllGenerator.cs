@@ -9,7 +9,7 @@ using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class AllGenerator
+  public class AllGenerator : OmniGenerator
   {
     public AllGenerator(
       ValueGenerator valueGenerator, 
@@ -90,7 +90,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       return _emptyCollectionGenerator.EmptyEnumerableOf<T>();
     }
 
-    internal object Instance(Type type)
+    public object Instance(Type type)
     {
       return _proxyBasedGenerator.Instance(type);
     }

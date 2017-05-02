@@ -3,16 +3,21 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
   public class CollectionGenerator
   {
     private readonly IProxyBasedGenerator _proxyBasedGenerator;
+    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 
-    public CollectionGenerator(IProxyBasedGenerator proxyBasedGenerator)
+    public CollectionGenerator(
+      IProxyBasedGenerator proxyBasedGenerator, 
+      GenericMethodProxyCalls genericMethodProxyCalls)
     {
       _proxyBasedGenerator = proxyBasedGenerator;
+      _genericMethodProxyCalls = genericMethodProxyCalls;
     }
 
     public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
@@ -307,49 +312,49 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object List(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Set(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Dictionary(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object SortedList(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object SortedSet(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
     public object SortedDictionary(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ConcurrentDictionary(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Array(Type type)
     {
       //bug is this implementation OK?
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
@@ -364,22 +369,22 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object Enumerator(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name); 
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
     public object ConcurrentStack(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ConcurrentQueue(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ConcurrentBag(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
   }
 }

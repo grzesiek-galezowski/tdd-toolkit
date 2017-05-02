@@ -14,7 +14,7 @@ namespace TddEbook.TddToolkit.Subgenerators
     private readonly CircularList<byte> _digits =
       CircularList.CreateStartingFromRandom(new byte[] {5, 6, 4, 7, 3, 8, 2, 9, 1, 0});
 
-    private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
+    private readonly Random _randomGenerator = new Random(Guid.NewGuid().GetHashCode());
     private readonly HashSet<IntegerSequence> _sequences = new HashSet<IntegerSequence>();
 
     private readonly CircularList<int> _numbersToMultiply = CircularList.CreateStartingFromRandom(
@@ -34,7 +34,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public int IntegerFromSequence(int startingValue = 0, int step = 1)
     {
-      var sequence = new IntegerSequence(startingValue, step);
+      var sequence = new IntegerSequence(startingValue, step, Integer());
       var finalSequence = Maybe.Wrap(_sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
       _sequences.Add(finalSequence);
       var integerFromSequence = finalSequence.Next();

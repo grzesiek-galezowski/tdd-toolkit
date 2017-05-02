@@ -33,16 +33,22 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         ?? collectionType.GetMethod("Push", elementTypes)
         ?? collectionType.GetMethod("Enqueue", elementTypes);
 
-      addMethod.Invoke(collectionInstance, AnyInstancesOf(elementTypes));
-      addMethod.Invoke(collectionInstance, AnyInstancesOf(elementTypes));
-      addMethod.Invoke(collectionInstance, AnyInstancesOf(elementTypes));
+      addMethod.Invoke(
+        collectionInstance, 
+        AnyInstancesOf(elementTypes, proxyBasedGenerator));
+      addMethod.Invoke(
+        collectionInstance, 
+        AnyInstancesOf(elementTypes, proxyBasedGenerator));
+      addMethod.Invoke(
+        collectionInstance, 
+        AnyInstancesOf(elementTypes, proxyBasedGenerator));
 
       return (T) collectionInstance;
     }
 
-    private static object[] AnyInstancesOf(Type[] elementTypes)
+    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return elementTypes.Select(t => Any.Instance(t)).ToArray();
+      return elementTypes.Select(proxyBasedGenerator.Instance).ToArray();
     }
   }
 }

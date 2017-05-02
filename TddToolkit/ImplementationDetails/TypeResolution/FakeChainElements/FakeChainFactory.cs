@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
+using TddEbook.TddToolkit.Subgenerators;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
@@ -9,17 +10,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly CachedReturnValueGeneration _cachedReturnValueGeneration;
     private readonly NestingLimit _nestingLimit;
     private readonly ProxyGenerator _proxyGenerator;
+    private readonly ValueGenerator _valueGenerator;
     private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
 
     public FakeChainFactory(
       CachedReturnValueGeneration cachedReturnValueGeneration, 
       NestingLimit nestingLimit, 
-      ProxyGenerator proxyGenerator)
+      ProxyGenerator proxyGenerator,
+      ValueGenerator valueGenerator)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
       _nestingLimit = nestingLimit;
       _proxyGenerator = proxyGenerator;
+      _valueGenerator = valueGenerator;
     }
 
     public IFakeChain<T> GetInstance<T>()
@@ -27,7 +31,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return GetInstanceWithMemoization(() =>FakeChain<T>.NewInstance(
         _cachedReturnValueGeneration,
         _nestingLimit,
-        _proxyGenerator
+        _proxyGenerator,
+        _valueGenerator
       ), _constrainedFactoryCache);
     }
 
@@ -49,8 +54,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return GetInstanceWithMemoization(() => FakeChain<T>.UnconstrainedInstance(
         _cachedReturnValueGeneration,
-        _proxyGenerator
-      ), _unconstrainedFactoryCache);
+        _proxyGenerator, _valueGenerator), 
+        _unconstrainedFactoryCache);
     }
 
     public FakeOrdinaryInterface<T> CreateFakeOrdinaryInterfaceGenerator<T>()

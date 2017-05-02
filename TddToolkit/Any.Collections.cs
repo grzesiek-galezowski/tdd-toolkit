@@ -293,7 +293,6 @@ namespace TddEbook.TddToolkit
       return Generate.Enumerator(type);
     }
 
-
     public static object ConcurrentStack(Type type)
     {
       return Generate.ConcurrentStack(type);

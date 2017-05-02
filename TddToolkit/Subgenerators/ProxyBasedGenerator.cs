@@ -14,27 +14,24 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public interface IProxyBasedGenerator
-  {
-    T InstanceOf<T>();
-    T Instance<T>();
-    T OtherThan<T>(params T[] omittedValues);
-    object Instance(Type type);
-    object ResultOfGenericVersionOfMethod<T>(T instance, Type keyType, Type valueType, string name);
-    object ResultOfGenericVersionOfMethod<T>(T instance, Type type, string name);
-  }
 
+  [Serializable]
   public class ProxyBasedGenerator : IProxyBasedGenerator
   {
+    [NonSerialized]
     private readonly ProxyGenerator _proxyGenerator;
+    [NonSerialized]
     private readonly FakeChainFactory _fakeChainFactory;
+    [NonSerialized]
     private readonly Fixture _emptyCollectionFixture;
-    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
+    [NonSerialized]
+    private readonly GenericMethodProxyCalls _proxyCalls;
+    [NonSerialized]
     private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
 
     public ProxyBasedGenerator(
       Fixture emptyCollectionFixture, 
-      GenericMethodProxyCalls genericMethodProxyCalls, 
+      GenericMethodProxyCalls proxyCalls, 
       EmptyCollectionGenerator emptyCollectionGenerator, 
       ProxyGenerator proxyGenerator, 
       FakeChainFactory fakeChainFactory)
@@ -42,7 +39,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       _emptyCollectionFixture = emptyCollectionFixture;
       _proxyGenerator = proxyGenerator;
       _fakeChainFactory = fakeChainFactory;
-      _genericMethodProxyCalls = genericMethodProxyCalls;
+      _proxyCalls = proxyCalls;
       _emptyCollectionGenerator = emptyCollectionGenerator;
     }
 
@@ -96,7 +93,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
       foreach (var method in methods)
       {
-        method.InvokeWithAnyArgsOn(sub, type1 => Instance(type1)).ReturnsForAnyArgs(method.GenerateAnyReturnValue(type1 => Instance(type1)));
+        method.InvokeWithAnyArgsOn(sub, Instance).ReturnsForAnyArgs(method.GenerateAnyReturnValue(type1 => Instance(type1)));
       }
       return sub;
     }
@@ -142,12 +139,12 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object ResultOfGenericVersionOfMethod<T>(T instance, Type keyType, Type valueType, string name)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(instance, keyType, valueType, name);
+      return _proxyCalls.ResultOfGenericVersionOfMethod(instance, keyType, valueType, name);
     }
 
     public object ResultOfGenericVersionOfMethod<T>(T instance, Type type, string name)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(instance, type, name);
+      return _proxyCalls.ResultOfGenericVersionOfMethod(instance, type, name);
     }
   }
 }

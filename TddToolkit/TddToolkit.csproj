@@ -65,8 +65,8 @@
       <HintPath>..\packages\NClone.1.1.1\lib\net45\NClone.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSubstitute, Version=2.0.2.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSubstitute.2.0.2\lib\net45\NSubstitute.dll</HintPath>
+    <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSubstitute.2.0.3\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeChainFactory.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeEnumerator.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ResolutionOfArrays.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\InterceptedInvocation.cs" />
     <Compile Include="Subgenerators\AllGenerator.cs" />
     <Compile Include="Are.cs" />
     <Compile Include="AutoFixtureConfiguration.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Subgenerators\GenericMethodProxyCalls.cs" />
     <Compile Include="Subgenerators\InvokableGenerator.cs" />
     <Compile Include="Subgenerators\NumericGenerator.cs" />
+    <Compile Include="Subgenerators\OmniGenerator.cs" />
     <Compile Include="Subgenerators\ProxyBasedGenerator.cs" />
     <Compile Include="Reflection\Metadata.cs" />
     <Compile Include="Reflection\Method.cs" />

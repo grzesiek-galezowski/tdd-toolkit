@@ -1,4 +1,5 @@
 using System;
+using TddEbook.TddToolkit.Subgenerators;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
 {
@@ -41,14 +42,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
     private readonly int _step;
     private int _currentValue;
 
-    public IntegerSequence(int startingValue, int step)
+    public IntegerSequence(int startingValue, int step, int initialStepsCount)
     {
       _startingValue = startingValue;
       _step = step;
 
       try
       {
-        _currentValue = _startingValue + Any.Integer() * _step;
+        _currentValue = _startingValue + initialStepsCount * _step;
       }
       catch (OverflowException)
       {
@@ -76,9 +77,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution
       return result;
     }
 
-    private int Reset()
+    private void Reset()
     {
-      return _currentValue = _startingValue;
+      _currentValue = _startingValue;
     }
 
     private bool OverflowHappened()

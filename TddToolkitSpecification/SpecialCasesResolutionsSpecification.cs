@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
-using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TddToolkitSpecification.Fixtures;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -18,7 +13,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       //GIVEN
       var resolution = SpecialCasesOfResolutions<RecursiveInterface[]>
-        .CreateResolutionOfArray();
+        .CreateResolutionOfArray(new SpecialCasesOfResolutions<RecursiveInterface[]>());
       
       //WHEN
 

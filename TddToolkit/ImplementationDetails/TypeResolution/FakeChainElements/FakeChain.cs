@@ -1,4 +1,3 @@
-using System.Collections;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TddToolkit.Subgenerators;
@@ -14,17 +13,31 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   internal class FakeChain<T> : IFakeChain<T>
   {
     private readonly IChainElement<T> _chainHead;
+    //bug pass CollectionGenerator here, but make non-static
+    private static readonly SpecialCasesOfResolutions<T> SpecialCasesOfResolutions;
 
-    public static IFakeChain<T> NewInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, NestingLimit nestingLimit, ProxyGenerator generationIsDoneUsingProxies)
+    public static IFakeChain<T> NewInstance(
+      CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, 
+      NestingLimit nestingLimit, 
+      ProxyGenerator generationIsDoneUsingProxies, 
+      ValueGenerator valueGenerator)
     {
       return LimitedTo(nestingLimit,
-        UnconstrainedInstance(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies));
+        UnconstrainedInstance(
+          eachMethodReturnsTheSameValueOnEveryCall, 
+          generationIsDoneUsingProxies,
+          valueGenerator));
     }
 
-    public static FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, ProxyGenerator generationIsDoneUsingProxies)
+    static FakeChain()
+    {
+      SpecialCasesOfResolutions = new SpecialCasesOfResolutions<T>();
+    }
+
+    public static FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, ProxyGenerator generationIsDoneUsingProxies, ValueGenerator valueGenerator)
     {
       return OrderedChainOfGenerationsWithTheFollowingLogic(
-        TryTo(ResolveTheMostSpecificCases(),
+        TryTo(ResolveTheMostSpecificCases(valueGenerator),
           ElseTryTo(ResolveAsArray(),
             ElseTryTo(ResolveAsSimpleEnumerableAndList(),
               ElseTryTo(ResolveAsSimpleSet(),
@@ -43,7 +56,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
                                         ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
                                           ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
                                             ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                              ElseTryTo(ResolveAsConcreteClass(),
+                                              ElseTryTo(ResolveAsConcreteClass(valueGenerator),
                                                 ElseReportUnsupportedType()
                                               )))))))))))))))))))));
     }
@@ -59,9 +72,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new LimitedFakeChain<T>(limit, fakeChain);
     }
 
-    private static FakeConcreteClass<T> ResolveAsConcreteClass()
+    private static FakeConcreteClass<T> ResolveAsConcreteClass(ValueGenerator valueGenerator)
     {
-      return new FakeConcreteClass<T>(new FallbackTypeGenerator<T>());
+      return new FakeConcreteClass<T>(
+        new FallbackTypeGenerator<T>(), valueGenerator);
     }
 
     private static FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
@@ -84,7 +98,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new FakeUnknownCollection<T>();
     }
 
-
     private static FakeEnumerator<T> ResolveAsObjectEnumerator()
     {
       return new FakeEnumerator<T>();
@@ -92,67 +105,67 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     private static IResolution<T> ResolveAsGenericEnumerator()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfGenericEnumerator();
+      return SpecialCasesOfResolutions.CreateResolutionOfGenericEnumerator();
     }
 
     private static IResolution<T> ResolveAsKeyValuePair()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfKeyValuePair();
+      return SpecialCasesOfResolutions.CreateResolutionOfKeyValuePair();
     }
 
     private static IResolution<T> ResolveAsSortedDictionary()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedDictionary();
+      return SpecialCasesOfResolutions.CreateResolutionOfSortedDictionary();
     }
 
     private static IResolution<T> ResolveAsConcurrentStack()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentStack();
+      return SpecialCasesOfResolutions.CreateResolutionOfConcurrentStack();
     }
 
     private static IResolution<T> ResolveAsConcurrentQueue()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentQueue();
+      return SpecialCasesOfResolutions.CreateResolutionOfConcurrentQueue();
     }
 
     private static IResolution<T> ResolveAsConcurrentBag()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentBag();
+      return SpecialCasesOfResolutions.CreateResolutionOfConcurrentBag();
     }
 
     private static IResolution<T> ResolveAsConcurrentDictionary()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfConcurrentDictionary();
+      return SpecialCasesOfResolutions.CreateResolutionOfConcurrentDictionary();
     }
 
     private static IResolution<T> ResolveAsSortedSet()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedSet();
+      return SpecialCasesOfResolutions.CreateResolutionOfSortedSet();
     }
 
     private static IResolution<T> ResolveAsSortedList()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfSortedList();
+      return SpecialCasesOfResolutions.CreateResolutionOfSortedList();
     }
 
     private static ResolutionOfTypeWithGenerics<T> ResolveAsSimpleDictionary()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleDictionary();
+      return SpecialCasesOfResolutions.CreateResolutionOfSimpleDictionary();
     }
 
     private static ResolutionOfTypeWithGenerics<T> ResolveAsSimpleSet()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleSet();
+      return SpecialCasesOfResolutions.CreateResolutionOfSimpleSet();
     }
 
     private static ResolutionOfTypeWithGenerics<T> ResolveAsSimpleEnumerableAndList()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfSimpleIEnumerableAndList();
+      return SpecialCasesOfResolutions.CreateResolutionOfSimpleIEnumerableAndList();
     }
 
-    private static FakeSpecialCase<T> ResolveTheMostSpecificCases()
+    private static FakeSpecialCase<T> ResolveTheMostSpecificCases(ValueGenerator valueGenerator)
     {
-      return new FakeSpecialCase<T>();
+      return new FakeSpecialCase<T>(valueGenerator);
     }
 
     private static InvalidChainElement<T> ElseReportUnsupportedType()
@@ -165,14 +178,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new ChainElement<T>(handleArraysInSpecialWay, chainElement);
     }
 
-    private static IChainElement<T> TryTo(FakeSpecialCase<T> fakeSpecialCase, IChainElement<T> chainElement)
+    private static IChainElement<T> TryTo(IResolution<T> fakeSpecialCase, IChainElement<T> chainElement)
     {
       return new ChainElement<T>(fakeSpecialCase, chainElement);
     }
 
     private static IResolution<T> ResolveAsArray()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfArray();
+      return SpecialCasesOfResolutions<T>.CreateResolutionOfArray(SpecialCasesOfResolutions);
     }
 
 
@@ -184,19 +197,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
     {
       return _chainHead.Resolve(proxyBasedGenerator);
-    }
-  }
-
-  public class FakeEnumerator<T> : IResolution<T>
-  {
-    public bool Applies()
-    {
-      return TypeOf<T>.Is<IEnumerator>();
-    }
-
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
-    {
-      return (T)(Any.Array<object>().GetEnumerator());
     }
   }
 }

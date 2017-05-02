@@ -1,6 +1,8 @@
+using System;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 {
@@ -29,7 +31,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
       var result = (T)(_proxyGenerator.CreateClassProxy(
         typeof(T),
         _fallbackTypeGenerator.GenerateConstructorParameters(proxyBasedGenerator).ToArray(), 
-        new AbstractClassInterceptor(_generation)));
+        new AbstractClassInterceptor(_generation, 
+        proxyBasedGenerator.Instance)));
       _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
       return result;
     }

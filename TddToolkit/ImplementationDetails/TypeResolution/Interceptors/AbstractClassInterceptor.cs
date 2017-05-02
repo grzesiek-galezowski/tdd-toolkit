@@ -7,17 +7,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
   internal class AbstractClassInterceptor : IInterceptor
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;
+    private readonly Func<Type, object> _instanceSource;
 
-    public AbstractClassInterceptor(CachedReturnValueGeneration cachedGeneration)
+    public AbstractClassInterceptor(
+      CachedReturnValueGeneration cachedGeneration, Func<Type, object> instanceSource)
     {
       _cachedGeneration = cachedGeneration;
+      _instanceSource = instanceSource;
     }
 
     public void Intercept(IInvocation invocation)
     {
       if (invocation.Method.IsAbstract)
       {
-        _cachedGeneration.SetupReturnValueFor(invocation);
+        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
       }
       else if (invocation.Method.IsVirtual)
       {
@@ -29,12 +32,12 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
 
           if (invocation.ReturnValue == previousReturnValue)
           {
-            _cachedGeneration.SetupReturnValueFor(invocation);
+            _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
           }
         }
         catch (Exception)
         {
-          _cachedGeneration.SetupReturnValueFor(invocation);
+          _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
         }
       }
     }

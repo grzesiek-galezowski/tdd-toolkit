@@ -6,6 +6,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   internal class FakeSpecialCase<T> : IResolution<T>
   {
+    private readonly ValueGenerator _valueGenerator;
+
+    public FakeSpecialCase(ValueGenerator valueGenerator)
+    {
+      _valueGenerator = valueGenerator;
+    }
+
     public bool Applies()
     {
       return 
@@ -15,7 +22,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Any.ValueOf<T>();
+      return _valueGenerator.ValueOf<T>();
     }
   }
 }

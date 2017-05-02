@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using TddEbook.TddToolkit.Subgenerators;
+﻿using System.Linq;
 using TddEbook.TypeReflection;
 using Type = System.Type;
 
@@ -28,7 +26,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
       var type = typeof(T);
-      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type);
+      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, proxyBasedGenerator);
     }
 
   }

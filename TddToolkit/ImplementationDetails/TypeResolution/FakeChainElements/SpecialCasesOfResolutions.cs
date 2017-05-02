@@ -1,86 +1,91 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  public static class SpecialCasesOfResolutions<T>
+  public class SpecialCasesOfResolutions<T>
   {
-    public static IResolution<T> CreateResolutionOfKeyValuePair()
+    public IResolution<T> CreateResolutionOfKeyValuePair()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(Any.KeyValuePair), typeof(KeyValuePair<,>)
+        new FactoryForInstancesOfGenericTypesWith2Generics((p,t1,t2) => Any.KeyValuePair(t1,t2)), typeof(KeyValuePair<,>)
         );
     }
 
-    public static IResolution<T> CreateResolutionOfSortedDictionary()
+    public IResolution<T> CreateResolutionOfSortedDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(Any.SortedDictionary), typeof(SortedDictionary<,>));
+        new FactoryForInstancesOfGenericTypesWith2Generics((p, t1, t2) => Any.SortedDictionary(t1,t2)), typeof(SortedDictionary<,>));
     }
 
-    public static IResolution<T> CreateResolutionOfSortedSet()
+    public IResolution<T> CreateResolutionOfSortedSet()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.SortedSet), typeof(SortedSet<>));
+        new FactoryForInstancesOfGenericTypesWith1Generic((p, t1) => Any.SortedSet(t1)), typeof(SortedSet<>));
     }
 
-    public static IResolution<T> CreateResolutionOfSortedList()
+    public IResolution<T> CreateResolutionOfSortedList()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(Any.SortedList), typeof(SortedList<,>));
+        new FactoryForInstancesOfGenericTypesWith2Generics((p,t1,t2) => Any.SortedList(t1,t2)), typeof(SortedList<,>));
     }
 
-    public static ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleDictionary()
+    public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(Any.Dictionary),
+        new FactoryForInstancesOfGenericTypesWith2Generics(
+          (p,t1,t2) => Any.Dictionary(t1,t2)),
         typeof(IDictionary<,>), 
         typeof(IReadOnlyDictionary<,>), 
         typeof(Dictionary<,>));
     }
 
-    public static ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleSet()
+    public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleSet()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.Set), 
+        new FactoryForInstancesOfGenericTypesWith1Generic(
+          (p,t) => Any.Set(t)), 
         typeof(ISet<>), typeof(HashSet<>));
     }
 
-    public static IResolution<T> CreateResolutionOfConcurrentStack()
+    public IResolution<T> CreateResolutionOfConcurrentStack()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.ConcurrentStack),
+        new FactoryForInstancesOfGenericTypesWith1Generic(
+          (p,t) => Any.ConcurrentStack(t)),
         typeof(ConcurrentStack<>));
     }
 
-    public static IResolution<T> CreateResolutionOfConcurrentQueue()
+    public IResolution<T> CreateResolutionOfConcurrentQueue()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.ConcurrentQueue),
+        new FactoryForInstancesOfGenericTypesWith1Generic(
+          (p,t) => Any.ConcurrentQueue(t)),
         typeof(ConcurrentQueue<>), typeof(IProducerConsumerCollection<>));
     }
 
-    public static IResolution<T> CreateResolutionOfConcurrentBag()
+    public IResolution<T> CreateResolutionOfConcurrentBag()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.ConcurrentBag),
+        new FactoryForInstancesOfGenericTypesWith1Generic(
+          (p,t) => Any.ConcurrentBag(t)),
         typeof(ConcurrentBag<>));
     }
 
-    public static IResolution<T> CreateResolutionOfConcurrentDictionary()
+    public IResolution<T> CreateResolutionOfConcurrentDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(Any.ConcurrentDictionary),
+        new FactoryForInstancesOfGenericTypesWith2Generics(
+          (p,t1,t2) => Any.ConcurrentDictionary(t1,t2)),
         typeof(ConcurrentDictionary<,>));
     }
 
-    public static ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleIEnumerableAndList()
+    public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleIEnumerableAndList()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.List),
+        new FactoryForInstancesOfGenericTypesWith1Generic(
+          (p,t) => Any.List(t)),
         typeof(IList<>), 
         typeof(IEnumerable<>), 
         typeof(ICollection<>), 
@@ -88,32 +93,19 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         typeof(IReadOnlyList<>));
     }
 
-    public static IResolution<T> CreateResolutionOfArray()
+    public static IResolution<T> CreateResolutionOfArray(SpecialCasesOfResolutions<T> specialCasesOfResolutions)
     {
       return new ResolutionOfArrays<T>();
     }
 
-    public static IResolution<T> CreateResolutionOfGenericEnumerator()
+    public IResolution<T> CreateResolutionOfGenericEnumerator()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic(Any.Enumerator),
+        new FactoryForInstancesOfGenericTypesWith1Generic((p,t) => Any.Enumerator(t)),
         typeof(IEnumerator<>)
       );
     }
 
 
-  }
-
-  public class ResolutionOfArrays<T> : IResolution<T>
-  {
-    public bool Applies()
-    {
-      return typeof (T).IsArray;
-    }
-
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
-    {
-      return (T)Any.Array(typeof (T).GetElementType());
-    }
   }
 }

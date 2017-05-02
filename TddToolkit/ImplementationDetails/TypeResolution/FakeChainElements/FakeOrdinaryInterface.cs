@@ -1,18 +1,19 @@
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors;
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   public class FakeOrdinaryInterface<T> : IResolution<T>
   {
+    private readonly CachedReturnValueGeneration _cachedGeneration;
     private readonly ProxyGenerator _proxyGenerator;
-    private readonly InterfaceInterceptor _interceptor;
 
     public FakeOrdinaryInterface(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
+      _cachedGeneration = cachedGeneration;
       _proxyGenerator = proxyGenerator;
-      _interceptor = new InterfaceInterceptor(cachedGeneration);
     }
 
     public bool Applies()
@@ -22,7 +23,8 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public T Apply(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(typeof(T), _interceptor);
+      return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
+        typeof(T), new InterfaceInterceptor(_cachedGeneration, proxyBasedGenerator.Instance));
     }
   }
 }

@@ -1,4 +1,5 @@
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {

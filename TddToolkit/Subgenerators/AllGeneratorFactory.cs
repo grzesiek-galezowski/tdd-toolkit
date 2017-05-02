@@ -32,7 +32,8 @@ namespace TddEbook.TddToolkit.Subgenerators
         new FakeChainFactory(
           new CachedReturnValueGeneration(new PerMethodCache<object>()), 
           GlobalNestingLimit.Of(5), 
-          proxyGenerator));
+          proxyGenerator,
+          valueGenerator));
       var stringGenerator = new StringGenerator(
         charGenerator, 
         valueGenerator, 
@@ -46,7 +47,8 @@ namespace TddEbook.TddToolkit.Subgenerators
         emptyCollectionGenerator, 
         numericGenerator, 
         proxyBasedGenerator, 
-        new CollectionGenerator(proxyBasedGenerator), 
+        new CollectionGenerator(proxyBasedGenerator,
+          methodProxyCalls), 
         new InvokableGenerator(proxyBasedGenerator));
       fixtureConfiguration.ApplyTo(fixture, stringGenerator, numericGenerator);
       return allGenerator;

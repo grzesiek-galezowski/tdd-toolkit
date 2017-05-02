@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Runtime.Serialization;
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
@@ -29,8 +30,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         {
           try
           {
-            //return default(T);
-            return Any.Dummy<T>();
+            return proxyBasedGenerator.Dummy<T>();
           }
           catch (TargetInvocationException e)
           {
