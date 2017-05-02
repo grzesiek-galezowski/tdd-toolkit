@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeChainFactory.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeEnumerator.cs" />
+    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\GenericFakeChainFactory.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ResolutionOfArrays.cs" />
     <Compile Include="ImplementationDetails\TypeResolution\InterceptedInvocation.cs" />
     <Compile Include="Subgenerators\AllGenerator.cs" />

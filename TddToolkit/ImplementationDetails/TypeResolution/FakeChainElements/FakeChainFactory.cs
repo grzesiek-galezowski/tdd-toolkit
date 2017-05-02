@@ -28,12 +28,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public IFakeChain<T> GetInstance<T>()
     {
-      return GetInstanceWithMemoization(() =>FakeChain<T>.NewInstance(
-        _cachedReturnValueGeneration,
-        _nestingLimit,
-        _proxyGenerator,
-        _valueGenerator
-      ), _constrainedFactoryCache);
+      return GetInstanceWithMemoization(() => 
+        new GenericFakeChainFactory<T>(
+          new SpecialCasesOfResolutions<T>()).NewInstance(
+            _cachedReturnValueGeneration,
+            _nestingLimit,
+            _proxyGenerator,
+            _valueGenerator
+          ), _constrainedFactoryCache);
     }
 
     private static IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
@@ -52,7 +54,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public IFakeChain<T> GetUnconstrainedInstance<T>()
     {
-      return GetInstanceWithMemoization(() => FakeChain<T>.UnconstrainedInstance(
+      return GetInstanceWithMemoization(() => new GenericFakeChainFactory<T>(new SpecialCasesOfResolutions<T>()).UnconstrainedInstance(
         _cachedReturnValueGeneration,
         _proxyGenerator, _valueGenerator), 
         _unconstrainedFactoryCache);

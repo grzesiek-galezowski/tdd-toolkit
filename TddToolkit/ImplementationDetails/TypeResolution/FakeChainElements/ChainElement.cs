@@ -3,7 +3,7 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
-  internal interface IChainElement<out T>
+  public interface IChainElement<out T>
   {
     T Resolve(IProxyBasedGenerator proxyBasedGenerator);
   }
