@@ -19,9 +19,9 @@ namespace TddEbook.TddToolkit.Subgenerators
     T InstanceOf<T>();
     T Instance<T>();
     T OtherThan<T>(params T[] omittedValues);
-    object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name);
-    object ResultOfGenericVersionOfMethod(Type type, string name);
     object Instance(Type type);
+    object ResultOfGenericVersionOfMethod<T>(T instance, Type keyType, Type valueType, string name);
+    object ResultOfGenericVersionOfMethod<T>(T instance, Type type, string name);
   }
 
   public class ProxyBasedGenerator : IProxyBasedGenerator
@@ -117,11 +117,6 @@ namespace TddEbook.TddToolkit.Subgenerators
       return currentValue;
     }
 
-    public object ResultOfGenericVersionOfMethod<T>(Type type, string name)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<T>(type, name);
-    }
-
     public T Exploding<T>() where T : class
     {
       if (typeof(T).IsInterface)
@@ -140,30 +135,19 @@ namespace TddEbook.TddToolkit.Subgenerators
       return OtherThan(omittedValues.Cast<T>().ToArray());
     }
 
-    public object InstanceOf(Type type)
-    {
-      return ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
-    }
-
     public object Instance(Type type)
     {
-      return ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
-    //bug remove
-    public object ResultOfGenericVersionOfMethod<T>(Type type, string name, object[] args)
+    public object ResultOfGenericVersionOfMethod<T>(T instance, Type keyType, Type valueType, string name)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<T>(type, name, args);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(instance, keyType, valueType, name);
     }
 
-    public object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name)
+    public object ResultOfGenericVersionOfMethod<T>(T instance, Type type, string name)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(type1, type2, name);
-    }
-
-    object IProxyBasedGenerator.ResultOfGenericVersionOfMethod(Type type, string name)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(type, name);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(instance, type, name);
     }
   }
 }

@@ -307,47 +307,50 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object List(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+        this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Set(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Dictionary(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(
-        keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object SortedList(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(
-        keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object SortedSet(Type type)
     {
       return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
-        type, MethodBase.GetCurrentMethod().Name); 
+        this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
     public object SortedDictionary(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(
-        keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ConcurrentDictionary(Type keyType, Type valueType)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(
-        keyType, valueType, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object Array(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      //bug is this implementation OK?
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(
+        this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
     public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
@@ -361,22 +364,22 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object Enumerator(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name); 
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
     public object ConcurrentStack(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ConcurrentQueue(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
 
     public object ConcurrentBag(Type type)
     {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod().Name);
+      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
     }
   }
 }

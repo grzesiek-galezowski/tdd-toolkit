@@ -148,11 +148,6 @@ namespace TddEbook.TddToolkit
       return Generate.Instance(type);
     }
 
-    public static object InstanceOtherThanObjects(Type type, params object[] omittedValues)
-    {
-      return Generate.InstanceOtherThanObjects(type, omittedValues);
-    }
-
     public static IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
       return Generate.EnumerableWith(included);

@@ -23,8 +23,10 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public object EmptyEnumerableOf(Type collectionType)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(
-        collectionType, MethodBase.GetCurrentMethod().Name);
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, 
+        collectionType, 
+        MethodBase.GetCurrentMethod().Name);
     }
   }
 }

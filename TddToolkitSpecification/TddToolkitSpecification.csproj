@@ -132,10 +132,6 @@
       <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
       <Name>CommonTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TddToolkit.Nunit\TddToolkit.NUnit.csproj">
-      <Project>{68DCBAC1-1218-4E61-B92C-EA2C8D0E7A3C}</Project>
-      <Name>TddToolkit.NUnit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
       <Project>{a52e21f4-2301-4f4e-9361-be954fb490a0}</Project>
       <Name>TddToolkit</Name>

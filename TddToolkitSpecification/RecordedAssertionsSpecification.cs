@@ -4,17 +4,18 @@ using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
-using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 
 namespace TddEbook.TddToolkitSpecification
 {
   class RecordedAssertionsSpecification
   {
     [Test]
-    public void ShouldAddErrorMessageWhenTruthAssertionFails(
-      [Substitute] IConstraintsViolations violations,
-      [Any] string message)
+    public void ShouldAddErrorMessageWhenTruthAssertionFails()
     {
+      //GIVEN
+      var violations = Substitute.For<IConstraintsViolations>();
+      var message = Any.String();
+
       //WHEN
       RecordedAssertions.True(false, message, violations);
 
@@ -23,10 +24,12 @@ namespace TddEbook.TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldNotAddErrorMessageWhenTruthAssertionPasses(
-      [Substitute] IConstraintsViolations violations,
-      [Any] string message)
+    public void ShouldNotAddErrorMessageWhenTruthAssertionPasses()
     {
+      //GIVEN
+      var violations = Substitute.For<IConstraintsViolations>();
+      var message = Any.String();
+
       //WHEN
       RecordedAssertions.True(true, message, violations);
 

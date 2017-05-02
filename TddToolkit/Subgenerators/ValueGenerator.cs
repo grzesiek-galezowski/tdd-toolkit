@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using System.Reflection;
 using Ploeh.AutoFixture;
 
 namespace TddEbook.TddToolkit.Subgenerators
@@ -8,12 +6,10 @@ namespace TddEbook.TddToolkit.Subgenerators
   public class ValueGenerator
   {
     private readonly Fixture _generator;
-    private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 
-    public ValueGenerator(Fixture generator, GenericMethodProxyCalls genericMethodProxyCalls)
+    public ValueGenerator(Fixture generator)
     {
       _generator = generator;
-      _genericMethodProxyCalls = genericMethodProxyCalls;
     }
 
     public T ValueOtherThan<T>(params T[] omittedValues)
@@ -31,12 +27,6 @@ namespace TddEbook.TddToolkit.Subgenerators
     {
       //bug: add support for creating generic structs with interfaces
       return _generator.Create<T>();
-    }
-
-    public object ValueOf(Type type)
-    {
-      //bug put under test and change Any to current
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name);
     }
 
     public T ValueOf<T>(T seed)

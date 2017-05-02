@@ -8,13 +8,9 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using NSubstitute.Core;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Nunit.NUnitExtensions;
 using TddEbook.TddToolkitSpecification.Fixtures;
-using TddEbook.TypeReflection;
 using Type = System.Type;
 
 // ReSharper disable PublicConstructorInAbstractClass
@@ -541,39 +537,6 @@ namespace TddEbook.TddToolkitSpecification
       var concurrentStack = Any.Instance<ConcurrentStack<string>>();
       var concurrentBag = Any.Instance<ConcurrentBag<string>>();
       var concurrentQueue = Any.Instance<ConcurrentQueue<string>>();
-
-      XAssert.All(assert =>
-      {
-        assert.Equal(anyCount, list.Count);
-        assert.Equal(anyCount, enumerable.Count());
-        assert.Equal(anyCount, array.Length);
-        assert.Equal(anyCount, set.Count);
-        assert.Equal(anyCount, dictionary.Count);
-        assert.Equal(anyCount, sortedList.Count);
-        assert.Equal(anyCount, sortedDictionary.Count);
-        assert.Equal(anyCount, concurrentDictionary.Count);
-        assert.Equal(anyCount, concurrentStack.Count);
-        assert.Equal(anyCount, concurrentBag.Count);
-        assert.Equal(anyCount, concurrentQueue.Count);
-      });
-    }
-
-    [Test]
-    public void ShouldSupportGeneratingCollectionsUsingGenericInstanceMethodUsingAttributes(
-      [Any] List<RecursiveInterface> list,
-      [Any] RecursiveInterface[] array,
-      [Any] HashSet<RecursiveInterface> set,
-      [Any] Dictionary<RecursiveInterface, ISimple> dictionary,
-      [Any] SortedList<string, ISimple> sortedList,
-      [Any] SortedDictionary<string, ISimple> sortedDictionary,
-      [Any] IEnumerable<RecursiveInterface> enumerable,
-      [Any] ConcurrentDictionary<string, ISimple> concurrentDictionary,
-      [Any] ConcurrentStack<string> concurrentStack,
-      [Any] ConcurrentBag<string> concurrentBag,
-      [Any] ConcurrentQueue<string> concurrentQueue
-      )
-    {
-      const int anyCount = 3;
 
       XAssert.All(assert =>
       {

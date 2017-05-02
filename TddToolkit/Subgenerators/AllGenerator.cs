@@ -175,19 +175,9 @@ namespace TddEbook.TddToolkit.Subgenerators
       return _stringGenerator.Ip();
     }
 
-    public object ValueOf(Type type)
-    {
-      return _valueGenerator.ValueOf(type);
-    }
-
     public object EmptyEnumerableOf(Type collectionType)
     {
       return _emptyCollectionGenerator.EmptyEnumerableOf(collectionType);
-    }
-
-    public object InstanceOtherThanObjects(Type type, params object[] omittedValues)
-    {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, MethodBase.GetCurrentMethod().Name, omittedValues);
     }
 
     public T InstanceOtherThanObjects<T>(params object[] omittedValues)
@@ -858,11 +848,6 @@ namespace TddEbook.TddToolkit.Subgenerators
       var genericMethod = method.MakeGenericMethod(type1, type2);
 
       return genericMethod.Invoke(null, null);
-    }
-
-    public object ResultOfGenericVersionOfMethod(Type type, string name)
-    {
-      return _proxyBasedGenerator.ResultOfGenericVersionOfMethod<Any>(type, name);
     }
 
     public char AlphaChar()

@@ -37,7 +37,7 @@ namespace TddEbook.TddToolkit.Nunit.NUnitExtensions
 
     public IEnumerable GetData(IParameterInfo parameter)
     {
-      return new[] { Any.InstanceOtherThanObjects(parameter.ParameterType, new object[] { _omittedValues }) };
+      return new[] { Any.OtherThan(parameter.ParameterType, new object[] { _omittedValues }) };
     }
   }
 }

@@ -13,7 +13,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       var fixtureConfiguration = new AutoFixtureConfiguration();
       var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
       var methodProxyCalls = new GenericMethodProxyCalls();
-      var valueGenerator = new ValueGenerator(fixture, methodProxyCalls);
+      var valueGenerator = new ValueGenerator(fixture);
       var charGenerator = new CharGenerator(valueGenerator);
       var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
       var emptyCollectionFixture = new Fixture
