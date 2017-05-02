@@ -6,14 +6,10 @@ namespace TddEbook.TddToolkit.Subgenerators
 {
   public class GenericMethodProxyCalls
   {
-    public GenericMethodProxyCalls()
-    {
-    }
-
-    public object ResultOfGenericVersionOfMethod<T>(Type type, string name)
+    public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name)
     {
       return typeof(T).GetMethods().Where(NameIs(name))
-        .First(ParameterlessGenericVersion()).MakeGenericMethod(type).Invoke(null, null);
+        .First(ParameterlessGenericVersion()).MakeGenericMethod(genericArgumentType).Invoke(instance, null);
     }
 
     public static Func<MethodInfo, bool> ParameterlessGenericVersion()
@@ -26,38 +22,23 @@ namespace TddEbook.TddToolkit.Subgenerators
       return m => m.Name == name;
     }
 
-    public object ResultOfGenericVersionOfMethod<T>(Type type, string name, object[] args)
+    public object ResultOfGenericVersionOfMethod<T>(T instance, Type type1, Type type2, string name)
     {
-      var method = FindEmptyGenericsMethod<T>(name);
-
-      var genericMethod = method.MakeGenericMethod(type);
-
-      return genericMethod.Invoke(null, args);
-    }
-
-    public object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name)
-    {
-      var method = FindEmptyGenericsMethod<T>(name);
+      var method = FindEmptyGenericsInstanceMethod<T>(name);
 
       var genericMethod = method.MakeGenericMethod(type1, type2);
 
-      return genericMethod.Invoke(null, null);
+      return genericMethod.Invoke(instance, null);
     }
 
-    public object ResultOfGenericVersionOfMethod(Type type, string name)
-    {
-      return ResultOfGenericVersionOfMethod<Any>(type, name);
-    }
-
-    public MethodInfo FindEmptyGenericsMethod<T>(string name)
+    public MethodInfo FindEmptyGenericsInstanceMethod<T>(string name)
     {
       var methods = typeof(T).GetMethods(
-          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
         .Where(m => m.IsGenericMethodDefinition)
         .Where(m => !m.GetParameters().Any());
       var method = methods.First(m => m.Name == name);
       return method;
     }
-
   }
 }
