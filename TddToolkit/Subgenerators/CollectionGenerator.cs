@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators
@@ -178,12 +179,8 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
     {
-      var dict = new Dictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(_proxyBasedGenerator.Instance<TKey>(), _proxyBasedGenerator.Instance<TValue>());
-      }
-      return dict;
+      return new SpecialCasesOfResolutions<Dictionary<TKey, TValue>>(_genericMethodProxyCalls)
+        .AnyDictionary<TKey, TValue>(_proxyBasedGenerator, length);
     }
 
     public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
@@ -319,12 +316,6 @@ namespace TddEbook.TddToolkit.Subgenerators
     public object Set(Type type)
     {
       return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public object Dictionary(Type keyType, Type valueType)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
     }
 
     public object SortedList(Type keyType, Type valueType)

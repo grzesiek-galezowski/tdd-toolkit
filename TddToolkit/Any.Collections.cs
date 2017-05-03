@@ -247,12 +247,6 @@ namespace TddEbook.TddToolkit
       return Generate.Set(type);
     }
 
-    public static object Dictionary(Type keyType, Type valueType)
-    {
-      return Generate.Dictionary(keyType, valueType);
-    }
-
-
     public static object SortedList(Type keyType, Type valueType)
     {
       return Generate.SortedList(keyType, valueType);
@@ -281,11 +275,6 @@ namespace TddEbook.TddToolkit
     private static ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
     {
       return Generate.AddManyTo(collection, many);
-    }
-
-    public static object KeyValuePair(Type keyType, Type valueType)
-    {
-      return Generate.KeyValuePair(keyType, valueType);
     }
 
     public static object Enumerator(Type type)

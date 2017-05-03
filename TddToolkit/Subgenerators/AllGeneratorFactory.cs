@@ -33,7 +33,8 @@ namespace TddEbook.TddToolkit.Subgenerators
           new CachedReturnValueGeneration(new PerMethodCache<object>()), 
           GlobalNestingLimit.Of(5), 
           proxyGenerator,
-          valueGenerator));
+          valueGenerator,
+          methodProxyCalls));
       var stringGenerator = new StringGenerator(
         charGenerator, 
         valueGenerator, 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Reflection;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.Subgenerators;
 
@@ -11,26 +13,29 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly NestingLimit _nestingLimit;
     private readonly ProxyGenerator _proxyGenerator;
     private readonly ValueGenerator _valueGenerator;
+    private readonly GenericMethodProxyCalls _methodProxyCalls;
     private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
 
     public FakeChainFactory(
       CachedReturnValueGeneration cachedReturnValueGeneration, 
       NestingLimit nestingLimit, 
-      ProxyGenerator proxyGenerator,
-      ValueGenerator valueGenerator)
+      ProxyGenerator proxyGenerator, 
+      ValueGenerator valueGenerator, 
+      GenericMethodProxyCalls methodProxyCalls)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
       _nestingLimit = nestingLimit;
       _proxyGenerator = proxyGenerator;
       _valueGenerator = valueGenerator;
+      _methodProxyCalls = methodProxyCalls;
     }
 
     public IFakeChain<T> GetInstance<T>()
     {
       return GetInstanceWithMemoization(() => 
         new GenericFakeChainFactory<T>(
-          new SpecialCasesOfResolutions<T>()).NewInstance(
+          CreateSpecialCasesOfResolutions<T>()).NewInstance(
             _cachedReturnValueGeneration,
             _nestingLimit,
             _proxyGenerator,
@@ -54,10 +59,17 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public IFakeChain<T> GetUnconstrainedInstance<T>()
     {
-      return GetInstanceWithMemoization(() => new GenericFakeChainFactory<T>(new SpecialCasesOfResolutions<T>()).UnconstrainedInstance(
+      return GetInstanceWithMemoization(() => 
+      new GenericFakeChainFactory<T>(
+        CreateSpecialCasesOfResolutions<T>()).UnconstrainedInstance(
         _cachedReturnValueGeneration,
         _proxyGenerator, _valueGenerator), 
         _unconstrainedFactoryCache);
+    }
+
+    private SpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
+    {
+      return new SpecialCasesOfResolutions<T>(_methodProxyCalls);
     }
 
     public FakeOrdinaryInterface<T> CreateFakeOrdinaryInterfaceGenerator<T>()

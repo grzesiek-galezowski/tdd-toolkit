@@ -530,11 +530,6 @@ namespace TddEbook.TddToolkit.Subgenerators
       return _collectionGenerator.Set(type);
     }
 
-    public object Dictionary(Type keyType, Type valueType)
-    {
-      return _collectionGenerator.Dictionary(keyType, valueType);
-    }
-
     public object SortedList(Type keyType, Type valueType)
     {
       return _collectionGenerator.SortedList(keyType, valueType);
@@ -563,13 +558,6 @@ namespace TddEbook.TddToolkit.Subgenerators
     public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
     {
       return _collectionGenerator.AddManyTo(collection, many);
-    }
-
-    public object KeyValuePair(Type keyType, Type valueType)
-    {
-      return Activator.CreateInstance(
-        typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType), _proxyBasedGenerator.Instance(keyType), _proxyBasedGenerator.Instance(valueType)
-      );
     }
 
     public object Enumerator(Type type)

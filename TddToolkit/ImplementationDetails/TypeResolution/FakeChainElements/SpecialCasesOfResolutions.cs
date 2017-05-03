@@ -1,15 +1,25 @@
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Reflection;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   public class SpecialCasesOfResolutions<T>
   {
+    private readonly GenericMethodProxyCalls _methodProxyCalls;
+
+    public SpecialCasesOfResolutions(GenericMethodProxyCalls methodProxyCalls)
+    {
+      _methodProxyCalls = methodProxyCalls;
+    }
+
     public IResolution<T> CreateResolutionOfKeyValuePair()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics((p,t1,t2) => Any.KeyValuePair(t1,t2)), typeof(KeyValuePair<,>)
+        new FactoryForInstancesOfGenericTypesWith2Generics(AnyKeyValuePair), typeof(KeyValuePair<,>)
         );
     }
 
@@ -34,12 +44,35 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(
-          (p,t1,t2) => Any.Dictionary(t1,t2)),
+        new FactoryForInstancesOfGenericTypesWith2Generics(AnyDictionary),
         typeof(IDictionary<,>), 
         typeof(IReadOnlyDictionary<,>), 
         typeof(Dictionary<,>));
     }
+
+    public object AnyDictionary(IProxyBasedGenerator generator, Type keyType, Type valueType)
+    {
+      return _methodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] {generator});
+    }
+
+    public Dictionary<TKey, TValue> AnyDictionary<TKey, TValue>(IProxyBasedGenerator generator)
+    {
+      return AnyDictionary<TKey, TValue>(generator, AllGenerator.Many);
+    }
+
+    public Dictionary<TKey, TValue> AnyDictionary<TKey, TValue>(IProxyBasedGenerator generator, int length)
+    {
+      //bug change to Any.Instance<Dictionary<Key,Value>>()
+      var dict = new Dictionary<TKey, TValue>();
+      for (int i = 0; i < length; ++i)
+      {
+        dict.Add(generator.Instance<TKey>(), generator.Instance<TValue>());
+      }
+      return dict;
+    }
+
+
 
     public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleSet()
     {
@@ -93,7 +126,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         typeof(IReadOnlyList<>));
     }
 
-    public static IResolution<T> CreateResolutionOfArray(SpecialCasesOfResolutions<T> specialCasesOfResolutions)
+    public IResolution<T> CreateResolutionOfArray()
     {
       return new ResolutionOfArrays<T>();
     }
@@ -103,6 +136,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic((p,t) => Any.Enumerator(t)),
         typeof(IEnumerator<>)
+      );
+    }
+
+    private object AnyKeyValuePair(IProxyBasedGenerator generator, Type keyType, Type valueType)
+    {
+      return Activator.CreateInstance(
+        typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType), generator.Instance(keyType), generator.Instance(valueType)
       );
     }
 

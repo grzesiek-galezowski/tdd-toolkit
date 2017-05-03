@@ -175,7 +175,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     private IResolution<T> ResolveAsArray()
     {
-      return SpecialCasesOfResolutions<T>.CreateResolutionOfArray(_specialCasesOfResolutions);
+      return _specialCasesOfResolutions.CreateResolutionOfArray();
     }
   }
 }

@@ -105,14 +105,12 @@ namespace TddEbook.TddToolkit.Subgenerators
     IEnumerator<T> Enumerator<T>();
     object List(Type type);
     object Set(Type type);
-    object Dictionary(Type keyType, Type valueType);
     object SortedList(Type keyType, Type valueType);
     object SortedSet(Type type);
     object SortedDictionary(Type keyType, Type valueType);
     object ConcurrentDictionary(Type keyType, Type valueType);
     object Array(Type type);
     ICollection<T> AddManyTo<T>(ICollection<T> collection, int many);
-    object KeyValuePair(Type keyType, Type valueType);
     object Enumerator(Type type);
     object ConcurrentStack(Type type);
     object ConcurrentQueue(Type type);
