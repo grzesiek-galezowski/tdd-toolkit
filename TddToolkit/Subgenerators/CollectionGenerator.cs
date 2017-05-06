@@ -175,7 +175,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return new SpecialCasesOfResolutions<Dictionary<TKey, TValue>>(_genericMethodProxyCalls)
+      return new SpecialCasesOfResolutions<Dictionary<TKey, TValue>>(_genericMethodProxyCalls, this)
         .AnyDictionary<TKey, TValue>(proxyBasedGenerator, length);
     }
 
@@ -212,7 +212,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return new SpecialCasesOfResolutions<SortedDictionary<TKey, TValue>>(_genericMethodProxyCalls)
+      return new SpecialCasesOfResolutions<SortedDictionary<TKey, TValue>>(_genericMethodProxyCalls, this)
         .SortedDictionary<TKey, TValue>(proxyBasedGenerator, length);
     }
 

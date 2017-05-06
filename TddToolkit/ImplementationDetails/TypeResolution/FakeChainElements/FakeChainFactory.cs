@@ -13,6 +13,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly NestingLimit _nestingLimit;
     private readonly ProxyGenerator _proxyGenerator;
     private readonly ValueGenerator _valueGenerator;
+    private readonly CollectionGenerator _collectionGenerator;
     private readonly GenericMethodProxyCalls _methodProxyCalls;
     private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
@@ -22,12 +23,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       NestingLimit nestingLimit, 
       ProxyGenerator proxyGenerator, 
       ValueGenerator valueGenerator, 
+      CollectionGenerator collectionGenerator, 
       GenericMethodProxyCalls methodProxyCalls)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
       _nestingLimit = nestingLimit;
       _proxyGenerator = proxyGenerator;
       _valueGenerator = valueGenerator;
+      _collectionGenerator = collectionGenerator;
       _methodProxyCalls = methodProxyCalls;
     }
 
@@ -69,7 +72,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     private SpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
     {
-      return new SpecialCasesOfResolutions<T>(_methodProxyCalls);
+      return new SpecialCasesOfResolutions<T>(_methodProxyCalls, _collectionGenerator);
     }
 
     public FakeOrdinaryInterface<T> CreateFakeOrdinaryInterfaceGenerator<T>()

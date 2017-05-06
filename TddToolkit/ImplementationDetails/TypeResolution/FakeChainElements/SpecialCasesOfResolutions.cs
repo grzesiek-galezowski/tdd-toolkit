@@ -10,10 +10,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   public class SpecialCasesOfResolutions<T>
   {
     private readonly GenericMethodProxyCalls _methodProxyCalls;
+    private readonly CollectionGenerator _collectionGenerator;
 
-    public SpecialCasesOfResolutions(GenericMethodProxyCalls methodProxyCalls)
+    public SpecialCasesOfResolutions(
+      GenericMethodProxyCalls methodProxyCalls, 
+      CollectionGenerator collectionGenerator)
     {
       _methodProxyCalls = methodProxyCalls;
+      _collectionGenerator = collectionGenerator;
     }
 
     public IResolution<T> CreateResolutionOfKeyValuePair()
@@ -36,14 +40,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p, t1) => Any.SortedSet(t1)), typeof(SortedSet<>));
+          (p, t1) => _collectionGenerator.SortedSet(t1, p)), typeof(SortedSet<>));
     }
 
 
     public IResolution<T> CreateResolutionOfSortedList()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics((p,t1,t2) => Any.SortedList(t1,t2)), typeof(SortedList<,>));
+        new FactoryForInstancesOfGenericTypesWith2Generics(
+          (p,t1,t2) => _collectionGenerator.SortedList(t1,t2,p)), typeof(SortedList<,>));
     }
 
     public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleDictionary()
@@ -83,7 +88,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => Any.Set(t)), 
+          (p,t) => _collectionGenerator.Set(t,p)), 
         typeof(ISet<>), typeof(HashSet<>));
     }
 
@@ -91,7 +96,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => Any.ConcurrentStack(t)),
+          (p,t) => _collectionGenerator.ConcurrentStack(t,p)),
         typeof(ConcurrentStack<>));
     }
 
@@ -99,7 +104,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => Any.ConcurrentQueue(t)),
+          (p,t) => _collectionGenerator.ConcurrentQueue(t,p)),
         typeof(ConcurrentQueue<>), typeof(IProducerConsumerCollection<>));
     }
 
@@ -107,7 +112,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => Any.ConcurrentBag(t)),
+          (p,t) => _collectionGenerator.ConcurrentBag(t,p)),
         typeof(ConcurrentBag<>));
     }
 
@@ -115,7 +120,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith2Generics(
-          (p,t1,t2) => Any.ConcurrentDictionary(t1,t2)),
+          (p,t1,t2) => _collectionGenerator.ConcurrentDictionary(t1,t2,p)),
         typeof(ConcurrentDictionary<,>));
     }
 
@@ -123,7 +128,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => Any.List(t)),
+          (p,t) => _collectionGenerator.List(t,p)),
         typeof(IList<>), 
         typeof(IEnumerable<>), 
         typeof(ICollection<>), 
@@ -139,7 +144,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public IResolution<T> CreateResolutionOfGenericEnumerator()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic((p,t) => Any.Enumerator(t)),
+        new FactoryForInstancesOfGenericTypesWith1Generic((p,t) => _collectionGenerator.Enumerator(t,p)),
         typeof(IEnumerator<>)
       );
     }

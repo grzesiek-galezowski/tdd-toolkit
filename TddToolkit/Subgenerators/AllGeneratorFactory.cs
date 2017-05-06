@@ -33,8 +33,9 @@ namespace TddEbook.TddToolkit.Subgenerators
         new FakeChainFactory(
           new CachedReturnValueGeneration(new PerMethodCache<object>()), 
           GlobalNestingLimit.Of(5), 
-          proxyGenerator,
+          proxyGenerator, //TODO get rid of this dependency - its runtime-circular
           valueGenerator,
+          collectionGenerator,
           methodProxyCalls));
       var stringGenerator = new StringGenerator(
         charGenerator, 

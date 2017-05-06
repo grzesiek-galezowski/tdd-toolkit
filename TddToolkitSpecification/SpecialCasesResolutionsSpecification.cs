@@ -13,7 +13,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldCreateResolutionCapableOfGeneratingArrays()
     {
       //GIVEN
-      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>(new GenericMethodProxyCalls()).CreateResolutionOfArray();
+      var genericMethodProxyCalls = new GenericMethodProxyCalls();
+      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>(genericMethodProxyCalls, new CollectionGenerator(genericMethodProxyCalls)).CreateResolutionOfArray();
       
       //WHEN
 
