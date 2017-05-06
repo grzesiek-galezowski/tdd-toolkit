@@ -8,8 +8,17 @@ namespace TddEbook.TddToolkit.Subgenerators
   {
     public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name)
     {
-      return typeof(T).GetMethods().Where(NameIs(name))
-        .First(ParameterlessGenericVersion()).MakeGenericMethod(genericArgumentType).Invoke(instance, null);
+      return ResultOfGenericVersionOfMethod(instance, genericArgumentType, name, new object[]{});
+    }
+
+    public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name, object[] parameters)
+    {
+      var method = FindEmptyGenericsInstanceMethod<T>(name, parameters.Length);
+
+      var genericMethod = method.MakeGenericMethod(genericArgumentType);
+
+      return genericMethod.Invoke(instance, parameters);
+
     }
 
     public static Func<MethodInfo, bool> ParameterlessGenericVersion()

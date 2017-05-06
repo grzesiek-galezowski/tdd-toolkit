@@ -10,372 +10,365 @@ namespace TddEbook.TddToolkit.Subgenerators
 {
   public class CollectionGenerator
   {
-    private readonly IProxyBasedGenerator _proxyBasedGenerator;
     private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 
-    public CollectionGenerator(
-      IProxyBasedGenerator proxyBasedGenerator, 
-      GenericMethodProxyCalls genericMethodProxyCalls)
+    public CollectionGenerator(GenericMethodProxyCalls genericMethodProxyCalls)
     {
-      _proxyBasedGenerator = proxyBasedGenerator;
       _genericMethodProxyCalls = genericMethodProxyCalls;
     }
 
-    public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
+    public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included, IProxyBasedGenerator proxyBasedGenerator)
     {
       var list = new List<T>();
-      list.Add(_proxyBasedGenerator.Instance<T>());
+      list.Add(proxyBasedGenerator.Instance<T>());
       list.AddRange(included);
-      list.Add(_proxyBasedGenerator.Instance<T>());
+      list.Add(proxyBasedGenerator.Instance<T>());
 
       return list;
     }
 
-    public IEnumerable<T> Enumerable<T>()
+    public IEnumerable<T> Enumerable<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Enumerable<T>(length: AllGenerator.Many);
+      return Enumerable<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public IEnumerable<T> Enumerable<T>(int length)
+    public IEnumerable<T> Enumerable<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return AddManyTo(new List<T>(), length);
+      return AddManyTo(new List<T>(), length, proxyBasedGenerator);
     }
 
-    public IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
+    public IEnumerable<T> EnumerableWithout<T>(T[] excluded, IProxyBasedGenerator proxyBasedGenerator)
     {
       var result = new List<T>
       {
-        _proxyBasedGenerator.OtherThan(excluded),
-        _proxyBasedGenerator.OtherThan(excluded),
-        _proxyBasedGenerator.OtherThan(excluded)
+        proxyBasedGenerator.OtherThan(excluded),
+        proxyBasedGenerator.OtherThan(excluded),
+        proxyBasedGenerator.OtherThan(excluded)
       };
       return result;
     }
 
-    public T[] Array<T>()
+    public T[] Array<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Array<T>(AllGenerator.Many);
+      return Array<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public T[] Array<T>(int length)
+    public T[] Array<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Enumerable<T>(length).ToArray();
+      return Enumerable<T>(length, proxyBasedGenerator).ToArray();
     }
 
-    public T[] ArrayWithout<T>(params T[] excluded)
+    public T[] ArrayWithout<T>(T[] excluded, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWithout(excluded).ToArray();
+      return EnumerableWithout(excluded, proxyBasedGenerator).ToArray();
     }
 
-    public T[] ArrayWith<T>(params T[] included)
+    public T[] ArrayWith<T>(T[] included, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWith(included).ToArray();
+      return EnumerableWith(included, proxyBasedGenerator).ToArray();
     }
 
-    public T[] ArrayWithout<T>(IEnumerable<T> excluded)
+    public T[] ArrayWithout<T>(IEnumerable<T> excluded, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWithout(excluded.ToArray()).ToArray();
+      return EnumerableWithout(excluded.ToArray(), proxyBasedGenerator).ToArray();
     }
 
-    public T[] ArrayWith<T>(IEnumerable<T> included)
+    public T[] ArrayWith<T>(IProxyBasedGenerator proxyBasedGenerator, IEnumerable<T> included)
     {
-      return EnumerableWith(included.ToArray()).ToArray();
+      return EnumerableWith(included.ToArray(), proxyBasedGenerator).ToArray();
     }
 
-    public List<T> List<T>()
+    public List<T> List<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return List<T>(AllGenerator.Many);
+      return List<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public List<T> List<T>(int length)
+    public List<T> List<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Enumerable<T>(length).ToList();
+      return Enumerable<T>(length, proxyBasedGenerator).ToList();
     }
 
-    public List<T> ListWithout<T>(params T[] excluded)
+    public List<T> ListWithout<T>(T[] excluded, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWithout(excluded).ToList();
+      return EnumerableWithout(excluded, proxyBasedGenerator).ToList();
     }
 
-    public List<T> ListWith<T>(params T[] included)
+    public List<T> ListWith<T>(T[] included, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWith(included).ToList();
+      return EnumerableWith(included, proxyBasedGenerator).ToList();
     }
 
-    public List<T> ListWithout<T>(IEnumerable<T> excluded)
+    public List<T> ListWithout<T>(IEnumerable<T> excluded, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWithout(excluded.ToArray()).ToList();
+      return EnumerableWithout(excluded.ToArray(), proxyBasedGenerator).ToList();
     }
 
-    public List<T> ListWith<T>(IEnumerable<T> included)
+    public List<T> ListWith<T>(IEnumerable<T> included, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableWith(included.ToArray()).ToList();
+      return EnumerableWith(included.ToArray(), proxyBasedGenerator).ToList();
     }
 
-    public IReadOnlyList<T> ReadOnlyList<T>()
+    public IReadOnlyList<T> ReadOnlyList<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ReadOnlyList<T>(AllGenerator.Many);
+      return ReadOnlyList<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public IReadOnlyList<T> ReadOnlyList<T>(int length)
+    public IReadOnlyList<T> ReadOnlyList<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return List<T>(length);
+      return List<T>(length, proxyBasedGenerator);
     }
 
-    public IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items)
+    public IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ListWith(items);
+      return ListWith(items, proxyBasedGenerator);
     }
 
-    public IReadOnlyList<T> ReadOnlyListWith<T>(params T[] items)
+    public IReadOnlyList<T> ReadOnlyListWith<T>(T[] items, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ListWith(items);
+      return ListWith(items, proxyBasedGenerator);
     }
 
-    public IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items)
+    public IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ListWithout(items);
+      return ListWithout(items, proxyBasedGenerator);
     }
 
-    public IReadOnlyList<T> ReadOnlyListWithout<T>(params T[] items)
+    public IReadOnlyList<T> ReadOnlyListWithout<T>(T[] items, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ListWithout(items);
+      return ListWithout(items, proxyBasedGenerator);
     }
 
-    public SortedList<TKey, TValue> SortedList<TKey, TValue>()
+    public SortedList<TKey, TValue> SortedList<TKey, TValue>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return SortedList<TKey, TValue>(AllGenerator.Many);
+      return SortedList<TKey, TValue>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public SortedList<TKey, TValue> SortedList<TKey, TValue>(int length)
+    public SortedList<TKey, TValue> SortedList<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
       var list = new SortedList<TKey, TValue>();
       for (int i = 0; i < length; ++i)
       {
-        list.Add(_proxyBasedGenerator.Instance<TKey>(), _proxyBasedGenerator.Instance<TValue>());
+        list.Add(proxyBasedGenerator.Instance<TKey>(), proxyBasedGenerator.Instance<TValue>());
       }
       return list;
     }
 
-    public ISet<T> Set<T>(int length)
+    public ISet<T> Set<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return new HashSet<T>(Enumerable<T>(length));
+      return new HashSet<T>(Enumerable<T>(length, proxyBasedGenerator));
     }
 
-    public ISet<T> Set<T>()
+    public ISet<T> Set<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Set<T>(AllGenerator.Many);
+      return Set<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public ISet<T> SortedSet<T>(int length)
+    public ISet<T> SortedSet<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return new SortedSet<T>(Enumerable<T>(length));
+      return new SortedSet<T>(Enumerable<T>(length, proxyBasedGenerator));
     }
 
-    public ISet<T> SortedSet<T>()
+    public ISet<T> SortedSet<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return SortedSet<T>(AllGenerator.Many);
+      return SortedSet<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
+    public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
       return new SpecialCasesOfResolutions<Dictionary<TKey, TValue>>(_genericMethodProxyCalls)
-        .AnyDictionary<TKey, TValue>(_proxyBasedGenerator, length);
+        .AnyDictionary<TKey, TValue>(proxyBasedGenerator, length);
     }
 
-    public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys, IProxyBasedGenerator proxyBasedGenerator)
     {
-      var dict = Dictionary<T, U>(0);
+      var dict = Dictionary<T, U>(0, proxyBasedGenerator);
       foreach (var key in keys)
       {
-        dict.Add(key, _proxyBasedGenerator.InstanceOf<U>());
+        dict.Add(key, proxyBasedGenerator.InstanceOf<U>());
       }
 
       return dict;
     }
 
-    public Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
+    public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Dictionary<TKey, TValue>(AllGenerator.Many);
+      return Dictionary<TKey, TValue>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
+    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return Dictionary<TKey, TValue>(length);
+      return Dictionary<TKey, TValue>(length, proxyBasedGenerator);
     }
 
-    public IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    public IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return DictionaryWithKeys<T, U>(keys);
+      return DictionaryWithKeys<T, U>(keys, proxyBasedGenerator);
     }
 
-    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
+    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ReadOnlyDictionary<TKey, TValue>(AllGenerator.Many);
+      return ReadOnlyDictionary<TKey, TValue>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
+    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      var dict = new SortedDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(_proxyBasedGenerator.Instance<TKey>(), _proxyBasedGenerator.Instance<TValue>());
-      }
-      return dict;
+      return new SpecialCasesOfResolutions<SortedDictionary<TKey, TValue>>(_genericMethodProxyCalls)
+        .SortedDictionary<TKey, TValue>(proxyBasedGenerator, length);
     }
 
-    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>()
+    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return SortedDictionary<TKey, TValue>(AllGenerator.Many);
+      return SortedDictionary<TKey, TValue>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length)
+    public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
       var dict = new ConcurrentDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
+      for (var i = 0; i < length; ++i)
       {
-        dict.TryAdd(_proxyBasedGenerator.Instance<TKey>(), _proxyBasedGenerator.Instance<TValue>());
+        dict.TryAdd(proxyBasedGenerator.Instance<TKey>(), proxyBasedGenerator.Instance<TValue>());
       }
       return dict;
-
     }
 
-    public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
+    public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ConcurrentDictionary<TKey, TValue>(AllGenerator.Many);
+      return ConcurrentDictionary<TKey, TValue>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public ConcurrentStack<T> ConcurrentStack<T>()
+    public ConcurrentStack<T> ConcurrentStack<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ConcurrentStack<T>(AllGenerator.Many);
+      return ConcurrentStack<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public ConcurrentStack<T> ConcurrentStack<T>(int length)
+    public ConcurrentStack<T> ConcurrentStack<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
       var coll = new ConcurrentStack<T>();
-      for (int i = 0; i < length; ++i)
+      for (var i = 0; i < length; ++i)
       {
-        coll.Push(_proxyBasedGenerator.Instance<T>());
+        coll.Push(proxyBasedGenerator.Instance<T>());
       }
       return coll;
     }
 
-    public ConcurrentQueue<T> ConcurrentQueue<T>()
+    public ConcurrentQueue<T> ConcurrentQueue<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ConcurrentQueue<T>(AllGenerator.Many);
+      return ConcurrentQueue<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public ConcurrentQueue<T> ConcurrentQueue<T>(int length)
+    public ConcurrentQueue<T> ConcurrentQueue<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
       var coll = new ConcurrentQueue<T>();
       for (int i = 0; i < length; ++i)
       {
-        coll.Enqueue(_proxyBasedGenerator.Instance<T>());
+        coll.Enqueue(proxyBasedGenerator.Instance<T>());
       }
       return coll;
 
     }
 
-    public ConcurrentBag<T> ConcurrentBag<T>()
+    public ConcurrentBag<T> ConcurrentBag<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return ConcurrentBag<T>(AllGenerator.Many);
+      return ConcurrentBag<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public ConcurrentBag<T> ConcurrentBag<T>(int length)
+    public ConcurrentBag<T> ConcurrentBag<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
       var coll = new ConcurrentBag<T>();
       for (int i = 0; i < length; ++i)
       {
-        coll.Add(_proxyBasedGenerator.Instance<T>());
+        coll.Add(proxyBasedGenerator.Instance<T>());
       }
       return coll;
 
     }
 
-    public IEnumerable<T> EnumerableSortedDescending<T>(int length)
+    public IEnumerable<T> EnumerableSortedDescending<T>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return SortedSet<T>(length).ToList();
+      return SortedSet<T>(length, proxyBasedGenerator).ToList();
     }
 
-    public IEnumerable<T> EnumerableSortedDescending<T>()
+    public IEnumerable<T> EnumerableSortedDescending<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return EnumerableSortedDescending<T>(AllGenerator.Many);
+      return EnumerableSortedDescending<T>(AllGenerator.Many, proxyBasedGenerator);
     }
 
-    public IEnumerator<T> Enumerator<T>()
+    public IEnumerator<T> Enumerator<T>(IProxyBasedGenerator proxyBasedGenerator)
     {
-      return List<T>().GetEnumerator();
+      return List<T>(proxyBasedGenerator).GetEnumerator();
     }
 
-    public object List(Type type)
+    public object List(Type type, IProxyBasedGenerator proxyBasedGenerator)
+    {
+      return ResultOfGenericVersionOfMethod(
+        type, 
+        MethodBase.GetCurrentMethod(), 
+        proxyBasedGenerator);
+    }
+
+    public object Set(Type type, IProxyBasedGenerator proxyBasedGenerator)
+    {
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod(), proxyBasedGenerator);
+    }
+
+    public object SortedList(Type keyType, Type valueType, IProxyBasedGenerator proxyBasedGenerator)
     {
       return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, type, MethodBase.GetCurrentMethod().Name);
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] {proxyBasedGenerator});
     }
 
-    public object Set(Type type)
+    public object SortedSet(Type type, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public object SortedList(Type keyType, Type valueType)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public object SortedSet(Type type)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, type, MethodBase.GetCurrentMethod().Name); 
-    }
-
-    public object SortedDictionary(Type keyType, Type valueType)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public object ConcurrentDictionary(Type keyType, Type valueType)
-    {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, keyType, valueType, MethodBase.GetCurrentMethod().Name);
-    }
-
-    public object Array(Type type)
-    {
-      //bug is this implementation OK?
       return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, type, MethodBase.GetCurrentMethod().Name); 
     }
 
-    public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
+    public object ConcurrentDictionary(Type keyType, Type valueType, IProxyBasedGenerator proxyBasedGenerator)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] {proxyBasedGenerator});
+    }
+
+    public object Array(Type type, IProxyBasedGenerator proxyBasedGenerator)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, type, MethodBase.GetCurrentMethod().Name, new object[] {proxyBasedGenerator}); 
+    }
+
+    public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many, IProxyBasedGenerator proxyBasedGenerator)
     {
       for (int i = 0; i < many; ++i)
       {
-        collection.Add(_proxyBasedGenerator.Instance<T>());
+        collection.Add(proxyBasedGenerator.Instance<T>());
       }
       return collection;
     }
 
-    public object Enumerator(Type type)
+    public object Enumerator(Type type, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name); 
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name, new object[] {proxyBasedGenerator}); 
     }
 
-    public object ConcurrentStack(Type type)
+    public object ConcurrentStack(Type type, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod(), proxyBasedGenerator);
     }
 
-    public object ConcurrentQueue(Type type)
+    public object ConcurrentQueue(Type type, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod(), proxyBasedGenerator);
     }
 
-    public object ConcurrentBag(Type type)
+    public object ConcurrentBag(Type type, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+      return ResultOfGenericVersionOfMethod(type, MethodBase.GetCurrentMethod(), proxyBasedGenerator);
     }
+
+    private object ResultOfGenericVersionOfMethod(Type type, MethodBase currentMethod, IProxyBasedGenerator proxyBasedGenerator)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, type, currentMethod.Name, new object[] { proxyBasedGenerator });
+    }
+
   }
 }

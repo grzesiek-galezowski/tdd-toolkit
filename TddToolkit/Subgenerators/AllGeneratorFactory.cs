@@ -10,16 +10,17 @@ namespace TddEbook.TddToolkit.Subgenerators
   {
     public static AllGenerator Create()
     {
-      var fixtureConfiguration = new AutoFixtureConfiguration();
-      var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
-      var methodProxyCalls = new GenericMethodProxyCalls();
-      var valueGenerator = new ValueGenerator(fixture);
-      var charGenerator = new CharGenerator(valueGenerator);
-      var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
       var emptyCollectionFixture = new Fixture
       {
         RepeatCount = 0,
       };
+      var methodProxyCalls = new GenericMethodProxyCalls();
+      var fixtureConfiguration = new AutoFixtureConfiguration();
+      var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
+      var collectionGenerator = new CollectionGenerator(methodProxyCalls);
+      var valueGenerator = new ValueGenerator(fixture);
+      var charGenerator = new CharGenerator(valueGenerator);
+      var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
       var emptyCollectionGenerator = new EmptyCollectionGenerator(
         emptyCollectionFixture, 
         methodProxyCalls);
@@ -48,8 +49,7 @@ namespace TddEbook.TddToolkit.Subgenerators
         emptyCollectionGenerator, 
         numericGenerator, 
         proxyBasedGenerator, 
-        new CollectionGenerator(proxyBasedGenerator,
-          methodProxyCalls), 
+        collectionGenerator, 
         new InvokableGenerator(proxyBasedGenerator));
       fixtureConfiguration.ApplyTo(fixture, stringGenerator, numericGenerator);
       return allGenerator;

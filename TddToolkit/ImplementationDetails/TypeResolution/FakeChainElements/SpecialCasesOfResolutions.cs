@@ -19,21 +19,26 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public IResolution<T> CreateResolutionOfKeyValuePair()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(AnyKeyValuePair), typeof(KeyValuePair<,>)
+        new FactoryForInstancesOfGenericTypesWith2Generics(
+          AnyKeyValuePair), typeof(KeyValuePair<,>)
         );
     }
 
     public IResolution<T> CreateResolutionOfSortedDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics((p, t1, t2) => Any.SortedDictionary(t1,t2)), typeof(SortedDictionary<,>));
+        new FactoryForInstancesOfGenericTypesWith2Generics(
+          SortedDictionary), 
+        typeof(SortedDictionary<,>));
     }
 
     public IResolution<T> CreateResolutionOfSortedSet()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic((p, t1) => Any.SortedSet(t1)), typeof(SortedSet<>));
+        new FactoryForInstancesOfGenericTypesWith1Generic(
+          (p, t1) => Any.SortedSet(t1)), typeof(SortedSet<>));
     }
+
 
     public IResolution<T> CreateResolutionOfSortedList()
     {
@@ -146,6 +151,35 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       );
     }
 
+    public object SortedDictionary(IProxyBasedGenerator generator, Type keyType, Type valueType)
+    {
+      return _methodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] {generator});
+    }
+
+    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(IProxyBasedGenerator generator, int length)
+    {
+      var dict = new SortedDictionary<TKey, TValue>();
+      for (int i = 0; i < length; ++i)
+      {
+        dict.Add(generator.Instance<TKey>(), generator.Instance<TValue>());
+      }
+      return dict;
+    }
+
+    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(IProxyBasedGenerator generator)
+    {
+      return SortedDictionary<TKey, TValue>(generator, AllGenerator.Many);
+    }
+
+    public ICollection<T> AddManyTo(IProxyBasedGenerator generator, ICollection<T> collection, int many)
+    {
+      for (int i = 0; i < many; ++i)
+      {
+        collection.Add(generator.Instance<T>());
+      }
+      return collection;
+    }
 
   }
 }

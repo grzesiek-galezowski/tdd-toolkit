@@ -107,7 +107,6 @@ namespace TddEbook.TddToolkit.Subgenerators
     object Set(Type type);
     object SortedList(Type keyType, Type valueType);
     object SortedSet(Type type);
-    object SortedDictionary(Type keyType, Type valueType);
     object ConcurrentDictionary(Type keyType, Type valueType);
     object Array(Type type);
     ICollection<T> AddManyTo<T>(ICollection<T> collection, int many);

@@ -257,11 +257,6 @@ namespace TddEbook.TddToolkit
       return Generate.SortedSet(type);
     }
 
-    public static object SortedDictionary(Type keyType, Type valueType)
-    {
-      return Generate.SortedDictionary(keyType, valueType);
-    }
-
     public static object ConcurrentDictionary(Type keyType, Type valueType)
     {
       return Generate.ConcurrentDictionary(keyType, valueType);

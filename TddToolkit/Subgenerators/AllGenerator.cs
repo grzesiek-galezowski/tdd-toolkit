@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
@@ -187,7 +188,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
-      return _collectionGenerator.EnumerableWith(included);
+      return _collectionGenerator.EnumerableWith(included, _proxyBasedGenerator);
     }
 
     public Task NotStartedTask()
@@ -292,292 +293,287 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public IEnumerable<T> Enumerable<T>()
     {
-      return _collectionGenerator.Enumerable<T>();
+      return _collectionGenerator.Enumerable<T>(_proxyBasedGenerator);
     }
 
     public IEnumerable<T> Enumerable<T>(int length)
     {
-      return _collectionGenerator.Enumerable<T>(length);
+      return _collectionGenerator.Enumerable<T>(length, _proxyBasedGenerator);
     }
 
     public IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
     {
-      return _collectionGenerator.EnumerableWithout(excluded);
+      return _collectionGenerator.EnumerableWithout(excluded, _proxyBasedGenerator);
     }
 
     public T[] Array<T>()
     {
-      return _collectionGenerator.Array<T>();
+      return _collectionGenerator.Array<T>(_proxyBasedGenerator);
     }
 
     public T[] Array<T>(int length)
     {
-      return _collectionGenerator.Array<T>(length);
+      return _collectionGenerator.Array<T>(length, _proxyBasedGenerator);
     }
 
     public T[] ArrayWithout<T>(params T[] excluded)
     {
-      return _collectionGenerator.ArrayWithout(excluded);
+      return _collectionGenerator.ArrayWithout(excluded, _proxyBasedGenerator);
     }
 
     public T[] ArrayWith<T>(params T[] included)
     {
-      return _collectionGenerator.ArrayWith(included);
+      return _collectionGenerator.ArrayWith(included, _proxyBasedGenerator);
     }
 
     public T[] ArrayWithout<T>(IEnumerable<T> excluded)
     {
-      return _collectionGenerator.ArrayWithout(excluded);
+      return _collectionGenerator.ArrayWithout(excluded, _proxyBasedGenerator);
     }
 
     public T[] ArrayWith<T>(IEnumerable<T> included)
     {
-      return _collectionGenerator.ArrayWith(included);
+      return _collectionGenerator.ArrayWith(_proxyBasedGenerator, included);
     }
 
     public List<T> List<T>()
     {
-      return _collectionGenerator.List<T>();
+      return _collectionGenerator.List<T>(_proxyBasedGenerator);
     }
 
     public List<T> List<T>(int length)
     {
-      return _collectionGenerator.List<T>(length);
+      return _collectionGenerator.List<T>(length, _proxyBasedGenerator);
     }
 
     public List<T> ListWithout<T>(params T[] excluded)
     {
-      return _collectionGenerator.ListWithout(excluded);
+      return _collectionGenerator.ListWithout(excluded, _proxyBasedGenerator);
     }
 
     public List<T> ListWith<T>(params T[] included)
     {
-      return _collectionGenerator.ListWith(included);
+      return _collectionGenerator.ListWith(included, _proxyBasedGenerator);
     }
 
     public List<T> ListWithout<T>(IEnumerable<T> excluded)
     {
-      return _collectionGenerator.ListWithout(excluded);
+      return _collectionGenerator.ListWithout(excluded, _proxyBasedGenerator);
     }
 
     public List<T> ListWith<T>(IEnumerable<T> included)
     {
-      return _collectionGenerator.ListWith(included);
+      return _collectionGenerator.ListWith(included, _proxyBasedGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyList<T>()
     {
-      return _collectionGenerator.ReadOnlyList<T>();
+      return _collectionGenerator.ReadOnlyList<T>(_proxyBasedGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyList<T>(int length)
     {
-      return _collectionGenerator.ReadOnlyList<T>(length);
+      return _collectionGenerator.ReadOnlyList<T>(length, _proxyBasedGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items)
     {
-      return _collectionGenerator.ReadOnlyListWith(items);
+      return _collectionGenerator.ReadOnlyListWith(items, _proxyBasedGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyListWith<T>(params T[] items)
     {
-      return _collectionGenerator.ReadOnlyListWith(items);
+      return _collectionGenerator.ReadOnlyListWith(items, _proxyBasedGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items)
     {
-      return _collectionGenerator.ReadOnlyListWithout(items);
+      return _collectionGenerator.ReadOnlyListWithout(items, _proxyBasedGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyListWithout<T>(params T[] items)
     {
-      return _collectionGenerator.ReadOnlyListWithout(items);
+      return _collectionGenerator.ReadOnlyListWithout(items, _proxyBasedGenerator);
     }
 
     public SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {
-      return _collectionGenerator.SortedList<TKey, TValue>();
+      return _collectionGenerator.SortedList<TKey, TValue>(_proxyBasedGenerator);
     }
 
     public SortedList<TKey, TValue> SortedList<TKey, TValue>(int length)
     {
-      return _collectionGenerator.SortedList<TKey, TValue>(length);
+      return _collectionGenerator.SortedList<TKey, TValue>(length, _proxyBasedGenerator);
     }
 
     public ISet<T> Set<T>(int length)
     {
-      return _collectionGenerator.Set<T>(length);
+      return _collectionGenerator.Set<T>(length, _proxyBasedGenerator);
     }
 
     public ISet<T> Set<T>()
     {
-      return _collectionGenerator.Set<T>();
+      return _collectionGenerator.Set<T>(_proxyBasedGenerator);
     }
 
     public ISet<T> SortedSet<T>(int length)
     {
-      return _collectionGenerator.SortedSet<T>(length);
+      return _collectionGenerator.SortedSet<T>(length, _proxyBasedGenerator);
     }
 
     public ISet<T> SortedSet<T>()
     {
-      return _collectionGenerator.SortedSet<T>();
+      return _collectionGenerator.SortedSet<T>(_proxyBasedGenerator);
     }
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
     {
-      return _collectionGenerator.Dictionary<TKey, TValue>(length);
+      return _collectionGenerator.Dictionary<TKey, TValue>(length, _proxyBasedGenerator);
     }
 
     public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
     {
-      return _collectionGenerator.DictionaryWithKeys<T, U>(keys);
+      return _collectionGenerator.DictionaryWithKeys<T, U>(keys, _proxyBasedGenerator);
     }
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
-      return _collectionGenerator.Dictionary<TKey, TValue>();
+      return _collectionGenerator.Dictionary<TKey, TValue>(_proxyBasedGenerator);
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
     {
-      return _collectionGenerator.ReadOnlyDictionary<TKey, TValue>(length);
+      return _collectionGenerator.ReadOnlyDictionary<TKey, TValue>(length, _proxyBasedGenerator);
     }
 
     public IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys)
     {
-      return _collectionGenerator.ReadOnlyDictionaryWithKeys<T, U>(keys);
+      return _collectionGenerator.ReadOnlyDictionaryWithKeys<T, U>(keys, _proxyBasedGenerator);
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
     {
-      return _collectionGenerator.ReadOnlyDictionary<TKey, TValue>();
+      return _collectionGenerator.ReadOnlyDictionary<TKey, TValue>(_proxyBasedGenerator);
     }
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
     {
-      return _collectionGenerator.SortedDictionary<TKey, TValue>(length);
+      return _collectionGenerator.SortedDictionary<TKey, TValue>(length, _proxyBasedGenerator);
     }
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>()
     {
-      return _collectionGenerator.SortedDictionary<TKey, TValue>();
+      return _collectionGenerator.SortedDictionary<TKey, TValue>(_proxyBasedGenerator);
     }
 
     public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length)
     {
-      return _collectionGenerator.ConcurrentDictionary<TKey, TValue>(length);
+      return _collectionGenerator.ConcurrentDictionary<TKey, TValue>(length, _proxyBasedGenerator);
     }
 
     public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
     {
-      return _collectionGenerator.ConcurrentDictionary<TKey, TValue>();
+      return _collectionGenerator.ConcurrentDictionary<TKey, TValue>(_proxyBasedGenerator);
     }
 
     public ConcurrentStack<T> ConcurrentStack<T>()
     {
-      return _collectionGenerator.ConcurrentStack<T>();
+      return _collectionGenerator.ConcurrentStack<T>(_proxyBasedGenerator);
     }
 
     public ConcurrentStack<T> ConcurrentStack<T>(int length)
     {
-      return _collectionGenerator.ConcurrentStack<T>(length);
+      return _collectionGenerator.ConcurrentStack<T>(length, _proxyBasedGenerator);
     }
 
     public ConcurrentQueue<T> ConcurrentQueue<T>()
     {
-      return _collectionGenerator.ConcurrentQueue<T>();
+      return _collectionGenerator.ConcurrentQueue<T>(_proxyBasedGenerator);
     }
 
     public ConcurrentQueue<T> ConcurrentQueue<T>(int length)
     {
-      return _collectionGenerator.ConcurrentQueue<T>(length);
+      return _collectionGenerator.ConcurrentQueue<T>(length, _proxyBasedGenerator);
     }
 
     public ConcurrentBag<T> ConcurrentBag<T>()
     {
-      return _collectionGenerator.ConcurrentBag<T>();
+      return _collectionGenerator.ConcurrentBag<T>(_proxyBasedGenerator);
     }
 
     public ConcurrentBag<T> ConcurrentBag<T>(int length)
     {
-      return _collectionGenerator.ConcurrentBag<T>(length);
+      return _collectionGenerator.ConcurrentBag<T>(length, _proxyBasedGenerator);
     }
 
     public IEnumerable<T> EnumerableSortedDescending<T>(int length)
     {
-      return _collectionGenerator.EnumerableSortedDescending<T>(length);
+      return _collectionGenerator.EnumerableSortedDescending<T>(length, _proxyBasedGenerator);
     }
 
     public IEnumerable<T> EnumerableSortedDescending<T>()
     {
-      return _collectionGenerator.EnumerableSortedDescending<T>();
+      return _collectionGenerator.EnumerableSortedDescending<T>(_proxyBasedGenerator);
     }
 
     public IEnumerator<T> Enumerator<T>()
     {
-      return _collectionGenerator.Enumerator<T>();
+      return _collectionGenerator.Enumerator<T>(_proxyBasedGenerator);
     }
 
     public object List(Type type)
     {
-      return _collectionGenerator.List(type);
+      return _collectionGenerator.List(type, _proxyBasedGenerator);
     }
 
     public object Set(Type type)
     {
-      return _collectionGenerator.Set(type);
+      return _collectionGenerator.Set(type, _proxyBasedGenerator);
     }
 
     public object SortedList(Type keyType, Type valueType)
     {
-      return _collectionGenerator.SortedList(keyType, valueType);
+      return _collectionGenerator.SortedList(keyType, valueType, _proxyBasedGenerator);
     }
 
     public object SortedSet(Type type)
     {
-      return _collectionGenerator.SortedSet(type);
-    }
-
-    public object SortedDictionary(Type keyType, Type valueType)
-    {
-      return _collectionGenerator.SortedDictionary(keyType, valueType);
+      return _collectionGenerator.SortedSet(type, _proxyBasedGenerator);
     }
 
     public object ConcurrentDictionary(Type keyType, Type valueType)
     {
-      return _collectionGenerator.ConcurrentDictionary(keyType, valueType);
+      return _collectionGenerator.ConcurrentDictionary(keyType, valueType, _proxyBasedGenerator);
     }
 
     public object Array(Type type)
     {
-      return _collectionGenerator.Array(type);
+      return _collectionGenerator.Array(type, _proxyBasedGenerator);
     }
 
     public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
     {
-      return _collectionGenerator.AddManyTo(collection, many);
+      return _collectionGenerator.AddManyTo(collection, many, _proxyBasedGenerator);
     }
 
     public object Enumerator(Type type)
     {
-      return _collectionGenerator.Enumerator(type);
+      return _collectionGenerator.Enumerator(type, _proxyBasedGenerator);
     }
 
     public object ConcurrentStack(Type type)
     {
-      return _collectionGenerator.ConcurrentStack(type);
+      return _collectionGenerator.ConcurrentStack(type, _proxyBasedGenerator);
     }
 
     public object ConcurrentQueue(Type type)
     {
-      return _collectionGenerator.ConcurrentQueue(type);
+      return _collectionGenerator.ConcurrentQueue(type, _proxyBasedGenerator);
     }
 
     public object ConcurrentBag(Type type)
     {
-      return _collectionGenerator.ConcurrentBag(type);
+      return _collectionGenerator.ConcurrentBag(type, _proxyBasedGenerator);
     }
 
     public string String()
