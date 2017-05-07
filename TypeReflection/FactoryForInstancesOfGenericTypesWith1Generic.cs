@@ -5,10 +5,10 @@ namespace TddEbook.TypeReflection
 {
   public class FactoryForInstancesOfGenericTypesWith1Generic : FactoryForInstancesOfGenericTypes
   {
-    private readonly Func<IProxyBasedGenerator, Type, object> _factoryMethod;
+    private readonly Func<Type, IProxyBasedGenerator, object> _factoryMethod;
 
     public FactoryForInstancesOfGenericTypesWith1Generic(
-      Func<IProxyBasedGenerator, Type, object> factoryMethod)
+      Func<Type, IProxyBasedGenerator, object> factoryMethod)
     {
       _factoryMethod = factoryMethod;
     }
@@ -16,7 +16,7 @@ namespace TddEbook.TypeReflection
     public object NewInstanceOf(Type type, IProxyBasedGenerator proxyBasedGenerator)
     {
       var type1 = type.GetTypeInfo().GetGenericArguments()[0];
-      return _factoryMethod.Invoke(proxyBasedGenerator, type1);
+      return _factoryMethod.Invoke(type1, proxyBasedGenerator);
     }
   }
 }

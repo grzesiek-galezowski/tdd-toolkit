@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Reflection;
 using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 
@@ -9,14 +7,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   public class SpecialCasesOfResolutions<T>
   {
-    private readonly GenericMethodProxyCalls _methodProxyCalls;
     private readonly CollectionGenerator _collectionGenerator;
 
-    public SpecialCasesOfResolutions(
-      GenericMethodProxyCalls methodProxyCalls, 
-      CollectionGenerator collectionGenerator)
+    public SpecialCasesOfResolutions(CollectionGenerator collectionGenerator)
     {
-      _methodProxyCalls = methodProxyCalls;
       _collectionGenerator = collectionGenerator;
     }
 
@@ -24,7 +18,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith2Generics(
-          AnyKeyValuePair), typeof(KeyValuePair<,>)
+          _collectionGenerator.KeyValuePair), typeof(KeyValuePair<,>)
         );
     }
 
@@ -32,7 +26,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith2Generics(
-          SortedDictionary), 
+          _collectionGenerator.SortedDictionary), 
         typeof(SortedDictionary<,>));
     }
 
@@ -40,7 +34,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p, t1) => _collectionGenerator.SortedSet(t1, p)), typeof(SortedSet<>));
+          _collectionGenerator.SortedSet), typeof(SortedSet<>));
     }
 
 
@@ -48,47 +42,23 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith2Generics(
-          (p,t1,t2) => _collectionGenerator.SortedList(t1,t2,p)), typeof(SortedList<,>));
+          _collectionGenerator.SortedList), typeof(SortedList<,>));
     }
 
     public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(AnyDictionary),
+        new FactoryForInstancesOfGenericTypesWith2Generics(_collectionGenerator.Dictionary),
         typeof(IDictionary<,>), 
         typeof(IReadOnlyDictionary<,>), 
         typeof(Dictionary<,>));
     }
 
-    public object AnyDictionary(IProxyBasedGenerator generator, Type keyType, Type valueType)
-    {
-      return _methodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] {generator});
-    }
-
-    public Dictionary<TKey, TValue> AnyDictionary<TKey, TValue>(IProxyBasedGenerator generator)
-    {
-      return AnyDictionary<TKey, TValue>(generator, AllGenerator.Many);
-    }
-
-    public Dictionary<TKey, TValue> AnyDictionary<TKey, TValue>(IProxyBasedGenerator generator, int length)
-    {
-      //bug change to Any.Instance<Dictionary<Key,Value>>()
-      var dict = new Dictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(generator.Instance<TKey>(), generator.Instance<TValue>());
-      }
-      return dict;
-    }
-
-
-
     public ResolutionOfTypeWithGenerics<T> CreateResolutionOfSimpleSet()
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => _collectionGenerator.Set(t,p)), 
+          _collectionGenerator.Set), 
         typeof(ISet<>), typeof(HashSet<>));
     }
 
@@ -96,7 +66,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => _collectionGenerator.ConcurrentStack(t,p)),
+          _collectionGenerator.ConcurrentStack),
         typeof(ConcurrentStack<>));
     }
 
@@ -104,7 +74,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => _collectionGenerator.ConcurrentQueue(t,p)),
+          _collectionGenerator.ConcurrentQueue),
         typeof(ConcurrentQueue<>), typeof(IProducerConsumerCollection<>));
     }
 
@@ -112,15 +82,14 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => _collectionGenerator.ConcurrentBag(t,p)),
+          _collectionGenerator.ConcurrentBag),
         typeof(ConcurrentBag<>));
     }
 
     public IResolution<T> CreateResolutionOfConcurrentDictionary()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith2Generics(
-          (p,t1,t2) => _collectionGenerator.ConcurrentDictionary(t1,t2,p)),
+        new FactoryForInstancesOfGenericTypesWith2Generics(_collectionGenerator.ConcurrentDictionary),
         typeof(ConcurrentDictionary<,>));
     }
 
@@ -128,7 +97,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (p,t) => _collectionGenerator.List(t,p)),
+          _collectionGenerator.List),
         typeof(IList<>), 
         typeof(IEnumerable<>), 
         typeof(ICollection<>), 
@@ -144,46 +113,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public IResolution<T> CreateResolutionOfGenericEnumerator()
     {
       return new ResolutionOfTypeWithGenerics<T>(
-        new FactoryForInstancesOfGenericTypesWith1Generic((p,t) => _collectionGenerator.Enumerator(t,p)),
+        new FactoryForInstancesOfGenericTypesWith1Generic(_collectionGenerator.Enumerator),
         typeof(IEnumerator<>)
       );
-    }
-
-    private object AnyKeyValuePair(IProxyBasedGenerator generator, Type keyType, Type valueType)
-    {
-      return Activator.CreateInstance(
-        typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType), generator.Instance(keyType), generator.Instance(valueType)
-      );
-    }
-
-    public object SortedDictionary(IProxyBasedGenerator generator, Type keyType, Type valueType)
-    {
-      return _methodProxyCalls.ResultOfGenericVersionOfMethod(
-        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] {generator});
-    }
-
-    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(IProxyBasedGenerator generator, int length)
-    {
-      var dict = new SortedDictionary<TKey, TValue>();
-      for (int i = 0; i < length; ++i)
-      {
-        dict.Add(generator.Instance<TKey>(), generator.Instance<TValue>());
-      }
-      return dict;
-    }
-
-    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(IProxyBasedGenerator generator)
-    {
-      return SortedDictionary<TKey, TValue>(generator, AllGenerator.Many);
-    }
-
-    public ICollection<T> AddManyTo(IProxyBasedGenerator generator, ICollection<T> collection, int many)
-    {
-      for (int i = 0; i < many; ++i)
-      {
-        collection.Add(generator.Instance<T>());
-      }
-      return collection;
     }
 
   }

@@ -175,8 +175,19 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return new SpecialCasesOfResolutions<Dictionary<TKey, TValue>>(_genericMethodProxyCalls, this)
-        .AnyDictionary<TKey, TValue>(proxyBasedGenerator, length);
+      var dict = new Dictionary<TKey, TValue>();
+      for (var i = 0; i < length; ++i)
+      {
+        dict.Add(proxyBasedGenerator.Instance<TKey>(), proxyBasedGenerator.Instance<TValue>());
+      }
+      return dict;
+
+    }
+
+    public object Dictionary(Type keyType, Type valueType, IProxyBasedGenerator generator)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] { generator });
     }
 
     public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys, IProxyBasedGenerator proxyBasedGenerator)
@@ -212,8 +223,18 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length, IProxyBasedGenerator proxyBasedGenerator)
     {
-      return new SpecialCasesOfResolutions<SortedDictionary<TKey, TValue>>(_genericMethodProxyCalls, this)
-        .SortedDictionary<TKey, TValue>(proxyBasedGenerator, length);
+      var dict = new SortedDictionary<TKey, TValue>();
+      for (int i = 0; i < length; ++i)
+      {
+        dict.Add(proxyBasedGenerator.Instance<TKey>(), proxyBasedGenerator.Instance<TValue>());
+      }
+      return dict;
+    }
+
+    public object SortedDictionary(Type keyType, Type valueType, IProxyBasedGenerator generator)
+    {
+      return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
+        this, keyType, valueType, MethodBase.GetCurrentMethod().Name, new object[] { generator });
     }
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(IProxyBasedGenerator proxyBasedGenerator)
@@ -368,6 +389,13 @@ namespace TddEbook.TddToolkit.Subgenerators
     {
       return _genericMethodProxyCalls.ResultOfGenericVersionOfMethod(
         this, type, currentMethod.Name, new object[] { proxyBasedGenerator });
+    }
+
+    public object KeyValuePair(Type keyType, Type valueType, IProxyBasedGenerator generator)
+    {
+      return Activator.CreateInstance(
+        typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType), generator.Instance(keyType), generator.Instance(valueType)
+      );
     }
 
   }

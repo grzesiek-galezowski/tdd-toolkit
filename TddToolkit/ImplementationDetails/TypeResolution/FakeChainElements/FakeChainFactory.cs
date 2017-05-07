@@ -37,8 +37,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public IFakeChain<T> GetInstance<T>()
     {
       return GetInstanceWithMemoization(() => 
-        new GenericFakeChainFactory<T>(
-          CreateSpecialCasesOfResolutions<T>()).NewInstance(
+        new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>()).NewInstance(
             _cachedReturnValueGeneration,
             _nestingLimit,
             _proxyGenerator,
@@ -63,16 +62,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     public IFakeChain<T> GetUnconstrainedInstance<T>()
     {
       return GetInstanceWithMemoization(() => 
-      new GenericFakeChainFactory<T>(
-        CreateSpecialCasesOfResolutions<T>()).UnconstrainedInstance(
-        _cachedReturnValueGeneration,
-        _proxyGenerator, _valueGenerator), 
-        _unconstrainedFactoryCache);
+      new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>())
+        .UnconstrainedInstance(
+          _cachedReturnValueGeneration,
+          _proxyGenerator, _valueGenerator), 
+          _unconstrainedFactoryCache);
     }
 
     private SpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
     {
-      return new SpecialCasesOfResolutions<T>(_methodProxyCalls, _collectionGenerator);
+      return new SpecialCasesOfResolutions<T>(_collectionGenerator);
     }
 
     public FakeOrdinaryInterface<T> CreateFakeOrdinaryInterfaceGenerator<T>()
