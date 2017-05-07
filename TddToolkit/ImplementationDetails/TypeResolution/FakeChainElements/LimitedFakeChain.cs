@@ -17,20 +17,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       _fakeChain = fakeChain;
     }
 
-    public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
+    public T Resolve(IInstanceGenerator instanceGenerator)
     {
       try
       {
         _perTypeNestingLimit.AddNestingFor<T>();
         if (!_perTypeNestingLimit.IsReachedFor<T>())
         {
-          return _fakeChain.Resolve(proxyBasedGenerator);
+          return _fakeChain.Resolve(instanceGenerator);
         }
         else 
         {
           try
           {
-            return proxyBasedGenerator.Dummy<T>();
+            return instanceGenerator.Dummy<T>();
           }
           catch (TargetInvocationException e)
           {

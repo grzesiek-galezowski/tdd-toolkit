@@ -5,6 +5,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
   public interface IResolution<out T>
   {
     bool Applies();
-    T Apply(IProxyBasedGenerator proxyBasedGenerator);
+    T Apply(IInstanceGenerator instanceGenerator);
   }
 }

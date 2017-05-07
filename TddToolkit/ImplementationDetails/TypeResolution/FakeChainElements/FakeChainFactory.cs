@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
 using Castle.DynamicProxy;
 using TddEbook.TddToolkit.Subgenerators;
 
@@ -14,7 +12,6 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     private readonly ProxyGenerator _proxyGenerator;
     private readonly ValueGenerator _valueGenerator;
     private readonly CollectionGenerator _collectionGenerator;
-    private readonly GenericMethodProxyCalls _methodProxyCalls;
     private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
 
@@ -23,15 +20,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       NestingLimit nestingLimit, 
       ProxyGenerator proxyGenerator, 
       ValueGenerator valueGenerator, 
-      CollectionGenerator collectionGenerator, 
-      GenericMethodProxyCalls methodProxyCalls)
+      CollectionGenerator collectionGenerator)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
       _nestingLimit = nestingLimit;
       _proxyGenerator = proxyGenerator;
       _valueGenerator = valueGenerator;
       _collectionGenerator = collectionGenerator;
-      _methodProxyCalls = methodProxyCalls;
     }
 
     public IFakeChain<T> GetInstance<T>()

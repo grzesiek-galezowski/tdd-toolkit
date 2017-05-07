@@ -8,7 +8,7 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public interface OmniGenerator : IProxyBasedGenerator
+  public interface OmniGenerator : IInstanceGenerator
   {
     IPAddress IpAddress();
     T ValueOtherThan<T>(params T[] omittedValues);

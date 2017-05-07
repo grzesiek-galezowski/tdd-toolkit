@@ -5,7 +5,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   public interface IChainElement<out T>
   {
-    T Resolve(IProxyBasedGenerator proxyBasedGenerator);
+    T Resolve(IInstanceGenerator instanceGenerator);
   }
 
   class ChainElement<T> : IChainElement<T>
@@ -19,15 +19,15 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       _resolution = resolution;
     }
 
-    public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
+    public T Resolve(IInstanceGenerator instanceGenerator)
     {
       if (_resolution.Applies())
       {
-        return _resolution.Apply(proxyBasedGenerator);
+        return _resolution.Apply(instanceGenerator);
       }
       else
       {
-        return _next.Resolve(proxyBasedGenerator);
+        return _next.Resolve(instanceGenerator);
       }
     }
   }

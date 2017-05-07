@@ -9,7 +9,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return typeof (T).IsArray;
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       return (T)Any.Array(typeof (T).GetElementType());
     }

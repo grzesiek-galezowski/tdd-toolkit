@@ -23,10 +23,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return result;
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       var type = typeof(T);
-      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, proxyBasedGenerator);
+      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator);
     }
 
   }

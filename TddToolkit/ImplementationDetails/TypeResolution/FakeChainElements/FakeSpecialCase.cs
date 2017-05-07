@@ -20,7 +20,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
         typeof(T) == typeof(MethodInfo);
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       return _valueGenerator.ValueOf<T>();
     }

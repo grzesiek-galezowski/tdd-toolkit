@@ -26,13 +26,13 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
       return typeof (T).IsAbstract;
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       var result = (T)(_proxyGenerator.CreateClassProxy(
         typeof(T),
-        _fallbackTypeGenerator.GenerateConstructorParameters(proxyBasedGenerator).ToArray(), 
+        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator).ToArray(), 
         new AbstractClassInterceptor(_generation, 
-        proxyBasedGenerator.Instance)));
+        instanceGenerator.Instance)));
       _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
       return result;
     }

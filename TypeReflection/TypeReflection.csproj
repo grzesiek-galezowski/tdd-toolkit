@@ -52,7 +52,7 @@
     <Compile Include="FactoryForInstancesOfGenericTypesWith1Generic.cs" />
     <Compile Include="FactoryForInstancesOfGenericTypesWith2Generics.cs" />
     <Compile Include="FactoryForInstancesOfGenericTypes.cs" />
-    <Compile Include="IProxyBasedGenerator.cs" />
+    <Compile Include="IInstanceGenerator.cs" />
     <Compile Include="MethodWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeOf.cs" />

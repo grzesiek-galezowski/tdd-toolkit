@@ -2,7 +2,7 @@
 
 namespace TddEbook.TypeReflection
 {
-  public interface IProxyBasedGenerator
+  public interface IInstanceGenerator
   {
     T InstanceOf<T>();
     T Instance<T>();

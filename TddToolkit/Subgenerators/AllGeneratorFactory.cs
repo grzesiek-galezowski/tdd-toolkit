@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkit.Subgenerators
     {
       var emptyCollectionFixture = new Fixture
       {
-        RepeatCount = 0,
+        RepeatCount = 0
       };
       var methodProxyCalls = new GenericMethodProxyCalls();
       var fixtureConfiguration = new AutoFixtureConfiguration();
@@ -28,15 +28,14 @@ namespace TddEbook.TddToolkit.Subgenerators
       var proxyBasedGenerator = new ProxyBasedGenerator(
         emptyCollectionFixture, 
         methodProxyCalls, 
-        emptyCollectionGenerator, 
+        emptyCollectionGenerator, //TODO make separate chain for this
         proxyGenerator, 
         new FakeChainFactory(
           new CachedReturnValueGeneration(new PerMethodCache<object>()), 
           GlobalNestingLimit.Of(5), 
           proxyGenerator, //TODO get rid of this dependency - its runtime-circular
           valueGenerator,
-          collectionGenerator,
-          methodProxyCalls));
+          collectionGenerator));
       var stringGenerator = new StringGenerator(
         charGenerator, 
         valueGenerator, 
@@ -51,7 +50,7 @@ namespace TddEbook.TddToolkit.Subgenerators
         numericGenerator, 
         proxyBasedGenerator, 
         collectionGenerator, 
-        new InvokableGenerator(proxyBasedGenerator));
+        new InvokableGenerator());
       fixtureConfiguration.ApplyTo(fixture, stringGenerator, numericGenerator);
       return allGenerator;
     }

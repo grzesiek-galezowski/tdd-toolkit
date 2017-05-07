@@ -16,7 +16,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 {
 
   [Serializable]
-  public class ProxyBasedGenerator : IProxyBasedGenerator
+  public class ProxyBasedGenerator : IInstanceGenerator
   {
     [NonSerialized]
     private readonly ProxyGenerator _proxyGenerator;

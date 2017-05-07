@@ -21,16 +21,16 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return _fallbackTypeGenerator.GetConstructorParametersCount();
     }
 
-    public T GenerateInstance(IProxyBasedGenerator proxyBasedGenerator)
+    public T GenerateInstance(IInstanceGenerator instanceGenerator)
     {
-      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
+      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance);
       return generateInstance;
     }
 
-    public List<object> GenerateConstructorParameters(IProxyBasedGenerator proxyBasedGenerator)
+    public List<object> GenerateConstructorParameters(IInstanceGenerator instanceGenerator)
     {
-      return _fallbackTypeGenerator.GenerateConstructorParameters(proxyBasedGenerator.Instance);
+      return _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance);
     }
 
     public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
@@ -62,10 +62,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return constructor.Value.GetParametersCount(); //bug backward compatibility (for now)
     }
 
-    public object GenerateInstance(IProxyBasedGenerator proxyBasedGenerator)
+    public object GenerateInstance(IInstanceGenerator instanceGenerator)
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters()
-        .Value.InvokeWithParametersCreatedBy(proxyBasedGenerator.Instance);
+        .Value.InvokeWithParametersCreatedBy(instanceGenerator.Instance);
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }

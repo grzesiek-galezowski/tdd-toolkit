@@ -4,7 +4,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   public interface IFakeChain<out T>
   {
-    T Resolve(IProxyBasedGenerator proxyBasedGenerator);
+    T Resolve(IInstanceGenerator instanceGenerator);
   }
 
   public class FakeChain<T> : IFakeChain<T>
@@ -18,9 +18,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       _chainHead = chainHead;
     }
 
-    public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
+    public T Resolve(IInstanceGenerator instanceGenerator)
     {
-      return _chainHead.Resolve(proxyBasedGenerator);
+      return _chainHead.Resolve(instanceGenerator);
     }
   }
 }

@@ -21,10 +21,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return typeof (T).IsInterface;
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
-        typeof(T), new InterfaceInterceptor(_cachedGeneration, proxyBasedGenerator.Instance));
+        typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance));
     }
   }
 }

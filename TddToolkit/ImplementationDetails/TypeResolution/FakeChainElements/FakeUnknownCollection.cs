@@ -22,7 +22,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
     }
 
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       var collectionType = typeof (T);
       var collectionInstance = Activator.CreateInstance(collectionType);
@@ -35,20 +35,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, proxyBasedGenerator));
+        AnyInstancesOf(elementTypes, instanceGenerator));
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, proxyBasedGenerator));
+        AnyInstancesOf(elementTypes, instanceGenerator));
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, proxyBasedGenerator));
+        AnyInstancesOf(elementTypes, instanceGenerator));
 
       return (T) collectionInstance;
     }
 
-    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, IProxyBasedGenerator proxyBasedGenerator)
+    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, IInstanceGenerator instanceGenerator)
     {
-      return elementTypes.Select(proxyBasedGenerator.Instance).ToArray();
+      return elementTypes.Select(instanceGenerator.Instance).ToArray();
     }
   }
 }

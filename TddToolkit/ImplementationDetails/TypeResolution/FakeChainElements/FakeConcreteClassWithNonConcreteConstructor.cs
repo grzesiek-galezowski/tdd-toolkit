@@ -12,9 +12,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
-      return _fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
+      return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
     }
   }
 }

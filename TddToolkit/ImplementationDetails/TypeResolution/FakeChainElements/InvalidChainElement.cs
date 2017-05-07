@@ -5,7 +5,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 {
   internal class InvalidChainElement<T> : IChainElement<T>
   {
-    public T Resolve(IProxyBasedGenerator proxyBasedGenerator)
+    public T Resolve(IInstanceGenerator instanceGenerator)
     {
       throw new ChainFailedException(typeof(T));
     }

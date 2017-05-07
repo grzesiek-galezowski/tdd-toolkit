@@ -23,7 +23,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return true; //TODO consider catching exception here instead of in Apply() and returning false, then have a fallback chain element
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
       try
       {
@@ -31,11 +31,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       }
       catch (Ploeh.AutoFixture.ObjectCreationException)
       {
-        return _fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
+        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       }
       catch (TargetInvocationException)
       {
-        return _fallbackTypeGenerator.GenerateInstance(proxyBasedGenerator);
+        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       }
     }
   }

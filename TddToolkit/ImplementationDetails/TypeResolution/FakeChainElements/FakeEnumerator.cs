@@ -15,9 +15,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
       return TypeOf<T>.Is<IEnumerator>();
     }
 
-    public T Apply(IProxyBasedGenerator proxyBasedGenerator)
+    public T Apply(IInstanceGenerator instanceGenerator)
     {
-      return (T)(proxyBasedGenerator.Instance<object[]>().GetEnumerator());
+      return (T)(instanceGenerator.Instance<object[]>().GetEnumerator());
     }
   }
 }
