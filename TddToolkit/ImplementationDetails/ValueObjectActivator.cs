@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
@@ -10,16 +11,18 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
     private List<object> _constructorArguments;
     private readonly Type _type;
+    private readonly IInstanceGenerator _generator;
 
-    public ValueObjectActivator(FallbackTypeGenerator fallbackTypeGenerator, Type type)
+    public ValueObjectActivator(FallbackTypeGenerator fallbackTypeGenerator, Type type, IInstanceGenerator generator)
     {
       _fallbackTypeGenerator = fallbackTypeGenerator;
       _type = type;
+      _generator = generator;
     }
 
     private object CreateInstanceWithNewConstructorArguments()
     {
-      _constructorArguments = _fallbackTypeGenerator.GenerateConstructorParameters(Any.Instance); //bug for now
+      _constructorArguments = _fallbackTypeGenerator.GenerateConstructorParameters(_generator.Instance);
       return CreateInstanceWithCurrentConstructorArguments();
     }
 
@@ -28,9 +31,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return _fallbackTypeGenerator.GenerateInstance(_constructorArguments.ToArray());
     }
 
-    public static ValueObjectActivator FreshInstance(Type type)
+    public static ValueObjectActivator FreshInstance(Type type, IInstanceGenerator generator)
     {
-      return new ValueObjectActivator(new FallbackTypeGenerator(type), type);
+      return new ValueObjectActivator(new FallbackTypeGenerator(type), type, generator);
     }
 
     public object CreateInstanceAsValueObjectWithFreshParameters()
@@ -59,7 +62,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public object CreateInstanceAsValueObjectWithModifiedParameter(int i)
     {
       var modifiedArguments = _constructorArguments.ToList();
-      modifiedArguments[i] = Any.Instance(modifiedArguments[i].GetType());
+      modifiedArguments[i] = _generator.Instance(modifiedArguments[i].GetType());
       return _fallbackTypeGenerator.GenerateInstance(modifiedArguments.ToArray());
     }
 

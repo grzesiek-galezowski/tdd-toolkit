@@ -33,7 +33,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.Interceptors
         _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator).ToArray(), 
         new AbstractClassInterceptor(_generation, 
         instanceGenerator.Instance)));
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator);
       return result;
     }
   }

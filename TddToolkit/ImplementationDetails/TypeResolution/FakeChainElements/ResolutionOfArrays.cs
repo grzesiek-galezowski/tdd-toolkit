@@ -1,9 +1,17 @@
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements
 {
   public class ResolutionOfArrays<T> : IResolution<T>
   {
+    private readonly CollectionGenerator _collectionGenerator;
+
+    public ResolutionOfArrays(CollectionGenerator collectionGenerator)
+    {
+      _collectionGenerator = collectionGenerator;
+    }
+
     public bool Applies()
     {
       return typeof (T).IsArray;
@@ -11,7 +19,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public T Apply(IInstanceGenerator instanceGenerator)
     {
-      return (T)Any.Array(typeof (T).GetElementType());
+      return (T)_collectionGenerator.Array(typeof (T).GetElementType(), instanceGenerator);
     }
   }
 }

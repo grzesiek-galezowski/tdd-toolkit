@@ -11,6 +11,7 @@ using TddEbook.TddToolkit.ImplementationDetails.Common;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.ImplementationDetails.ConstraintAssertions.CustomCollections;
+using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 using TypeReflection.Interfaces;
 
@@ -18,6 +19,8 @@ namespace TddEbook.TddToolkit
 {
   public partial class XAssert
   {
+    private static readonly IInstanceGenerator Generator = AllGeneratorFactory.Create();
+
     public static void TypeAdheresTo(IEnumerable<IConstraint> constraints)
     {
       var violations = ConstraintsViolations.Empty();
@@ -50,7 +53,7 @@ namespace TddEbook.TddToolkit
     {
       if (!ValueObjectWhiteList.Contains<T>())
       {
-        var activator = ValueObjectActivator.FreshInstance(typeof (T));
+        var activator = ValueObjectActivator.FreshInstance(typeof (T), Generator);
         var constraints = CreateConstraintsBasedOn(typeof (T), traits, activator);
         XAssert.TypeAdheresTo(constraints);
       }

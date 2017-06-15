@@ -107,7 +107,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElem
 
     public IResolution<T> CreateResolutionOfArray()
     {
-      return new ResolutionOfArrays<T>();
+      return new ResolutionOfArrays<T>(_collectionGenerator);
     }
 
     public IResolution<T> CreateResolutionOfGenericEnumerator()

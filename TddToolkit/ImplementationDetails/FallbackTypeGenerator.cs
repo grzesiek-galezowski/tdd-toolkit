@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TypeReflection;
 using TypeReflection.Interfaces;
 
@@ -24,7 +23,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public T GenerateInstance(IInstanceGenerator instanceGenerator)
     {
       var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator);
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance);
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance, instanceGenerator);
       return generateInstance;
     }
 
@@ -39,9 +38,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     }
 
 
-    public void FillFieldsAndPropertiesOf(T result)
+    public void FillFieldsAndPropertiesOf(T result, IInstanceGenerator instanceGenerator)
     {
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result);
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator);
     }
   }
 
@@ -95,20 +94,20 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     }
 
 
-    public void FillFieldsAndPropertiesOf(object result)
+    public void FillFieldsAndPropertiesOf(object result, IInstanceGenerator instanceGenerator)
     {
-      FillPropertyValues(result);
-      FillFieldValues(result);
+      FillPropertyValues(result, instanceGenerator);
+      FillFieldValues(result, instanceGenerator);
     }
 
-    private void FillFieldValues(object result)
+    private void FillFieldValues(object result, IInstanceGenerator instanceGenerator)
     {
       var fields = _smartType.GetAllPublicInstanceFields();
       foreach (var field in fields)
       {
         try
         {
-          field.SetValue(result, Any.Instance(field.FieldType));
+          field.SetValue(result, instanceGenerator.Instance(field.FieldType));
         }
         catch (Exception e)
         {
@@ -117,7 +116,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       }
     }
 
-    private void FillPropertyValues(object result)
+    private void FillPropertyValues(object result, IInstanceGenerator instanceGenerator)
     {
       var properties = _smartType.GetPublicInstanceWritableProperties();
 
@@ -129,7 +128,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
 
           if (!property.HasAbstractGetter())
           {
-            var value = Any.Instance(propertyType);
+            var value = instanceGenerator.Instance(propertyType);
             property.SetValue(result, value);
           }
         }
