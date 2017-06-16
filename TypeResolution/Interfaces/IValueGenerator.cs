@@ -1,4 +1,4 @@
-namespace TypeResolution.Interfaces
+namespace TddEbook.TddToolkit.TypeResolution.Interfaces
 {
   public interface IValueGenerator
   {

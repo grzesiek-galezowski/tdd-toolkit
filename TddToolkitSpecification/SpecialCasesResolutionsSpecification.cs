@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;
-using TypeResolution.TypeResolution.FakeChainElements;
 
 namespace TddEbook.TddToolkitSpecification
 {

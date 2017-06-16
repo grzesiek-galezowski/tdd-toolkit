@@ -1,8 +1,8 @@
 using Castle.DynamicProxy;
 using Ploeh.AutoFixture;
-using TypeResolution.TypeResolution;
-using TypeResolution.TypeResolution.CustomCollections;
-using TypeResolution.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkit.TypeResolution;
+using TddEbook.TddToolkit.TypeResolution.CustomCollections;
+using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {

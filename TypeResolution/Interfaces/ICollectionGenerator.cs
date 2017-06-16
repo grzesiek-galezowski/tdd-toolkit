@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using TddEbook.TypeReflection;
 
-namespace TypeResolution.Interfaces
+namespace TddEbook.TddToolkit.TypeResolution.Interfaces
 {
   public interface ICollectionGenerator
   {

@@ -1,6 +1,6 @@
 using System.Linq;
 using Ploeh.AutoFixture;
-using TypeResolution.Interfaces;
+using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {

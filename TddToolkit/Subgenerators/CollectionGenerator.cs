@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddEbook.TddToolkit.TypeResolution.Interfaces;
 using TddEbook.TypeReflection;
-using TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {

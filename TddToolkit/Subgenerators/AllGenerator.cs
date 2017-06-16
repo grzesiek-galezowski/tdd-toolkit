@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using TypeResolution.TypeResolution.CustomCollections;
+using TddEbook.TddToolkit.TypeResolution.CustomCollections;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {

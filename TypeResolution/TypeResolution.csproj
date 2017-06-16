@@ -7,7 +7,7 @@
     <ProjectGuid>{28753BDB-234B-4EE6-AAFA-AD20703C80F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeResolution</RootNamespace>
+    <RootNamespace>TddEbook.TddToolkit.TypeResolution</RootNamespace>
     <AssemblyName>TypeResolution</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -62,43 +62,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\ICollectionGenerator.cs" />
     <Compile Include="Interfaces\IValueGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeResolution\Boooooom.cs" />
-    <Compile Include="TypeResolution\CachedGeneration.cs" />
-    <Compile Include="TypeResolution\CustomCollections\ArrayElementPicking.cs" />
-    <Compile Include="TypeResolution\CustomCollections\ArrayWithIndex.cs" />
-    <Compile Include="TypeResolution\CustomCollections\LatestArraysWithPossibleValues.cs" />
-    <Compile Include="TypeResolution\CustomCollections\ReturnValueCache.cs" />
-    <Compile Include="TypeResolution\CustomCollections\ReturnValueCacheKey.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\ChainElement.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\ChainFailedException.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeChain.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeChainFactory.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeConcreteClass.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeConcreteClassWithNonConcreteConstructor.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeEnumerator.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeOrdinaryInterface.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeSpecialCase.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\FakeUnknownCollection.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\GenericFakeChainFactory.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\InvalidChainElement.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\IResolution.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\ResolutionOfArrays.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\ResolutionOfTypeWithGenerics.cs" />
-    <Compile Include="TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
-    <Compile Include="TypeResolution\FallbackTypeGenerator.cs" />
-    <Compile Include="TypeResolution\IntegerSequence.cs" />
-    <Compile Include="TypeResolution\InterceptedInvocation.cs" />
-    <Compile Include="TypeResolution\Interceptors\AbstractClassInterceptor.cs" />
-    <Compile Include="TypeResolution\Interceptors\ExplodingInterceptor.cs" />
-    <Compile Include="TypeResolution\Interceptors\FakeAbstractClass.cs" />
-    <Compile Include="TypeResolution\Interceptors\InterfaceInterceptor.cs" />
-    <Compile Include="TypeResolution\Interceptors\WrappingInterceptor.cs" />
-    <Compile Include="TypeResolution\PerTypeNestingLimit.cs" />
+    <Compile Include="Boooooom.cs" />
+    <Compile Include="CachedGeneration.cs" />
+    <Compile Include="CustomCollections\ArrayElementPicking.cs" />
+    <Compile Include="CustomCollections\ArrayWithIndex.cs" />
+    <Compile Include="CustomCollections\LatestArraysWithPossibleValues.cs" />
+    <Compile Include="CustomCollections\ReturnValueCache.cs" />
+    <Compile Include="CustomCollections\ReturnValueCacheKey.cs" />
+    <Compile Include="FakeChainElements\ChainElement.cs" />
+    <Compile Include="FakeChainElements\ChainFailedException.cs" />
+    <Compile Include="FakeChainElements\FakeChain.cs" />
+    <Compile Include="FakeChainElements\FakeChainFactory.cs" />
+    <Compile Include="FakeChainElements\FakeConcreteClass.cs" />
+    <Compile Include="FakeChainElements\FakeConcreteClassWithNonConcreteConstructor.cs" />
+    <Compile Include="FakeChainElements\FakeEnumerator.cs" />
+    <Compile Include="FakeChainElements\FakeOrdinaryInterface.cs" />
+    <Compile Include="FakeChainElements\FakeSpecialCase.cs" />
+    <Compile Include="FakeChainElements\FakeUnknownCollection.cs" />
+    <Compile Include="FakeChainElements\GenericFakeChainFactory.cs" />
+    <Compile Include="FakeChainElements\InvalidChainElement.cs" />
+    <Compile Include="FakeChainElements\IResolution.cs" />
+    <Compile Include="FakeChainElements\LimitedFakeChain.cs" />
+    <Compile Include="FakeChainElements\ResolutionOfArrays.cs" />
+    <Compile Include="FakeChainElements\ResolutionOfTypeWithGenerics.cs" />
+    <Compile Include="FakeChainElements\SpecialCasesOfResolutions.cs" />
+    <Compile Include="FallbackTypeGenerator.cs" />
+    <Compile Include="IntegerSequence.cs" />
+    <Compile Include="InterceptedInvocation.cs" />
+    <Compile Include="Interceptors\AbstractClassInterceptor.cs" />
+    <Compile Include="Interceptors\ExplodingInterceptor.cs" />
+    <Compile Include="Interceptors\FakeAbstractClass.cs" />
+    <Compile Include="Interceptors\InterfaceInterceptor.cs" />
+    <Compile Include="Interceptors\WrappingInterceptor.cs" />
+    <Compile Include="PerTypeNestingLimit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
