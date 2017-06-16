@@ -3,12 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.FakeChainElements;
 using TddEbook.TypeReflection;
+using TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class CollectionGenerator
+  public class CollectionGenerator : ICollectionGenerator
   {
     private readonly GenericMethodProxyCalls _genericMethodProxyCalls;
 

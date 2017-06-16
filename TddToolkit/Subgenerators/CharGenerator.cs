@@ -1,4 +1,4 @@
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
+using CommonTypes;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {

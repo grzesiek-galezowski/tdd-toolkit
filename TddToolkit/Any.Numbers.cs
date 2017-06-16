@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CommonTypes;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
-using TddEbook.TypeReflection;
-
-namespace TddEbook.TddToolkit
+﻿namespace TddEbook.TddToolkit
 {
   public partial class Any
   {

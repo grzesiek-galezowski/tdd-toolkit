@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkit", "TddToolkit\TddToolkit.csproj", "{A52E21F4-2301-4F4E-9361-BE954FB490A0}"
 EndProject
@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{E003F0DB-D5BD-
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeReflectionImplementation", "TypeReflectionImplementation", "{E83492AF-2EA9-4E27-A28E-3D887B154BA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeResolution", "TypeResolution\TypeResolution.csproj", "{28753BDB-234B-4EE6-AAFA-AD20703C80F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,6 +112,10 @@ Global
 		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

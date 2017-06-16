@@ -43,9 +43,8 @@
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Castle.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.1.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.dll</HintPath>
@@ -53,9 +52,8 @@
     <Reference Include="FluentAssertions.Core, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
-    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.6.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
-      <HintPath>..\packages\CompareNETObjects.3.06.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.8.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CompareNETObjects.3.08.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
     </Reference>
     <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
       <HintPath>..\packages\JonSkeet.MiscUtil.0.1\lib\net35-Client\MiscUtil.dll</HintPath>
@@ -78,11 +76,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeChainFactory.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeEnumerator.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\GenericFakeChainFactory.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ResolutionOfArrays.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\InterceptedInvocation.cs" />
+    <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
+    <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
+    <Compile Include="ImplementationDetails\Common\RecordedAssertions.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\CustomCollections\ConstraintsViolations.cs" />
+    <Compile Include="ImplementationDetails\ConstraintAssertions\IConstraint.cs" />
+    <Compile Include="ImplementationDetails\DummyContext.cs" />
+    <Compile Include="ImplementationDetails\FallbackTypeGenerator.cs" />
+    <Compile Include="ImplementationDetails\ObjectGraph.cs" />
+    <Compile Include="ImplementationDetails\ReflectionOrProxyComparer.cs" />
+    <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
+    <Compile Include="ImplementationDetails\ValueObjectWhiteList.cs" />
     <Compile Include="Subgenerators\AllGenerator.cs" />
     <Compile Include="Are.cs" />
     <Compile Include="AutoFixtureConfiguration.cs" />
@@ -92,8 +96,6 @@
     <Compile Include="Subgenerators\AllGeneratorFactory.cs" />
     <Compile Include="Subgenerators\CharGenerator.cs" />
     <Compile Include="Subgenerators\CollectionGenerator.cs" />
-    <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
-    <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
     <Compile Include="Empty.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator.cs" />
@@ -105,18 +107,6 @@
     <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator.cs" />
     <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator.cs" />
     <Compile Include="Helpers\Constraints\InequalityOperator\UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator.cs" />
-    <Compile Include="ImplementationDetails\FallbackTypeGenerator.cs" />
-    <Compile Include="ImplementationDetails\ReflectionOrProxyComparer.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ArrayElementPicking.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ArrayWithIndex.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeUnknownCollection.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ResolutionOfTypeWithGenerics.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\LatestArraysWithPossibleValues.cs" />
-    <Compile Include="ImplementationDetails\ObjectGraph.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
-    <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\IntegerSequence.cs" />
     <Compile Include="LockAssertions.cs" />
     <Compile Include="Many.cs" />
     <Compile Include="NSubstitute\EquivalencyAssertion.cs" />
@@ -143,18 +133,13 @@
     <Compile Include="Subgenerators\StringGenerator.cs" />
     <Compile Include="Subgenerators\ValueGenerator.cs" />
     <Compile Include="SyncAssert.cs" />
-    <Compile Include="ImplementationDetails\ValueObjectWhiteList.cs" />
     <Compile Include="ValueTypeTraits.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Interceptors\WrappingInterceptor.cs" />
     <Compile Include="LockSpecificAssertions\WriteLockSlimAssertions.cs" />
     <Compile Include="XAssert.ObjectGraph.cs" />
     <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
     <Compile Include="XAssert.Simple.cs" />
     <Compile Include="Helpers\Constraints\AllFieldsMustBeReadOnly.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\CustomCollections\ConstraintsViolations.cs" />
     <Compile Include="Helpers\Constraints\HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\IConstraint.cs" />
-    <Compile Include="ImplementationDetails\Common\RecordedAssertions.cs" />
     <Compile Include="Helpers\Constraints\StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="Helpers\Constraints\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod.cs" />
     <Compile Include="Helpers\Constraints\StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
@@ -164,36 +149,12 @@
     <Compile Include="Any.Enums.cs" />
     <Compile Include="Any.Numbers.cs" />
     <Compile Include="Any.Strings.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Interceptors\AbstractClassInterceptor.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CachedGeneration.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ChainElement.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\ChainFailedException.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Interceptors\FakeAbstractClass.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeChain.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeConcreteClass.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeConcreteClassWithNonConcreteConstructor.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeOrdinaryInterface.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\FakeSpecialCase.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Interceptors\InterfaceInterceptor.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\IResolution.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\FakeChainElements\InvalidChainElement.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ReturnValueCache.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\ReturnValueCacheKey.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\PerTypeNestingLimit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Any.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Boooooom.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\CustomCollections\CircularList.cs" />
-    <Compile Include="ImplementationDetails\DummyContext.cs" />
-    <Compile Include="ImplementationDetails\TypeResolution\Interceptors\ExplodingInterceptor.cs" />
     <Compile Include="XAssert.Common.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="Any.Private.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AppReadme\Compare-NET-Objects-Help.chm" />
     <None Include="packages.config" />
     <None Include="TddToolkit.snk" />
     <Compile Include="XAssert.Reflection.cs" />
@@ -211,15 +172,21 @@
       <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>
       <Name>TypeReflection</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TypeResolution\TypeResolution.csproj">
+      <Project>{28753bdb-234b-4ee6-aafa-ad20703c80f1}</Project>
+      <Name>TypeResolution</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="AppReadme\Compare-NET-Objects-Help.txt" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\StrongNamer.0.0.3\build\StrongNamer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StrongNamer.0.0.3\build\StrongNamer.targets'))" />
+    <Error Condition="!Exists('..\packages\StrongNamer.0.0.5\build\StrongNamer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StrongNamer.0.0.5\build\StrongNamer.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>if DEFINED APPVEYOR GOTO end
@@ -229,5 +196,5 @@ set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.2.0.0\tools\libz.exe
 :end
 </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\StrongNamer.0.0.3\build\StrongNamer.targets" Condition="Exists('..\packages\StrongNamer.0.0.3\build\StrongNamer.targets')" />
+  <Import Project="..\packages\StrongNamer.0.0.5\build\StrongNamer.targets" Condition="Exists('..\packages\StrongNamer.0.0.5\build\StrongNamer.targets')" />
 </Project>

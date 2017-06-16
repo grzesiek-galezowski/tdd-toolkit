@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstructorRetrievalFactory.cs" />
+    <Compile Include="DefaultValue.cs" />
     <Compile Include="FactoryForInstancesOfGenericTypesWith1Generic.cs" />
     <Compile Include="FactoryForInstancesOfGenericTypesWith2Generics.cs" />
     <Compile Include="FactoryForInstancesOfGenericTypes.cs" />

@@ -1,9 +1,10 @@
 using System.Linq;
 using Ploeh.AutoFixture;
+using TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  public class ValueGenerator
+  public class ValueGenerator : IValueGenerator
   {
     private readonly Fixture _generator;
 

@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{28753BDB-234B-4EE6-AAFA-AD20703C80F1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TypeResolution</RootNamespace>
+    <AssemblyName>TypeResolution</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.1.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSubstitute.2.0.3\lib\net45\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Interfaces\ICollectionGenerator.cs" />
+    <Compile Include="Interfaces\IValueGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeResolution\Boooooom.cs" />
+    <Compile Include="TypeResolution\CachedGeneration.cs" />
+    <Compile Include="TypeResolution\CustomCollections\ArrayElementPicking.cs" />
+    <Compile Include="TypeResolution\CustomCollections\ArrayWithIndex.cs" />
+    <Compile Include="TypeResolution\CustomCollections\LatestArraysWithPossibleValues.cs" />
+    <Compile Include="TypeResolution\CustomCollections\ReturnValueCache.cs" />
+    <Compile Include="TypeResolution\CustomCollections\ReturnValueCacheKey.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\ChainElement.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\ChainFailedException.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeChain.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeChainFactory.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeConcreteClass.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeConcreteClassWithNonConcreteConstructor.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeEnumerator.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeOrdinaryInterface.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeSpecialCase.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\FakeUnknownCollection.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\GenericFakeChainFactory.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\InvalidChainElement.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\IResolution.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\LimitedFakeChain.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\ResolutionOfArrays.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\ResolutionOfTypeWithGenerics.cs" />
+    <Compile Include="TypeResolution\FakeChainElements\SpecialCasesOfResolutions.cs" />
+    <Compile Include="TypeResolution\FallbackTypeGenerator.cs" />
+    <Compile Include="TypeResolution\IntegerSequence.cs" />
+    <Compile Include="TypeResolution\InterceptedInvocation.cs" />
+    <Compile Include="TypeResolution\Interceptors\AbstractClassInterceptor.cs" />
+    <Compile Include="TypeResolution\Interceptors\ExplodingInterceptor.cs" />
+    <Compile Include="TypeResolution\Interceptors\FakeAbstractClass.cs" />
+    <Compile Include="TypeResolution\Interceptors\InterfaceInterceptor.cs" />
+    <Compile Include="TypeResolution\Interceptors\WrappingInterceptor.cs" />
+    <Compile Include="TypeResolution\PerTypeNestingLimit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{7543479c-bb88-4072-b2a2-f76ffa1f7554}</Project>
+      <Name>TypeReflection.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
+      <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>
+      <Name>TypeReflection</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

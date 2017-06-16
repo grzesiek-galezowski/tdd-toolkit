@@ -1,7 +1,7 @@
 ﻿using System;
+using CommonTypes;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.ImplementationDetails.TypeResolution.CustomCollections;
 using TddEbook.TddToolkitSpecification.Fixtures;
 
 namespace TddEbook.TddToolkitSpecification
