@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CommonTypes;
 using FluentAssertions;
 using KellermanSoftware.CompareNetObjects;
+using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkit.Reflection;
 using TddEbook.TypeReflection;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators

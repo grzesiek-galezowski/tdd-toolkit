@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using Type = System.Type;
 
@@ -634,8 +635,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowCreatingDifferentMaybesOfConcreteClasses()
     {
-      var maybeString1 = Any.Instance<CommonTypes.Maybe<string>>();
-      var maybeString2 = Any.Instance<CommonTypes.Maybe<string>>();
+      var maybeString1 = Any.Instance<Maybe<string>>();
+      var maybeString2 = Any.Instance<Maybe<string>>();
 
       XAssert.NotEqual(maybeString1, maybeString2);
     }
@@ -643,8 +644,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowCreatingDifferentMaybesOfInterfaces()
     {
-      var maybeImplementation1 = Any.Instance<CommonTypes.Maybe<RecursiveInterface>>();
-      var maybeImplementation2 = Any.Instance<CommonTypes.Maybe<RecursiveInterface>>();
+      var maybeImplementation1 = Any.Instance<Maybe<RecursiveInterface>>();
+      var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
 
       XAssert.NotEqual(maybeImplementation1, maybeImplementation2);
     }

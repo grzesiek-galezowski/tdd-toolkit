@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using CommonTypes;
+using TddEbook.TddToolkit.CommonTypes;
 using TypeReflection.ImplementationDetails;
 using TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TypeReflection.Interfaces;

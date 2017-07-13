@@ -43,11 +43,11 @@
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions.Core, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.8.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <HintPath>..\packages\CompareNETObjects.3.08.0.0\lib\net46\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
@@ -58,9 +58,8 @@
     <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ploeh.AutoFixture, Version=3.50.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.50.3\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -129,6 +128,10 @@
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
       <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
       <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Generators\Generators.csproj">
+      <Project>{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}</Project>
+      <Name>Generators</Name>
     </ProjectReference>
     <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
       <Project>{a52e21f4-2301-4f4e-9361-be954fb490a0}</Project>

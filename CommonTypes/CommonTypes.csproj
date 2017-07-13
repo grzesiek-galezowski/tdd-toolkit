@@ -7,7 +7,7 @@
     <ProjectGuid>{12502DA9-E73D-4509-BA3B-77C3D129941F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommonTypes</RootNamespace>
+    <RootNamespace>TddEbook.TddToolkit.CommonTypes</RootNamespace>
     <AssemblyName>CommonTypes</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boooooom.cs" />
     <Compile Include="CircularList.cs" />
     <Compile Include="Maybe.cs" />
+    <Compile Include="MustBeAnEnumAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

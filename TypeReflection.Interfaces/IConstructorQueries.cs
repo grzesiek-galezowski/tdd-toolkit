@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CommonTypes;
+using TddEbook.TddToolkit.CommonTypes;
 
 namespace TypeReflection.Interfaces
 {

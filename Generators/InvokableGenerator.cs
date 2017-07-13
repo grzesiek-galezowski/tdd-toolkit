@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using NClone;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Subgenerators
@@ -18,7 +19,7 @@ namespace TddEbook.TddToolkit.Subgenerators
 
     public Task StartedTask()
     {
-      return Clone.Of(Task.Delay(0));
+      return Clone.ObjectGraph(Task.Delay(0));
     }
 
     public Task<T> StartedTask<T>(ProxyBasedGenerator genericGenerator)

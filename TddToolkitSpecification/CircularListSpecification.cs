@@ -1,6 +1,6 @@
-﻿using CommonTypes;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
+using TddEbook.TddToolkit.CommonTypes;
 
 namespace TddEbook.TddToolkitSpecification
 {

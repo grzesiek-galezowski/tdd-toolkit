@@ -1,4 +1,5 @@
 using Castle.DynamicProxy;
+using TddEbook.TddToolkit.CommonTypes;
 
 namespace TddEbook.TddToolkit.TypeResolution.Interceptors
 {

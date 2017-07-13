@@ -1,4 +1,5 @@
 ﻿using System;
+using TddEbook.TddToolkit.CommonTypes;
 
 namespace TddEbook.TddToolkit
 {
@@ -17,9 +18,5 @@ namespace TddEbook.TddToolkit
     {
       return Generate.Besides(excludedValues);
     }
-  }
-
-  public class MustBeAnEnumAttribute : Attribute
-  {
   }
 }

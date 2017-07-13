@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CommonTypes;
+using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.TypeResolution;
 
 namespace TddEbook.TddToolkit.Subgenerators

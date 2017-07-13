@@ -1,4 +1,4 @@
-using CommonTypes;
+using TddEbook.TddToolkit.CommonTypes;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {

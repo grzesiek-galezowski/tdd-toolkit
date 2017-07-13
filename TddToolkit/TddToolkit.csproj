@@ -43,21 +43,20 @@
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.1.0\lib\net45\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.1.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions.Core, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.8.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <HintPath>..\packages\CompareNETObjects.3.08.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
     </Reference>
-    <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
-      <HintPath>..\packages\JonSkeet.MiscUtil.0.1\lib\net35-Client\MiscUtil.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MiscUtil, Version=0.2.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
+      <HintPath>..\packages\JonSkeet.MiscUtil.0.2.0\lib\net35\MiscUtil.dll</HintPath>
     </Reference>
     <Reference Include="NClone, Version=1.1.0.0, Culture=neutral, PublicKeyToken=81c60607627cc572, processorArchitecture=MSIL">
       <HintPath>..\packages\NClone.1.1.1\lib\net45\NClone.dll</HintPath>
@@ -66,9 +65,8 @@
     <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\packages\NSubstitute.2.0.3\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ploeh.AutoFixture, Version=3.50.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.50.3\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
@@ -87,15 +85,12 @@
     <Compile Include="ImplementationDetails\ReflectionOrProxyComparer.cs" />
     <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
     <Compile Include="ImplementationDetails\ValueObjectWhiteList.cs" />
-    <Compile Include="Subgenerators\AllGenerator.cs" />
     <Compile Include="Are.cs" />
     <Compile Include="AutoFixtureConfiguration.cs" />
     <Compile Include="Blocking.cs" />
     <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
     <Compile Include="Clone.cs" />
     <Compile Include="Subgenerators\AllGeneratorFactory.cs" />
-    <Compile Include="Subgenerators\CharGenerator.cs" />
-    <Compile Include="Subgenerators\CollectionGenerator.cs" />
     <Compile Include="Empty.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
     <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator.cs" />
@@ -114,12 +109,6 @@
     <Compile Include="NSubstitute\ImplementationDetails\AssertionsExecutionLoop.cs" />
     <Compile Include="NSubstitute\MultipleConditionsFailedException.cs" />
     <Compile Include="NSubstitute\ImplementationDetails\SequenceExclusiveAssertion.cs" />
-    <Compile Include="Subgenerators\EmptyCollectionGenerator.cs" />
-    <Compile Include="Subgenerators\GenericMethodProxyCalls.cs" />
-    <Compile Include="Subgenerators\InvokableGenerator.cs" />
-    <Compile Include="Subgenerators\NumericGenerator.cs" />
-    <Compile Include="Subgenerators\OmniGenerator.cs" />
-    <Compile Include="Subgenerators\ProxyBasedGenerator.cs" />
     <Compile Include="Reflection\Metadata.cs" />
     <Compile Include="Reflection\Method.cs" />
     <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />
@@ -127,11 +116,7 @@
     <Compile Include="NSubstitute\Extensions.cs" />
     <Compile Include="NSubstitute\XArg.cs" />
     <Compile Include="NSubstitute\XReceived.cs" />
-    <Compile Include="Subgenerators\NumericTraits.cs" />
     <Compile Include="Reflection\Property.cs" />
-    <Compile Include="Subgenerators\SpecificTypeObjectGenerator.cs" />
-    <Compile Include="Subgenerators\StringGenerator.cs" />
-    <Compile Include="Subgenerators\ValueGenerator.cs" />
     <Compile Include="SyncAssert.cs" />
     <Compile Include="ValueTypeTraits.cs" />
     <Compile Include="LockSpecificAssertions\WriteLockSlimAssertions.cs" />
@@ -163,6 +148,10 @@
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
       <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
       <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Generators\Generators.csproj">
+      <Project>{04deba13-ab6f-4ef7-92d7-f5673720da2e}</Project>
+      <Name>Generators</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
       <Project>{7543479C-BB88-4072-B2A2-F76FFA1F7554}</Project>
