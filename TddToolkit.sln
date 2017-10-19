@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkit", "TddToolkit\TddToolkit.csproj", "{A52E21F4-2301-4F4E-9361-BE954FB490A0}"
 EndProject
@@ -38,8 +38,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeReflection.Implementati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeReflection.Interfaces", "TypeReflection.Interfaces\TypeReflection.Interfaces.csproj", "{7543479C-BB88-4072-B2A2-F76FFA1F7554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTypes", "CommonTypes\CommonTypes.csproj", "{12502DA9-E73D-4509-BA3B-77C3D129941F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{E003F0DB-D5BD-456A-BD1A-A2B9806BCF60}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
@@ -53,6 +51,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeResolution", "TypeResolution\TypeResolution.csproj", "{28753BDB-234B-4EE6-AAFA-AD20703C80F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Generators.csproj", "{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTypes", "CommonTypes\CommonTypes.csproj", "{C71F0FEA-E0E7-4456-AA0B-CD82133E12D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,10 +110,6 @@ Global
 		{7543479C-BB88-4072-B2A2-F76FFA1F7554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7543479C-BB88-4072-B2A2-F76FFA1F7554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7543479C-BB88-4072-B2A2-F76FFA1F7554}.Release|Any CPU.Build.0 = Release|Any CPU
-		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{12502DA9-E73D-4509-BA3B-77C3D129941F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -122,6 +118,10 @@ Global
 		{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71F0FEA-E0E7-4456-AA0B-CD82133E12D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71F0FEA-E0E7-4456-AA0B-CD82133E12D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71F0FEA-E0E7-4456-AA0B-CD82133E12D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71F0FEA-E0E7-4456-AA0B-CD82133E12D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +138,9 @@ Global
 		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD} = {E124DF3D-6AA9-4668-94AB-30C2295B7A00}
 		{D041EA07-107E-4C80-8B96-51EC1CB078AC} = {E83492AF-2EA9-4E27-A28E-3D887B154BA3}
 		{7543479C-BB88-4072-B2A2-F76FFA1F7554} = {E83492AF-2EA9-4E27-A28E-3D887B154BA3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EDCB828-B45B-4E92-84EB-7E1C14843EF6}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = TddToolkit\TddToolkit.csproj

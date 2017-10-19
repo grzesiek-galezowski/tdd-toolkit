@@ -225,7 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
-      <Project>{12502DA9-E73D-4509-BA3B-77C3D129941F}</Project>
+      <Project>{c71f0fea-e0e7-4456-aa0b-cd82133e12d2}</Project>
       <Name>CommonTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Generators\Generators.csproj">

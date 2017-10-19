@@ -3,7 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Reflection
 {
