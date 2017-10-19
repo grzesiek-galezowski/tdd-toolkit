@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
 using System.Linq;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture;
+using AutoFixture.Kernel;
 using TddEbook.TddToolkit.ImplementationDetails;
 
 namespace TddEbook.TddToolkit.Subgenerators

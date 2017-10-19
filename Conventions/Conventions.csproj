@@ -34,7 +34,6 @@
     <Reference Include="System.Core" />
     <Reference Include="TestStack.ConventionTests, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestStack.ConventionTests.3.0.1\lib\net40\TestStack.ConventionTests.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

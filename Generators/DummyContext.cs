@@ -1,4 +1,4 @@
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture.Kernel;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {

@@ -76,3 +76,4 @@ Documentation-*/
 *.ncrunchproject
 _NCrunch_*/
 TestResult.xml
+*.ide
