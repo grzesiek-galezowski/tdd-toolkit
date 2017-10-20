@@ -43,7 +43,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +72,7 @@
       <Name>CommonTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
-      <Project>{7543479c-bb88-4072-b2a2-f76ffa1f7554}</Project>
+      <Project>{1b4c8b73-149b-49e6-b664-8d186d16afb7}</Project>
       <Name>TypeReflection.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
