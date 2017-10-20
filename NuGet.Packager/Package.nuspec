@@ -9,10 +9,10 @@
         <projectUrl>https://github.com/grzesiek-galezowski/tdd-toolkit</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Anonymous value generator and some helpful assertions, developed for the open source ebook: Test-Driven Development - Extensive Tutorial. Some ideas are taken from the authors of sustainabletdd.com blog and Sustainable Test Driven Development book.</description>
-        <releaseNotes>- Dependencies update</releaseNotes>
+        <releaseNotes>- Migration to .NET 4.6.2</releaseNotes>
         <language>en-US</language>
     </metadata>
     <files>
-        <file src="..\TddToolkit\bin\Release\TddToolkit.dll" target="lib\net45\TddToolkit.dll" />
+        <file src="..\TddToolkit\bin\Release\TddToolkit.dll" target="lib\net462\TddToolkit.dll" />
     </files>
 </package>
