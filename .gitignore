@@ -79,3 +79,5 @@ TestResult.xml
 *.ide
 *.lock
 .vs/TddToolkit/v15/Server/sqlite3/storage.ide-shm
+*.ide-wal
+.vs/TddToolkit/v15/sqlite3/storage.ide-shm
