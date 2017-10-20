@@ -50,7 +50,7 @@
       <Name>TypeReflection.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
-      <Project>{9B839C4B-BEFD-467F-80A7-B51C6352A985}</Project>
+      <Project>{720585e8-0eb0-46b2-9155-69dd2f9ca0a1}</Project>
       <Name>TypeReflection</Name>
     </ProjectReference>
   </ItemGroup>

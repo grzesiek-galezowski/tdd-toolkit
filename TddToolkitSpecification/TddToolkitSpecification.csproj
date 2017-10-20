@@ -157,7 +157,7 @@
       <Name>TypeReflection.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
-      <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>
+      <Project>{720585e8-0eb0-46b2-9155-69dd2f9ca0a1}</Project>
       <Name>TypeReflection</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj">
