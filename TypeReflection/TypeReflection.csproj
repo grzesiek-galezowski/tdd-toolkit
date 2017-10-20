@@ -82,11 +82,11 @@
       <Name>CommonTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj">
-      <Project>{d041ea07-107e-4c80-8b96-51ec1cb078ac}</Project>
+      <Project>{840262f3-27a4-4ac9-bb55-c7181e5c8aee}</Project>
       <Name>TypeReflection.ImplementationDetails</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
-      <Project>{7543479c-bb88-4072-b2a2-f76ffa1f7554}</Project>
+      <Project>{1b4c8b73-149b-49e6-b664-8d186d16afb7}</Project>
       <Name>TypeReflection.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>

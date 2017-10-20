@@ -149,8 +149,12 @@
       <Name>TddToolkit</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj">
-      <Project>{D041EA07-107E-4C80-8B96-51EC1CB078AC}</Project>
+      <Project>{840262f3-27a4-4ac9-bb55-c7181e5c8aee}</Project>
       <Name>TypeReflection.ImplementationDetails</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{1b4c8b73-149b-49e6-b664-8d186d16afb7}</Project>
+      <Name>TypeReflection.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
       <Project>{9b839c4b-befd-467f-80a7-b51c6352a985}</Project>
