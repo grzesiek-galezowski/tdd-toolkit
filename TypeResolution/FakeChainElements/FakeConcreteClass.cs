@@ -28,7 +28,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       {
         return _valueGenerator.ValueOf<T>();
       }
-      catch (AutoFixture.ObjectCreationException)
+      catch (Ploeh.AutoFixture.ObjectCreationException)
       {
         return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       }

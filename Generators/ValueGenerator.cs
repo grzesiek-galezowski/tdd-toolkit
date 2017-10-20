@@ -1,5 +1,5 @@
 using System.Linq;
-using AutoFixture;
+using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Subgenerators

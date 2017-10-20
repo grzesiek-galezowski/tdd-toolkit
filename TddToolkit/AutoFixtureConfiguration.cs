@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
-using AutoFixture;
+using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.Subgenerators;
 using StringGenerator = TddEbook.TddToolkit.Subgenerators.StringGenerator;

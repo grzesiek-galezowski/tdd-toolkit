@@ -77,3 +77,5 @@ Documentation-*/
 _NCrunch_*/
 TestResult.xml
 *.ide
+*.lock
+.vs/TddToolkit/v15/Server/sqlite3/storage.ide-shm
