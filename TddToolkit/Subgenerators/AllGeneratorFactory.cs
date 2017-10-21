@@ -1,5 +1,5 @@
 using Castle.DynamicProxy;
-using Ploeh.AutoFixture;
+using AutoFixture;
 using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution;
 using TddEbook.TddToolkit.TypeResolution.CustomCollections;

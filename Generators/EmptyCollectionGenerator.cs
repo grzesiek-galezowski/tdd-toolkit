@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Ploeh.AutoFixture;
+using AutoFixture;
 
 namespace TddEbook.TddToolkit.Generators
 {

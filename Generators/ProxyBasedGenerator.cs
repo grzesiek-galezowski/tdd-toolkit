@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using Castle.Components.DictionaryAdapter.Xml;
 using Castle.DynamicProxy;
 using NSubstitute;
-using Ploeh.AutoFixture;
+using AutoFixture;
 using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
