@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class SpecificTypeObjectGenerator
   {

@@ -7,7 +7,7 @@
     <ProjectGuid>{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Generators</RootNamespace>
+    <RootNamespace>TddEbook.TddToolkit.Generators</RootNamespace>
     <AssemblyName>Generators</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

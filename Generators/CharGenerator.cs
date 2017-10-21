@@ -1,6 +1,6 @@
 using TddEbook.TddToolkit.CommonTypes;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class CharGenerator
   {

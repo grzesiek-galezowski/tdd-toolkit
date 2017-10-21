@@ -12,7 +12,7 @@ using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
 
   [Serializable]

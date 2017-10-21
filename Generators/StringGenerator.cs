@@ -3,9 +3,8 @@ using System.Globalization;
 using System.Linq;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
-using TddEbook.TddToolkit.ImplementationDetails;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class StringGenerator
   {

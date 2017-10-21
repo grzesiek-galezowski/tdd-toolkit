@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TypeReflection;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public interface OmniGenerator : IInstanceGenerator
   {

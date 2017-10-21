@@ -6,7 +6,7 @@ using System.Reflection;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 using TddEbook.TypeReflection;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class CollectionGenerator : ICollectionGenerator
   {

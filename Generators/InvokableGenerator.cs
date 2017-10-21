@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using NClone;
 using TddEbook.TypeReflection;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class InvokableGenerator
   {

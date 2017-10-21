@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Ploeh.AutoFixture;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class EmptyCollectionGenerator
   {

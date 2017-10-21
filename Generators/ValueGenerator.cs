@@ -2,7 +2,7 @@ using System.Linq;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class ValueGenerator : IValueGenerator
   {

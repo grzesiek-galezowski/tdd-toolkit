@@ -4,8 +4,9 @@ using System.Net;
 using System.Reflection;
 using Ploeh.AutoFixture;
 using TddEbook.TddToolkit.CommonTypes;
+using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.Subgenerators;
-using StringGenerator = TddEbook.TddToolkit.Subgenerators.StringGenerator;
+using StringGenerator = TddEbook.TddToolkit.Generators.StringGenerator;
 
 namespace TddEbook.TddToolkit
 {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.TypeResolution.CustomCollections;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class AllGenerator : OmniGenerator
   {

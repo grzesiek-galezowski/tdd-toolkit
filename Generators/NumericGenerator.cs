@@ -4,7 +4,7 @@ using System.Linq;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.TypeResolution;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace TddEbook.TddToolkit.Generators
 {
   public class NumericGenerator
   {

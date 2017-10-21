@@ -1,6 +1,6 @@
 using Ploeh.AutoFixture.Kernel;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddEbook.TddToolkit.Generators
 {
   public class DummyContext : ISpecimenContext
   {
