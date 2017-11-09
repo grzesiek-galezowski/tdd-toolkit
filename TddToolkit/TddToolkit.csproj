@@ -170,7 +170,7 @@
       <Name>TypeReflection</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj">
-      <Project>{28753bdb-234b-4ee6-aafa-ad20703c80f1}</Project>
+      <Project>{84bd7210-25eb-42a3-8435-c22f42d27d2c}</Project>
       <Name>TypeResolution</Name>
     </ProjectReference>
   </ItemGroup>

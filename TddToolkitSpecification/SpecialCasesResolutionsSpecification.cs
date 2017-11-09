@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.Generators;
-using TddEbook.TddToolkit.Subgenerators;
 using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;

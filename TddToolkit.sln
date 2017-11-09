@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddToolkit", "TddToolkit\TddToolkit.csproj", "{A52E21F4-2301-4F4E-9361-BE954FB490A0}"
 EndProject
@@ -40,8 +40,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{E003F0DB-D5BD-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeReflectionImplementation", "TypeReflectionImplementation", "{E83492AF-2EA9-4E27-A28E-3D887B154BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeResolution", "TypeResolution\TypeResolution.csproj", "{28753BDB-234B-4EE6-AAFA-AD20703C80F1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Generators.csproj", "{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonTypes", "CommonTypes\CommonTypes.csproj", "{C71F0FEA-E0E7-4456-AA0B-CD82133E12D2}"
@@ -53,6 +51,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeReflection", "TypeReflection\TypeReflection.csproj", "{720585E8-0EB0-46B2-9155-69DD2F9CA0A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepascalizationSpecification", "DepascalizationSpecification\DepascalizationSpecification.csproj", "{268666DB-2851-4B94-8464-36D3F45A986F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeResolution", "TypeResolution\TypeResolution.csproj", "{84BD7210-25EB-42A3-8435-C22F42D27D2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,10 +94,6 @@ Global
 		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83F44AD1-1839-4D8C-88F8-36BCDA76F2FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28753BDB-234B-4EE6-AAFA-AD20703C80F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -122,6 +118,10 @@ Global
 		{268666DB-2851-4B94-8464-36D3F45A986F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268666DB-2851-4B94-8464-36D3F45A986F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268666DB-2851-4B94-8464-36D3F45A986F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BD7210-25EB-42A3-8435-C22F42D27D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BD7210-25EB-42A3-8435-C22F42D27D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BD7210-25EB-42A3-8435-C22F42D27D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BD7210-25EB-42A3-8435-C22F42D27D2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
