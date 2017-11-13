@@ -187,12 +187,13 @@
     <Error Condition="!Exists('..\packages\StrongNamer.0.0.6\build\StrongNamer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StrongNamer.0.0.6\build\StrongNamer.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>if DEFINED APPVEYOR GOTO end
-if $(ConfigurationName) == Debug GOTO end
-set LIBZ=$(SolutionDir)packages\LibZ.Bootstrap.1.2.0.0\tools\libz.exe
-%25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
-:end
-</PostBuildEvent>
+    <PostBuildEvent>
+      if DEFINED APPVEYOR GOTO end
+      if $(ConfigurationName) == Debug GOTO end
+      set LIBZ=$(SolutionDir)packages\LibZ.Tool.1.2.0.0\tools\libz.exe
+      %25LIBZ%25 inject-dll --assembly TddToolkit.dll --include *.dll --exclude TddToolkit.dll --move --key $(ProjectDir)TddToolkit.snk
+      :end
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\StrongNamer.0.0.6\build\StrongNamer.targets" Condition="Exists('..\packages\StrongNamer.0.0.6\build\StrongNamer.targets')" />
