@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 using System.Text;
-using MiscUtil;
+using Generic.Math;
 
 namespace TddEbook.TddToolkit.Generators
 {
@@ -50,7 +50,7 @@ namespace TddEbook.TddToolkit.Generators
       }
       var bytes = GetRandomDigits(digitsCount, randomGenerator);
       var bigInteger = NarrowDownToSpecificNumericTypeRange(bytes);
-      var convertedNumber = Operator.Convert<BigInteger, T>(bigInteger);
+      var convertedNumber = GenericMath.Convert<BigInteger, T>(bigInteger);
       return convertedNumber;
     }
 
