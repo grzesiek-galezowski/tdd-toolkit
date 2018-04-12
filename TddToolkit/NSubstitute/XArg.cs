@@ -39,7 +39,7 @@ namespace TddEbook.TddToolkit.NSubstitute
 
     public static T EquivalentTo<T>(T expected)
     {
-      return Passing<T>(actual => actual.ShouldBeEquivalentTo(expected));
+      return Passing<T>(actual => actual.Should().BeEquivalentTo(expected));
     }
 
     private static void EnqueueMatcher<T>(IArgumentMatcher lambdaMatcher)

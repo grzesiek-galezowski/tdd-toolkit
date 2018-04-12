@@ -88,5 +88,12 @@ namespace TypeReflection.ImplementationDetails
     {
       return false;
     }
+
+    public object Invoke(IEnumerable<object> parameters)
+    {
+      return InvokeWith(parameters);
+    }
+
+    public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
   }
 }

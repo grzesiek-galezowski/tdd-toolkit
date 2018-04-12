@@ -40,7 +40,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     {
       var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithNewConstructorArguments(); })
-        .ShouldNotThrow(_type + " cannot even be created as a value object");
+        .Should().NotThrow(_type + " cannot even be created as a value object");
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }
@@ -49,7 +49,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     {
       var instance = DefaultValue.Of(_type);
       this.Invoking(_ => { instance = _.CreateInstanceWithCurrentConstructorArguments(); })
-        .ShouldNotThrow(_type + " cannot even be created as a value object");
+        .Should().NotThrow(_type + " cannot even be created as a value object");
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }

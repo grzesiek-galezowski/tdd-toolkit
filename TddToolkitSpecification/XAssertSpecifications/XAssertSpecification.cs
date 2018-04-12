@@ -66,7 +66,7 @@ namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
       );
 
       StringAssert.Contains(
-        "Expected object to be {\"aaa\", \"bbb\"}, but found {\"aaa\", \"bbb\"}", 
+        "Expected actual to be {\"aaa\", \"bbb\"}, but found {\"aaa\", \"bbb\"}", 
         exception.ToString());
 
       XAssert.All(assert => assert.CollectionsEqual(x1, x2));
@@ -153,14 +153,14 @@ namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
         })
         );
 
-      StringAssert.Contains("Assertion no. 1 failed: Expected object to be 1, but found 3",
+      StringAssert.Contains("Assertion no. 1 failed: Expected actual to be 1, but found 3",
         exception.ToString());
-      StringAssert.Contains("Assertion no. 2 failed: Expected object to be 2, but found 44",
+      StringAssert.Contains("Assertion no. 2 failed: Expected actual to be 2, but found 44",
         exception.ToString());
-      StringAssert.Contains("Assertion no. 3 failed: Expected object to be \"aa\", but found \"123\"",
+      StringAssert.Contains("Assertion no. 3 failed: Expected actual to be \"aa\", but found \"123\"",
         exception.ToString());
       StringAssert.DoesNotContain("Assertion no. 4 failed", exception.ToString());
-      StringAssert.Contains("Assertion no. 5 failed: Expected string \"bb\" to contain \"aa\"",
+      StringAssert.Contains("Assertion no. 5 failed: Expected expected \"bb\" to contain \"aa\"",
         exception.ToString());
     }
 
@@ -190,7 +190,7 @@ namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
     public void ShouldWriteFirstArgumentAsExpectedInEqualityAssertionErrorMessage()
     {
       var exception = Assert.Catch<Exception>(() => XAssert.Equal(1, 2));
-      StringAssert.Contains("Expected value to be 1, but found 2", exception.ToString());
+      StringAssert.Contains("Expected actual to be 1, but found 2", exception.ToString());
     }
 
     [Test]

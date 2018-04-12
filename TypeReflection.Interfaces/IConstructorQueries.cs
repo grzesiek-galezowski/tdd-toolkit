@@ -12,6 +12,6 @@ namespace TypeReflection.Interfaces
     IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithRecursiveArguments();
     IEnumerable<IConstructorWrapper> TryToObtainInternalConstructorsWithRecursiveArguments();
     IEnumerable<IConstructorWrapper> TryToObtainPrimitiveTypeConstructor();
-    IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion();
+    IEnumerable<IConstructorWrapper> TryToObtainPublicStaticFactoryMethodWithoutRecursion();
   }
 }

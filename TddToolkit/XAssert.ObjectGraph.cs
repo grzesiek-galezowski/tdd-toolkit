@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using Albedo;
 using FluentAssertions;
 using KellermanSoftware.CompareNetObjects;
 using TddEbook.TddToolkit.CommonTypes;
@@ -49,6 +53,12 @@ namespace TddEbook.TddToolkit
       result.ExceededDifferences.Should().BeTrue(result.DifferencesString);
     }
 
+    public static void Contains(Object o, Type t)
+    {
+      var propertiesAndFields = o.GetType().GetPropertiesAndFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.NonPublic);
+      new SearchVisitor(o, t);
+    }
+
     private static ComparisonResult Compare<T>(T expected, T actual, string[] skippedPropertiesOrFields)
     {
       var comparison = ObjectGraph.Comparison();
@@ -89,6 +99,46 @@ namespace TddEbook.TddToolkit
     {
       comparison.Config.MembersToIgnore.Add(property.Value.Name);
       comparison.Config.MembersToIgnore.Add($"<{property.Value.Name}>k__BackingField");
+    }
+
+
+  }
+
+  public class SearchVisitor : ReflectionVisitor<Boolean>
+  {
+    private readonly object target;
+    private readonly Type _searchedType;
+    private bool value = false;
+
+    public SearchVisitor(object target, Type searchedType)
+    {
+      this.target = target;
+      _searchedType = searchedType;
+    }
+
+    public override bool Value
+    {
+      get { return this.value; }
+    }
+
+    public override IReflectionVisitor<bool> Visit(
+      FieldInfoElement fieldInfoElement)
+    {
+      if (_searchedType == fieldInfoElement.FieldInfo.FieldType)
+      {
+        value = true;
+      }
+      return this;
+    }
+
+    public override IReflectionVisitor<bool> Visit(
+      PropertyInfoElement propertyInfoElement)
+    {
+      if (_searchedType == propertyInfoElement.PropertyInfo.PropertyType)
+      {
+        value = true;
+      }
+      return this;
     }
   }
 }

@@ -15,7 +15,7 @@ namespace TypeReflection.ImplementationDetails.ConstructorRetrievals
 
     public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
     {
-      var methods = constructors.TryToObtainPubliStaticFactoryMethodWithoutRecursion();
+      var methods = constructors.TryToObtainPublicStaticFactoryMethodWithoutRecursion();
       if (methods.Count() == 0)
       {
         return _next.RetrieveFrom(constructors);

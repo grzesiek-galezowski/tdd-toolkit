@@ -7,10 +7,15 @@ using TddEbook.TddToolkit.CommonTypes;
 using TypeReflection.ImplementationDetails;
 using TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TypeReflection.Interfaces;
+using static TypeReflection.ImplementationDetails.ConstructorWrapper;
 
 namespace TddEbook.TypeReflection
 {
-  public class SmartType : IType, IConstructorQueries
+  public interface ISmartType : IType, IConstructorQueries
+  {
+  }
+
+  public class SmartType : ISmartType
   {
     private readonly Type _type;
     private readonly ConstructorRetrieval _constructorRetrieval;
@@ -173,12 +178,12 @@ namespace TddEbook.TypeReflection
       return BinaryOperator.Wrap(InequalityMethod(), ValueTypeInequalityMethod(), "operator !=");
     }
 
-    public static IType For(Type type)
+    public static ISmartType For(Type type)
     {
       return new SmartType(type, new ConstructorRetrievalFactory().Create());
     }
 
-    public static IType ForTypeOf(object obj)
+    public static ISmartType ForTypeOf(object obj)
     {
       return new SmartType(obj.GetType(), new ConstructorRetrievalFactory().Create());
     }
@@ -262,16 +267,16 @@ namespace TddEbook.TypeReflection
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
     {
       var constructorInfos = _typeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-      var enumerable = constructorInfos.Where(ConstructorWrapper.IsInternal);
+      var enumerable = constructorInfos.Where(IsInternal);
 
-      var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
+      var wrappers = enumerable.Select(c => (IConstructorWrapper) (FromConstructorInfo(c))).ToList();
       return wrappers;
     }
 
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
       return _typeInfo.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-        .Select(c => ConstructorWrapper.FromConstructorInfo(c)).ToList();
+        .Select(c => FromConstructorInfo(c)).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithoutRecursiveArguments()
@@ -294,11 +299,13 @@ namespace TddEbook.TypeReflection
       return DefaultParameterlessConstructor.ForValue(_type);
     }
 
-    public IEnumerable<IConstructorWrapper> TryToObtainPubliStaticFactoryMethodWithoutRecursion()
+    public IEnumerable<IConstructorWrapper> TryToObtainPublicStaticFactoryMethodWithoutRecursion()
     {
       return _typeInfo.GetMethods(BindingFlags.Static | BindingFlags.Public)
         .Where(m => !m.IsSpecialName)
-        .Select(ConstructorWrapper.FromStaticMethodInfo)
+        .Where(IsNotImplicitCast)
+        .Where(IsNotExplicitCast)
+        .Select(FromStaticMethodInfo)
         .Where(c => c.IsFactoryMethod());
     }
 
@@ -347,6 +354,16 @@ namespace TddEbook.TypeReflection
     public bool HasPublicConstructorCountOfAtMost(int i)
     {
       return GetAllPublicConstructors().Count() <= i;
+    }
+
+    private static bool IsNotExplicitCast(MethodInfo mi)
+    {
+      return !string.Equals(mi.Name, "op_Explicit", StringComparison.Ordinal);
+    }
+
+    private static bool IsNotImplicitCast(MethodInfo mi)
+    {
+      return !string.Equals(mi.Name, "op_Implicit", StringComparison.Ordinal);
     }
   }
 

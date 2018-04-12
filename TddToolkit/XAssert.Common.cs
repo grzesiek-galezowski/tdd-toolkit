@@ -127,13 +127,13 @@ namespace TddEbook.TddToolkit
 
     public static void IsEqualityOperatorDefinedFor<T>()
     {
-      ExecutionOf(() => TypeOf<T>.Equality()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => TypeOf<T>.Equality()).Should().NotThrow<Exception>();
     }
 
 
     public static void IsInequalityOperatorDefinedFor<T>()
     {
-      ExecutionOf(() => TypeOf<T>.Inequality()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => TypeOf<T>.Inequality()).Should().NotThrow<Exception>();
     }
 
     public static void All(Action<AssertionRecorder> asserts)
@@ -152,12 +152,12 @@ namespace TddEbook.TddToolkit
 
     public static void IsEqualityOperatorDefinedFor(Type type)
     {
-      ExecutionOf(() => SmartType.For(type).Equality()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => SmartType.For(type).Equality()).Should().NotThrow<Exception>();
     }
 
     public static void IsInequalityOperatorDefinedFor(Type type)
     {
-      ExecutionOf(() => SmartType.For(type).Inequality()).ShouldNotThrow<Exception>();
+      ExecutionOf(() => SmartType.For(type).Inequality()).Should().NotThrow<Exception>();
     }
   }
 

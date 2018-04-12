@@ -124,10 +124,10 @@ namespace TddEbook.TddToolkitSpecification.NSubstituteSpecifications
       exception.Message.Should().Contain("=== FAILED ASSERTION 2 DETAILS ===");
       exception.Message.Should().Contain("=== FAILED ASSERTION 3 DETAILS ===");
       exception.Message.Should().Contain("=== FAILED ASSERTION 5 DETAILS ===");
-      exception.Message.Should().Contain("Expected collection to contain items in descending order, but found {1, 2, 3} where item at index 0 is in wrong order");
-      exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 4");
-      exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 5");
-      exception.Message.Should().Contain("Expected collection {1, 2, 3} to contain 6");
+      exception.Message.Should().Contain("Expected l to contain items in descending order, but found {1, 2, 3} where item at index 0 is in wrong order");
+      exception.Message.Should().Contain("Expected l {1, 2, 3} to contain 4");
+      exception.Message.Should().Contain("Expected l {1, 2, 3} to contain 5");
+      exception.Message.Should().Contain("Expected l {1, 2, 3} to contain 6");
       exception.Message.Should().NotContain("=== FAILED CONDITION 4 ===");
     }
   }

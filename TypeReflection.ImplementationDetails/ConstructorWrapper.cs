@@ -160,5 +160,12 @@ namespace TypeReflection.ImplementationDetails
     {
       return !IsNotRecursive();
     }
+
+    public object Invoke(IEnumerable<object> parameters)
+    {
+      return InvokeWith(parameters);
+    }
+
+    public IEnumerable<ParameterInfo> Parameters => _parameters;
   }
 }

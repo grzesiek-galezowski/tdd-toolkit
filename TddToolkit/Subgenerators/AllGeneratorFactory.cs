@@ -1,5 +1,6 @@
 using Castle.DynamicProxy;
 using AutoFixture;
+using AutoFixture.Kernel;
 using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution;
 using TddEbook.TddToolkit.TypeResolution.CustomCollections;
