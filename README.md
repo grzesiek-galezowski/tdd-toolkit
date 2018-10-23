@@ -4,12 +4,13 @@
 ![](https://reposs.herokuapp.com/?path=grzesiek-galezowski/tdd-toolkit&style=flat)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
-tdd-toolkit 
+Tdd Toolkit 
 ===========
 
+## Tdd Toolkit now has a successor called "Any", based on .NET Standard 2.0: https://github.com/grzesiek-galezowski/any
+
+
 Toolkit used in Test-Driven Development ebook tutorial: github.com/grzesiek-galezowski/tdd-ebook.
-
-
 
 The idea of "Any" class is taken from guys at www.sustainabletdd.com
 
