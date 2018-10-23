@@ -27,18 +27,15 @@ namespace TddEbook.TddToolkit.CommonTypes
 
     public bool HasValue { get; private set; }
 
-    public T Value
+    public T Value()
     {
-      get
+      if (HasValue)
       {
-        if (HasValue)
-        {
-          return _value;
-        }
-        else
-        {
-          throw new Exception("No instance of type " + typeof(T));
-        }
+        return _value;
+      }
+      else
+      {
+        throw new Exception("No instance of type " + typeof(T));
       }
     }
 
@@ -49,7 +46,7 @@ namespace TddEbook.TddToolkit.CommonTypes
 
     public T ValueOr(T alternativeValue)
     {
-      return HasValue ? Value : alternativeValue;
+      return HasValue ? Value() : alternativeValue;
     }
 
     public Maybe<T> Otherwise(Maybe<T> alternative)
@@ -64,7 +61,7 @@ namespace TddEbook.TddToolkit.CommonTypes
 
     public override string ToString()
     {
-      return HasValue ? Value.ToString() : "<Nothing>";
+      return HasValue ? Value().ToString() : "<Nothing>";
     }
 
     public Maybe<U> To<U>() where U : class
@@ -75,7 +72,7 @@ namespace TddEbook.TddToolkit.CommonTypes
       }
       else
       {
-        return Maybe.Wrap(Value as U);
+        return Maybe.Wrap(Value() as U);
       }
     }
   }

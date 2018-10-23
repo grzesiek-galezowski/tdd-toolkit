@@ -92,13 +92,13 @@ namespace TddEbook.TddToolkit
 
     private static void Ignore(Maybe<Field> field, ICompareLogic comparison)
     {
-      comparison.Config.MembersToIgnore.Add(field.Value.Name);
+      comparison.Config.MembersToIgnore.Add(field.Value().Name);
     }
 
     private static void Ignore(Maybe<Property> property, ICompareLogic comparison)
     {
-      comparison.Config.MembersToIgnore.Add(property.Value.Name);
-      comparison.Config.MembersToIgnore.Add($"<{property.Value.Name}>k__BackingField");
+      comparison.Config.MembersToIgnore.Add(property.Value().Name);
+      comparison.Config.MembersToIgnore.Add($"<{property.Value().Name}>k__BackingField");
     }
 
 

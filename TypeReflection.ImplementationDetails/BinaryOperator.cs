@@ -47,7 +47,7 @@ namespace TypeReflection.ImplementationDetails
     {
       if (maybeOperator.Otherwise(maybeFallbackOperator).HasValue)
       {
-        return new BinaryOperator(maybeOperator.Otherwise(maybeFallbackOperator).Value);
+        return new BinaryOperator(maybeOperator.Otherwise(maybeFallbackOperator).Value());
       }
       else
       {

@@ -58,20 +58,19 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public int GetConstructorParametersCount()
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
-      return constructor.Value.GetParametersCount(); //bug backward compatibility (for now)
+      return constructor.Value().GetParametersCount(); //bug backward compatibility (for now)
     }
 
     public object GenerateInstance(IInstanceGenerator instanceGenerator)
     {
-      var instance = _smartType.PickConstructorWithLeastNonPointersParameters()
-        .Value.InvokeWithParametersCreatedBy(instanceGenerator.Instance);
+      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value().InvokeWithParametersCreatedBy(instanceGenerator.Instance);
       XAssert.Equal(_type, instance.GetType());
       return instance;
     }
 
     public object GenerateInstance(IEnumerable<object> constructorParameters)
     {
-      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value  //bug backward compatibility (for now)
+      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value()  //bug backward compatibility (for now)
         .InvokeWith(constructorParameters);
       XAssert.Equal(_type, instance.GetType());
       return instance;
@@ -80,7 +79,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public List<object> GenerateConstructorParameters(Func<Type, object> parameterFactory)
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
-      var constructorParameters = constructor.Value  //bug backward compatibility (for now)
+      var constructorParameters = constructor.Value()  //bug backward compatibility (for now)
         .GenerateAnyParameterValues(parameterFactory);
       return constructorParameters;
     }
@@ -88,9 +87,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
-      return constructor.Value //bug backward compatibility (for now)
+      return constructor.Value() //bug backward compatibility (for now)
         .HasAbstractOrInterfaceArguments()
-      || constructor.Value.IsInternal();
+      || constructor.Value().IsInternal();
     }
 
 
